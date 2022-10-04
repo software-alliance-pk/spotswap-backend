@@ -1,7 +1,7 @@
 class Api::V1::ApiController < ActionController::API
 
   def not_found
-    render json: { error: 'not_found' }
+    render json: { error: 'No route matches with given address' }
   end
 
   def authorize_request
