@@ -8,5 +8,12 @@ Rails.application.routes.draw do
       post :social_login
     end
   end
+
+  resources :static_pages, param: :permalink ,only: [] do
+    member do
+      post :index
+    end
+  end
+
   get '/*a', to: 'application#not_found'
 end
