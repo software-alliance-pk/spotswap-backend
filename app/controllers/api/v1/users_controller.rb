@@ -1,4 +1,4 @@
-class UsersController < Api::V1::ApiController
+class Api::V1::UsersController < Api::V1::ApiController
   before_action :authorize_request, except: :create
   before_action :find_user, except: %i[create index]
 
