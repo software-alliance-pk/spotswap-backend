@@ -1,5 +1,4 @@
 class Api::V1::AuthenticationController < Api::V1::ApiController
-
   # POST /auth/login
   def login
     @user = User.find_by_email(params[:email])
