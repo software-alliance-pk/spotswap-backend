@@ -11,3 +11,6 @@ CarBrand.create(title: "Hyundai")
 CarBrand.create(title: "Isuzu")
 
 CarModel.create(title: "Tesla1")
+CarModel.create(title: "Tesla2")
+CarModel.create(title: "Tesla3")
+CarModel.create(title: "Tesla4")
