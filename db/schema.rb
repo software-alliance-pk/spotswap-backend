@@ -10,23 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_04_142525) do
+ActiveRecord::Schema.define(version: 2022_10_05_133709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "car_brands", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "car_models", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -66,11 +53,51 @@ ActiveRecord::Schema.define(version: 2022_10_04_142525) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "car_brands", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "car_details", force: :cascade do |t|
+    t.integer "length"
+    t.string "color"
+    t.string "plate_number"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_car_details_on_user_id"
+  end
+
+  create_table "car_models", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "pages", force: :cascade do |t|
     t.string "title"
     t.string "permalink"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_car_brands", force: :cascade do |t|
+    t.bigint "car_detail_id", null: false
+    t.bigint "car_brand_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["car_brand_id"], name: "index_user_car_brands_on_car_brand_id"
+    t.index ["car_detail_id"], name: "index_user_car_brands_on_car_detail_id"
+  end
+
+  create_table "user_car_models", force: :cascade do |t|
+    t.bigint "car_detail_id", null: false
+    t.bigint "car_model_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["car_detail_id"], name: "index_user_car_models_on_car_detail_id"
+    t.index ["car_model_id"], name: "index_user_car_models_on_car_model_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -82,8 +109,15 @@ ActiveRecord::Schema.define(version: 2022_10_04_142525) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "profile_complete", default: false
     t.string "profile_type"
+    t.integer "otp"
+    t.datetime "otp_expiry"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "car_details", "users"
+  add_foreign_key "user_car_brands", "car_brands"
+  add_foreign_key "user_car_brands", "car_details"
+  add_foreign_key "user_car_models", "car_details"
+  add_foreign_key "user_car_models", "car_models"
 end

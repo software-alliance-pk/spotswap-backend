@@ -6,10 +6,22 @@ Rails.application.routes.draw do
         collection do
           post :login
           post :sign_up
+          post :create_car_details
           get :get_car_brands
+          get :get_car_models
         end
       end
+
       resources :users
+
+      resources :reset_passwords ,only: [] do
+        collection do
+          post :send_otp
+          post :verify_otp
+          post :resend_otp
+          post :reset_password
+        end
+      end
     end
   end
 
