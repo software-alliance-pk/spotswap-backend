@@ -35,7 +35,7 @@ class SocialLoginService
     json_response = JSON.parse(response.body)
     create_user(json_response['email'], json_response['sub'], json_response)
     user = User.find_by(email: json_response['email'])
-    token = JsonWebTokenService.encode({ email: user.email })
+    token = JsonWebToken.encode({ email: user.email })
     [user, token, json_response['picture']]
   end
 
@@ -69,7 +69,7 @@ class SocialLoginService
       resource
     else
       name = response['name'].present? ? response['name'] : "apple don't provide name"
-      @user = User.new(email: response['email'], name: name, password: PASSWORD_DIGEST, password_confirmation: PASSWORD_DIGEST,login_type: "social login", profile_complete: false)
+      @user = User.new(email: response['email'], name: name, password: PASSWORD_DIGEST, password_confirmation: PASSWORD_DIGEST, profile_type: "social login", profile_complete: false)
       @user.save(validate: false)
     end
   end

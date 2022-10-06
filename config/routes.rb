@@ -9,6 +9,7 @@ Rails.application.routes.draw do
           post :create_car_details
           get :get_car_brands
           get :get_car_models
+          get :get_car_profile
         end
       end
 
@@ -22,20 +23,20 @@ Rails.application.routes.draw do
           post :reset_password
         end
       end
+
+      resources :social_logins , only: [] do
+        collection do
+          post :social_login
+        end
+      end
+
+      resources :static_pages, param: :permalink ,only: [] do
+        member do
+          post :index
+        end
+      end
     end
   end
 
-  resources :social_login , only: [] do
-    collection do
-      post :social_login
-    end
-  end
-
-  resources :static_pages, param: :permalink ,only: [] do
-    member do
-      post :index
-    end
-  end
-  
   get '/*a', to: 'api/v1/api#not_found'
 end
