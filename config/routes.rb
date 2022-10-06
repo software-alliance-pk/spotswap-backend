@@ -6,22 +6,35 @@ Rails.application.routes.draw do
         collection do
           post :login
           post :sign_up
+          post :create_car_details
           get :get_car_brands
+          get :get_car_models
+          get :get_car_profile
         end
       end
+
       resources :users
-    end
-  end
 
-  resources :social_login , only: [] do
-    collection do
-      post :social_login
-    end
-  end
+      resources :reset_passwords ,only: [] do
+        collection do
+          post :send_otp
+          post :verify_otp
+          post :resend_otp
+          post :reset_password
+        end
+      end
 
-  resources :static_pages, param: :permalink ,only: [] do
-    member do
-      post :index
+      resources :social_logins , only: [] do
+        collection do
+          post :social_login
+        end
+      end
+
+      resources :static_pages, param: :permalink ,only: [] do
+        member do
+          post :index
+        end
+      end
     end
   end
 
