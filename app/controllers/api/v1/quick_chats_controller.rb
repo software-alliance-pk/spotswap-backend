@@ -1,0 +1,42 @@
+class Api::V1::QuickChatsController < Api::V1::ApiController
+  before_action :authorize_request
+  before_action :find_specific_quick_chat, only: [:delete_quick_chat,:update_quick_chat]
+
+  def get_all_quick_chat
+    @quick_chat = @current_user.quick_chats
+  end
+
+  def create_quick_chat
+    @quick_chat = @current_user.quick_chats.new(quick_chat_params)
+    if  @quick_chat.save
+      @quick_chat
+    else
+      render json: { error: render_error_messages(@quick_chat)},status: :unprocessable_entity
+    end
+  end
+
+  def update_quick_chat
+    if @quick_chat.update(quick_chat_params)
+      @quick_chat
+    else
+      render json: { error: render_error_messages(@quick_chat)},status: :unprocessable_entity
+    end
+  end
+
+  def delete_quick_chat
+      @quick_chat.destroy
+      render json: { error: "Quick chat is removed successfully"}, status: :ok
+  end
+
+  private
+
+  def quick_chat_params
+    params.require(:quick_chat).permit(:message)
+  end
+
+  def find_specific_quick_chat
+    render json: {error: "Quick Chat id is missing"}, status: :precondition_failed unless params[:id].present?
+    @quick_chat = @current_user.quick_chats.find_by(id: parmas[:id])
+    render json: {error: "No such quick chat is present"}, status: :unprocessable_entity unless @quick_chat.present?
+  end
+end

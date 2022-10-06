@@ -1,7 +1,13 @@
 class Api::V1::ApiController < ActionController::API
-
   def not_found
     render json: { error: 'No route matches with given address' }
+  end
+
+  def render_error_messages(object)
+    render json: {
+      message: object.errors.messages.map { |msg, desc|
+        msg.to_s.capitalize.to_s.gsub("_"," ") + ' ' + desc[0] }.join(', ')
+    }, status: :unprocessable_entity
   end
 
   def authorize_request
