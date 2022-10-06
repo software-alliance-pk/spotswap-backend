@@ -1,5 +1,4 @@
 class Api::V1::SocialLoginsController < Api::V1::ApiController
-  skip_before_action :authenticate_user, only: [:social_login]
   def social_login
     return render json: {message: 'Please provide correct provider e.g google'},
      status: :unprocessable_entity unless params['provider'].present?
