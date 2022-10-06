@@ -1,42 +1,27 @@
 class Api::V1::UsersController < Api::V1::ApiController
   before_action :authorize_request
-  before_action :find_user, except: %i[create index]
+  before_action :find_user
+  before_action :user_params, only: [:update_user]
 
-  # GET /users
-  def index
-    @users = User.all
-    render json: @users, status: :ok
+  def get_user
   end
 
-  # GET /users/{username}
-  def show
-    render json: @user, status: :ok
-  end
-
-  # PUT /users/{username}
-  def update
+  def update_user
     unless @user.update(user_params)
-      render json: { errors: @user.errors.full_messages },
-             status: :unprocessable_entity
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
-  end
-
-  # DELETE /users/{username}
-  def destroy
-    @user.destroy
   end
 
   private
 
   def find_user
-    @user = User.find_by_username!(params[:_username])
-    rescue ActiveRecord::RecordNotFound
+    @user = User.find_by_id(params[:id])
+    if !@user.present?
       render json: { errors: 'User not found' }, status: :not_found
+    end
   end
 
   def user_params
-    params.permit(
-      :name, :email, :contact, :password
-    )
+    params.permit(:id, :name, :email, :contact )
   end
 end
