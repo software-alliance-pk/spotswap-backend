@@ -38,5 +38,16 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :quick_chats , only: [] do
+    member do
+      post :delete_quick_chat
+    end
+    collection do
+      get :get_all_quick_chat
+      post :create_quick_chat
+      post :update_quick_chat
+    end
+  end
+  
   get '/*a', to: 'api/v1/api#not_found'
 end
