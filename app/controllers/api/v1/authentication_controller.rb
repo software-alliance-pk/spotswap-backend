@@ -50,6 +50,37 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     end
   end
 
+  def update_car_profile
+    @car_detail = CarDetail.find_by(id: params[:id])
+    @car_detail.length = params[:length]
+    @car_detail.color = params[:color]
+    @car_detail.plate_number = params[:plate_number]
+
+    if params[:default_image].present?
+      @car_detail.default_image.purge
+      @car_detail.default_image.attach(params[:default_image])
+    end
+
+    if params[:photos].present?
+      @car_detail.photos.purge
+      @car_detail.photos.attach(params[:photos])
+    end
+
+    if @car_detail.save
+      if params[:car_brand_id].present?
+        @user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
+        render json: { errors: @user_car_brand.errors.full_messages }, status: :unprocessable_entity if !@user_car_brand.save
+      end
+      if params[:car_model_id].present?
+        @user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
+        render json: { errors: @user_car_model.errors.full_messages }, status: :unprocessable_entity if !@user_car_model.save
+      end
+      render json: { message: "User's Car Details have been updated successfully." }
+    else
+      render json: { errors: @car_detail.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   def get_car_brands
     @car_brands = CarBrand.all
   end
@@ -78,5 +109,9 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
 
   def create_car_details_params
     params.permit(:length, :color, :plate_number, :user_id, :car_brand_id, :car_model_id, :default_image, :photos)
+  end
+
+  def update_car_profile_params
+    params.permit(:length, :color, :plate_number, :id, :car_brand_id, :car_model_id, :default_image, :photos)
   end
 end
