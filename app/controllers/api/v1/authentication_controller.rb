@@ -1,7 +1,7 @@
 class Api::V1::AuthenticationController < Api::V1::ApiController
   before_action :create_car_profile_params, only: [:create_car_profile]
+  before_action :authorize_request, only: [:get_car_profile]
 
-  # POST /auth/login
   def login
     @user = User.find_by_email(params[:email])
     if @user&.authenticate(params[:password])
@@ -12,7 +12,6 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     end
   end
 
-  # POST /auth/sign_up
   def sign_up
     @user = User.new(sign_up_params)
     if @user.save
@@ -41,7 +40,6 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
             else
               render json: { errors: user_car_brand.errors.full_messages }, status: :unprocessable_entity
               raise ActiveRecord::Rollback
-
             end
           else
             render json: { errors: @car_detail.errors.full_messages }, status: :unprocessable_entity
