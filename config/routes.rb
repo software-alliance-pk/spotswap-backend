@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  root to: "admins/dashboard#index"
+
+  devise_for :admins
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
@@ -6,7 +9,7 @@ Rails.application.routes.draw do
         collection do
           post :login
           post :sign_up
-          post :create_car_details
+          post :create_car_profile
           post :update_car_profile
           get :get_car_brands
           get :get_car_models
@@ -54,6 +57,14 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  
+  namespace :admins do
+    resources :dashboard, only: [] do
+      collection do
+        get :index
+      end
+    end
+  end
+  
   get '/*a', to: 'api/v1/api#not_found'
 end
