@@ -1,4 +1,5 @@
 json.profile do
+  json.user_id @car_detail.user_id
   json.car_detail_id @car_detail.id
   json.car_length @car_detail.length
   json.car_color  @car_detail.color

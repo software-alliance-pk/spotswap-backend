@@ -6,17 +6,13 @@ class Api::V1::ResetPasswordsController < Api::V1::ApiController
       message: "User not found against given email"
     },status: 404 unless @user.present?
     
-    otp = 4.times.map{rand(10)}.join
+    @otp = 4.times.map{rand(10)}.join
     begin
-      UserMailer.send_email(@user, otp).deliver_now
+      UserMailer.send_email(@user, @otp).deliver_now
     rescue  => e
       return render json: { message: e.error_message}, status: 422
     end
-    
-    @user.update(otp: otp, otp_expiry:(Time.current + 2.minutes))  
-    render json: { 
-      message: "Your forgot password otp has been sent successfully."
-    } 
+    @user.update(otp: @otp, otp_expiry:(Time.current + 2.minutes))
   end
 
   def resend_otp
@@ -24,17 +20,13 @@ class Api::V1::ResetPasswordsController < Api::V1::ApiController
       message: "User not found against given email"
     },status: 404 unless @user.present?
     
-    otp = 4.times.map{rand(10)}.join
+    @otp = 4.times.map{rand(10)}.join
     begin
-      UserMailer.send_email(@user, otp).deliver_now
+      UserMailer.send_email(@user, @otp).deliver_now
     rescue  => e
       return render json: { message: e.error_message}, status: 422
     end
-    
-    @user.update(otp: otp, otp_expiry:(Time.current + 2.minutes))  
-    render json: { 
-      message: "otp has been resent successfully."
-    } 
+    @user.update(otp: @otp, otp_expiry:(Time.current + 2.minutes))  
   end
   
   def verify_otp
