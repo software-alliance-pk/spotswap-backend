@@ -224,6 +224,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  actiontext (~> 6.1.6)
   activestorage
   acts_as_paranoid
   bcrypt (~> 3.1.7)
