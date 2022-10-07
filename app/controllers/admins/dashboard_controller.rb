@@ -5,7 +5,7 @@ class Admins::DashboardController < ApplicationController
 	end
 
 	private
-
+  
   def authenticate_admin!
     if admin_signed_in?
       super
