@@ -9,7 +9,7 @@ Rails.application.routes.draw do
         collection do
           post :login
           post :sign_up
-          post :create_car_details
+          post :create_car_profile
           post :update_car_profile
           get :get_car_brands
           get :get_car_models

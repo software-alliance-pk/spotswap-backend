@@ -23,6 +23,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 
 gem 'devise'
+gem 'actiontext', '~> 6.1.6'
 
 # Use Json Web Token (JWT) for token based authentication
 gem 'jwt'

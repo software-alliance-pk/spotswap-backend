@@ -1,5 +1,5 @@
 class Api::V1::AuthenticationController < Api::V1::ApiController
-  before_action :create_car_details_params, only: [:create_car_details]
+  before_action :create_car_profile_params, only: [:create_car_profile]
 
   # POST /auth/login
   def login
@@ -22,31 +22,34 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     end
   end
 
-  def create_car_details
+  def create_car_profile
     if params[:user_id].present? && params[:car_brand_id].present? && params[:car_model_id].present?
       user = User.find_by(id: params[:user_id])
-      ActiveRecord::Base.transaction do
-        car_detail = user.build_car_detail(create_car_details_params.except(:user_id, :car_brand_id, :car_model_id))
-        if car_detail.save
-          user_car_brand = car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
-          if user_car_brand.save
-            user_car_model = car_detail.build_user_car_model(car_model_id: params[:car_model_id])
-            if user_car_model.save
-              car_detail.photos.attach(params[:photos])
-              render json: { message: "User's car details have been created successfully." }
+      if user.present?
+        ActiveRecord::Base.transaction do
+          @car_detail = user.build_car_detail(create_car_profile_params.except(:user_id, :car_brand_id, :car_model_id))
+          if @car_detail.save
+            user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
+            if user_car_brand.save
+              user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
+              if user_car_model.save
+                @car_detail.photos.attach(params[:photos])
+              else
+                render json: { errors: user_car_model.errors.full_messages }, status: :unprocessable_entity
+                raise ActiveRecord::Rollback
+              end
             else
-              render json: { errors: user_car_model.errors.full_messages }, status: :unprocessable_entity
+              render json: { errors: user_car_brand.errors.full_messages }, status: :unprocessable_entity
               raise ActiveRecord::Rollback
+
             end
           else
-            render json: { errors: user_car_brand.errors.full_messages }, status: :unprocessable_entity
+            render json: { errors: @car_detail.errors.full_messages }, status: :unprocessable_entity
             raise ActiveRecord::Rollback
-
           end
-        else
-          render json: { errors: car_detail.errors.full_messages }, status: :unprocessable_entity
-          raise ActiveRecord::Rollback
         end
+      else
+        render json: { message: "invalid user id." }
       end
     else
       render json: { message: "user_id, car_brand_id and car_model_id should be present." }
@@ -74,7 +77,6 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
           @user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
           render json: { errors: @user_car_model.errors.full_messages }, status: :unprocessable_entity if !@user_car_model.save
         end
-        render json: { message: "User's car details have been updated successfully." }
       else
         render json: { errors: @car_detail.errors.full_messages }, status: :unprocessable_entity
       end
@@ -109,11 +111,8 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     params.permit(:name, :email, :contact, :password)
   end
 
-  def create_car_details_params
-    params.permit(:length, :color, :plate_number, :user_id, :car_brand_id, :car_model_id, :photos)
+  def create_car_profile_params
+    params.permit(:length, :color, :plate_number, :user_id, :car_brand_id, :car_model_id, :photos => [])
   end
 
-  def update_car_profile_params
-    params.permit(:length, :color, :plate_number, :id, :car_brand_id, :car_model_id, :photos)
-  end
 end
