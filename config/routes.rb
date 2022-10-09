@@ -11,8 +11,7 @@ Rails.application.routes.draw do
           post :sign_up
           post :create_car_profile
           post :update_car_profile
-          get :get_car_brands
-          get :get_car_models
+          get :get_car_specification
           get :get_car_profile
         end
       end
