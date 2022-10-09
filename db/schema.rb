@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_07_074139) do
+ActiveRecord::Schema.define(version: 2022_10_09_072343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,8 @@ ActiveRecord::Schema.define(version: 2022_10_07_074139) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "car_brand_id", null: false
+    t.index ["car_brand_id"], name: "index_car_models_on_car_brand_id"
   end
 
   create_table "pages", force: :cascade do |t|
@@ -145,6 +147,7 @@ ActiveRecord::Schema.define(version: 2022_10_07_074139) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "car_details", "users"
+  add_foreign_key "car_models", "car_brands"
   add_foreign_key "quick_chats", "users"
   add_foreign_key "supports", "users"
   add_foreign_key "user_car_brands", "car_brands"

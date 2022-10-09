@@ -1,12 +1,21 @@
-CarBrand.create(title: "Tesla")
-CarBrand.create(title: "Toyota")
-CarBrand.create(title: "Hyundai")
-CarBrand.create(title: "Isuzu")
-
-CarModel.create(title: "Tesla1")
-CarModel.create(title: "Tesla2")
-CarModel.create(title: "Tesla3")
-CarModel.create(title: "Tesla4")
+User.destroy_all
+CarBrand.destroy_all
+car_brand = CarBrand.create(title: "Tesla")
+1.upto(4) do |index|
+  car_brand.car_models.create(title: "Model #{index}")
+end
+car_brand = CarBrand.create(title: "Toyota")
+1.upto(4) do |index|
+  car_brand.car_models.create(title: "Model #{index}")
+end
+car_brand = CarBrand.create(title: "Hyundai")
+1.upto(4) do |index|
+  car_brand.car_models.create(title: "Model #{index}")
+end
+car_brand = CarBrand.create(title: "Isuzu")
+1.upto(4) do |index|
+  car_brand.car_models.create(title: "Model #{index}")
+end
 
 Page.destroy_all
 Page.create(title: "Terms & Conditions", permalink: "terms&condition",content: "<h2>Welcome to housibly!</h2> </n> <p> These terms and conditions outline the rules and regulations for the use of Housibly's Website, located at <a>www.housibly.com.</a> </p> </n> <p> By accessing this website we assume you accept these terms and conditions. Do not continue to use housibly if you do not agree to take all of the terms and conditions stated on this page. </p> </n> <p> The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements: <q>Client</q>, <q>You</q> and <q>Your</q> refers to you, the person log on this website and compliant to the Company’s terms and conditions. <q>The Company</q>, <q>Ourselves</q>, <q>We</q>, <q>Our</q> and <q>Us</q>, refers to our Company. <q>Party</q>, <q>Parties</q>, or <q>Us</q>, refers to both the Client and ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner for the express purpose of meeting the Client’s needs in respect of provision of the Company’s stated services, in accordance with and subject to, prevailing law of Netherlands. Any use of the above terminology or other words in the singular, plural, capitalization and/or he/she or they, are taken. </p>")

@@ -83,12 +83,9 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     end
   end
 
-  def get_car_brands
-    @car_brands = CarBrand.all
-  end
 
-  def get_car_models
-    @car_models = CarModel.all
+  def get_car_specification
+    @info =  CarBrand.all
   end
 
   def get_car_profile
