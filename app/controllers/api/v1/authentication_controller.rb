@@ -13,7 +13,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def sign_up
-    @user = User.new(sign_up_params)
+    @user = User.new(sign_up_params.merge(profile_type: 'manual', profile_complete: true))
     if @user.save
       @token = JsonWebToken.encode(user_id: @user.id)
     else
