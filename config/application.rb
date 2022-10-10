@@ -18,5 +18,15 @@ module SpotSwap
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.middleware.use ActionDispatch::Flash
+  
+    config.assets.paths << Rails.root.join('app', 'assets')
+
+
+    Dir.glob("#{Rails.root}/app/assets/images/**/").each do |path|
+      config.assets.paths << path
+    end
+    config.api_only = false
   end
 end

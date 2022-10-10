@@ -1,29 +1,58 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <section id="logon" style="background-image: url('/assets/Logon.jpg')">
+  <div class="contain">
+  <div class="log_blk">
+    <div class="form_wrapper">
+      <div class="logo">
+        <img src="/assets/logo-on.svg" alt="">
+      </div>
+      <h3 class="mb-0">Sign up to manage</h3>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <h5>Full Name</h5>
+        <div class="form_blk">
+          <%= f.text_field :full_name, autofocus: true, autocomplete: "email", placeholder: "Type here", class: "input" %>
+        </div>
+        <h5>Email Address</h5>
+        <div class="form_blk">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Type here", class: "input" %>
+        </div>
+          <h5>Password</h5>
+        <div class="form_blk input">
+          <img src="/assets/icon-lock-blue.svg" alt="">
+          <%= f.password_field :password, autocomplete: "new-password" %>
+        </div>
+        <div class="btn_blk pop_btn" data-popup="forget_pass">
+          <button type="submit" class="site_btn w-100">Login</button>
+        </div>
+      <%end%>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="car_img">
+  <img src="/assets/bg-car.png" alt="">
   </div>
+  <div class="popup" data-popup="forget_pass">
+      <div class="table_dv overlay">
+        <div class="table_cell">
+          <div class="contain-fluid">
+            <div class="row justify-content-center">
+              <div class="col-3">
+                <div class="_inner">
+                  <!-- <button type="button" class="x_btn"></button> -->
+                  <div class="log_strip" style="background-image: url('/assets/logon-strip.svg')">
+                    <p class="fs_5">Welcome!</p>
+                  </div>
+                  <h3 class="text-center">Admin account has been created</h3>
+                  <p class="fs_5 text-center">You can now start managing your end users</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Logon Section -->
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  <!-- Main Js -->
+  <script src="/assets/main.js"></script>
