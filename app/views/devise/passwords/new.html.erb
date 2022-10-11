@@ -1,16 +1,32 @@
-<h2>Forgot your password?</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+  <section id="logon" style="background-image: url('/assets/Logon.jpg')">
+    <div class="contain">
+      <div class="log_blk">
+        <div class="form_wrapper">
+          <div class="logo">
+            <img src="/assets/logo-on.svg" alt="">
+          </div>
+          <h3>Forgot Password</h3>
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+            <h6>Email Address</h6>
+            <div class="form_blk">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Type here", class: "input" %>
+            </div>
+            <div class="btn_blk">
+              <button type="submit" class="site_btn w-100">Reset Password</button>
+            </div>
+          <%end%>
+        </div>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <div class="car_img">
+      <img src="/assets/bg-car.png" alt="">
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
+  </section>
+  <!-- Logon Section -->
 
-<%= render "devise/shared/links" %>
+  <!-- Main Js -->
+  <script src="/assets/main.js"></script>
+
