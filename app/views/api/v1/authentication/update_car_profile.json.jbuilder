@@ -6,7 +6,11 @@ json.profile do
   json.plate_number @car_detail.plate_number
   json.car_brand @car_detail.car_brand.title
   json.car_model @car_detail.car_model.title
-  json.photos @car_detail.photos do |photo|
-      json.url rails_blob_url(photo)
+  if @car_detail.photos.attached?
+    json.photos @car_detail.photos do |photo|
+      json.url photo.url
+    end
+  else
+    json.photos []
   end
 end

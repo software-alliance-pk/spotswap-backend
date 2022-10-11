@@ -8,7 +8,10 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
-Rails.start()
+window.Rails = Rails;
+if(Rails.fire(document, "rails:attachBindings")) {
+    Rails.start();
+}
 Turbolinks.start()
 ActiveStorage.start()
 
