@@ -1,4 +1,3 @@
-CarBrand.destroy_all
 car_brand = CarBrand.create(title: "Tesla")
 1.upto(4) do |index|
   car_brand.car_models.create(title: "Model #{index}")
