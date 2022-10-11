@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_10_145851) do
+ActiveRecord::Schema.define(version: 2022_10_11_084813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,27 @@ ActiveRecord::Schema.define(version: 2022_10_10_145851) do
     t.index ["user_id"], name: "index_quick_chats_on_user_id"
   end
 
+  create_table "support_conversations", force: :cascade do |t|
+    t.integer "read_status"
+    t.bigint "support_id", null: false
+    t.integer "recipient_id", null: false
+    t.integer "sender_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["support_id"], name: "index_support_conversations_on_support_id"
+  end
+
+  create_table "support_messages", force: :cascade do |t|
+    t.string "body"
+    t.integer "read_status"
+    t.bigint "user_id", null: false
+    t.bigint "support_conversation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["support_conversation_id"], name: "index_support_messages_on_support_conversation_id"
+    t.index ["user_id"], name: "index_support_messages_on_user_id"
+  end
+
   create_table "supports", force: :cascade do |t|
     t.string "ticket_number"
     t.text "description"
@@ -152,6 +173,9 @@ ActiveRecord::Schema.define(version: 2022_10_10_145851) do
   add_foreign_key "car_details", "users"
   add_foreign_key "car_models", "car_brands"
   add_foreign_key "quick_chats", "users"
+  add_foreign_key "support_conversations", "supports"
+  add_foreign_key "support_messages", "support_conversations"
+  add_foreign_key "support_messages", "users"
   add_foreign_key "supports", "users"
   add_foreign_key "user_car_brands", "car_brands"
   add_foreign_key "user_car_brands", "car_details"
