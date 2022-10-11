@@ -25,7 +25,7 @@ class Api::V1::QuickChatsController < Api::V1::ApiController
 
   def delete_quick_chat
       @quick_chat.destroy
-      render json: { error: "Quick chat is removed successfully"}, status: :ok
+      render json: { message: "Quick chat is removed successfully"}, status: :ok
   end
 
   private
