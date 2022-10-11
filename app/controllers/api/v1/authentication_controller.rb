@@ -47,7 +47,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
           end
         end
       else
-        render json: { message: "User does n't exists against this id." }
+        render json: { message: "User does not exists against this id." }
       end
     else
       render json: { message: "user_id, car_brand_id and car_model_id should be present." }
@@ -65,15 +65,14 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
         @car_detail.photos.purge
         @car_detail.photos.attach(params[:photos])
       end
-
       if @car_detail.save
         if params[:car_brand_id].present?
           @user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
-          render json: { errors: @user_car_brand.errors.full_messages }, status: :unprocessable_entity if !@user_car_brand.save
+          render json: { errors: @user_car_brand.errors.full_messages }, status: :unprocessable_entity unless @user_car_brand.save
         end
         if params[:car_model_id].present?
           @user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
-          render json: { errors: @user_car_model.errors.full_messages }, status: :unprocessable_entity if !@user_car_model.save
+          render json: { errors: @user_car_model.errors.full_messages }, status: :unprocessable_entity unless @user_car_model.save
         end
       else
         render json: { errors: @car_detail.errors.full_messages }, status: :unprocessable_entity
@@ -82,7 +81,6 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
       render json: { message: "car detail with this id is not present."}
     end
   end
-
 
   def get_car_specification
     @info =  CarBrand.all
