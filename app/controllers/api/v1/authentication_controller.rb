@@ -22,7 +22,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def create_car_profile
-    if params[:user_id].present? && params[:car_brand_id].present? && params[:car_model_id].present?
+    if create_car_profile_params[:user_id].present? && create_car_profile_params[:car_brand_id].present? && create_car_profile_params[:car_model_id].present?
       user = User.find_by(id: params[:user_id])
       if user.present?
         ActiveRecord::Base.transaction do
@@ -32,7 +32,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
             if user_car_brand.save
               user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
               if user_car_model.save
-                @car_detail.photos.attach(params[:photos])
+                @car_detail
               else
                 render json: { errors: user_car_model.errors.full_messages }, status: :unprocessable_entity
                 raise ActiveRecord::Rollback
@@ -47,7 +47,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
           end
         end
       else
-        render json: { message: "invalid user id." }
+        render json: { message: "User does n't exists against this id." }
       end
     else
       render json: { message: "user_id, car_brand_id and car_model_id should be present." }
