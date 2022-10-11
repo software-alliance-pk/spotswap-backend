@@ -26,6 +26,8 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
       user = User.find_by(id: params[:user_id])
       if user.present?
         ActiveRecord::Base.transaction do
+          user.profile_complete = true
+          user.save
           @car_detail = user.build_car_detail(create_car_profile_params.except(:user_id, :car_brand_id, :car_model_id))
           if @car_detail.save
             user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
