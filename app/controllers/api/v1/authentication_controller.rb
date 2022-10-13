@@ -21,6 +21,32 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     end
   end
 
+  def notification_fcm_token
+    if params[:fcm_token].present?
+      if @current_user.mobile_devices.create(mobile_device_token: params[:fcm_token], user_id: @current_user.id)
+        render json: { message: "fcm token has been associated with user." }, status: :ok
+      else
+        render json: { message: "fcm token could not associated with user, something went wrong." }, status: :unprocessable_entity
+      end
+    else
+      render json: { message: "fcm token is missing." }, status: :unprocessable_entity
+    end
+  end
+
+  def logout
+    if params[:mtoken].present?
+      mtoken = @current_user.mobile_devices.find_by(mobile_device_token: params[:mtoken])
+      if mtoken.present?
+        mtoken.destroy
+        render json: { message: "Log out successfully" }, status: :ok
+      else
+        render json: { message: "Provide mobile token is not correct" }, status: :ok
+      end
+    else
+      render json: { message: "Mobile token parameter is missing" }, status: :ok
+    end
+  end
+
   def create_car_profile
     if create_car_profile_params[:user_id].present? && create_car_profile_params[:car_brand_id].present? && create_car_profile_params[:car_model_id].present?
       user = User.find_by(id: params[:user_id])

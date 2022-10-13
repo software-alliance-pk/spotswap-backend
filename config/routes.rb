@@ -13,6 +13,8 @@ Rails.application.routes.draw do
           post :update_car_profile
           get :get_car_specification
           get :get_car_profile
+          post :add_fcm_token
+          post :notification_fcm_token
         end
       end
 
