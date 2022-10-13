@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_11_084813) do
+ActiveRecord::Schema.define(version: 2022_10_13_143613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,14 @@ ActiveRecord::Schema.define(version: 2022_10_11_084813) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "car_brand_id", null: false
     t.index ["car_brand_id"], name: "index_car_models_on_car_brand_id"
+  end
+
+  create_table "mobile_devices", force: :cascade do |t|
+    t.string "mobile_device_token"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_mobile_devices_on_user_id"
   end
 
   create_table "pages", force: :cascade do |t|
@@ -172,6 +180,7 @@ ActiveRecord::Schema.define(version: 2022_10_11_084813) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "car_details", "users"
   add_foreign_key "car_models", "car_brands"
+  add_foreign_key "mobile_devices", "users"
   add_foreign_key "quick_chats", "users"
   add_foreign_key "support_conversations", "supports"
   add_foreign_key "support_messages", "support_conversations"
