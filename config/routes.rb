@@ -43,6 +43,13 @@ Rails.application.routes.draw do
           post :index
         end
       end
+      
+      resources :supports, only: [] do
+        collection do
+          post :create_ticket
+          get :get_tickets
+        end
+      end
 
       resources :quick_chats , only: [] do
         member do
