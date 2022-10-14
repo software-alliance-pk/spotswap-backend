@@ -15,6 +15,7 @@ Rails.application.routes.draw do
           get :get_car_profile
           post :add_fcm_token
           post :notification_fcm_token
+          post :logout
         end
       end
 

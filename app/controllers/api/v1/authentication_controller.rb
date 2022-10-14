@@ -1,6 +1,6 @@
 class Api::V1::AuthenticationController < Api::V1::ApiController
   before_action :create_car_profile_params, only: [:create_car_profile]
-  before_action :authorize_request, only: [:get_car_profile]
+  before_action :authorize_request, only: [:get_car_profile, :notification_fcm_token, :logout]
 
   def login
     @user = User.find_by_email(params[:email])
@@ -23,8 +23,8 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
 
   def notification_fcm_token
     if params[:fcm_token].present?
-      if @current_user.mobile_devices.create(mobile_device_token: params[:fcm_token], user_id: @current_user.id)
-        render json: { message: "fcm token has been associated with user." }, status: :ok
+      if @current_user.mobile_devices.create(mobile_device_token: params[:fcm_token])
+        render json: { message: "fcm token has been associated with user.", fcm_token: params[:fcm_token] }, status: :ok
       else
         render json: { message: "fcm token could not associated with user, something went wrong." }, status: :unprocessable_entity
       end
@@ -34,16 +34,16 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def logout
-    if params[:mtoken].present?
-      mtoken = @current_user.mobile_devices.find_by(mobile_device_token: params[:mtoken])
-      if mtoken.present?
-        mtoken.destroy
+    if params[:fcm_token].present?
+      fcm_token = @current_user.mobile_devices.find_by(mobile_device_token: params[:fcm_token])
+      if fcm_token.present?
+        fcm_token.destroy
         render json: { message: "Log out successfully" }, status: :ok
       else
-        render json: { message: "Provide mobile token is not correct" }, status: :ok
+        render json: { message: "Provide mobile token is not correct" }, status: :unprocessable_entity
       end
     else
-      render json: { message: "Mobile token parameter is missing" }, status: :ok
+      render json: { message: "Mobile token parameter is missing" }, status: :unprocessable_entity
     end
   end
 
