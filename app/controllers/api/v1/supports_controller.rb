@@ -5,19 +5,15 @@ class Api::V1::SupportsController < Api::V1::ApiController
   def create_ticket
     @ticket = @current_user.supports.new(support_params.merge(ticket_number: generate_ticket_number.upcase))
     if @ticket.save
-      @ticket
+      @ticket.build_support_conversation(sender_id: @ticket.user_id, recipient_id: Admin.admin.first)
     else
       render_error_messages(@ticket)
     end
   end
 
   def get_tickets
-    @tickets = @current_user.supports.order("created_at desc")
-    if @tickets
-      @tickets
-    else
-      render_error_messages(@tickets)
-    end
+    @pending_tickets = @current_user.supports.pending.order("created_at desc")
+    @completed_tickets = @current_user.supports.completed.order("created_at desc")
   end
 
   def generate_ticket_number
