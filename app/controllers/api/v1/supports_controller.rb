@@ -5,7 +5,11 @@ class Api::V1::SupportsController < Api::V1::ApiController
   def create_ticket
     @ticket = @current_user.supports.new(support_params.merge(ticket_number: generate_ticket_number.upcase))
     if @ticket.save
-      @ticket.build_support_conversation(sender_id: @ticket.user_id, recipient_id: Admin.admin.first)
+      @support_conversation = @ticket.build_support_conversation(sender_id: @ticket.user_id, recipient_id: Admin.admin.first.id)
+      if @support_conversation.save
+        @support_message = @support_conversation.support_messages.build(user_id: @ticket.user_id, body: @ticket.description, image: support_params[:image])
+        @support_message.save
+      end
     else
       render_error_messages(@ticket)
     end
