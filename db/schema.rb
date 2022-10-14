@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_13_143613) do
+ActiveRecord::Schema.define(version: 2022_10_14_122517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2022_10_13_143613) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "full_name"
+    t.integer "category", default: 0
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
@@ -114,7 +115,6 @@ ActiveRecord::Schema.define(version: 2022_10_13_143613) do
   end
 
   create_table "support_conversations", force: :cascade do |t|
-    t.integer "read_status"
     t.bigint "support_id", null: false
     t.integer "recipient_id", null: false
     t.integer "sender_id", null: false
@@ -125,11 +125,11 @@ ActiveRecord::Schema.define(version: 2022_10_13_143613) do
 
   create_table "support_messages", force: :cascade do |t|
     t.string "body"
-    t.integer "read_status"
     t.bigint "user_id", null: false
     t.bigint "support_conversation_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "read_status", default: false
     t.index ["support_conversation_id"], name: "index_support_messages_on_support_conversation_id"
     t.index ["user_id"], name: "index_support_messages_on_user_id"
   end
