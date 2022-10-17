@@ -54,6 +54,15 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :faqs, only: [] do
+        collection do
+          get :index
+          post :create_faq
+          post :update_faq
+          post :delete_faq
+        end
+      end
+
       resources :quick_chats , only: [] do
         member do
           post :delete_quick_chat
