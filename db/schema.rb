@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_14_122517) do
+ActiveRecord::Schema.define(version: 2022_10_17_095957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,6 +174,7 @@ ActiveRecord::Schema.define(version: 2022_10_14_122517) do
     t.string "profile_type"
     t.integer "otp"
     t.datetime "otp_expiry"
+    t.boolean "is_info_complete", default: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
