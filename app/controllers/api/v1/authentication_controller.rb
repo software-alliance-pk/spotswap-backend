@@ -34,17 +34,13 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def logout
-    if params[:fcm_token].present?
-      fcm_token = @current_user.mobile_devices.find_by(mobile_device_token: params[:fcm_token])
+      fcm_token = @current_user.mobile_devices
       if fcm_token.present?
         fcm_token.destroy
         render json: { message: "Log out successfully" }, status: :ok
       else
-        render json: { message: "Provide mobile token is not correct" }, status: :unprocessable_entity
+        render json: { message: "Something went wrong" }, status: :unprocessable_entity
       end
-    else
-      render json: { message: "Mobile token parameter is missing" }, status: :unprocessable_entity
-    end
   end
 
   def create_car_profile
