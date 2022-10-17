@@ -34,17 +34,19 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def logout
-    fcm_token = @current_user.mobile_devices
-    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    puts fcm_token
-    puts @current_user.mobile_devices.count
-    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    if fcm_token.present?
-      fcm_token.destroy
-      render json: { message: "Log out successfully" }, status: :ok
-    else
-      render json: { message: "Something went wrong" }, status: :unprocessable_entity
-    end
+    # fcm_token = @current_user.mobile_devices
+    # puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    # puts fcm_token
+    # puts @current_user.mobile_devices.count
+    # puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    # if fcm_token.present?
+    #   fcm_token.destroy
+    #   render json: { message: "Log out successfully" }, status: :ok
+    # else
+    #   render json: { message: "Something went wrong" }, status: :unprocessable_entity
+    # end
+
+    render json: { message: "Log out successfully" }, status: :ok
   end
 
   def create_car_profile
