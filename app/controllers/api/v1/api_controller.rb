@@ -15,14 +15,7 @@ class Api::V1::ApiController < ActionController::API
     header = header.split(' ').last if header
     begin
       @decoded = JsonWebToken.decode(header)
-      puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-      puts @decoded
-      puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
       @current_user = User.find_by_id(@decoded[:user_id]) || User.find_by_email(@decoded[:email])
-      puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-      puts @current_user
-      puts @decoded[:email]
-      puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :unauthorized
     rescue JWT::DecodeError => e
