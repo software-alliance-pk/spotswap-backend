@@ -35,6 +35,10 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
 
   def logout
     fcm_token = @current_user.mobile_devices
+    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    puts fcm_token
+    puts @current_user.mobile_devices.count
+    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     if fcm_token.present?
       fcm_token.destroy
       render json: { message: "Log out successfully" }, status: :ok
