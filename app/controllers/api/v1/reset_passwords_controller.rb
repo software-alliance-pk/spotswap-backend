@@ -6,7 +6,7 @@ class Api::V1::ResetPasswordsController < Api::V1::ApiController
       message: "User not found against given email"
     },status: 404 unless @user.present?
     
-    @otp = 4.times.map{rand(10)}.join
+    @otp = 6.times.map{rand(10)}.join
     begin
       UserMailer.send_email(@user, @otp).deliver_now
     rescue  => e
@@ -20,7 +20,7 @@ class Api::V1::ResetPasswordsController < Api::V1::ApiController
       message: "User not found against given email"
     },status: 404 unless @user.present?
     
-    @otp = 4.times.map{rand(10)}.join
+    @otp = 6.times.map{rand(10)}.join
     begin
       UserMailer.send_email(@user, @otp).deliver_now
     rescue  => e
