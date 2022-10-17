@@ -7,14 +7,8 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   def update_user
-    if @user.profile_type == 'social login'
-      unless @user.update(user_params.merge(is_info_complete: true))
-        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
-      end
-    else
-      unless @user.update(user_params)
-        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
-      end
+    unless @user.update(user_params.merge(is_info_complete: true))
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
