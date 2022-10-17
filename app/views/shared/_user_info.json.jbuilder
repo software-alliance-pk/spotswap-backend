@@ -5,6 +5,7 @@ json.user do
   json.contact user.contact
   json.profile_complete user.profile_complete
   json.profile_type user.profile_type
+  json.is_info_complete user.is_info_complete
   json.otp user.otp
   json.token token if token.present?
 end
