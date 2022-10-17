@@ -43,7 +43,7 @@ Rails.application.routes.draw do
 
       resources :static_pages, param: :permalink ,only: [] do
         member do
-          post :index
+          get :index
         end
       end
       
