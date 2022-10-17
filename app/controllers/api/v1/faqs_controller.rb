@@ -36,8 +36,11 @@ class Api::V1::FaqsController < Api::V1::ApiController
   end
 
   def find_faq
-    render json: {error: "Faq id is missing"}, status: :precondition_failed unless params[:id].present?
-    @faq = Faq.find_by(id: params[:id])
-    render json: {error: "No such Faq is present"}, status: :unprocessable_entity unless @faq.present?
+    if params[:id].present?
+      @faq = Faq.find_by(id: params[:id])
+      render json: {error: "No such Faq is present"}, status: :unprocessable_entity unless @faq.present?
+    else
+      render json: {error: "Faq id is missing"}, status: :precondition_failed
+    end
   end
 end
