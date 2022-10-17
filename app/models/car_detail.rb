@@ -5,5 +5,5 @@ class CarDetail < ApplicationRecord
   has_one :car_model, through: :user_car_model
   belongs_to :user
   has_many_attached :photos, :dependent => :destroy
-  validates :length, :color, :plate_number, presence: true
+  validates :length, :color, presence: true
 end
