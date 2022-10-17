@@ -18,7 +18,11 @@ class Api::V1::ApiController < ActionController::API
       puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
       puts @decoded
       puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-      @current_user = User.find(@decoded[:user_id]) || User.find_by_email(@decoded[:email])
+      @current_user = User.find_by_id(@decoded[:user_id]) || User.find_by_email(@decoded[:email])
+      puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+      puts @current_user
+      puts @decoded[:email]
+      puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :unauthorized
     rescue JWT::DecodeError => e
