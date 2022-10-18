@@ -46,7 +46,6 @@ $(window).on("load", function () {
 		if (e.keyCode == 27) $(".popup .x_btn").click();
 	});
 	$(document).on("click", ".pop_btn", function (e) {
-		debugger
 		e.target;
 		e.relatedTarget;
 		var popUp = $(this).attr("data-popup");

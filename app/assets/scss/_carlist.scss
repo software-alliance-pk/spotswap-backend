@@ -65,6 +65,9 @@
 				height: 5rem;
 				margin: -2.5rem;
 				margin-bottom: 2.5rem;
+				p {
+					color: white;
+				}
 			}
 			.prof_img {
 				width: 13rem;
@@ -100,6 +103,24 @@
 	}
 }
 #car_modal {
+	#table_users {
+		.table__blk {
+			table {
+				tbody {
+					tr {
+						td {
+							.user {
+								.ellipse {
+									width: 13rem;
+									height: 5.7rem;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 	.arrow_section {
 		display: flex;
 		align-items: center;
@@ -203,6 +224,60 @@
 		}
 		.active {
 			background-color: #e3e3e3;
+		}
+	}
+}
+#users {
+	.popup {
+		display: none;
+		._inner {
+			// width: 41rem;
+			// max-width: 41rem;
+			.log_strip {
+				@include bg(contain, top);
+				@include flex(center, center);
+				height: 5rem;
+				margin: -2.5rem;
+				margin-bottom: 2.5rem;
+				p {
+					color: white;
+				}
+			}
+			.prof_img {
+				width: 13rem;
+				height: 11.5rem;
+				border: 0.2rem dashed #b8b8b8;
+				border-radius: 1rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: #8a8a8a;
+				margin: 0 auto;
+				margin-bottom: 3rem;
+				> p {
+					font-size: 1.2rem;
+					font-weight: 400;
+				}
+			}
+			.form_blk {
+				.input {
+					height: 5rem;
+				}
+				label {
+					font-size: 1.6rem;
+					font-weight: 400;
+					margin-bottom: 0.7rem;
+				}
+			}
+
+			.btn_blk {
+				justify-content: center;
+			}
+		}
+		.disable_p {
+			font-size: 2.4rem;
+			font-weight: 600;
+			text-align: center;
 		}
 	}
 }
