@@ -7,18 +7,9 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   def update_user
-    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    puts params
-    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    puts user_params
-    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    puts @user.contact
-    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     if @user.update(user_params.merge(is_info_complete: true))
       @user
     else
-      puts @user.errors.full_messages
-      puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
