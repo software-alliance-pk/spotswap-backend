@@ -12,9 +12,11 @@ class Api::V1::UsersController < Api::V1::ApiController
     puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     puts user_params
     puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    puts @user
+    puts @user.contact
     puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    unless @user.update(user_params.merge(is_info_complete: true))
+    unless @user.update!(user_params.merge(is_info_complete: true))
+      puts @user.errors
+      puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
