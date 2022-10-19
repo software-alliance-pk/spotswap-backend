@@ -107,4 +107,13 @@ $(window).on("load", function () {
 	|       OTHER JAVASCRIPT
 	|----------------------------------------------------------------------
 	*/
+
+	$("#clickaddfile").click(function (){
+		$("#submitaddfile").trigger('click');
+	});
+
+	$("#clickaddphoto").click(function (){
+		$("#submitaddphoto").trigger('click');
+	});
+	
 });

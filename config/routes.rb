@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       resources :supports, only: [] do
         collection do
           post :create_ticket
+          post :create_message
           get :get_tickets
         end
       end
@@ -106,6 +107,7 @@ Rails.application.routes.draw do
     resources :supports, only: [] do
       collection do
         get :index
+        post :admin_send_message
       end
     end
   end

@@ -20,6 +20,15 @@ class Api::V1::SupportsController < Api::V1::ApiController
     @completed_tickets = @current_user.supports.completed.order("created_at desc")
   end
 
+  def create_message
+    @support_message = SupportMessage.new(message_params)
+    if @support_message.save
+      @support_message
+    else
+      render_error_messages(@support_message)
+    end
+  end
+
   def generate_ticket_number
     @ticket_number = loop do
       random_token = SecureRandom.urlsafe_base64(6, false)
@@ -28,7 +37,12 @@ class Api::V1::SupportsController < Api::V1::ApiController
   end
 
   private
+
   def support_params
     params.permit(:user_id, :ticket_number, :status, :description, :image, :name)
+  end
+
+  def message_params
+    params.permit(:body, :user_id, :support_conversation_id, :image)
   end
 end
