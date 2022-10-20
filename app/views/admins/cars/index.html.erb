@@ -19,169 +19,24 @@
       </div>
       <button class="site_btn round pop_btn" data-popup="forget_pass">Add Car Brand</button>
     </div>
-    <div class="row m-0">
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/Alfa.png" alt="">
+    <% if @car_brands.present? %>
+      <div class="row m-0">
+        <% @car_brands.each do |brand|%>
+          <div class="col brands">
+            <div class="item">
+              <div class="img">
+                <% if brand.image.attached?%>
+                  <%= image_tag(brand.image)%>
+                <% else %>
+                  <img src="/assets/default-profile.jpg" alt="">
+                <%end%>
+              </div>
+              <%= link_to brand.title, get_model_details_admins_cars_path(brand_id: brand.id) %>
+            </div>
           </div>
-          <p>Alfa Romeo</p>
-        </div>
+        <%end%>
       </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/aston.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-        <div class="img">
-            <img src="/assets/cupra.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/aston.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/bmw.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/aston.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/bmw.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/aston.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/jaguar.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/chevrolet.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/cupra.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/chevrolet.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/Alfa.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/aston.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/jaguar.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/aston.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/jaguar.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/alpine.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/bmw.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      <div class="col brands">
-        <div class="item">
-          <div class="img">
-            <img src="/assets/cupra.png" alt="">
-          </div>
-          <p>Alfa Romeo</p>
-        </div>
-      </div>
-      
-    </div>
+    <%end%>
     <div class="popup" data-popup="forget_pass">
     <div class="overlay"></div> 
     <div class="table_dv">
@@ -194,19 +49,21 @@
                 <div class="log_strip" style="background-image: url('/assets/logon-strip.svg')">
                   <p class="fs_5">Welcome!</p>
                 </div>
-                <form action="">
-                  <div class="prof_img">
-                  <!-- <img src="#" alt=""> -->
-                  <p>Upload image</p>
+                <%= form_with url: create_brand_admins_cars_path do |f| %>
+                  <div class="prof_img" style="position:relative;">
+                    <div class="img" style="width:80%">
+                      <img src="/assets/upload-photo.png" alt="">
+                    </div>
+                    <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;" %>
                   </div>
                     <div class="form_blk">
-                    <label for="" class="text-center">Enter a card brand</label>
-                    <input type="text" class="input" placeholder="type here">
+                    <label class="text-center">Enter a card brand</label>
+                    <input type="text" name="name" class="input" placeholder="type here">
                     </div>  
                       <div class="btn_blk">
                         <button class="site_btn px ">Add</button>
                       </div>
-                </form>
+                <%end%>
               </div>
             </div>
           </div>
