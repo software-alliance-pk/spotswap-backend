@@ -8,10 +8,9 @@ class Admins::SupportsController < ApplicationController
 	end
 
   def admin_send_message
-    byebug
     conversation = current_admin.support_conversations.find_by(id: params[:id])
     if conversation.present?
-       @message = conversation.support_messages.new(user_id: current_admin.id, body: params[:message],image: params[:image],file: params[:file])
+       @message = conversation.support_messages.new(sender_id: current_admin.id, body: params[:message],image: params[:image],file: params[:file])
        if @message.save
           data = {}
           data["id"] = @message.id
