@@ -115,5 +115,17 @@ $(window).on("load", function () {
 	$("#clickaddphoto").click(function (){
 		$("#submitaddphoto").trigger('click');
 	});
+
+	$('.edit_car_model').on('click', function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+      url: `/admins/cars/edit_model?id=${attribute_id}`,
+      type: 'get',
+      data: this.data,
+			success: function(response) {
+				$('.edit_popup_div').html(response)
+			}
+    })
+	});
 	
 });
