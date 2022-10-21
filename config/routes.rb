@@ -93,12 +93,12 @@ Rails.application.routes.draw do
     resources :cars, only: [] do
       collection do
         get :index
-        post :create_brand
-        post :create_model
-        post :update_model
         get :edit_model
         get :get_model_details
         get :delete_model
+        post :create_brand
+        post :create_model
+        post :update_model
       end
     end
 
