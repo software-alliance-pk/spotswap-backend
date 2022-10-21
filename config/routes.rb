@@ -64,6 +64,14 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :parking_slots, only: [] do
+        collection do
+          post :create_slot
+          post :make_slot_available
+
+        end
+      end
+
       resources :quick_chats , only: [] do
         member do
           post :delete_quick_chat
