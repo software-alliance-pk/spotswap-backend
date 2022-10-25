@@ -1,0 +1,433 @@
+<section id="account_section">
+  <%= render :partial => "shared/sidebar" %>
+  <div id="users" class="main_side">
+    <div id="top_header">
+      <h2>Users</h2>
+      <div class="header_side">
+        <!-- <div class="form_blk input">
+          <img src="/assets/icon-search.svg" alt="">
+          <input type="text" name="" id="" class="input" placeholder="Search">
+        </div> -->
+        <button type="button" class="noti_btn input">
+          <img src="/assets/icon-bell.svg" alt="">
+          <span>7</span>
+        </button>
+      </div>
+    </div>
+    <div class="search">
+      <div class="form_blk input round_input ">
+        <button class="btn">
+          <img src="/assets/Search.svg" alt="">
+        </button>
+        <input class="input " type="text" name="" id="" placeholder="Search car brand">
+      </div>
+      <div class="button_blk">
+        <button class="site_btn round bg_white">Export CSV
+          <div class="icon">
+            <img src="/assets/Download-black.svg" alt="">
+          </div>
+        </button>
+        <button class="site_btn round">Add User</button>
+      </div>
+    </div>
+          
+    <!-- table_section -->
+    <div id="table_users">
+      <%if @users.present?%>
+        <div class="table__blk">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 20rem;">USERS</th>
+                <th style="width: 20rem;">EMAIL</th>
+                <th style="width: 20rem;">PHONE NUMBER</th>
+                <th style="width: 19rem;">SMART CAR</th>
+                <th style="width: 15rem;">CAR MAKE</th>
+                <th style="width: 15rem;">YEAR BOUGHT</th>
+                <th style="width: 15rem;">STATUS</th>
+              </tr>
+            </thead>
+            <tbody>
+            <%@users.each do |user|%>
+              <tr>
+                <td>
+                    <div class="user">
+                    <div class="ellipse">
+                      <img src="/assets/Ellipse-user.svg" alt="">
+                    </div>
+                    <div><%=user.name%></div>
+                    </div>
+                </td>
+                <td><%=user.email%></td>
+                <td><%=user.contact%></td>
+                <td><%=user.car_detail&.car_brand&.title%> <%=user.car_detail&.car_model&.title%></td>
+                <td><%=user.car_detail&.car_brand&.title%></td>
+                <td>2021</td>
+                <td>
+                  <div class="active ">
+                    <span><%=user.status%></span>
+                    <div class="dropdown">
+                      <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/assets/dot-icon.svg" alt="">
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><button type="button" class="dropdown-item pop_btn" data-popup="view_detail">View Details</button></li>
+                        <li><button type="button" class="dropdown-item pop_btn" data-popup="send_money">Send Money</button></li>
+                        <li><button type="button" class="dropdown-item pop_btn"  data-popup="user_diable">Disable</button></li>
+                      </ul>
+                    </div>      
+                  </div>
+                </td>
+              </tr>
+            <%end%>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- pagination_section -->
+        <div class="paginate_sec">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="d-flex me-4">
+              Rows per page: 10
+                <div class="dropdown">
+                  <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="icon">
+                      <img src="/assets/dropdown-icon.svg" alt="">
+                    </div>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  </ul>
+                </div>
+              </li>
+
+              <li>1-10 of 30</li>
+
+              <li class="page_item me-4 d-flex">
+                <a class="page_link icon_blk fw_600" href="#" >                             
+                  <img src="/assets/left-arrow-icon.svg" aria-hidden="true" alt="icon">                                
+                </a>
+                <a class="page_link icon_blk fw_600" href="#" >                                                             
+                  <img src="/assets/right-arrow-icon.svg" aria-hidden="true" alt="icon">
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      <%else%>
+        There is no user present.  
+      <%end%>
+    </div>
+
+    <div class="popup" data-popup="view_detail">
+      <div class="overlay"></div>
+      <div class="table_dv">
+        <div class="table_cell">
+          <div class="contain-fluid">
+            <div class="row justify-content-center">
+              <div class="col-7">
+                <div class="_inner">
+                  <button type="button" class="x_btn"></button>
+                  <div class="log_strip"
+                    style="background-image: url('/assets/logon-strip.svg')">
+                    <p class="fs_5">User Profile</p>
+                  </div>
+                  <div class="top_blk">
+                    <div class="img">
+                      <img src="/assets/support-user.png" alt="">
+                    </div>
+                    <button type="button" class="site_btn pop_btn" data-popup="send_money">Send Money</button>
+                  </div>
+                  <div class="detail_blk">
+                    <h5>Personal Information</h5>
+                    <div class="row my-5">
+                      <div class="col-2">Name</div>
+                      <div class="col-5"><h6>Alexander Lester</h6></div>
+                      <div class="col-2">Car Brand</div>
+                      <div class="col-3"><h6>Kia Niro EV</h6></div>
+                      <div class="col-2">Email</div>
+                      <div class="col-5"><h6>alexanderlester@gmail.com</h6></div>
+                      <div class="col-2">Model</div>
+                      <div class="col-3"><h6>Niro EV</h6></div>
+                      <div class="col-2">Number</div>
+                      <div class="col-5"><h6>+123 1324 13244 0000</h6></div>
+                      <div class="col-2">Brought</div>
+                      <div class="col-3"><h6>2021</h6></div>
+                    </div>
+                    <h5>History</h5>
+                    <div class="row">
+                      <div class="col-5">
+                        <div class="history_blk">
+                          <ul class="history_list">
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-7">
+                        <div class="user_details">
+                          <div class="top">
+                            <div class="img">
+                              <img src="/assets/support-user.png" alt="">
+                            </div>
+                            <div class="txt">
+                              <div class="host">
+                                <h6 class="mb-0">Antoine Madie Smith</h6>
+                                <span>host</span>
+                              </div>
+                              <p>Honda Civic GL300</p>
+                            </div>
+                          </div>
+                          <ul class="detail_list">
+                            <li>
+                              <div class="item">
+                                <p>Date</p>
+                                <h6>July 25, 2022</h6>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <p>Time</p>
+                                <h6>10:00 AM</h6>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <p>Location</p>
+                                <h6>Washington DC, USA</h6>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <p>Swapper Fee</p>
+                                <h6>$10.00</h6>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <p>SpotSwap Fee</p>
+                                <h6>$1.00</h6>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <p>Total</p>
+                                <h6>$11.00</h6>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="popup" data-popup="send_money">
+      <div class="overlay"></div>
+      <div class="table_dv">
+        <div class="table_cell">
+          <div class="contain-fluid">
+            <div class="row justify-content-center">
+              <div class="col-3">
+                <div class="_inner">
+                  <button type="button" class="x_btn"></button>
+                  <div class="log_strip" style="background-image: url('/assets/logon-strip.svg')">
+                    <p class="fs_5 mb-4">Send Money</p>
+                  </div>
+                  <div class="dash_card mb-5">
+                    <div class="ico"><img src="/assets/icon-dollar.svg" alt="">
+                    </div>
+                    <div class="txt">
+                      <h3>600</h3>
+                      <span>Revenue</span>
+                    </div>
+                  </div>
+                  <form action="">
+                    <div class="form_blk">
+                      <label for="">Enter a card brand</label>
+                      <input type="text" class="input" placeholder="type here">
+                    </div>  
+                    <div class="btn_blk">
+                      <button type="button" class="site_btn px pop_btn" data-popup="confirm_money">Add</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="popup" data-popup="user_diable">
+      <div class="overlay"></div>
+      <div class="table_dv">
+        <div class="table_cell">
+          <div class="contain-fluid">
+            <div class="row justify-content-center">
+              <div class="col-4">
+                <div class="_inner">
+                  <button type="button" class="x_btn"></button>
+                  <div class="log_strip" style="background-image: url('/assets/logon-strip.svg')">
+                    <p class="fs_5">Hey!</p>
+                  </div>
+                  <h4 class="text-center mb-4">Are you sure you want to disable this user? </h4>
+                  <div class="btn_blk">
+                      <button class="site_btn px  blank stroke">No</button>
+                      <button class="site_btn px  pop_btn" data-popup="confirm_yes">Yes</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="popup" data-popup="confirm_yes">
+      <div class="overlay"></div>
+      <div class="table_dv">
+        <div class="table_cell">
+          <div class="contain-fluid">
+            <div class="row justify-content-center">
+              <div class="col-3">
+                <div class="_inner">
+                  <button type="button" class="x_btn"></button>
+                  <div class="log_strip" style="background-image: url('/assets/logon-strip.svg')">
+                    <p class="fs_5 mb-4">Ouch!</p>
+                  </div>
+                  <h5 class="text-center">User has been disabled!</h5>
+                    
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="popup" data-popup="confirm_money">
+      <div class="overlay"></div>
+      <div class="table_dv">
+        <div class="table_cell">
+          <div class="contain-fluid">
+            <div class="row justify-content-center">
+              <div class="col-4">
+                <div class="_inner">
+                  <button type="button" class="x_btn"></button>
+                  <div class="log_strip" style="background-image: url('/assets/logon-strip.svg')">
+                    <p class="fs_5">Hey!</p>
+                  </div>
+                  <h4 class="text-center mb-4">Are you sure you want to send a money to this user?  </h4>
+                  <div class="btn_blk">
+                      <button class="site_btn px  blank stroke">No</button>
+                      <button class="site_btn px  pop_btn" data-popup="confirm_yes_money">Yes</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="popup" data-popup="confirm_yes_money">
+      <div class="overlay"></div>
+      <div class="table_dv">
+        <div class="table_cell">
+          <div class="contain-fluid">
+            <div class="row justify-content-center">
+              <div class="col-3">
+                <div class="_inner">
+                  <button type="button" class="x_btn"></button>
+                  <div class="log_strip" style="background-image: url('/assets/logon-strip.svg')">
+                    <p class="fs_5 mb-4">Yay!</p>
+                  </div>
+                  <h5 class="text-center">Money has been sent!</h5>
+                    
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>     
+  </div>
+</section>
+<!-- account_section -->
+<!-- Main Js -->
+<script src="/assets/main.js"></script>

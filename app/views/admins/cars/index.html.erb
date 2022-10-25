@@ -1,5 +1,5 @@
 <section id="account_section">
-  <%= render :partial => "shared/sidebar" %> 
+  <%= render :partial => "shared/sidebar" %>
   <div id="carlist" class="main_side">
     <div id="top_header">
       <h2 class="mb-0">Car List</h2>
@@ -17,7 +17,7 @@
         </button>
         <input class="input " type="text" name="" id="" placeholder="Search car brand">
       </div>
-      <button class="site_btn round" data-popup="forget_pass">Add Car Brand</button>
+      <button class="site_btn round pop_btn" data-popup="forget_pass">Add Car Brand</button>
     </div>
     <div class="row m-0">
       <div class="col brands">
@@ -182,41 +182,40 @@
       </div>
       
     </div>
-    <div class="popup" data-popup="forget_pass" style="display:block;">
-      <div class="table_dv overlay">
-        <div class="table_cell">
-          <div class="contain-fluid">
-            <div class="row justify-content-center">
-              <div class="col-3">
-                <div class="_inner">
-                  <!-- <button type="button" class="x_btn"></button> -->
-                  <div class="log_strip" style="background-image: url('/assets/logon-strip.svg')">
-                    <p class="fs_5">Welcome!</p>
-                  </div>
-                  <form action="">
-                    <div class="prof_img">
-                    <!-- <img src="#" alt=""> -->
-                    <p>Upload image</p>
-                    </div>
-                      <div class="form_blk">
-                      <label for="" class="text-center">Enter a card brand</label>
-                      <input type="text" class="input" placeholder="type here">
-                      </div>  
-                        <div class="btn_blk">
-                          <button class="site_btn px sm">Add</button>
-                        </div>
-                  </form>
+    <div class="popup" data-popup="forget_pass">
+    <div class="overlay"></div> 
+    <div class="table_dv">
+      <div class="table_cell">
+        <div class="contain-fluid">
+          <div class="row justify-content-center">
+            <div class="col-3">
+              <div class="_inner">
+                <button type="button" class="x_btn"></button>
+                <div class="log_strip" style="background-image: url('/assets/logon-strip.svg')">
+                  <p class="fs_5">Welcome!</p>
                 </div>
+                <form action="">
+                  <div class="prof_img">
+                  <!-- <img src="#" alt=""> -->
+                  <p>Upload image</p>
+                  </div>
+                    <div class="form_blk">
+                    <label for="" class="text-center">Enter a card brand</label>
+                    <input type="text" class="input" placeholder="type here">
+                    </div>  
+                      <div class="btn_blk">
+                        <button class="site_btn px ">Add</button>
+                      </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
+  </div>     
   </div>
-  
 </section>
 <!-- account_section -->
 <!-- Main Js -->
-<script src="assets/main.js"></script>
+<script src="/assets/main.js"></script>

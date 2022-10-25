@@ -82,17 +82,19 @@ Rails.application.routes.draw do
         get :index
       end
     end
-  end
 
-  namespace :admins do
+    resources :users, only: [] do
+      collection do
+        get :index
+      end
+    end
+
     resources :cars, only: [] do
       collection do
         get :index
       end
     end
-  end
 
-  namespace :admins do
     resources :guidelines, only: [] do
       collection do
         get :terms_and_conditions
@@ -100,9 +102,7 @@ Rails.application.routes.draw do
         get :faqs
       end
     end
-  end
 
-  namespace :admins do
     resources :supports, only: [] do
       collection do
         get :index

@@ -9,11 +9,11 @@
     </div>
     <ul style="background-image: url('/assets/strip_left.svg');">
     <li><a href="<%=admins_dashboard_index_path%>"><img src="/assets/icon-category.svg" alt=""></a></li>
-    <li><a href="users.php"><img src="/assets/icon-users.svg" alt=""></a></li>
+    <li><a href="<%=admins_users_path%>"><img src="/assets/icon-users.svg" alt=""></a></li>
     <li><a href="<%=admins_cars_path%>"><img src="/assets/icon-car2.svg" alt=""></a></li>
     <li><a href="<%=terms_and_conditions_admins_guidelines_path%>"><img src="/assets/icon-document.svg" alt=""></a></li>
     <li><a href="<%=admins_supports_path%>"><img src="/assets/icon-phone.svg" alt=""></a></li>
-    <li><a href="logout.php"><img src="/assets/icon-logout.svg" alt=""></a></li>
+    <li><a href=<%=destroy_admin_session_path%> data-method="delete"><img src="/assets/icon-logout.svg" alt=""></a></li>
     </ul>
   </div>
 </aside>
