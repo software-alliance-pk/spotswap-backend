@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       resources :supports, only: [] do
         collection do
           post :create_ticket
+          post :create_message
           get :get_tickets
         end
       end
@@ -60,6 +61,14 @@ Rails.application.routes.draw do
           post :create_faq
           post :update_faq
           post :delete_faq
+        end
+      end
+
+      resources :parking_slots, only: [] do
+        collection do
+          post :create_slot
+          post :make_slot_available
+
         end
       end
 
@@ -92,6 +101,12 @@ Rails.application.routes.draw do
     resources :cars, only: [] do
       collection do
         get :index
+        get :edit_model
+        get :get_model_details
+        get :delete_model
+        post :create_brand
+        post :create_model
+        post :update_model
       end
     end
 
@@ -106,6 +121,7 @@ Rails.application.routes.draw do
     resources :supports, only: [] do
       collection do
         get :index
+        post :admin_send_message
       end
     end
   end

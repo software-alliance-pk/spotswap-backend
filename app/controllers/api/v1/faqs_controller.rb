@@ -12,7 +12,7 @@ class Api::V1::FaqsController < Api::V1::ApiController
     if @faq.save
       @faq
     else
-      render json: { error: render_error_messages(@faq)},status: :unprocessable_entity
+      render_error_messages(@faq)
     end
   end
 
@@ -20,7 +20,7 @@ class Api::V1::FaqsController < Api::V1::ApiController
     if @faq.update(faq_params)
       @faq
     else
-      render json: { error: render_error_messages(@faq)},status: :unprocessable_entity
+      render_error_messages(@faq)
     end
   end
 

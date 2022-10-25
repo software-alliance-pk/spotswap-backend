@@ -22,31 +22,30 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def notification_fcm_token
-    if params[:fcm_token].present?
+    if params.values_at(*%i( fcm_token latitude longitude address )).all?(&:present?)
+      if @current_user.update(latitude: params[:latitude], longitude: params[:longitude], address: params[:address])
+      else
+        render json: { error: "params latitude, longitude and address could not updated, something went wrong." }, status: :unprocessable_entity
+      end
+
       if @current_user.mobile_devices.create(mobile_device_token: params[:fcm_token])
         render json: { message: "fcm token has been associated with user.", fcm_token: params[:fcm_token] }, status: :ok
       else
-        render json: { message: "fcm token could not associated with user, something went wrong." }, status: :unprocessable_entity
+        render json: { error: "fcm token could not associated with user, something went wrong." }, status: :unprocessable_entity
       end
     else
-      render json: { message: "fcm token is missing." }, status: :unprocessable_entity
+      render json: { error: "all params fcm_token, latitude, longitude and address must present." }, status: :unprocessable_entity
     end
   end
 
   def logout
-    # fcm_token = @current_user.mobile_devices
-    # puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    # puts fcm_token
-    # puts @current_user.mobile_devices.count
-    # puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    # if fcm_token.present?
-    #   fcm_token.destroy
-    #   render json: { message: "Log out successfully" }, status: :ok
-    # else
-    #   render json: { message: "Something went wrong" }, status: :unprocessable_entity
-    # end
-
-    render json: { message: "Log out successfully" }, status: :ok
+    fcm_token = @current_user.mobile_devices
+    if fcm_token.present?
+      fcm_token.destroy
+      render json: { message: "Log out successfully" }, status: :ok
+    else
+      render json: { message: "Something went wrong" }, status: :unprocessable_entity
+    end
   end
 
   def create_car_profile
@@ -131,7 +130,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def sign_up_params
-    params.permit(:name, :email, :contact, :password)
+    params.permit(:name, :email, :contact, :password, :latitude, :longitude, :address)
   end
 
   def create_car_profile_params
