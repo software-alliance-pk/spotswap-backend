@@ -1,10 +1,9 @@
 class Api::V1::FaqsController < Api::V1::ApiController
-  before_action :authorize_request
   before_action :find_faq, only: [:delete_faq, :update_faq]
   before_action :faq_params, only: [:create_faq, :update_faq]
 
   def index
-    @faqs = Faq.all
+    @faqs = Faq.all.order(created_at: :desc)
   end
   
   def create_faq

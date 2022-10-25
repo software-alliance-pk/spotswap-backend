@@ -3,7 +3,7 @@ class Api::V1::QuickChatsController < Api::V1::ApiController
   before_action :find_specific_quick_chat, only: [:delete_quick_chat, :update_quick_chat]
 
   def get_all_quick_chat
-    @quick_chat = @current_user.quick_chats
+    @quick_chat = @current_user.quick_chats.order(created_at: :desc)
   end
 
   def create_quick_chat
