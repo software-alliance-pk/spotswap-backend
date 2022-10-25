@@ -97,11 +97,17 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
       if @car_detail.save
         if params[:car_brand_id].present?
           @user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
-          render json: { errors: @user_car_brand.errors.full_messages }, status: :unprocessable_entity unless @user_car_brand.save
+          if @user_car_brand.save
+          else
+            render json: { errors: @user_car_brand.errors.full_messages }, status: :unprocessable_entity
+          end
         end
         if params[:car_model_id].present?
           @user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
-          render json: { errors: @user_car_model.errors.full_messages }, status: :unprocessable_entity unless @user_car_model.save
+          if @user_car_model.save
+          else
+            render json: { errors: @user_car_model.errors.full_messages }, status: :unprocessable_entity
+          end
         end
       else
         render json: { errors: @car_detail.errors.full_messages }, status: :unprocessable_entity
