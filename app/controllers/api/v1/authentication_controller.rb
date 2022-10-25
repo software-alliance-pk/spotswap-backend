@@ -13,7 +13,15 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def sign_up
+    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    puts sign_up_params
+    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
     @user = User.new(sign_up_params.merge(profile_type: 'manual', profile_complete: false))
+    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    puts @user
+    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    puts @user.save!
     if @user.save
       @token = JsonWebToken.encode(user_id: @user.id)
     else
