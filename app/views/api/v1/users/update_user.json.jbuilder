@@ -7,4 +7,5 @@ json.user do
   json.profile_complete @user.profile_complete
   json.profile_type @user.profile_type
   json.is_info_complete @user.is_info_complete
+  json.image @user.image.attached? ? rails_blob_url(@user.image) : ""
 end

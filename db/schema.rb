@@ -216,6 +216,7 @@ ActiveRecord::Schema.define(version: 2022_10_25_095024) do
     t.float "latitude"
     t.float "longitude"
     t.string "address"
+    t.string "stripe_customer_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
