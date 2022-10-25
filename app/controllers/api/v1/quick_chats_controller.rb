@@ -11,7 +11,7 @@ class Api::V1::QuickChatsController < Api::V1::ApiController
     if  @quick_chat.save
       @quick_chat
     else
-      render json: { error: render_error_messages(@quick_chat)},status: :unprocessable_entity
+      render_error_messages(@quick_chat)
     end
   end
 
@@ -19,7 +19,7 @@ class Api::V1::QuickChatsController < Api::V1::ApiController
     if @quick_chat.update(message: params[:message])
       @quick_chat
     else
-      render json: { error: render_error_messages(@quick_chat)},status: :unprocessable_entity
+      render_error_messages(@quick_chat)
     end
   end
 

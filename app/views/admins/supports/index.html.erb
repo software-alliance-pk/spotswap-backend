@@ -23,153 +23,29 @@
               </div>
             </div>
             <ul class="users_list">
-              <li class="active">
-                <div class="user">
-                  <div class="img">
-                    <img src="/assets/support-user.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h6 class="mb-0">User name</h6>
-                    <div class="d-flex">
-                      <p class="msg">Lorem Ipsum is simply dummy text of Lorem 
-                        Ipsum is simply dummy text of Lorem Ipsum is simply dummy text of
-                      </p>
-                      <p>• 5 min</p>
+              <%@supports.each do |record|%>
+                <li>
+                  <div class="user">
+                    <div class="img">
+                      <% if record.user.image.attached?%>
+                        <%= image_tag(record.user.image)%>
+                      <% else %>
+                        <img src="../../assets/images/default-profile.jpg" alt="">
+                      <%end%>
                     </div>
-                    <div class="u_msg">
-                      2
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="user">
-                  <div class="img">
-                    <img src="/assets/support-user.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h6 class="mb-0">User name</h6>
-                    <div class="d-flex">
-                      <p class="msg">Lorem Ipsum is simply dummy text of Lorem 
-                        Ipsum is simply dummy text of Lorem Ipsum is simply dummy text of
-                      </p>
-                      <p>• 5 min</p>
+                    <div class="txt">
+                      <h6 class="mb-0"><%=record.user.name%></h6>
+                      <div class="d-flex">
+                        <p class="msg"><%=last_message(record.user)%></p>
+                        <p>• <%=time_ago_in_words(last_seen(record.user)) if last_seen(record.user).present?  %></p>
+                      </div>
+                      <div class="u_msg">
+                        <%=unread_count(record.user)%>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </li>
-              <li>
-                <div class="user">
-                  <div class="img">
-                    <img src="/assets/support-user.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h6 class="mb-0">User name</h6>
-                    <div class="d-flex">
-                      <p class="msg">Lorem Ipsum is simply dummy text of Lorem 
-                        Ipsum is simply dummy text of Lorem Ipsum is simply dummy text of
-                      </p>
-                      <p>• 5 min</p>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="user">
-                  <div class="img">
-                    <img src="/assets/support-user.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h6 class="mb-0">User name</h6>
-                    <div class="d-flex">
-                      <p class="msg">Lorem Ipsum is simply dummy text of Lorem 
-                        Ipsum is simply dummy text of Lorem Ipsum is simply dummy text of
-                      </p>
-                      <p>• 5 min</p>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="user">
-                  <div class="img">
-                    <img src="/assets/support-user.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h6 class="mb-0">User name</h6>
-                    <div class="d-flex">
-                      <p class="msg">Lorem Ipsum is simply dummy text of Lorem 
-                        Ipsum is simply dummy text of Lorem Ipsum is simply dummy text of
-                      </p>
-                      <p>• 5 min</p>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="user">
-                  <div class="img">
-                    <img src="/assets/support-user.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h6 class="mb-0">User name</h6>
-                    <div class="d-flex">
-                      <p class="msg">Lorem Ipsum is simply dummy text of Lorem 
-                        Ipsum is simply dummy text of Lorem Ipsum is simply dummy text of
-                      </p>
-                      <p>• 5 min</p>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="user">
-                  <div class="img">
-                    <img src="/assets/support-user.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h6 class="mb-0">User name</h6>
-                    <div class="d-flex">
-                      <p class="msg">Lorem Ipsum is simply dummy text of Lorem 
-                        Ipsum is simply dummy text of Lorem Ipsum is simply dummy text of
-                      </p>
-                      <p>• 5 min</p>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="user">
-                  <div class="img">
-                    <img src="/assets/support-user.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h6 class="mb-0">User name</h6>
-                    <div class="d-flex">
-                      <p class="msg">Lorem Ipsum is simply dummy text of Lorem 
-                        Ipsum is simply dummy text of Lorem Ipsum is simply dummy text of
-                      </p>
-                      <p>• 5 min</p>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="user">
-                  <div class="img">
-                    <img src="/assets/support-user.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h6 class="mb-0">User name</h6>
-                    <div class="d-flex">
-                      <p class="msg">Lorem Ipsum is simply dummy text of Lorem 
-                        Ipsum is simply dummy text of Lorem Ipsum is simply dummy text of
-                      </p>
-                      <p>• 5 min</p>
-                    </div>
-                  </div>
-                </div>
-              </li>
+                </li>
+              <%end%>
             </ul>
           </div>
         </div>
@@ -178,11 +54,15 @@
             <div class="top_blk">
               <div class="selected_chat">
                 <div class="img">
-                  <img src="/assets/support-user.png" alt="">
+                  <% if @last_support.user.image.attached?%>
+                    <%= image_tag(@last_support.user.image)%>
+                  <% else %>
+                    <img src="../../assets/images/default-profile.jpg" alt="">
+                  <%end%>
                 </div>
                 <div class="txt">
-                  <h6 class="mb-0">User name</h6>
-                  <p class="mb-0">#0e973975397375sfwf</p>
+                  <h6 class="mb-0"><%=@last_support.user.name%></h6>
+                  <p class="mb-0"><%=@last_support.ticket_number%></p>
                 </div>
                 <div class="dropdown">
                   <button class="site_btn blank sm dropdown-toggle chevron" data-bs-toggle="dropdown">
@@ -195,111 +75,75 @@
                 </div>
               </div>
             </div>
-            <div class="msg_contain">
-              <div class="msg user">
-                <div class="profile">
-                  <img src="/assets/support-user.png" alt="">
-                </div>
-                <div class="msg_wrapper">
-                  <div class="msg_blk">
-                    <p>Open a Support Ticket <strong>#0e973975397375sfwf</strong></p>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium sem
-                      sit amet venenatis commodo. Nullam aliquam lacus nisl, varius luctus 
-                      mauris hendrerit ut. Etiam eros lectus, commodo nec nisl in, aliquet 
-                      congue quam. Morbi condimentum lectus id urna gravida, at facilisis 
-                      lectus consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing 
-                      elit.
-                    </p>
-                    <div class="attch_blk">
-                      <div class="img">
-                        <img src="/assets/attach-img.png" alt="">
+            <% @last_support.support_conversation.support_messages.each do |message|%>
+              <div class="msg_contain">
+                <div class="msg user">
+                  <div class="profile">
+                    <% if message.user.image.attached?%>
+                      <%= image_tag(message.user.image)%>
+                    <% else %>
+                      <img src="../../assets/images/default-profile.jpg" alt="">
+                    <%end%>
+                  </div>
+                  <div class="msg_wrapper">
+                    <div class="msg_blk">
+                      <p>Open a Support Ticket <strong><%=@last_support.ticket_number%></strong></p>
+                      <p><%=message.body%></p>
+                      <% if message.image.attached?%>
+                      <div class="attch_blk">
+                        <div class="img">
+                          <%= image_tag message.image.url %>
+                        </div>
+                        <button type="button" class="btn down_btn">
+                          <img src="/assets/icon-download.svg" alt="">
+                        </button>
                       </div>
-                      <button type="button" class="btn down_btn">
-                        <img src="/assets/icon-download.svg" alt="">
-                      </button>
+                      <%end%>
                     </div>
+                    <p><%=message.created_at.to_formatted_s(:long)%></p>
                   </div>
-                  <p>May 22, 2022 | 9:00am</p>
                 </div>
-              </div>
-              <div class="msg admin">
-                <div class="profile">
-                  <img src="/assets/support-user.png" alt="">
-                </div>
-                <div class="msg_wrapper">
-                  <div class="msg_blk">
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium sem
-                      sit amet venenatis commodo. Nullam aliquam lacus nisl, varius luctus 
-                      mauris hendrerit ut. Etiam eros lectus, commodo nec nisl in, aliquet 
-                      congue quam. Morbi condimentum lectus id urna gravida, at facilisis 
-                      lectus consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing 
-                      elit.
-                    </p>
+                <div class="msg admin">
+                  <div class="profile">
+                    <img src="/assets/support-user.png" alt="">
                   </div>
-                  <p>May 22, 2022 | 9:00am</p>
-                </div>
-              </div>
-              <div class="msg admin">
-                <div class="profile">
-                  <img src="/assets/support-user.png" alt="">
-                </div>
-                <div class="msg_wrapper">
-                  <div class="msg_blk">
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium sem
-                      sit amet venenatis commodo. Nullam aliquam lacus nisl, varius luctus 
-                      mauris hendrerit ut. Etiam eros lectus, commodo nec nisl in, aliquet 
-                      congue quam. Morbi condimentum lectus id urna gravida, at facilisis 
-                      lectus consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing 
-                      elit.
-                    </p>
-                    <div class="attch_blk">
-                      <div class="img">
-                        <img src="/assets/attach-img.png" alt="">
-                      </div>
-                      <button type="button" class="btn down_btn">
-                        <img src="/assets/icon-download.svg" alt="">
-                      </button>
+                  <div class="msg_wrapper">
+                    <div class="msg_blk">
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium sem
+                        sit amet venenatis commodo. Nullam aliquam lacus nisl, varius luctus 
+                        mauris hendrerit ut. Etiam eros lectus, commodo nec nisl in, aliquet 
+                        congue quam. Morbi condimentum lectus id urna gravida, at facilisis 
+                        lectus consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing 
+                        elit.
+                      </p>
                     </div>
+                    <p>May 22, 2022 | 9:00am</p>
                   </div>
-                  <p>May 22, 2022 | 9:00am</p>
                 </div>
               </div>
-              <div class="msg user">
-                <div class="profile">
-                  <img src="/assets/support-user.png" alt="">
+            <%end%>
+            <%= form_with url: admin_send_message_admins_supports_path do |f| %>
+              <%= hidden_field_tag :id, @last_support&.support_conversation.id %>
+              <div class="send_blk">
+                <div class="btn_blk flex-nowrap">
+                  <button type="button" class="btn att-btn">
+                    <%= image_tag "/assets/icon-attach.svg", alt: "attachFile", id: "clickaddfile" %>
+                    <%= f.file_field :file, accept: 'application/pdf,application/vnd.ms-excel', id: "submitaddfile", style: "opacity:0" %>
+                  </button>
+
+                  <button type="button" class="btn att-btn">
+                    <%= image_tag "/assets/icon-img", alt: "attachImage", id: "clickaddphoto" %>
+                    <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', id: "submitaddphoto", style: "opacity:0" %>
+                  </button>
                 </div>
-                <div class="msg_wrapper">
-                  <div class="msg_blk">
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium sem
-                      sit amet venenatis commodo. Nullam aliquam lacus nisl, varius luctus 
-                      mauris hendrerit ut. Etiam eros lectus, commodo nec nisl in, aliquet 
-                      congue quam. Morbi condimentum lectus id urna gravida, at facilisis 
-                      lectus consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing 
-                      elit.
-                    </p>
-                  </div>
-                  <p>May 22, 2022 | 9:00am</p>
-                </div>
-              </div>
-            </div>
-            <div class="send_blk">
-              <div class="btn_blk flex-nowrap">
-                <button type="button" class="btn att-btn">
-                  <img src="/assets/icon-attach.svg" alt="">
-                </button>
-                <button type="button" class="btn att-btn">
-                  <img src="/assets/icon-img.svg" alt="">
+
+                <input type="text" name="message" class="input" placeholder="Type your message here">
+                <button type="submit" class="btn send_btn">
+                  <img src="/assets/icon-send.svg" alt="">
                 </button>
               </div>
-              <input type="text" class="input" placeholder="Type your message here">
-              <button type="submit" class="btn send_btn">
-                <img src="/assets/icon-send.svg" alt="">
-              </button>
-            </div>
+            <%end%>
           </div>
         </div>
       </div>

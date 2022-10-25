@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_18_150021) do
+ActiveRecord::Schema.define(version: 2022_10_21_134409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,11 @@ ActiveRecord::Schema.define(version: 2022_10_18_150021) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "car_brand_id", null: false
+    t.string "color"
+    t.integer "length"
+    t.integer "width"
+    t.integer "height"
+    t.integer "released"
     t.index ["car_brand_id"], name: "index_car_models_on_car_brand_id"
   end
 
@@ -113,6 +118,13 @@ ActiveRecord::Schema.define(version: 2022_10_18_150021) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "parking_slots", force: :cascade do |t|
+    t.string "description"
+    t.boolean "availability", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "quick_chats", force: :cascade do |t|
     t.text "message"
     t.bigint "user_id", null: false
@@ -132,13 +144,13 @@ ActiveRecord::Schema.define(version: 2022_10_18_150021) do
 
   create_table "support_messages", force: :cascade do |t|
     t.string "body"
-    t.bigint "user_id", null: false
     t.bigint "support_conversation_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "read_status", default: false
+    t.integer "sender_id"
+    t.string "type"
     t.index ["support_conversation_id"], name: "index_support_messages_on_support_conversation_id"
-    t.index ["user_id"], name: "index_support_messages_on_user_id"
   end
 
   create_table "supports", force: :cascade do |t|
@@ -183,6 +195,9 @@ ActiveRecord::Schema.define(version: 2022_10_18_150021) do
     t.datetime "otp_expiry"
     t.boolean "is_info_complete", default: false
     t.integer "status"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "address"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -193,7 +208,6 @@ ActiveRecord::Schema.define(version: 2022_10_18_150021) do
   add_foreign_key "quick_chats", "users"
   add_foreign_key "support_conversations", "supports"
   add_foreign_key "support_messages", "support_conversations"
-  add_foreign_key "support_messages", "users"
   add_foreign_key "supports", "users"
   add_foreign_key "user_car_brands", "car_brands"
   add_foreign_key "user_car_brands", "car_details"

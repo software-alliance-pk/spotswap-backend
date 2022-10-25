@@ -1,0 +1,184 @@
+<section id="account_section">
+  <%= render :partial => "shared/sidebar" %>
+  <div id="car_modal" class="main_side">
+    <div id="top_header">
+      <h2><%=@car_models&.first&.car_brand&.title%></h2>
+      <div class="header_side">
+        <button type="button" class="noti_btn input">
+          <img src="/assets/icon-bell.svg" alt="">
+          <span>7</span>
+        </button>
+      </div>
+    </div>
+    <div class="search">
+      <div class="arrow_section">
+        <div class="img">
+          <a href="<%=admins_cars_path%>"><img src="/assets/arrow_left.svg" alt=""></a>
+        </div>
+        <div class="form_blk input round_input ">
+          <button class="btn">
+            <img src="/assets/Search.svg" alt="">
+          </button>
+          <input class="input" type="text" name="" id="" placeholder="Search car brand">
+        </div>
+      </div>
+      <div class="button_blk">
+        <button class="site_btn round bg_white">Export CSV
+          <div class="icon">
+            <img src="/assets/Download-black.svg" alt="">
+          </div>
+        </button>
+        <button class="site_btn round pop_btn" data-popup="Add_car_model">Add Car Model</button>
+      </div>
+    </div>
+    <!-- table_section -->
+    <%if @car_models.present?%>
+      <div id="table_users">
+
+        <div class="table__blk">
+          <%# pop up to edit sub admin %>
+          <div class="edit_popup_div"></div>
+
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 31rem;">MODEL</th>
+                <th style="width: 15rem;">COLOR</th>
+                <th style="width: 15rem;">LENGTH</th>
+                <th style="width: 15rem;">WIDTH</th>
+                <th style="width: 15rem;">HEIGHT</th>
+                <th style="width: 15rem;">RELEASED</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%@car_models.each do |model|%>
+                <tr>
+                  <td>
+                    <div class="user">
+                      <div class="ellipse">
+                        <% if model.image.attached?%>
+                          <%= image_tag(model.image)%>
+                        <% else %>
+                          <img src="/assets/default-profile.jpg" alt="">
+                        <%end%>
+                      </div>
+                      <div><%=model.car_brand.title%> <%=model.title%></div>
+                    </div>
+                  </td>
+                  <td><%=model.color%></td>
+                  <td><%=model.length%></td>
+                  <td><%=model.width%></td>
+                  <td><%=model.height%></td>
+                  <td>
+                    <div class="active ">
+                      <span><%=model.released%></span>
+                      <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                          <img src="/assets/dot-icon.svg" alt="">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <li class="dropdown-item">
+                            <a class="edit_car_model pop_btn" data-id="<%=model.id%>">Edit Details</a>
+                          </li>
+                          <li class="dropdown-item"><a href="<%=delete_model_admins_cars_path(id: model.id)%>">Delete</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              <%end%>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- pagination_section -->
+        <div class="paginate_sec">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="d-flex me-4">
+                Rows per page: 10
+              </li>
+              <li>1-10 of 30</li>
+              <li class="page_item me-4 d-flex">
+                <a class="page_link icon_blk fw_600" href="#">
+                  <img src="/assets/left-arrow-icon.svg" aria-hidden="true" alt="icon">
+                </a>
+                <a class="page_link icon_blk fw_600" href="#">
+                  <img src="/assets/right-arrow-icon.svg" aria-hidden="true" alt="icon">
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    <%end%>
+    
+    <div class="popup" data-popup="Add_car_model">
+      <div class="table_dv overlay">
+        <div class="table_cell">
+          <div class="contain-fluid">
+            <div class="row justify-content-center">
+              <div class="col-6">
+                <div class="_inner">
+                  <button type="button" class="x_btn"></button>
+                  <div class="log_strip"
+                    style="background-image: url('/assets/logon-strip.svg')">
+                    <p class="fs_5">Add Car Model</p>
+                  </div>
+                  <%= form_with url: create_model_admins_cars_path(brand_id: @car_models&.first&.car_brand&.id) do |f| %>
+                    <div class="prof_img" style="position:relative;">
+                      <div class="img" style="width:80%">
+                        <img src="/assets/upload-photo.png" alt="">
+                      </div>
+                      <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;" %>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                      <div class="form_blk">
+                        <label for="">Card Model</label>
+                        <input type="text" name="title" class="input" placeholder="type here">
+                      </div>
+                      <div class="form_blk">
+                        <label for="">Color</label>
+                        <input type="text" name="color" class="input" placeholder="type here">
+                      </div>
+                      <div class="form_blk">
+                        <label for="">Released</label>
+                        <input type="text" name="released" class="input" placeholder="type here">
+                      </div>
+    
+                        </div>
+                        <div class="col-md-6">
+                      <div class="form_blk">
+                        <label for="">Length</label>
+                        <input type="text" name="length" class="input" placeholder="type here">
+                      </div>
+                      <div class="form_blk">
+                        <label for="">Width</label>
+                        <input type="text" name="width" class="input" placeholder="type here">
+                      </div>
+                      <div class="form_blk">
+                        <label for="">Height</label>
+                        <input type="text" name="height" class="input" placeholder="type here">
+                      </div>
+                        </div>
+                    </div>
+                    <div class="btn_blk mt-5">
+                      <button class="site_btn px ">Add</button>
+                    </div>
+                  <%end%>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+</section>
+<!-- account_section -->
+<!-- Main Js -->
+<script src="/assets/main.js"></script>
