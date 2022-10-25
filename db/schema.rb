@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_25_095024) do
+ActiveRecord::Schema.define(version: 2022_10_25_134811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(version: 2022_10_25_095024) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "height"
+    t.integer "width"
     t.index ["user_id"], name: "index_car_details_on_user_id"
   end
 
@@ -217,6 +219,7 @@ ActiveRecord::Schema.define(version: 2022_10_25_095024) do
     t.float "longitude"
     t.string "address"
     t.string "stripe_customer_id"
+    t.string "country_code"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
