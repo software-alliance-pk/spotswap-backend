@@ -12,4 +12,5 @@ class User < ApplicationRecord
             length: { minimum: 6 },
             if: -> { new_record? || !password.nil? }
   validates :contact, presence: true, uniqueness: true
+  enum status: [:active, :disabled]
 end
