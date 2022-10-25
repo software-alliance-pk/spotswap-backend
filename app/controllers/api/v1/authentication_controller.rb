@@ -87,6 +87,8 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     @car_detail = CarDetail.find_by(id: params[:id]) if params[:id].present?
     if @car_detail.present?
       @car_detail.length = params[:length] if params[:length].present?
+      @car_detail.width = params[:width] if params[:width].present?
+      @car_detail.height = params[:height] if params[:height].present?
       @car_detail.color = params[:color] if params[:color].present?
       @car_detail.plate_number = params[:plate_number] if params[:plate_number].present?
 
@@ -136,11 +138,11 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def sign_up_params
-    params.permit(:name, :email, :contact, :password, :latitude, :longitude, :address, :image)
+    params.permit(:name, :email, :contact, :country_code, :password, :latitude, :longitude, :address, :image)
   end
 
   def create_car_profile_params
-    params.permit(:length, :color, :plate_number, :user_id, :car_brand_id, :car_model_id, :photos => [])
+    params.permit(:length, :width, :height, :color, :plate_number, :user_id, :car_brand_id, :car_model_id, :photos => [])
   end
 
 end
