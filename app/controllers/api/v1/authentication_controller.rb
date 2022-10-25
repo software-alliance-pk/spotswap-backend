@@ -136,7 +136,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def sign_up_params
-    params.permit(:name, :email, :contact, :password, :latitude, :longitude, :address)
+    params.permit(:name, :email, :contact, :password, :latitude, :longitude, :address, :image)
   end
 
   def create_car_profile_params
