@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :supports, dependent: :destroy
   has_many :mobile_devices, dependent: :destroy
+  has_many :card_details, dependent: :destroy
   has_many :quick_chats, dependent: :destroy
   has_one_attached :image, dependent: :destroy
   validates :email, presence: true, uniqueness: true

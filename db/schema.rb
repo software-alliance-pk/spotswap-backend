@@ -96,6 +96,22 @@ ActiveRecord::Schema.define(version: 2022_10_25_095024) do
     t.index ["car_brand_id"], name: "index_car_models_on_car_brand_id"
   end
 
+  create_table "card_details", force: :cascade do |t|
+    t.string "card_id"
+    t.integer "exp_month"
+    t.integer "exp_year"
+    t.string "brand"
+    t.string "country"
+    t.string "fingerprint"
+    t.string "last_digit"
+    t.string "name"
+    t.boolean "is_default", default: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_card_details_on_user_id"
+  end
+
   create_table "faqs", force: :cascade do |t|
     t.string "question"
     t.string "answer"
@@ -206,6 +222,7 @@ ActiveRecord::Schema.define(version: 2022_10_25_095024) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "car_details", "users"
   add_foreign_key "car_models", "car_brands"
+  add_foreign_key "card_details", "users"
   add_foreign_key "mobile_devices", "users"
   add_foreign_key "quick_chats", "users"
   add_foreign_key "support_conversations", "supports"

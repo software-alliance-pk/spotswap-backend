@@ -19,6 +19,8 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :cards
+
       resources :users ,only: [] do
         collection do
           get :get_user
