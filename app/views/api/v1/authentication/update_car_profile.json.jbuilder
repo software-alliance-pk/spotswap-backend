@@ -6,6 +6,7 @@ json.profile do
   json.car_height @car_detail.height
   json.car_color @car_detail.color
   json.plate_number @car_detail.plate_number
+  json.is_show @car_detail.is_show
   json.car_brand @car_detail.car_brand.title
   json.car_model @car_detail.car_model.title
   if @car_detail.photos.attached?
