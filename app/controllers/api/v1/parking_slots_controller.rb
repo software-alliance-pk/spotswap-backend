@@ -13,19 +13,19 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def make_slot_available
-      if @parking_slot.present?
-        if @parking_slot.availability?
-          if @parking_slot.update(availability: true)
-            @parking_slot
-          else
-            render_error_messages(@parking_slot)
-          end
-        else
+    if @parking_slot.present?
+      if @parking_slot.availability?
+        if @parking_slot.update(availability: true)
           @parking_slot
+        else
+          render_error_messages(@parking_slot)
         end
       else
-        render json: { error: "parking slot with this id is not present."}, status: :unprocessable_entity
+        @parking_slot
       end
+    else
+      render json: { error: "parking slot with this id is not present."}, status: :unprocessable_entity
+    end
   end
 
   private
