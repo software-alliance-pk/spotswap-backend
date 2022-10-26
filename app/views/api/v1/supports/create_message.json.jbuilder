@@ -4,5 +4,5 @@ json.support_message do
   json.user_id @support_message.user_id
   json.support_conversation_id @support_message.support_conversation_id
   json.read_status @support_message.read_status
-  json.support_message_image @support_message.image.attached? ? rails_blob_url(@support_message.image) : ""
+  json.support_message_image @support_message.image.attached? ? @support_message.image.url : ""
 end
