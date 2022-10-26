@@ -19,7 +19,17 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :cards
+      resources :cards ,only: [] do
+        collection do
+          get :get_all_cards
+          post :create_card
+          post :get_card
+          post :update_card
+          post :destroy_card
+          post :set_default_card
+          get :get_default_card
+        end
+      end
 
       resources :users ,only: [] do
         collection do

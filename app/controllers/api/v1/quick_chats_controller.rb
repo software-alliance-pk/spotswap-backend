@@ -35,13 +35,8 @@ class Api::V1::QuickChatsController < Api::V1::ApiController
   end
 
   def find_specific_quick_chat
-    if params[:id].present?
-      @quick_chat = @current_user.quick_chats.find_by(id: params[:id])
-      if !@quick_chat.present?
-        render json: {error: "No such quick chat is present"}, status: :unprocessable_entity
-      end
-    else
-      render json: {error: "Quick Chat id is missing"}, status: :precondition_failed
-    end
+    return render json: {error: "Quick chat id parameter is missing"},status: :unprocessable_entity
+    @quick_chat = @current_user.quick_chats.find_by(id: params[:id])
+    render json: {error: "No such quick chat is present"}, status: :unprocessable_entity unless @quick_chat.present?
   end
 end
