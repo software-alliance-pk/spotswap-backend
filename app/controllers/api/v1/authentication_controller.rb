@@ -91,7 +91,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
       @car_detail.height = params[:height] if params[:height].present?
       @car_detail.color = params[:color] if params[:color].present?
       @car_detail.plate_number = params[:plate_number] if params[:plate_number].present?
-      @car_detail.plate_number = params[:plate_number] if params[:plate_number].present?
+      @car_detail.is_show = params[:is_show] if params[:is_show].present?
 
       if params[:photos].present?
         @car_detail.photos.purge
