@@ -54,6 +54,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
       if user.present?
         ActiveRecord::Base.transaction do
           user.profile_complete = true
+          user.is_info_complete = true
           user.save
           @car_detail = user.build_car_detail(create_car_profile_params.except(:user_id, :car_brand_id, :car_model_id))
           if @car_detail.save
