@@ -1,13 +1,16 @@
 class Api::V1::CardsController < Api::V1::ApiController
-  Stripe.api_key = 'sk_test_51Lf25xJxAUizx0q5nlLODfQpgzjCZox9nBzMEGUc3hzSW4ywx7GOU69fuA0FyJ30GSyhIkGFX1RadDP4NuAyqc8B00xyKRAs2h'
+  Stripe.api_key = 'sk_test_51LxA5aDG0Cz60XkmJmG5SqF65UOdl7MC8qoJPwfKZdxw09kRSDUnO649B6UhZuzn05DMILFoy4Ptbz8zDSh1NeBy001ulT1oYP'
+  before_action :authorize_request
   before_action :find_card, only: [:get_card, :destroy_card, :update_card, :set_default_card]
 
-  def create
+  def create_card
+    return render json: {error: "Stripe Token parameter is missing "}, status: :unprocessable_entity unless payment_params[:token].present?
+    return render json: {error: "Card name parameter is missing"},status: :unprocessable_entity unless payment_params[:name].present?
     customer = check_customer_at_stripe
     stripe_token = payment_params[:token]
     card_name =  payment_params[:name]
     card = StripeService.create_card(customer.id,stripe_token)
-    return render json: { message: "Card is not created on Stripe" }, status: 422 if card.blank?
+    return render json: { error: "Card is not created on Stripe" }, status: 422 if card.blank?
     @card = create_user_payment_card(card)
     make_first_card_as_default
     if @card
@@ -45,7 +48,7 @@ class Api::V1::CardsController < Api::V1::ApiController
   end
 
   def update_card
-    if @card&.update(name: payment_params[:name], country: payment_params[:country])
+    if @card&.update(name: payment_params[:name])
       @card
     else
       render_error_messages(@card)
@@ -61,25 +64,22 @@ class Api::V1::CardsController < Api::V1::ApiController
   end
 
   def get_default_card
-    @card = @current_user.card_details&.is_default.take
-    if @card
+    @card = @current_user.card_details.where(is_default: true).take
+    if @card.present?
       @card
     else
-      render json: { message: "user has no card" }
+      render json: { error: "User has no default card" }, status: :unprocessable_entity
     end
   end
 
   private
   def find_card
-    if payment_params[:id].present?
-      @card = CardDetail.find_by(id: payment_params[:id])
-      if @card
-        @card
-      else
-        render json: { message: "No such card exists" }, status: :ok
-      end
+    return render json: {error: "Payment id parameter is missing"},status: :unprocessable_entity unless payment_params[:id].present?
+    @card = CardDetail.find_by(id: payment_params[:id])
+    if @card.present?
+      @card
     else
-      render json: { message: "Payment id parameter is missing" }, status: :ok
+      render json: { error: "No such card exists" }, status: :unprocessable_entity
     end
   end
 
@@ -100,13 +100,13 @@ class Api::V1::CardsController < Api::V1::ApiController
   def create_user_payment_card(card)
     @current_user.card_details.create(
       card_id: card.id, exp_month: card.exp_month,
-      exp_year: card.exp_year, last4: card.last_digit,
-      brand: card.brand, country: payment_params[:country],
+      exp_year: card.exp_year, last_digit: card.last4,
+      brand: card.brand, country: card.country,
       fingerprint: card.fingerprint, name: payment_params[:name]
     )
   end
 
   def payment_params
-    params.require(:payment).permit(:token, :name, :id, :country)
+    params.permit(:token, :name, :id)
   end
 end

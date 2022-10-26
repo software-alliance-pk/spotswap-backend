@@ -1,8 +1,11 @@
 class Api::V1::AuthenticationController < Api::V1::ApiController
   before_action :create_car_profile_params, only: [:create_car_profile]
   before_action :authorize_request, only: [:get_car_profile, :notification_fcm_token, :logout]
+  before_action :check_the_params_of_request, only: [:update_car_profile]
 
   def login
+    return render json: { error: "Email parameter is missing" }, status: :unprocessable_entity
+    return render json: { error: "Password parameter is missing" },status: :unprocessable_entity
     @user = User.find_by_email(params[:email])
     if @user&.authenticate(params[:password])
       @token = JsonWebToken.encode(user_id: @user.id)
@@ -22,19 +25,19 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def notification_fcm_token
-    if params.values_at(*%i( fcm_token latitude longitude address )).all?(&:present?)
-      if @current_user.update(latitude: params[:latitude], longitude: params[:longitude], address: params[:address])
-      else
-        render json: { error: "params latitude, longitude and address could not updated, something went wrong." }, status: :unprocessable_entity
-      end
-
-      if @current_user.mobile_devices.create(mobile_device_token: params[:fcm_token])
-        render json: { message: "fcm token has been associated with user.", fcm_token: params[:fcm_token] }, status: :ok
-      else
-        render json: { error: "fcm token could not associated with user, something went wrong." }, status: :unprocessable_entity
-      end
+    return render json: { error: "FCM token parameter is missing"}, status: :unprocessable_entity unless params[:fcm_token].present?
+    return render json: { error: "Latitude parameter is missing"},status: :unprocessable_entity unless params[:latitude].present?
+    return render json: { error: "Longitude parameter is missing "},status: :unprocessable_entity unless params[:longitude].present?
+    return render json: { error: "Address parameter is missing"},status: :unprocessable_entity unless params[:address].present?
+    if @current_user.present?
+        @current_user.update(latitude: params[:latitude], longitude: params[:longitude], address: params[:address])
+        if @current_user.mobile_devices.create(mobile_device_token: params[:fcm_token])
+          render json: { message: "fcm token has been associated with user.", fcm_token: params[:fcm_token] }, status: :ok
+        else
+          render json: { error: "fcm token could not associated with user, something went wrong." }, status: :unprocessable_entity
+        end
     else
-      render json: { error: "all params fcm_token, latitude, longitude and address must present." }, status: :unprocessable_entity
+      render json: { error: "params latitude, longitude and address could not updated, something went wrong." }, status: :unprocessable_entity
     end
   end
 
@@ -85,39 +88,16 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def update_car_profile
-    @car_detail = CarDetail.find_by(id: params[:id]) if params[:id].present?
-    if @car_detail.present?
-      @car_detail.length = params[:length] if params[:length].present?
-      @car_detail.width = params[:width] if params[:width].present?
-      @car_detail.height = params[:height] if params[:height].present?
-      @car_detail.color = params[:color] if params[:color].present?
-      @car_detail.plate_number = params[:plate_number] if params[:plate_number].present?
-      @car_detail.is_show = params[:is_show] if params[:is_show].present?
-
-      if params[:photos].present?
-        @car_detail.photos.purge
-        @car_detail.photos.attach(params[:photos])
-      end
-      if @car_detail.save
-        if params[:car_brand_id].present?
-          @user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
-          if @user_car_brand.save
-          else
-            render json: { errors: @user_car_brand.errors.full_messages }, status: :unprocessable_entity
-          end
-        end
-        if params[:car_model_id].present?
-          @user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
-          if @user_car_model.save
-          else
-            render json: { errors: @user_car_model.errors.full_messages }, status: :unprocessable_entity
-          end
-        end
-      else
-        render json: { errors: @car_detail.errors.full_messages }, status: :unprocessable_entity
-      end
+    @car_detail = CarDetail.find_by_id(params[:id])
+    @car_detail.photos.purge if params[:photos].present? 
+    @car_detail.photos.attach(params[:photos]) if params[:photos].present?
+    if @car_detail.save
+        @user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
+        @user_car_brand.save
+        @user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
+        @user_car_model.save
     else
-      render json: { message: "car detail with this id is not present."}
+      render json: { errors: @car_detail.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -126,14 +106,28 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def get_car_profile
-    @car_detail = CarDetail.find_by(id: params[:id]) if params[:id].present?
+    return render json: { error: "car detail with this id is not present." }, status: :unprocessable_entity  unless params[:id].present?
+    @car_detail = CarDetail.find_by_id(params[:id])
     if @car_detail.present?
+      @car_detail
     else
-      render json: { message: "car detail with this id is not present." }
+      render json: { message: "car detail with this id is not present." }, status: :unprocessable_entity
     end
   end
 
   private
+
+  def check_the_params_of_request
+    return render json: { error: "Id parameter is missing" },status: :unprocessable_entity unless params[:id].present?
+    return render json: { error: "Length parameter is missing"  },status: :unprocessable_entity unless params[:length].present?
+    return render json: { error: "Width parameter is missing" },status: :unprocessable_entity unless params[:width].present?
+    return render json: { error: "Height parameter is missing"  },status: :unprocessable_entity unless params[:height].present?
+    return render json: { error: "Color parameter is missing" },status: :unprocessable_entity unless params[:color].present?
+    return render json: { error: "Plate number parameter is missing"  },status: :unprocessable_entity unless params[:plate_number].present?
+    return render json: { error: "Is show parameter is missing" },status: :unprocessable_entity unless params[:is_show].present?
+    return render json: { error: "Car brand id parameter is missing" },status: :unprocessable_entity unless params[:car_brand_id].present?
+    return render json: { error: "Car model parameter is missing" },status: :unprocessable_entity unless params[:car_model_id].present?
+  end
 
   def login_params
     params.permit(:email, :password)
