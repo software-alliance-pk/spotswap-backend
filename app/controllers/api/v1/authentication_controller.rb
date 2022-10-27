@@ -96,10 +96,10 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     @car_detail.is_show = params[:is_show]
     
     if @car_detail.update(car_profile_params.except(:user_id, :car_brand_id, :car_model_id))
-        @user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
-        @user_car_brand.save
-        @user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
-        @user_car_model.save
+      @user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
+      return render json: { errors: @user_car_brand.errors.full_messages }, status: :unprocessable_entity unless @user_car_brand.save
+      @user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
+      return render json: { errors: @user_car_model.errors.full_messages }, status: :unprocessable_entity unless @user_car_model.save
     else
       render json: { errors: @car_detail.errors.full_messages }, status: :unprocessable_entity
     end
