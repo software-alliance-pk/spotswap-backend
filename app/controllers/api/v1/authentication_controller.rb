@@ -92,7 +92,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     @car_detail = CarDetail.find_by_id(params[:id])
     return render json: { errors: "car detail with this id is not present." }, status: :unprocessable_entity unless @car_detail.present?
 
-    @car_detail.photos.purge if params[:photos].present?
+    #@car_detail.photos.purge if params[:photos].present?
     @car_detail.is_show = params[:is_show]
     
     if @car_detail.update(car_profile_params.except(:user_id, :car_brand_id, :car_model_id))
