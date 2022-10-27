@@ -48,7 +48,7 @@ class Api::V1::CardsController < Api::V1::ApiController
   end
 
   def update_card
-    if @card&.update(name: payment_params[:name])
+    if @card&.update(payment_params.except(:token, :id))
       @card
     else
       render_error_messages(@card)
@@ -102,11 +102,12 @@ class Api::V1::CardsController < Api::V1::ApiController
       card_id: card.id, exp_month: card.exp_month,
       exp_year: card.exp_year, last_digit: card.last4,
       brand: card.brand, country: card.country,
-      fingerprint: card.fingerprint, name: payment_params[:name]
+      fingerprint: card.fingerprint, name: payment_params[:name],
+      address: payment_params[:address]
     )
   end
 
   def payment_params
-    params.permit(:token, :name, :id)
+    params.permit(:token, :name, :id, :address)
   end
 end
