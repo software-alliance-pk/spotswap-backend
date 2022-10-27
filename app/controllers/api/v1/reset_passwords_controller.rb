@@ -33,7 +33,7 @@ class Api::V1::ResetPasswordsController < Api::V1::ApiController
   def reset_password
     return render json: {error: "Password parameter is missing"}, status: :unprocessable_entity unless params[:password].present? 
     return render json: {error: "Confirm password parameter is missing"}, status: :unprocessable_entity unless params[:password_confirmation].present? 
-    return render json: {error: "Password does n't match"}, status: :unprocessable_entity unless params[:password] == params[:password_confirmation]
+    return render json: {error: "Password does not match"}, status: :unprocessable_entity unless params[:password] == params[:password_confirmation]
     if @user.update(password: params[:password])
       render json: { message: "Password updated successfully"}, status: :ok
     else

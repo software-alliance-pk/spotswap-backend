@@ -14,7 +14,7 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
 
   def make_slot_available
     if @parking_slot.present?
-      if @parking_slot.availability?
+      unless @parking_slot.availability?
         if @parking_slot.update(availability: true)
           @parking_slot
         else

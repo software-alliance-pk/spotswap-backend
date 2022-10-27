@@ -1,5 +1,5 @@
 class Api::V1::FaqsController < Api::V1::ApiController
-  before_action :check_the_params_of_request, only: [:create_faq,:update_faq]
+  before_action :check_the_params_of_request, only: [:create_faq, :update_faq]
   before_action :find_faq, only: [:delete_faq, :update_faq]
   before_action :faq_params, only: [:create_faq, :update_faq]
 
@@ -25,8 +25,8 @@ class Api::V1::FaqsController < Api::V1::ApiController
   end
 
   def delete_faq
-      @faq.destroy
-      render json: { message: "Faq is removed successfully"}, status: :ok
+    @faq.destroy
+    render json: { message: "Faq is removed successfully"}, status: :ok
   end
 
   private

@@ -1,11 +1,12 @@
 class Api::V1::AuthenticationController < Api::V1::ApiController
-  before_action :create_car_profile_params, only: [:create_car_profile]
+  before_action :car_profile_params, only: [:create_car_profile, :update_car_profile]
   before_action :authorize_request, only: [:get_car_profile, :notification_fcm_token, :logout]
   before_action :check_the_params_of_request, only: [:update_car_profile]
 
   def login
-    return render json: { error: "Email parameter is missing" }, status: :unprocessable_entity
-    return render json: { error: "Password parameter is missing" },status: :unprocessable_entity
+    return render json: { error: "Email parameter is missing" }, status: :unprocessable_entity unless params[:email].present?
+    return render json: { error: "Password parameter is missing" }, status: :unprocessable_entity unless params[:password].present?
+
     @user = User.find_by_email(params[:email])
     if @user&.authenticate(params[:password])
       @token = JsonWebToken.encode(user_id: @user.id)
@@ -52,14 +53,14 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def create_car_profile
-    if create_car_profile_params[:user_id].present? && create_car_profile_params[:car_brand_id].present? && create_car_profile_params[:car_model_id].present?
+    if car_profile_params[:user_id].present? && car_profile_params[:car_brand_id].present? && car_profile_params[:car_model_id].present?
       user = User.find_by(id: params[:user_id])
       if user.present?
         ActiveRecord::Base.transaction do
           user.profile_complete = true
           user.is_info_complete = true
           user.save
-          @car_detail = user.build_car_detail(create_car_profile_params.except(:user_id, :car_brand_id, :car_model_id))
+          @car_detail = user.build_car_detail(car_profile_params.except(:user_id, :car_brand_id, :car_model_id))
           if @car_detail.save
             user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
             if user_car_brand.save
@@ -80,7 +81,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
           end
         end
       else
-        render json: { message: "User does not exists against this id." }
+        render json: { message: "User does not exist against this id." }
       end
     else
       render json: { message: "user_id, car_brand_id and car_model_id should be present." }
@@ -89,9 +90,12 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
 
   def update_car_profile
     @car_detail = CarDetail.find_by_id(params[:id])
-    @car_detail.photos.purge if params[:photos].present? 
-    @car_detail.photos.attach(params[:photos]) if params[:photos].present?
-    if @car_detail.save
+    return render json: { errors: "car detail with this id is not present." }, status: :unprocessable_entity unless @car_detail.present?
+
+    @car_detail.photos.purge if params[:photos].present?
+    @car_detail.is_show = params[:is_show]
+    
+    if @car_detail.update(car_profile_params.except(:user_id, :car_brand_id, :car_model_id))
         @user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
         @user_car_brand.save
         @user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
@@ -102,7 +106,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def get_car_specification
-    @info =  CarBrand.all
+    @info = CarBrand.all
   end
 
   def get_car_profile
@@ -137,7 +141,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     params.permit(:name, :email, :contact, :country_code, :password, :latitude, :longitude, :address, :image)
   end
 
-  def create_car_profile_params
+  def car_profile_params
     params.permit(:length, :width, :height, :color, :plate_number, :user_id, :car_brand_id, :car_model_id, :photos => [])
   end
 
