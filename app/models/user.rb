@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :mobile_devices, dependent: :destroy
   has_many :card_details, dependent: :destroy
   has_many :quick_chats, dependent: :destroy
+  has_many :blocked_user_details, dependent: :destroy
+  has_and_belongs_to_many :conversations, dependent: :destroy
   has_one_attached :image, dependent: :destroy
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }

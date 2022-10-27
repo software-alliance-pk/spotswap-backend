@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_27_111139) do
+ActiveRecord::Schema.define(version: 2022_10_27_122049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,14 @@ ActiveRecord::Schema.define(version: 2022_10_27_111139) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "blocked_user_details", force: :cascade do |t|
+    t.integer "blocked_user_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_blocked_user_details_on_user_id"
+  end
+
   create_table "car_brands", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
@@ -116,11 +124,27 @@ ActiveRecord::Schema.define(version: 2022_10_27_111139) do
     t.index ["user_id"], name: "index_card_details_on_user_id"
   end
 
+  create_table "conversations", force: :cascade do |t|
+    t.integer "sender_id", null: false
+    t.integer "recepient_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "faqs", force: :cascade do |t|
     t.string "question"
     t.string "answer"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "body"
+    t.boolean "read_status", default: false
+    t.bigint "conversation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
   end
 
   create_table "mobile_devices", force: :cascade do |t|
@@ -226,9 +250,11 @@ ActiveRecord::Schema.define(version: 2022_10_27_111139) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "blocked_user_details", "users"
   add_foreign_key "car_details", "users"
   add_foreign_key "car_models", "car_brands"
   add_foreign_key "card_details", "users"
+  add_foreign_key "messages", "conversations"
   add_foreign_key "mobile_devices", "users"
   add_foreign_key "quick_chats", "users"
   add_foreign_key "support_conversations", "supports"
