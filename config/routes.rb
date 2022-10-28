@@ -36,6 +36,9 @@ Rails.application.routes.draw do
           post :get_all_messages
           post :create_message
           post :delete_message
+          post :delete_conversation
+          post :block_user
+          post :unblock_user
         end
       end
 
