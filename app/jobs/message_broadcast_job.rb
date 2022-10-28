@@ -3,10 +3,9 @@ class MessageBroadcastJob < ApplicationJob
 
   def perform(message)
     payload = {
-      room_id: message.conversation.id,
+      converastion_id: message.conversation.id,
       content: message.body,
-      sender: message.sender,
-      participants: message.conversation.users.collect(&:id)
+      sender: message.user,
     }
     ActionCable.server.broadcast(build_room_id(message.conversation.id), payload)
   end
