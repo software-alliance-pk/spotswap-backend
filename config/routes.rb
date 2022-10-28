@@ -31,6 +31,14 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :messages ,only: [] do
+        collection do
+          post :get_all_messages
+          post :create_message
+          post :delete_message
+        end
+      end
+
       resources :users ,only: [] do
         collection do
           get :get_user
