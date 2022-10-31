@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
       resources :messages ,only: [] do
         collection do
+          get :get_all_conversations
           post :get_all_messages
           post :create_message
           post :delete_message

@@ -1,8 +1,7 @@
 class Api::V1::MessagesController < Api::V1::ApiController
   before_action :authorize_request
-  before_action :find_conversation, only: [:create_message, :get_all_messages]
+  before_action :find_conversation, only: [:create_message, :get_all_messages, :delete_conversation]
   before_action :find_message, only: [:delete_message]
-  before_action :find_conversation, only: [:delete_conversation]
 
   def create_message
     @message = @current_user.messages.build(message_params)
@@ -15,6 +14,10 @@ class Api::V1::MessagesController < Api::V1::ApiController
 
   def get_all_messages
 	  @messages = @conversation.messages.all.order(created_at: :desc)
+  end
+
+  def get_all_conversations
+	  @conversations = Conversation.where(sender_id: @current_user.id)or(Conversation.where(recepient_id: @current_user.id)).order(created_at: :desc)
   end
 
   def delete_message

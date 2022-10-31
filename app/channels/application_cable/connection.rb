@@ -18,14 +18,14 @@ module ApplicationCable
     attr_reader :jwt_token
     def find_verified_user
       payload = decode_token
-      User.find_by_email(payload["email"])
+      User.find_by_id(payload["user_id"])
     end
 
     def find_verified_admin
       if verified_user = env['warden'].user
         verified_user
       else
-        reject_unauthorized_connection
+        render json: reject_unauthorized_connection
       end
     end
     def decode_token
