@@ -5,6 +5,8 @@ json.cards @cards do |card|
   json.country card.country
   json.address card.address
   json.last_digit card.last_digit
+  json.exp_month card.exp_month
+  json.exp_year card.exp_year
   json.is_default card.is_default
   json.user_id card.user_id
 end
