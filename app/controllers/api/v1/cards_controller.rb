@@ -98,11 +98,6 @@ class Api::V1::CardsController < Api::V1::ApiController
   end
 
   def create_user_payment_card(card)
-    puts "---------------------"
-    puts @current_user.card_details.new
-    puts "---------------------"
-    payment_params[:address]
-    puts "---------------------"
     @current_user.card_details.create(
       card_id: card.id, exp_month: card.exp_month,
       exp_year: card.exp_year, last_digit: card.last4,
