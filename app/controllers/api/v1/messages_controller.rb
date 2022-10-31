@@ -17,7 +17,7 @@ class Api::V1::MessagesController < Api::V1::ApiController
   end
 
   def get_all_conversations
-	  @conversations = Conversation.where(sender_id: @current_user.id)or(Conversation.where(recepient_id: @current_user.id)).order(created_at: :desc)
+	  @conversations = Conversation.where(sender_id: @current_user.id).or(Conversation.where(recepient_id: @current_user.id)).order(created_at: :desc)
   end
 
   def delete_message
