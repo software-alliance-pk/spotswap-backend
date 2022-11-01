@@ -113,6 +113,7 @@ Rails.application.routes.draw do
     resources :dashboard, only: [] do
       collection do
         get :index
+        get :sub_admins_index
       end
     end
 
