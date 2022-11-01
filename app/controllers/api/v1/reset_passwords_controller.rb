@@ -16,7 +16,7 @@ class Api::V1::ResetPasswordsController < Api::V1::ApiController
     begin
       UserMailer.send_email(@user, @otp).deliver_now
     rescue  => e
-      return render json: { message: e.error_message}, status: 422
+      return render json: { error: e.error_message}, status: 422
     end
     @user.update(otp: @otp, otp_expiry:(Time.current + 2.minutes))  
   end
@@ -39,7 +39,7 @@ class Api::V1::ResetPasswordsController < Api::V1::ApiController
     if @user.update(password: params[:password])
       render json: { message: "Password updated successfully"}, status: :ok
     else
-      render json: { message: @user.errors.full_messages }, status: 422 
+      render json: { error: @user.errors.full_messages }, status: 422 
     end
   end
 
