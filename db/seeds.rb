@@ -1,27 +1,19 @@
-CarBrand.create(title: "Tesla")
-CarBrand.create(title: "Toyota")
-CarBrand.create(title: "Hyundai")
-CarBrand.create(title: "Isuzu")
-
-CarModel.create(title: "Electric", car_brand_id: 1)
-CarModel.create(title: "Electric BMW", car_brand_id: 1)
-CarModel.create(title: "Electric Mehran", car_brand_id: 1)
-CarModel.create(title: "Hybrid", car_brand_id: 1)
-
-CarModel.create(title: "Model 1", car_brand_id: 2)
-CarModel.create(title: "Model 2", car_brand_id: 2)
-CarModel.create(title: "Model 3", car_brand_id: 2)
-CarModel.create(title: "Model 4", car_brand_id: 2)
-
-CarModel.create(title: "Model 1", car_brand_id: 3)
-CarModel.create(title: "Model 2", car_brand_id: 3)
-CarModel.create(title: "Model 3", car_brand_id: 3)
-CarModel.create(title: "Model 4", car_brand_id: 3)
-
-CarModel.create(title: "Model 1", car_brand_id: 4)
-CarModel.create(title: "Model 2", car_brand_id: 4)
-CarModel.create(title: "Model 3", car_brand_id: 4)
-CarModel.create(title: "Model 4", car_brand_id: 4)
+car_brand = CarBrand.create(title: "Tesla")
+1.upto(4) do |index|
+  car_brand.car_models.create(title: "Model #{index}")
+end
+car_brand = CarBrand.create(title: "Toyota")
+1.upto(4) do |index|
+  car_brand.car_models.create(title: "Model #{index}")
+end
+car_brand = CarBrand.create(title: "Hyundai")
+1.upto(4) do |index|
+  car_brand.car_models.create(title: "Model #{index}")
+end
+car_brand = CarBrand.create(title: "Isuzu")
+1.upto(4) do |index|
+  car_brand.car_models.create(title: "Model #{index}")
+end
 
 Page.destroy_all
 Page.create(title: "Terms & Conditions", permalink: "terms&condition",content: "<h3 style='color:white;'> General Terms </h3>
