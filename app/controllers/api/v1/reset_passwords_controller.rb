@@ -23,10 +23,12 @@ class Api::V1::ResetPasswordsController < Api::V1::ApiController
   
   def verify_otp
     return render json: {error: "OTP parameter is missing"}, status: :unprocessable_entity unless params[:otp].present? 
-    if @user.otp == params[:otp].to_i && @user.otp_expiry >= Time.current && params[:otp].present?
-      render json: { message: "otp is verified" }
+    if @user.otp == params[:otp].to_i && @user.otp_expiry >= Time.current
+      render json: { message: "otp is verified" }, status: :ok
+    elsif @user.otp_expiry < Time.current
+      render json: { error: "otp has been expired."}, status: :unprocessable_entity
     else
-      render json: { message: "otp is not valid"}, status: :unprocessable_entity
+      render json: { error: "otp is not valid"}, status: :unprocessable_entity
     end
   end
 
