@@ -40,258 +40,34 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <div class="user">
-                <div class="ellipse">
-                  <img src="/assets/Ellipse-user.svg" alt="">
+          <% @sub_admins.each do |sub_admin|%>
+            <tr>
+              <td>
+                <div class="user">
+                  <div class="ellipse">
+                    
+                  </div>
+                  <div><%=sub_admin.full_name%></div>
                 </div>
-                <div>Alexander Lester</div>
-              </div>
-            </td>
-            <td>alexanderlester@gmail.com</td>
-            <td>+123 1324 13244 0000</td>
-            <td>California</td>
-            <td>
-              <div class="active ">
-                <span>Active</span>
-                <div class="dropdown">
-                  <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/assets/dot-icon.svg" alt="">
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">View Details</a></li>
-                    <li><a class="dropdown-item" href="#">Send Money</a></li>
-                    <li><a class="dropdown-item" href="#">Disable</a></li>
-                  </ul>
-                </div>      
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="user">
-                <div class="ellipse">
-                  <img src="/assets/Ellipse-user.svg" alt="">
+              </td>
+              <td><%=sub_admin.email%></td>
+              <td><%=sub_admin.contact%></td>
+              <td><%=sub_admin.location%></td>
+              <td>
+                <div class="active ">
+                  <span><%=sub_admin.status%></span>
+                  <div class="dropdown">
+                    <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="/assets/dot-icon.svg" alt="">
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" href="#">Disable</a></li>
+                    </ul>
+                  </div>      
                 </div>
-                <div>Alexander Lester</div>
-              </div>
-            </td>
-            <td>alexanderlester@gmail.com</td>
-            <td>+123 1324 13244 0000</td>
-            <td>California</td>
-            <td>
-              <div class="active ">
-                <span>Active</span>
-                <div class="dropdown">
-                  <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/assets/dot-icon.svg" alt="">
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">View Details</a></li>
-                    <li><a class="dropdown-item" href="#">Send Money</a></li>
-                    <li><a class="dropdown-item" href="#">Disable</a></li>
-                  </ul>
-                </div>      
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="user">
-                <div class="ellipse">
-                  <img src="/assets/Ellipse-user.svg" alt="">
-                </div>
-                <div>Alexander Lester</div>
-              </div>
-            </td>
-            <td>alexanderlester@gmail.com</td>
-            <td>+123 1324 13244 0000</td>
-            <td>California</td>
-            <td>
-              <div class="active ">
-                <span>Active</span>
-                <div class="dropdown">
-                  <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/assets/dot-icon.svg" alt="">
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">View Details</a></li>
-                    <li><a class="dropdown-item" href="#">Send Money</a></li>
-                    <li><a class="dropdown-item" href="#">Disable</a></li>
-                  </ul>
-                </div>      
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="user">
-                <div class="ellipse">
-                  <img src="/assets/Ellipse-user.svg" alt="">
-                </div>
-                <div>Alexander Lester</div>
-              </div>
-            </td>
-            <td>alexanderlester@gmail.com</td>
-            <td>+123 1324 13244 0000</td>
-            <td>California</td>
-            <td>
-              <div class="active ">
-                <span>Active</span>
-                <div class="dropdown">
-                  <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/assets/dot-icon.svg" alt="">
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">View Details</a></li>
-                    <li><a class="dropdown-item" href="#">Send Money</a></li>
-                    <li><a class="dropdown-item" href="#">Disable</a></li>
-                  </ul>
-                </div>      
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="user">
-                <div class="ellipse">
-                  <img src="/assets/Ellipse-user.svg" alt="">
-                </div>
-                <div>Alexander Lester</div>
-              </div>
-            </td>
-            <td>alexanderlester@gmail.com</td>
-            <td>+123 1324 13244 0000</td>
-            <td>California</td>
-            <td>
-              <div class="active ">
-                <span>Active</span>
-                <div class="dropdown">
-                  <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/assets/dot-icon.svg" alt="">
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">View Details</a></li>
-                    <li><a class="dropdown-item" href="#">Send Money</a></li>
-                    <li><a class="dropdown-item" href="#">Disable</a></li>
-                  </ul>
-                </div>      
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="user">
-                <div class="ellipse">
-                  <img src="/assets/Ellipse-user.svg" alt="">
-                </div>
-                <div>Alexander Lester</div>
-              </div>
-            </td>
-            <td>alexanderlester@gmail.com</td>
-            <td>+123 1324 13244 0000</td>
-            <td>California</td>
-            <td>
-              <div class="active ">
-                <span>Active</span>
-                <div class="dropdown">
-                  <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/assets/dot-icon.svg" alt="">
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">View Details</a></li>
-                    <li><a class="dropdown-item" href="#">Send Money</a></li>
-                    <li><a class="dropdown-item" href="#">Disable</a></li>
-                  </ul>
-                </div>      
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="user">
-                <div class="ellipse">
-                  <img src="/assets/Ellipse-user.svg" alt="">
-                </div>
-                <div>Alexander Lester</div>
-              </div>
-            </td>
-            <td>alexanderlester@gmail.com</td>
-            <td>+123 1324 13244 0000</td>
-            <td>California</td>
-            <td>
-              <div class="active ">
-                <span>Active</span>
-                <div class="dropdown">
-                  <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/assets/dot-icon.svg" alt="">
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">View Details</a></li>
-                    <li><a class="dropdown-item" href="#">Send Money</a></li>
-                    <li><a class="dropdown-item" href="#">Disable</a></li>
-                  </ul>
-                </div>      
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="user">
-                <div class="ellipse">
-                  <img src="/assets/Ellipse-user.svg" alt="">
-                </div>
-                <div>Alexander Lester</div>
-              </div>
-            </td>
-            <td>alexanderlester@gmail.com</td>
-            <td>+123 1324 13244 0000</td>
-            <td>California</td>
-            <td>
-              <div class="active ">
-                <span>Active</span>
-                <div class="dropdown">
-                  <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/assets/dot-icon.svg" alt="">
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">View Details</a></li>
-                    <li><a class="dropdown-item" href="#">Send Money</a></li>
-                    <li><a class="dropdown-item" href="#">Disable</a></li>
-                  </ul>
-                </div>      
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="user">
-                <div class="ellipse">
-                  <img src="/assets/Ellipse-user.svg" alt="">
-                </div>
-                <div>Alexander Lester</div>
-              </div>
-            </td>
-            <td>alexanderlester@gmail.com</td>
-            <td>+123 1324 13244 0000</td>
-            <td>California</td>
-            <td>
-              <div class="active ">
-                <span>Active</span>
-                <div class="dropdown">
-                  <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/assets/dot-icon.svg" alt="">
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">View Details</a></li>
-                    <li><a class="dropdown-item" href="#">Send Money</a></li>
-                    <li><a class="dropdown-item" href="#">Disable</a></li>
-                  </ul>
-                </div>      
-              </div>
-            </td>
-          </tr>
+              </td>
+            </tr>
+          <%end%>
         </tbody>
       </table>
     </div>
