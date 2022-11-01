@@ -114,6 +114,7 @@ Rails.application.routes.draw do
       collection do
         get :index
         get :sub_admins_index
+        post :create_sub_admin
       end
     end
 
