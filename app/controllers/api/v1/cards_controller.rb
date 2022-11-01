@@ -44,7 +44,7 @@ class Api::V1::CardsController < Api::V1::ApiController
       end
       render json: { message: "Card deleted successfully!" }, status: 200
     else
-      render json: { message: "Such card does not exists" }, status: 200
+      render json: { error: "Such card does not exists" }, status: 200
     end
   end
 

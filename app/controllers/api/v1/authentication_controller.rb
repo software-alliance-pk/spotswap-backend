@@ -21,7 +21,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     if @user.save
       @token = JsonWebToken.encode(user_id: @user.id)
     else
-      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+      render_error_messages(@user)
     end
   end
 
@@ -48,7 +48,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
       fcm_token.destroy
       render json: { message: "Log out successfully" }, status: :ok
     else
-      render json: { message: "Something went wrong" }, status: :unprocessable_entity
+      render json: { error: "Something went wrong" }, status: :unprocessable_entity
     end
   end
 
@@ -68,40 +68,39 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
               if user_car_model.save
                 @car_detail
               else
-                render json: { errors: user_car_model.errors.full_messages }, status: :unprocessable_entity
+                render_error_messages(user_car_model)
                 raise ActiveRecord::Rollback
               end
             else
-              render json: { errors: user_car_brand.errors.full_messages }, status: :unprocessable_entity
+              render_error_messages(user_car_brand)
               raise ActiveRecord::Rollback
             end
           else
-            render json: { errors: @car_detail.errors.full_messages }, status: :unprocessable_entity
+            render_error_messages(@car_detail)
             raise ActiveRecord::Rollback
           end
         end
       else
-        render json: { message: "User does not exist against this id." }
+        render json: { error: "User does not exist against this id." }
       end
     else
-      render json: { message: "user_id, car_brand_id and car_model_id should be present." }
+      render json: { error: "user_id, car_brand_id and car_model_id should be present." }
     end
   end
 
   def update_car_profile
     @car_detail = CarDetail.find_by_id(params[:id])
-    return render json: { errors: "car detail with this id is not present." }, status: :unprocessable_entity unless @car_detail.present?
+    return render json: { error: "car detail with this id is not present." }, status: :unprocessable_entity unless @car_detail.present?
 
-    #@car_detail.photos.purge if params[:photos].present?
     @car_detail.is_show = params[:is_show]
     
     if @car_detail.update(car_profile_params.except(:user_id, :car_brand_id, :car_model_id))
       @user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
-      return render json: { errors: @user_car_brand.errors.full_messages }, status: :unprocessable_entity unless @user_car_brand.save
+      render_error_messages(@user_car_brand) unless @user_car_brand.save
       @user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
-      return render json: { errors: @user_car_model.errors.full_messages }, status: :unprocessable_entity unless @user_car_model.save
+      render_error_messages(@user_car_model) unless @user_car_model.save
     else
-      render json: { errors: @car_detail.errors.full_messages }, status: :unprocessable_entity
+      render_error_messages(@car_detail)
     end
   end
 
@@ -115,7 +114,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     if @car_detail.present?
       @car_detail
     else
-      render json: { message: "car detail with this id is not present." }, status: :unprocessable_entity
+      render json: { error: "car detail with this id is not present." }, status: :unprocessable_entity
     end
   end
 
@@ -127,7 +126,6 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     return render json: { error: "Width parameter is missing" },status: :unprocessable_entity unless params[:width].present?
     return render json: { error: "Height parameter is missing"  },status: :unprocessable_entity unless params[:height].present?
     return render json: { error: "Color parameter is missing" },status: :unprocessable_entity unless params[:color].present?
-    return render json: { error: "Plate number parameter is missing"  },status: :unprocessable_entity unless params[:plate_number].present?
     return render json: { error: "Is show parameter is missing" },status: :unprocessable_entity unless params[:is_show].present?
     return render json: { error: "Car brand id parameter is missing" },status: :unprocessable_entity unless params[:car_brand_id].present?
     return render json: { error: "Car model parameter is missing" },status: :unprocessable_entity unless params[:car_model_id].present?
