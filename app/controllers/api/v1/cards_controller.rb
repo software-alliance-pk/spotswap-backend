@@ -7,8 +7,6 @@ class Api::V1::CardsController < Api::V1::ApiController
     return render json: {error: "Stripe Token parameter is missing "}, status: :unprocessable_entity unless payment_params[:token].present?
     return render json: {error: "Card name parameter is missing"},status: :unprocessable_entity unless payment_params[:name].present?
     return render json: {error: "Country parameter is missing "}, status: :unprocessable_entity unless payment_params[:country].present?
-    return render json: {error: "Card number parameter is missing "}, status: :unprocessable_entity unless payment_params[:card_number].present?
-    return render json: {error: "CVC parameter is missing "}, status: :unprocessable_entity unless payment_params[:cvc].present?
 
     customer = check_customer_at_stripe
     stripe_token = payment_params[:token]
@@ -107,12 +105,11 @@ class Api::V1::CardsController < Api::V1::ApiController
       exp_year: card.exp_year, last_digit: card.last4,
       brand: card.brand, country: payment_params[:country],
       fingerprint: card.fingerprint, name: payment_params[:name],
-      address: payment_params[:address], card_number: payment_params[:card_number],
-      cvc: payment_params[:cvc]
+      address: payment_params[:address]
     )
   end
 
   def payment_params
-    params.permit(:token, :name, :id, :address, :country, :card_number, :cvc)
+    params.permit(:token, :name, :id, :address, :country)
   end
 end
