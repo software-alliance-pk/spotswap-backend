@@ -2,8 +2,13 @@ class Admins::DashboardController < ApplicationController
 	before_action :authenticate_admin!
 
 	def index
-    @users = User.all
+    @users = User.all.order(created_at: :desc)
+    @cars = CarDetail.all
 	end
+
+  def sub_admins_index
+    @sub_admins = Admin.where(category: "sub_admin").order(created_at: :desc)
+  end
 
 	private
   

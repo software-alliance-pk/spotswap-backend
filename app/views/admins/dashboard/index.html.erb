@@ -6,7 +6,7 @@
   <h3 class="mb-0">Dashboard</h3>
   <div class="header_side">
     <div class="btn_blk">
-    <a href="sub-admins.php" class="site_btn round">Sub Admin</a>
+    <a href="<%=sub_admins_index_admins_dashboard_index_path%>" class="site_btn round">Sub Admin</a>
     </div>
     <button type="button" class="noti_btn input">
     <img src="/assets/icon-bell.svg" alt="">
@@ -28,7 +28,7 @@
     <div class="dash_card">
     <div class="ico"><img src="/assets/icon-team.svg" alt=""></div>
     <div class="txt">
-    <h3>200</h3>
+    <h3><%=@users.count%></h3>
     <span>Users</span>
     </div>
     </div>
@@ -37,7 +37,7 @@
     <div class="dash_card">
     <div class="ico"><img src="/assets/icon-car.svg" alt=""></div>
     <div class="txt">
-    <h3>198</h3>
+    <h3><%=@cars.count%></h3>
     <span>Cars</span>
     </div>
     </div>
@@ -54,9 +54,9 @@
   <div class="col col-auto">
     <div class="dash_card date_card">
     <div class="txt">
-    <span>July</span>
-    <h3 class="text_prime">14</h3>
-    <span>2022</span>
+    <span><%=Time.now.strftime("%b")%></span>
+    <h3 class="text_prime"><%=Time.now.day%></h3>
+    <span><%=Time.now.year%></span>
     </div>
     </div>
   </div>
@@ -80,32 +80,22 @@
           <tr>
             <td>
               <div class="user">
-              <div class="ellipse">
-              <img src="/assets/Ellipse-user.svg" alt="">
-              </div>
-              <div><%=user.name%></div>
+                <div class="ellipse">
+                  <% if user.image.attached?%>
+                    <%= image_tag(user.image.url)%>
+                  <% else %>
+                    <img src="/assets/default-profile.jpg" alt="">
+                  <%end%>
+                </div>
+                <div><%=user.name%></div>
               </div>
             </td>
             <td><%=user.email%></td>
             <td><%=user.contact%></td>
             <td><%=user.car_detail&.car_brand&.title%></td>
             <td><%=user.car_detail&.car_model&.title%></td>
-            <td><%=user.name%></td>
-            <td>
-              <div class="active ">
-                <span>Active</span>
-                <div class="dropdown">
-                  <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="/assets/dot-icon.svg" alt="">
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">View Details</a></li>
-                    <li><a class="dropdown-item" href="#">Send Money</a></li>
-                    <li><a class="dropdown-item" href="#">Disable</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
+            <td><%=user.status%></td>
+            <td><span><%=user.status%></span></td>
           </tr>
         <%end%>
       </tbody>
