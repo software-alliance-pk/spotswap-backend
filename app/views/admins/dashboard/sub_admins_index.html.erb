@@ -45,7 +45,11 @@
               <td>
                 <div class="user">
                   <div class="ellipse">
-                    
+                    <% if sub_admin.image.attached?%>
+                      <%= image_tag(sub_admin.image.url)%>
+                    <% else %>
+                      <img src="/assets/default-profile.jpg" alt="">
+                    <%end%>
                   </div>
                   <div><%=sub_admin.full_name%></div>
                 </div>
@@ -118,47 +122,53 @@
                 <button type="button" class="x_btn"></button>
                 <div class="log_strip"
                   style="background-image: url('/assets/logon-strip.svg')">
-                  <p class="fs_5">Add Car Model</p>
+                  <p class="fs_5">Add Sub Admin</p>
                 </div>
-                  <form action="">
-                    <div class="prof_img">
-                      <!-- <img src="#" alt=""> -->
-                      <p>Upload image</p>
+                  <%= form_with url: create_sub_admin_admins_dashboard_index_path do |f| %>
+                    <div class="prof_img" style="position:relative;">
+                      <div class="img" style="width:80%">
+                        <img src="/assets/upload-photo.png" alt="">
+                      </div>
+                      <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;", required: true %>
                     </div>
                     <div class="row">
                       <div class="col-md-6">
                         <h6>Last Name</h6>
                         <div class="form_blk">
-                          <input type="text" class="input" placeholder="type here">
+                          <input type="text" name="l_name" class="input" placeholder="type here" required>
                         </div>
                         <div class="form_blk">
                           <h6>Email</h6>
-                          <input type="text" class="input" placeholder="type here">
+                          <input type="email" name="email" class="input" placeholder="type here" required>
                         </div>
                         <div class="form_blk">
                           <h6>Location</h6>
-                          <input type="text" class="input" placeholder="type here">
+                          <input type="text" name="location" class="input" placeholder="type here" required>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form_blk">
                           <h6>First Name</h6>
-                          <input type="text" class="input" placeholder="type here">
+                          <input type="text" name="f_name" class="input" placeholder="type here" required>
                         </div>
                         <div class="form_blk">
                           <h6>Phone Number</h6>
-                          <input type="text" class="input" placeholder="type here">
+                          <div>
+                            <%= f.select :country_code, options_for_select(ISO3166::Country.all.map { |country| [country.emoji_flag, country.country_code] }), {}, {style: "font-size: 2rem;"} %>
+                            <input type="text" name="contact" class="input" placeholder="type here" required>
+                          </div>
+                          
                         </div>
                         <div class="form_blk">
                           <h6>Temporary Password</h6>
-                          <input type="text" class="input" placeholder="type here">
+                          <input type="password" name="password" class="input" placeholder="type here" required>
                         </div>
                       </div>
                     </div>
                     <div class="btn_blk justify-content-center mt-5">
                       <button class="site_btn px">Add</button>
                     </div>
-                  </form>
+                  <%end%>
                 </div>
               </div>
             </div>
