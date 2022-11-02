@@ -11,7 +11,7 @@ class Api::V1::CardsController < Api::V1::ApiController
     customer = check_customer_at_stripe
     stripe_token = payment_params[:token]
     card_name =  payment_params[:name]
-    card = StripeService.create_card(customer.id,stripe_token)
+    card = StripeService.create_card(customer.id, stripe_token)
     return render json: { error: "Card is not created on Stripe" }, status: 422 if card.blank?
     @card = create_user_payment_card(card)
     make_first_card_as_default
