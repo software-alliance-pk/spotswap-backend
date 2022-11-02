@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_one :car_detail, dependent: :destroy
+  has_one :stripe_connect_account, dependent: :destroy
 
   has_secure_password
   has_many :supports, dependent: :destroy
