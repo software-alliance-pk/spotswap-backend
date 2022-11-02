@@ -40,6 +40,7 @@ Rails.application.routes.draw do
           post :delete_conversation
           post :block_user
           post :unblock_user
+          post :create_conversation
         end
       end
 
