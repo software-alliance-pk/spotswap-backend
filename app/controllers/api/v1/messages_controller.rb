@@ -12,6 +12,18 @@ class Api::V1::MessagesController < Api::V1::ApiController
     end
   end
 
+  def create_conversation
+    return render json: {error: "recepient id is missing."}, status: :unprocessable_entity unless params[:recepient_id].present?
+    return render json: {error: "User with entered recepient id does not exist."}, status: :unprocessable_entity unless User.find_by_id(params[:recepient_id]).present?
+    @conversation = Conversation.new(conversation_params)
+    @conversation.sender_id = @current_user.id
+    if @conversation.save
+      @conversation
+    else
+      render_error_messages(@conversation)
+    end
+  end
+
   def get_all_messages
 	  @messages = @conversation.messages.all.order(created_at: :desc)
   end
@@ -44,7 +56,7 @@ class Api::V1::MessagesController < Api::V1::ApiController
         render_error_messages(@block_user_detail)
       end
     else
-      render json: { message: "You have not any conversation with this user id."}, status: :unprocessable_entity
+      render json: { error: "You have not any conversation with this user id."}, status: :unprocessable_entity
     end
   end
 
@@ -61,15 +73,19 @@ class Api::V1::MessagesController < Api::V1::ApiController
   private
 
   def message_params
-    params.permit(:id, :body, :read_status, :conversation_id)
+    params.permit(:body, :conversation_id)
+  end
+
+  def conversation_params
+    params.permit(:recepient_id)
   end
 
   def find_conversation
 		if params[:conversation_id].present?
 			@conversation = Conversation.find_by(id: params[:conversation_id])
-			render json: {message: "Conversation with this id is not present."}, status: 200 unless @conversation.present?
+			render json: {error: "Conversation with this id is not present."}, status: :unprocessable_entity unless @conversation.present?
 		else
-			render json: {message: "Conversation id is missing."}, status: :unprocessable_entity
+			render json: {error: "Conversation id is missing."}, status: :unprocessable_entity
 		end
 	end
 
