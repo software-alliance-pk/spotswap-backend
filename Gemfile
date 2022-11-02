@@ -27,6 +27,7 @@ gem 'actiontext', '~> 6.1.6'
 gem 'jquery-rails'
 gem 'cloudinary'
 gem 'fcm'
+gem 'countries'
 
 # Use Json Web Token (JWT) for token based authentication
 gem 'jwt'

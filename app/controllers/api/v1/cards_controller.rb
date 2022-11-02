@@ -7,10 +7,11 @@ class Api::V1::CardsController < Api::V1::ApiController
     return render json: {error: "Stripe Token parameter is missing "}, status: :unprocessable_entity unless payment_params[:token].present?
     return render json: {error: "Card name parameter is missing"},status: :unprocessable_entity unless payment_params[:name].present?
     return render json: {error: "Country parameter is missing "}, status: :unprocessable_entity unless payment_params[:country].present?
+
     customer = check_customer_at_stripe
     stripe_token = payment_params[:token]
     card_name =  payment_params[:name]
-    card = StripeService.create_card(customer.id,stripe_token)
+    card = StripeService.create_card(customer.id, stripe_token)
     return render json: { error: "Card is not created on Stripe" }, status: 422 if card.blank?
     @card = create_user_payment_card(card)
     make_first_card_as_default
@@ -44,7 +45,7 @@ class Api::V1::CardsController < Api::V1::ApiController
       end
       render json: { message: "Card deleted successfully!" }, status: 200
     else
-      render json: { message: "Such card does not exists" }, status: 200
+      render json: { error: "Such card does not exists" }, status: 200
     end
   end
 

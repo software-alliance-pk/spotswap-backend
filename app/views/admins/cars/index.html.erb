@@ -26,7 +26,7 @@
             <div class="item">
               <div class="img">
                 <% if brand.image.attached?%>
-                  <%= image_tag(brand.image)%>
+                  <%= image_tag(brand.image.url)%>
                 <% else %>
                   <img src="/assets/default-profile.jpg" alt="">
                 <%end%>
