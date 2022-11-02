@@ -20,6 +20,8 @@ module SpotSwap
     # config.eager_load_paths << Rails.root.join("extras")
     config.action_cable.disable_request_forgery_protection = true
     config.action_cable.url = "/cable"
+    
+    config.active_storage.replace_on_assign_to_many = false
 
     config.middleware.use ActionDispatch::Flash
   

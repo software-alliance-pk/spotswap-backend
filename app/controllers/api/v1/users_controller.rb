@@ -10,7 +10,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     if @user.update(user_params.merge(is_info_complete: true))
       @user
     else
-      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+      render_error_messages(@user)
     end
   end
 
