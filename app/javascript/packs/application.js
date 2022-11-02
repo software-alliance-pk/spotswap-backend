@@ -7,6 +7,9 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import "./bootstrap.bundle.min"
+import "./datepicker"
+import "./main"
 
 window.Rails = Rails;
 if(Rails.fire(document, "rails:attachBindings")) {
