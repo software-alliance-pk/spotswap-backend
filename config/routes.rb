@@ -19,6 +19,11 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :stripe_connects, only: [] do
+        get :refresh_stripe_account_link
+        get :user_stripe_connect_account
+      end
+
       resources :cards ,only: [] do
         collection do
           get :get_all_cards
