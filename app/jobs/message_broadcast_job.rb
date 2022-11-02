@@ -3,14 +3,14 @@ class MessageBroadcastJob < ApplicationJob
 
   def perform(message)
     payload = {
-      support_conversation_id: message.support_conversation_id,
+      conversation_id: message.conversation_id,
       content: message.body,
       sender: message.user
     }
-    ActionCable.server.broadcast(build_support_conversation_id(message.support_conversation_id), payload)
+    ActionCable.server.broadcast(build_conversation_id(message.conversation_id), payload)
   end
   
-  def build_support_conversation_id(id)
-    "support_conversation_#{id}"
+  def build_conversation_id(id)
+    "conversation_#{id}"
   end
 end
