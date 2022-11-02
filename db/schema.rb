@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_27_111139) do
+ActiveRecord::Schema.define(version: 2022_10_31_145304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,18 @@ ActiveRecord::Schema.define(version: 2022_10_27_111139) do
     t.index ["user_id"], name: "index_quick_chats_on_user_id"
   end
 
+  create_table "stripe_connect_accounts", force: :cascade do |t|
+    t.string "account_id"
+    t.string "account_country"
+    t.string "account_type"
+    t.string "login_account_link"
+    t.string "external_links"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_stripe_connect_accounts_on_user_id"
+  end
+
   create_table "support_conversations", force: :cascade do |t|
     t.bigint "support_id", null: false
     t.integer "recipient_id", null: false
@@ -231,6 +243,7 @@ ActiveRecord::Schema.define(version: 2022_10_27_111139) do
   add_foreign_key "card_details", "users"
   add_foreign_key "mobile_devices", "users"
   add_foreign_key "quick_chats", "users"
+  add_foreign_key "stripe_connect_accounts", "users"
   add_foreign_key "support_conversations", "supports"
   add_foreign_key "support_messages", "support_conversations"
   add_foreign_key "support_messages", "users"
