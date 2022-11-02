@@ -5,5 +5,10 @@ class Admin < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   enum category: [:admin, :sub_admin]
+  enum status: [:active, :disabled]
   has_many :support_conversations, dependent: :destroy, foreign_key: :recipient_id
+  has_one_attached :image, dependent: :destroy
+
+  validates :full_name, :category, :contact, :location , presence: true
+  validates :contact, uniqueness: true
 end

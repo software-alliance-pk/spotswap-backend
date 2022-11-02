@@ -21,7 +21,6 @@ class Admins::CarsController < ApplicationController
   def create_model
     @car_brand = CarBrand.find_by_id(params[:brand_id])
     @car_model = @car_brand.car_models.build(car_model_params)
-    #@car_brand.image.attach(params[:image])
     if @car_model.save
       redirect_to get_model_details_admins_cars_path(brand_id: @car_brand.id)
       flash[:alert] = "Car Model has been added."

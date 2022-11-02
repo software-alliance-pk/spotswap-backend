@@ -6,7 +6,7 @@ class Api::V1::ResetPasswordsController < Api::V1::ApiController
     begin
       UserMailer.send_email(@user, @otp).deliver_now
     rescue  => e
-      return render json: { message: e.error_message}, status: 422
+      return render json: { error: e.error_message}, status: 422
     end
     @user.update(otp: @otp, otp_expiry:(Time.current + 2.minutes))
   end
@@ -16,17 +16,19 @@ class Api::V1::ResetPasswordsController < Api::V1::ApiController
     begin
       UserMailer.send_email(@user, @otp).deliver_now
     rescue  => e
-      return render json: { message: e.error_message}, status: 422
+      return render json: { error: e.error_message}, status: 422
     end
     @user.update(otp: @otp, otp_expiry:(Time.current + 2.minutes))  
   end
   
   def verify_otp
     return render json: {error: "OTP parameter is missing"}, status: :unprocessable_entity unless params[:otp].present? 
-    if @user.otp == params[:otp].to_i && @user.otp_expiry >= Time.current && params[:otp].present?
-      render json: { message: "otp is verified" }
+    if @user.otp == params[:otp].to_i && @user.otp_expiry >= Time.current
+      render json: { message: "otp is verified" }, status: :ok
+    elsif @user.otp_expiry < Time.current
+      render json: { error: "otp has been expired."}, status: :unprocessable_entity
     else
-      render json: { message: "otp is not valid"}, status: :unprocessable_entity
+      render json: { error: "otp is not valid"}, status: :unprocessable_entity
     end
   end
 
@@ -37,7 +39,7 @@ class Api::V1::ResetPasswordsController < Api::V1::ApiController
     if @user.update(password: params[:password])
       render json: { message: "Password updated successfully"}, status: :ok
     else
-      render json: { message: @user.errors.full_messages }, status: 422 
+      render_error_messages(@user)
     end
   end
 

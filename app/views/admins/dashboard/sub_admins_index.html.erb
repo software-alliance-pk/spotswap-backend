@@ -1,0 +1,186 @@
+<section id="account_section">
+  <%= render :partial => "shared/sidebar" %> 
+<div id="sub_admin" class="main_side">
+  <div id="top_header">
+    <h2>Sub Admins</h2>
+    <div class="header_side">
+      <!-- <div class="form_blk input">
+        <img src="/assets/icon-search.svg" alt="">
+        <input type="text" name="" id="" class="input" placeholder="Search">
+      </div> -->
+      <button type="button" class="noti_btn input">
+        <img src="/assets/icon-bell.svg" alt="">
+        <span>7</span>
+      </button>
+    </div>
+  </div>
+  <div class="search">
+    <div class="form_blk input round_input ">
+      <button class="btn">
+        <img src="/assets/Search.svg" alt="">
+      </button>
+      <input class="input " type="text" name="" id="" placeholder="Search car brand">
+    </div>
+    <div class="button_blk pop_btn" data-popup="forget_pass">
+      <button class="site_btn round">Add Sub Admin</button>
+    </div>
+  </div>
+      
+  <!-- table_section -->
+  <div id="table_users">
+    <div class="table__blk">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 20rem;">NAME</th>
+            <th style="width: 20rem;">EMAIL</th>
+            <th style="width: 20rem;">PHONE NUMBER</th>
+            <th style="width: 19rem;">LOCATION</th>
+            <th style="width: 15rem;">STATUS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @sub_admins.each do |sub_admin|%>
+            <tr>
+              <td>
+                <div class="user">
+                  <div class="ellipse">
+                    <% if sub_admin.image.attached?%>
+                      <%= image_tag(sub_admin.image.url)%>
+                    <% else %>
+                      <img src="/assets/default-profile.jpg" alt="">
+                    <%end%>
+                  </div>
+                  <div><%=sub_admin.full_name%></div>
+                </div>
+              </td>
+              <td><%=sub_admin.email%></td>
+              <td><%=sub_admin.contact%></td>
+              <td><%=sub_admin.location%></td>
+              <td>
+                <div class="active ">
+                  <span><%=sub_admin.status%></span>
+                  <div class="dropdown">
+                    <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="/assets/dot-icon.svg" alt="">
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" href="<%=delete_sub_admin_admins_dashboard_index_path(id: sub_admin.id)%>">Disable</a></li>
+                    </ul>
+                  </div>      
+                </div>
+              </td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+
+      <!-- pagination_section -->
+  <div class="paginate_sec">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="d-flex me-4">
+        Rows per page: 10
+          <div class="dropdown">
+            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="icon">
+                <img src="/assets/dropdown-icon.svg" alt="">
+              </div>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li>1-10 of 30</li>
+
+        <li class="page_item me-4 d-flex">
+          <a class="page_link icon_blk fw_600" href="#" >                             
+            <img src="/assets/left-arrow-icon.svg" aria-hidden="true" alt="icon">                                
+          </a>
+          <a class="page_link icon_blk fw_600" href="#" >                                                             
+            <img src="/assets/right-arrow-icon.svg" aria-hidden="true" alt="icon">
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  </div>
+
+  <div class="popup" data-popup="forget_pass">
+    <div class="overlay"></div>
+    <div class="table_dv">
+      <div class="table_cell">
+        <div class="contain-fluid">
+          <div class="row justify-content-center">
+            <div class="col-6">
+              <div class="_inner">
+                <button type="button" class="x_btn"></button>
+                <div class="log_strip"
+                  style="background-image: url('/assets/logon-strip.svg')">
+                  <p class="fs_5">Add Sub Admin</p>
+                </div>
+                  <%= form_with url: create_sub_admin_admins_dashboard_index_path do |f| %>
+                    <div class="prof_img" style="position:relative;">
+                      <div class="img" style="width:80%">
+                        <img src="/assets/upload-photo.png" alt="">
+                      </div>
+                      <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;", required: true %>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <h6>Last Name</h6>
+                        <div class="form_blk">
+                          <input type="text" name="l_name" class="input" placeholder="type here" required>
+                        </div>
+                        <div class="form_blk">
+                          <h6>Email</h6>
+                          <input type="email" name="email" class="input" placeholder="type here" required>
+                        </div>
+                        <div class="form_blk">
+                          <h6>Location</h6>
+                          <input type="text" name="location" class="input" placeholder="type here" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form_blk">
+                          <h6>First Name</h6>
+                          <input type="text" name="f_name" class="input" placeholder="type here" required>
+                        </div>
+                        <div class="form_blk">
+                          <h6>Phone Number</h6>
+                          <div>
+                            <%= f.select :country_code, options_for_select(ISO3166::Country.all.map { |country| [country.emoji_flag, country.country_code] }), {}, {style: "font-size: 2rem;"} %>
+                            <input type="text" name="contact" class="input" placeholder="type here" required>
+                          </div>
+                          
+                        </div>
+                        <div class="form_blk">
+                          <h6>Temporary Password</h6>
+                          <input type="password" name="password" class="input" placeholder="type here" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="btn_blk justify-content-center mt-5">
+                      <button class="site_btn px">Add</button>
+                    </div>
+                  <%end%>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</section>
+<!-- account_section -->
+
+<!-- Main Js -->
+<script src="/assets/main.js"></script>

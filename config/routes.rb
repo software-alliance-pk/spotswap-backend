@@ -36,6 +36,18 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :messages ,only: [] do
+        collection do
+          get :get_all_conversations
+          post :get_all_messages
+          post :create_message
+          post :delete_message
+          post :delete_conversation
+          post :block_user
+          post :unblock_user
+        end
+      end
+
       resources :users ,only: [] do
         collection do
           get :get_user
@@ -106,6 +118,9 @@ Rails.application.routes.draw do
     resources :dashboard, only: [] do
       collection do
         get :index
+        get :sub_admins_index
+        post :create_sub_admin
+        post :delete_sub_admin
       end
     end
 
