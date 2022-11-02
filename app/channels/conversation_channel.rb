@@ -4,7 +4,7 @@ class ConversationChannel < ApplicationCable::Channel
     if params[:conversation_id].present?
       stream_from("conversation_#{(params[:conversation_id])}")
     else
-      puts "conversation id is missing."
+      puts "conversation_id is missing."
     end
   end
 
