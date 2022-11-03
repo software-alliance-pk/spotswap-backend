@@ -6,5 +6,6 @@ json.support_messages @support_messages do |support_message|
   json.sender_id support_message.sender_id
   json.recepient_id support_message.user_id
   json.type support_message.type
+  json.created_at support_message.created_at
   json.image support_message.image.attached? ? support_message.image.url : ""
 end
