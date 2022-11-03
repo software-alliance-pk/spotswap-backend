@@ -1,10 +1,6 @@
 class SupportConversationChannel < ApplicationCable::Channel 
   # calls when a client connects to the server
   def subscribed
-    puts "##############"
-    puts params
-    puts "##############"
-
     if params[:support_conversation_id].present?
       stream_from("support_conversation_#{(params[:support_conversation_id])}")
     else
