@@ -43,8 +43,7 @@ Rails.application.routes.draw do
           post :create_message
           post :delete_message
           post :delete_conversation
-          post :block_user
-          post :unblock_user
+          post :block_or_unblock_user
           post :create_conversation
         end
       end

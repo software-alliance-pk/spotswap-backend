@@ -14,10 +14,6 @@ class SupportMessageBroadcastJob < ApplicationJob
       message_image: message.image.attached? ? message.image.url : "",
       sender_image: message.support_conversation.sender.image.attached? ? message.support_conversation.sender.image.url : ""
     }
-    puts "###########"
-    puts payload
-    puts "###########"
-
     ActionCable.server.broadcast(build_support_conversation_id(message.support_conversation_id), payload)
   end
   
