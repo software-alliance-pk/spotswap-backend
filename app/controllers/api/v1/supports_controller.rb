@@ -2,6 +2,7 @@ class Api::V1::SupportsController < Api::V1::ApiController
   before_action :authorize_request
   before_action :support_params, only: [:create_ticket]
   before_action :find_support_conversation, only: [:create_message, :get_all_support_messages]
+  before_action :find_user, only: [:create_message]
 
   def create_ticket
     @ticket = @current_user.supports.new(support_params.merge(ticket_number: generate_ticket_number.upcase))
@@ -50,6 +51,15 @@ class Api::V1::SupportsController < Api::V1::ApiController
 			render json: {error: "Support Conversation with this id is not present."}, status: :unprocessable_entity unless @support_conversation.present?
 		else
 			render json: {error: "Support Conversation id is missing."}, status: :unprocessable_entity
+		end
+	end
+
+  def find_user
+		if params[:sender_id].present?
+			@user = User.find_by(id: params[:sender_id])
+			render json: {error: "User with this id is not present."}, status: :unprocessable_entity unless @user.present?
+		else
+			render json: {error: "Sender id is missing."}, status: :unprocessable_entity
 		end
 	end
 
