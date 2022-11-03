@@ -8,5 +8,5 @@ json.support_messages @support_messages do |support_message|
   json.type support_message.type
   json.created_at support_message.created_at
   json.message_image support_message.image.attached? ? support_message.image.url : ""
-  json.sender_image User.find_by_id(support_message.sender_id).image.attached? ? User.find_by_id(support_message.sender_id).image.url : ""
+  json.sender_image support_message.support_conversation.sender.image.attached? ? support_message.support_conversation.sender.image.url : ""
 end

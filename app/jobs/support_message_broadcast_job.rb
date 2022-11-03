@@ -12,8 +12,12 @@ class SupportMessageBroadcastJob < ApplicationJob
       type: message.type,
       created_at: message.created_at,
       message_image: message.image.attached? ? message.image.url : "",
-      sender_image: User.find_by_id(message.sender_id).image.attached? ? User.find_by_id(message.sender_id).image.url : ""
+      sender_image: message.support_conversation.sender.image.attached? ? message.support_conversation.sender.image.url : ""
     }
+    puts "###########"
+    puts payload
+    puts "###########"
+
     ActionCable.server.broadcast(build_support_conversation_id(message.support_conversation_id), payload)
   end
   
