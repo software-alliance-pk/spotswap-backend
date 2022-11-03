@@ -97,7 +97,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_cable.url = 'wss://spot-swap-vs-staging.herokuapp.com/'
+  config.action_cable.url = 'wss://spot-swap-vs-staging.herokuapp.com/cable'
   config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
 
   # Inserts middleware to perform automatic connection switching.
