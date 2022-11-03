@@ -36,32 +36,27 @@ class Api::V1::MessagesController < Api::V1::ApiController
     render json: { message: "conversation is removed successfully"}, status: :ok
   end
 
-  def block_user
+  def block_or_unblock_user
     return render json: {error: "user id is missing."}, status: :unprocessable_entity unless params[:user_id].present?
-    is_user_already_blocked = BlockedUserDetail.find_by(blocked_user_id: params[:user_id], user_id: @current_user.id)
-    return render json: {error: "This user is already blocked by you."}, status: :unprocessable_entity if is_user_already_blocked.present?
     conversation = Conversation.find_by(recepient_id: @current_user.id, sender_id: params[:user_id])
-    if conversation.present?
-      conversation.update(is_blocked: true)
-      @block_user_detail = BlockedUserDetail.new(blocked_user_id: params[:user_id], user_id: @current_user.id)
-      if @block_user_detail.save
-        @block_user_detail
-      else
-        render_error_messages(@block_user_detail)
-      end
-    else
-      render json: { error: "You have not any conversation with this user id."}, status: :unprocessable_entity
-    end
-  end
-
-  def unblock_user
-    return render json: {error: "user id is missing."}, status: :unprocessable_entity unless params[:user_id].present?
     is_user_blocked = BlockedUserDetail.find_by(blocked_user_id: params[:user_id], user_id: @current_user.id)
-    return render json: {error: "This user is not in your blocklist. please block this user first."}, status: :unprocessable_entity unless is_user_blocked.present?
-    conversation = Conversation.find_by(recepient_id: @current_user.id, sender_id: params[:user_id])
-    conversation.update(is_blocked: false)
-    is_user_blocked.destroy
-    return render json: { message: "User is unblocked."}, status: :ok
+    if is_user_blocked.present?
+      conversation.update(is_blocked: false)
+      is_user_blocked.destroy
+      return render json: { message: "User is unblocked."}, status: :ok
+    else
+      if conversation.present?
+        conversation.update(is_blocked: true)
+        @block_user_detail = BlockedUserDetail.new(blocked_user_id: params[:user_id], user_id: @current_user.id)
+        if @block_user_detail.save
+          @block_user_detail
+        else
+          render_error_messages(@block_user_detail)
+        end
+      else
+        render json: { error: "You have not any conversation with this user id."}, status: :unprocessable_entity
+      end
+    end
   end
 
   private
