@@ -1,6 +1,6 @@
 class Api::V1::ParkingSlotsController < Api::V1::ApiController
   before_action :authorize_request
-  before_action :find_parking_slot, only: [:make_slot_available]
+  before_action :find_parking_slot, only: [:make_slot_available_or_unavailable]
   before_action :slot_params, only: [:create_slot]
 
   def create_slot
@@ -12,19 +12,11 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
     end   
   end
 
-  def make_slot_available
-    if @parking_slot.present?
-      unless @parking_slot.availability?
-        if @parking_slot.update(availability: true)
-          @parking_slot
-        else
-          render_error_messages(@parking_slot)
-        end
-      else
-        @parking_slot
-      end
+  def make_slot_available_or_unavailable
+    if @parking_slot.availability?
+      @parking_slot.update(availability: false)
     else
-      render json: { error: "parking slot with this id is not present."}, status: :unprocessable_entity
+      @parking_slot.update(availability: true)
     end
   end
 
@@ -37,6 +29,6 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def slot_params
-    params.permit(:id, :description, :image, :availability)
+    params.permit(:description, :image)
   end
 end

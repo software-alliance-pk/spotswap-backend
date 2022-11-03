@@ -81,6 +81,7 @@ Rails.application.routes.draw do
         collection do
           post :create_ticket
           post :create_message
+          post :get_all_support_messages
           get :get_tickets
         end
       end
@@ -97,8 +98,7 @@ Rails.application.routes.draw do
       resources :parking_slots, only: [] do
         collection do
           post :create_slot
-          post :make_slot_available
-
+          post :make_slot_available_or_unavailable
         end
       end
 
