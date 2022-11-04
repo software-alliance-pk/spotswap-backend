@@ -1,4 +1,3 @@
 json.chat do
-  json.id @quick_chat.id
-  json.message @quick_chat.message
+  json.partial! 'shared/quick_chat_details', quick_chat: @quick_chat
 end
