@@ -1,8 +1,8 @@
 json.id message.id
 json.body message.body
 json.read_status message.read_status
-json.sender_id message.conversation.sender.id
-json.sender_name message.conversation.sender_name
+json.sender_id message.user.id
+json.sender_name message.user.name
 json.recepient_id message.conversation.recepient.id
 json.recepient_name message.conversation.recepient_name
 json.created_at message.created_at
