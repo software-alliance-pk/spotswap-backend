@@ -6,5 +6,5 @@ json.support_message do
   json.support_conversation_id @support_message.support_conversation_id
   json.read_status @support_message.read_status
   json.message_image @support_message.image.attached? ? @support_message.image.url : ""
-  json.sender_image @support_message.support_conversation.sender.image.attached? ? @support_message.support_conversation.sender.image.url : ""
+  json.sender_image @support_message.support_conversation.sender_image.attached? ? @support_message.support_conversation.sender_image.url : ""
 end
