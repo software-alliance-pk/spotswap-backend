@@ -1,4 +1,4 @@
 class ParkingSlot < ApplicationRecord
   has_one_attached :image, dependent: :destroy
-  validates :description, :image, presence: :true
+  validates :longitude, :latitude, :address, presence: :true
 end
