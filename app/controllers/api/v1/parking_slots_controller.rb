@@ -29,6 +29,6 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def slot_params
-    params.permit(:description, :image)
+    params.permit(:description, :image, :longitude, :latitude, :address)
   end
 end
