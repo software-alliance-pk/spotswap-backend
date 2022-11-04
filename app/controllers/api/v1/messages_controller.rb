@@ -43,13 +43,13 @@ class Api::V1::MessagesController < Api::V1::ApiController
     if is_user_blocked.present?
       conversation.update(is_blocked: false)
       is_user_blocked.destroy
-      return render json: { message: "user is unblocked."}, status: :ok
+      return render json: { message: "Conversation is unblocked."}, status: :ok
     else
       if conversation.present?
         conversation.update(is_blocked: true)
         @block_user_detail = BlockedUserDetail.new(blocked_user_id: params[:user_id], user_id: @current_user.id)
         if @block_user_detail.save
-          return render json: { message: "user is blocked."}, status: :ok
+          return render json: { message: "Conversation is blocked."}, status: :ok
         else
           render_error_messages(@block_user_detail)
         end
