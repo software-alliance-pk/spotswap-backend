@@ -2,9 +2,26 @@ class Admins::UsersController < ApplicationController
 	before_action :authenticate_admin!
 
 	def index
-    @users = User.all
-    
+    @users = User.all.order(created_at: :desc)
 	end
+
+  def view_profile
+    @user = User.find_by(id: params[:id])
+  end
+
+  def send_money_popup
+    @user = User.find_by(id: params[:id])
+  end
+
+  def disable_user_popup
+    @user = User.find_by(id: params[:id])
+  end
+
+  def confirm_yes_popup
+    byebug
+    @user = User.find_by(id: params[:id])
+    @user.destroy
+  end
 
 	private
   

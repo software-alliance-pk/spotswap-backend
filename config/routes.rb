@@ -120,13 +120,17 @@ Rails.application.routes.draw do
         get :index
         get :sub_admins_index
         post :create_sub_admin
-        post :delete_sub_admin
+        get :delete_sub_admin
       end
     end
 
     resources :users, only: [] do
       collection do
         get :index
+        get :view_profile
+        get :send_money_popup
+        get :disable_user_popup
+        get :confirm_yes_popup
       end
     end
 

@@ -1,0 +1,33 @@
+.view_all{
+  text-align: center;
+}
+.view_all a{
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+  letter-spacing: 0.05em;
+  color: #5B41F9;
+  padding-bottom: 2.6rem;
+  display: block;
+}
+
+#country_code{
+  font-size: 2rem;
+  height: 4.8rem;
+  border: transparent;
+  background: transparent;
+  position: absolute;
+  left: 1rem;
+}
+
+#country_code + .input{
+  padding-left: 6rem;
+}
+
+#view_detail .detail_list .item p{
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#view_detail .detail_list .item .total{
+  color: #1E96FC;
+}
