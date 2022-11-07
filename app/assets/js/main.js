@@ -127,5 +127,53 @@ $(window).on("load", function () {
 			}
     })
 	});
+
+	$('.view_detail').on('click', function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+      url: `/admins/users/view_profile?id=${attribute_id}`,
+      type: 'get',
+      data: this.data,
+			success: function(response) {
+				$('.profile_popup_div').html(response)
+			}
+    })
+	});
+
+	$('.send_money').on('click', function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+      url: `/admins/users/send_money_popup?id=${attribute_id}`,
+      type: 'get',
+      data: this.data,
+			success: function(response) {
+				$('.send_money_popup_div').html(response)
+			}
+    })
+	});
+
+	$('.disable_user').on('click', function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+      url: `/admins/users/disable_user_popup?id=${attribute_id}`,
+      type: 'get',
+      data: this.data,
+			success: function(response) {
+				$('.disable_user_popup_div').html(response)
+			}
+    })
+	});
+
+	$('.confirm_yes').on('click', function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+      url: `/admins/users/confirm_yes_popup?id=${attribute_id}`,
+      type: 'get',
+      data: this.data,
+			success: function(response) {
+				$('.confirm_yes_popup_div').html(response)
+			}
+    })
+	});
 	
 });

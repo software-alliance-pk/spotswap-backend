@@ -3,7 +3,7 @@ class Admins::CarsController < ApplicationController
   before_action :car_model_params, only: [:create_model]
 
 	def index
-    @car_brands = CarBrand.all
+    @car_brands = CarBrand.all.order(created_at: :desc)
 	end
 
   def create_brand
@@ -47,7 +47,7 @@ class Admins::CarsController < ApplicationController
   end
 
   def get_model_details
-    @car_models = CarBrand.find_by_id(params[:brand_id]).car_models
+    @car_models = CarBrand.find_by_id(params[:brand_id])&.car_models
   end
 
   def delete_model

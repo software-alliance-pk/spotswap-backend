@@ -1,0 +1,182 @@
+<div class="popup d-block">
+      <div class="overlay"></div>
+      <div class="table_dv">
+        <div class="table_cell">
+          <div class="contain-fluid">
+            <div class="row justify-content-center">
+              <div class="col-7">
+                <div class="_inner">
+                  <button type="button" class="x_btn"></button>
+                  <div class="log_strip"
+                    style="background-image: url('/assets/logon-strip.svg')">
+                    <p class="fs_5">User Profile</p>
+                  </div>
+                  <div class="top_blk">
+                    <div class="img">
+                      <% if @user.image.attached?%>
+                        <%= image_tag(@user.image.url)%>
+                      <% else %>
+                        <img src="/assets/default-profile.jpg" alt="">
+                      <%end%>
+                    </div>
+                    <a class="send_money site_btn" data-id="<%=@user.id%>">Send Money</a>
+                  </div>
+                  <div class="detail_blk">
+                    <h5>Personal Information</h5>
+                    <div class="row my-5">
+                      <div class="col-2">Name</div>
+                      <div class="col-5"><h6><%=@user.name%></h6></div>
+                      <div class="col-2">Car Brand</div>
+                      <div class="col-3"><h6><%=@user.car_detail.car_brand.title%></h6></div>
+                      <div class="col-2">Email</div>
+                      <div class="col-5"><h6><%=@user.email%></h6></div>
+                      <div class="col-2">Model</div>
+                      <div class="col-3"><h6><%=@user.car_detail.car_model.title%></h6></div>
+                      <div class="col-2">Number</div>
+                      <div class="col-5"><h6><%=@user.contact%></h6></div>
+                      <div class="col-2">Brought</div>
+                      <div class="col-3"><h6>2021</h6></div>
+                    </div>
+                    <h5>History</h5>
+                    <div class="row">
+                      <div class="col-5">
+                        <div class="history_blk">
+                          <ul class="history_list">
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
+                                  <p>$11.00</p>
+                                </div>
+                                <p><span>$11.00</span> • <span>10:30AM</span></p>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-7">
+                        <div class="user_details">
+                          <div class="top">
+                            <div class="img">
+                              <img src="/assets/support-user.png" alt="">
+                            </div>
+                            <div class="txt">
+                              <div class="host">
+                                <h6 class="mb-0">Antoine Madie Smith</h6>
+                                <span>host</span>
+                              </div>
+                              <p>Honda Civic GL300</p>
+                            </div>
+                          </div>
+                          <ul class="detail_list">
+                            <li>
+                              <div class="item">
+                                <p>Date</p>
+                                <h6>July 25, 2022</h6>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <p>Time</p>
+                                <h6>10:00 AM</h6>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <p>Location</p>
+                                <h6>Washington DC, USA</h6>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <p>Swapper Fee</p>
+                                <h6>$10.00</h6>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <p>SpotSwap Fee</p>
+                                <h6>$1.00</h6>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item">
+                                <p>Total</p>
+                                <h6 class="total">$11.00</h6>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

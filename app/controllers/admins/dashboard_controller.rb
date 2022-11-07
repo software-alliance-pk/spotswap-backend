@@ -1,7 +1,7 @@
 class Admins::DashboardController < ApplicationController
 	before_action :authenticate_admin!
   before_action :sub_admin_params, only: [:create_sub_admin]
-  before_action :find_sub_admin, only: [:destroy_sub_admin]
+  before_action :find_sub_admin, only: [:delete_sub_admin]
 
 
 	def index
@@ -27,7 +27,7 @@ class Admins::DashboardController < ApplicationController
     end
   end
 
-  def destroy_sub_admin
+  def delete_sub_admin
     if @sub_admin.destroy
       redirect_to sub_admins_index_admins_dashboard_index_path
       flash[:alert] = "Sub Admin has been deleted successfully."

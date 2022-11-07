@@ -36,7 +36,7 @@
             <th style="width: 20rem;">EMAIL</th>
             <th style="width: 20rem;">PHONE NUMBER</th>
             <th style="width: 19rem;">LOCATION</th>
-            <th style="width: 15rem;">STATUS</th>
+            <th style="width: 15rem; text-align: left;">STATUS</th>
           </tr>
         </thead>
         <tbody>
@@ -58,8 +58,8 @@
               <td><%=sub_admin.contact%></td>
               <td><%=sub_admin.location%></td>
               <td>
-                <div class="active ">
-                  <span><%=sub_admin.status%></span>
+                <div class="active justify-content-between ">
+                    <span style="text-align: left; padding-left: 2rem"><%=sub_admin.status%></span>
                   <div class="dropdown">
                     <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                       <img src="/assets/dot-icon.svg" alt="">
@@ -131,6 +131,7 @@
                       </div>
                       <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;", required: true %>
                     </div>
+
                     <div class="row">
                       <div class="col-md-6">
                         <h6>Last Name</h6>
@@ -154,7 +155,7 @@
                         <div class="form_blk">
                           <h6>Phone Number</h6>
                           <div>
-                            <%= f.select :country_code, options_for_select(ISO3166::Country.all.map { |country| [country.emoji_flag, country.country_code] }), {}, {style: "font-size: 2rem;"} %>
+                            <%= f.select :country_code, options_for_select(ISO3166::Country.all.map { |country| [country.emoji_flag, country.country_code] }), {} %>
                             <input type="text" name="contact" class="input" placeholder="type here" required>
                           </div>
                           
