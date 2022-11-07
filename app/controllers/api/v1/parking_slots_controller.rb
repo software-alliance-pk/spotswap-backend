@@ -20,6 +20,16 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
     end
   end
 
+  def get_spots_within_2000ft
+    return render json: {error: "Latitude or Longitude param is missing."}, status: :unprocessable_entity  if !params[:latitude].present? || !params[:longitude].present?
+    @parking_slots = ParkingSlot.within(0.6096, :units => :kms, :origin => [params[:latitude], params[:longitude]]).where(availability: true)
+  end
+
+  def get_finders_within_2000ft
+    return render json: {error: "Latitude or Longitude param is missing."}, status: :unprocessable_entity  if !params[:latitude].present? || !params[:longitude].present?
+    @users = User.within(0.6096, :units => :kms, :origin => [params[:latitude], params[:longitude]])
+  end
+
   private
 
   def find_parking_slot
