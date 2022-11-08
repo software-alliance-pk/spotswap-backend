@@ -18,7 +18,6 @@ class Admins::UsersController < ApplicationController
   end
 
   def confirm_yes_popup
-    byebug
     @user = User.find_by(id: params[:id])
     @user.destroy
   end

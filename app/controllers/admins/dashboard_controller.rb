@@ -3,7 +3,6 @@ class Admins::DashboardController < ApplicationController
   before_action :sub_admin_params, only: [:create_sub_admin]
   before_action :find_sub_admin, only: [:delete_sub_admin]
 
-
 	def index
     @users = User.all.order(created_at: :desc)
     @cars = CarDetail.all
@@ -20,7 +19,7 @@ class Admins::DashboardController < ApplicationController
     @sub_admin.category = "sub_admin"
     if @sub_admin.save
       redirect_to sub_admins_index_admins_dashboard_index_path
-      flash[:alert] = "Sub Admin has been added."
+      flash[:alert] = "Sub Admin has been created successfully."
     else
       redirect_to sub_admins_index_admins_dashboard_index_path
       flash[:alert] = @sub_admin.errors.full_messages.to_sentence
@@ -56,4 +55,5 @@ class Admins::DashboardController < ApplicationController
   def sub_admin_params
     params.permit(:f_name, :l_name, :email, :contact, :country_code, :location, :password, :image)
   end
+
 end
