@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   has_one :car_detail, dependent: :destroy
   has_one :stripe_connect_account, dependent: :destroy
-
   has_secure_password
   has_many :supports, dependent: :destroy
   has_many :messages, dependent: :destroy
@@ -11,6 +10,8 @@ class User < ApplicationRecord
   has_many :blocked_user_details, dependent: :destroy
   has_many :conversations, dependent: :destroy
   has_one_attached :image, dependent: :destroy
+  has_many :parking_slots, dependent: :destroy
+
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :name, presence: true
@@ -18,6 +19,7 @@ class User < ApplicationRecord
             length: { minimum: 6 },
             if: -> { new_record? || !password.nil? }
   validates :contact, presence: true, uniqueness: true
+
   enum status: [:active, :disabled]
 
   acts_as_mappable :default_units => :kms,
