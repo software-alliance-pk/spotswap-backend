@@ -1,4 +1,6 @@
 class ParkingSlot < ApplicationRecord
+  scope :available_slots, -> { where(availability: true) }
+
   has_one_attached :image, dependent: :destroy
   validates :longitude, :latitude, :address, presence: :true
 
