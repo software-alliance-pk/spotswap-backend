@@ -30,6 +30,7 @@ gem 'jquery-rails'
 gem 'cloudinary'
 gem 'fcm'
 gem 'countries'
+gem 'rexml'
 
 # Use Json Web Token (JWT) for token based authentication
 gem 'jwt'
