@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_08_092156) do
+ActiveRecord::Schema.define(version: 2022_11_08_124651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,6 +176,8 @@ ActiveRecord::Schema.define(version: 2022_11_08_092156) do
     t.float "latitude"
     t.string "address"
     t.boolean "availability", default: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_parking_slots_on_user_id"
   end
 
   create_table "quick_chats", force: :cascade do |t|
@@ -278,6 +280,7 @@ ActiveRecord::Schema.define(version: 2022_11_08_092156) do
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
   add_foreign_key "mobile_devices", "users"
+  add_foreign_key "parking_slots", "users"
   add_foreign_key "quick_chats", "users"
   add_foreign_key "stripe_connect_accounts", "users"
   add_foreign_key "support_conversations", "supports"
