@@ -98,6 +98,8 @@ Rails.application.routes.draw do
         collection do
           post :create_slot
           post :make_slot_available_or_unavailable
+          post :get_spots_within_2000ft
+          post :get_finders_within_2000ft
         end
       end
 
