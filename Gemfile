@@ -22,6 +22,8 @@ gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 
+gem 'geokit-rails'
+
 gem 'devise'
 gem 'actiontext', '~> 6.1.6'
 gem 'jquery-rails'
