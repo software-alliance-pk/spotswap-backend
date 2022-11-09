@@ -6,6 +6,10 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
 
 
   def create_slot
+    puts "#######"
+    puts @current_user.parking_slots.build
+    puts "#######"
+
     @parking_slot = @current_user.parking_slots.build(slot_params)
     if @parking_slot.save
       @parking_slot
