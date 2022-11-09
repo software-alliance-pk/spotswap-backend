@@ -113,6 +113,14 @@ Rails.application.routes.draw do
           post :update_quick_chat
         end
       end
+
+      resources :swapper_host_connections, only: [] do
+        collection do
+          post :create_connection
+          post :update_screen_navigation_flags
+          post :destroy_connection
+        end
+      end
     end
   end
   
