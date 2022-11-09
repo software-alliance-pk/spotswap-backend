@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_08_124651) do
+ActiveRecord::Schema.define(version: 2022_11_09_164614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,6 +233,18 @@ ActiveRecord::Schema.define(version: 2022_11_08_124651) do
     t.index ["user_id"], name: "index_supports_on_user_id"
   end
 
+  create_table "swapper_host_connections", force: :cascade do |t|
+    t.boolean "connection_screen", default: false
+    t.boolean "is_cancelled_by_swapper", default: false
+    t.boolean "confirmed_screen", default: false
+    t.bigint "user_id", null: false
+    t.bigint "parking_slot_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["parking_slot_id"], name: "index_swapper_host_connections_on_parking_slot_id"
+    t.index ["user_id"], name: "index_swapper_host_connections_on_user_id"
+  end
+
   create_table "user_car_brands", force: :cascade do |t|
     t.bigint "car_detail_id", null: false
     t.bigint "car_brand_id", null: false
@@ -269,6 +281,7 @@ ActiveRecord::Schema.define(version: 2022_11_08_124651) do
     t.string "address"
     t.string "stripe_customer_id"
     t.string "country_code"
+    t.string "referral_code"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -287,6 +300,8 @@ ActiveRecord::Schema.define(version: 2022_11_08_124651) do
   add_foreign_key "support_messages", "support_conversations"
   add_foreign_key "support_messages", "users"
   add_foreign_key "supports", "users"
+  add_foreign_key "swapper_host_connections", "parking_slots"
+  add_foreign_key "swapper_host_connections", "users"
   add_foreign_key "user_car_brands", "car_brands"
   add_foreign_key "user_car_brands", "car_details"
   add_foreign_key "user_car_models", "car_details"

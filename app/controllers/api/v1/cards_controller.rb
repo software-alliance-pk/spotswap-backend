@@ -43,9 +43,9 @@ class Api::V1::CardsController < Api::V1::ApiController
       if find_first_card
         find_first_card.update(is_default: true)
       end
-      render json: { message: "Card deleted successfully!" }, status: 200
+      render json: { message: "Card deleted successfully." }, status: 200
     else
-      render json: { error: "Such card does not exists" }, status: 200
+      render json: { error: "Such card does not exist." }, status: 200
     end
   end
 
@@ -70,18 +70,19 @@ class Api::V1::CardsController < Api::V1::ApiController
     if @card.present?
       @card
     else
-      render json: { error: "User has no default card" }, status: :unprocessable_entity
+      render json: { error: "User has no default card." }, status: :unprocessable_entity
     end
   end
 
   private
+
   def find_card
-    return render json: {error: "Payment id parameter is missing"},status: :unprocessable_entity unless payment_params[:id].present?
+    return render json: {error: "Payment id parameter is missing."},status: :unprocessable_entity unless payment_params[:id].present?
     @card = CardDetail.find_by(id: payment_params[:id])
     if @card.present?
       @card
     else
-      render json: { error: "No such card exists" }, status: :unprocessable_entity
+      render json: { error: "No such card exist." }, status: :unprocessable_entity
     end
   end
 
@@ -112,4 +113,5 @@ class Api::V1::CardsController < Api::V1::ApiController
   def payment_params
     params.permit(:token, :name, :id, :address, :country)
   end
+
 end

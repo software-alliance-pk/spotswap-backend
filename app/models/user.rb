@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :conversations, dependent: :destroy
   has_one_attached :image, dependent: :destroy
   has_many :parking_slots, dependent: :destroy
+  has_one :swapper_host_connection, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
@@ -27,5 +28,13 @@ class User < ApplicationRecord
   :distance_field_name => :distance,
   :lat_column_name => :latitude,
   :lng_column_name => :longitude
-  
+
+  before_save :referral_code_generator
+
+  private
+
+  def referral_code_generator
+    self.referral_code = (self.name + "_" + SecureRandom.hex(2)).delete(' ')
+  end
+
 end

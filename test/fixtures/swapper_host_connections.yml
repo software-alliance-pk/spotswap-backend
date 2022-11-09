@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  connection_screen: false
+  is_cancelled_by_swapper: false
+  confirmed_screen: false
+  user: one
+  parking_slot: one
+
+two:
+  connection_screen: false
+  is_cancelled_by_swapper: false
+  confirmed_screen: false
+  user: two
+  parking_slot: two

@@ -4,14 +4,13 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   before_action :slot_params, only: [:create_slot]
   before_action :params_check, only: [:get_all_spots, :get_all_finders]
 
-
   def create_slot
     @parking_slot = @current_user.parking_slots.build(slot_params)
     if @parking_slot.save
       @parking_slot
     else
       render_error_messages(@parking_slot)
-    end   
+    end
   end
 
   def make_slot_available
