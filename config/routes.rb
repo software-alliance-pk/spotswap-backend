@@ -126,6 +126,8 @@ Rails.application.routes.draw do
         collection do
           get :refresh_stripe_account_link
           get :user_stripe_connect_account
+          get :connect
+          get :login_link
         end
       end
 
