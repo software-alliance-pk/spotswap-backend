@@ -121,6 +121,14 @@ Rails.application.routes.draw do
           post :destroy_connection
         end
       end
+
+      resources :stripe_connects, only: [] do
+        collection do
+          get :refresh_stripe_account_link
+          get :user_stripe_connect_account
+        end
+      end
+
     end
   end
   
