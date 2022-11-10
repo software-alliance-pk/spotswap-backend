@@ -17,7 +17,14 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def sign_up
+    if params[:referrer_code].present?
+      unless is_referral_code_valid(params[:referrer_code])
+        return render json: { error: "invalid referral code." }, status: :unprocessable_entity
+      end
+    end
     @user = User.new(sign_up_params.merge(profile_type: 'manual', profile_complete: false))
+    @user.referrer_code = params[:referrer_code] if params[:referrer_code].present?
+    @user.referrer_id = @referrer_user.id if params[:referrer_code].present?
     if @user.save
       @token = JsonWebToken.encode(user_id: @user.id)
     else
@@ -142,6 +149,11 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
 
   def car_profile_params
     params.permit(:length, :width, :height, :color, :plate_number, :user_id, :car_brand_id, :car_model_id, :photos => [])
+  end
+
+  def is_referral_code_valid(code)
+    @referrer_user = User.find_by(referral_code: code)
+    return @referrer_user.present?
   end
 
 end
