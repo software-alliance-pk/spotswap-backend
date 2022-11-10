@@ -3,19 +3,19 @@ class StripeConnectAccountService
   Stripe.api_key ="sk_test_51LxA5aDG0Cz60XkmJmG5SqF65UOdl7MC8qoJPwfKZdxw09kRSDUnO649B6UhZuzn05DMILFoy4Ptbz8zDSh1NeBy001ulT1oYP"
   Stripe.api_key = 'sk_test_51LxA5aDG0Cz60XkmJmG5SqF65UOdl7MC8qoJPwfKZdxw09kRSDUnO649B6UhZuzn05DMILFoy4Ptbz8zDSh1NeBy001ulT1oYP' if Rails.env.production?
 
-  def create_connect_customer_account(country,email)
+  def create_connect_customer_account(email)
     begin
       response = Stripe::Account.create({
                                type: 'express', #account_type
                                country: 'US' , #country
-                               email: 'tayyasb@abc.com', #email
+                               email: email, #email
                                capabilities: {
                                  card_payments: {requested: true},
                                  transfers: {requested: true},
                                },
                                business_type: 'individual',
                                individual: {
-                                 email: 'tayyasb@abc.com'#email
+                                 email: email
                                }
                              })
       if response.present?
