@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_09_164614) do
+ActiveRecord::Schema.define(version: 2022_11_10_081400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -263,6 +263,16 @@ ActiveRecord::Schema.define(version: 2022_11_09_164614) do
     t.index ["car_model_id"], name: "index_user_car_models_on_car_model_id"
   end
 
+  create_table "user_referral_code_records", force: :cascade do |t|
+    t.integer "referrer_id"
+    t.string "referrer_code"
+    t.string "user_code"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_referral_code_records_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -306,4 +316,5 @@ ActiveRecord::Schema.define(version: 2022_11_09_164614) do
   add_foreign_key "user_car_brands", "car_details"
   add_foreign_key "user_car_models", "car_details"
   add_foreign_key "user_car_models", "car_models"
+  add_foreign_key "user_referral_code_records", "users"
 end
