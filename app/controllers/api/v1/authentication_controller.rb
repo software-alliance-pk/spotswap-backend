@@ -17,6 +17,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def sign_up
+    puts "##########"
     if params[:referrer_code].present?
       unless is_referral_code_valid(params[:referrer_code])
         return render json: { error: "invalid referral code." }, status: :unprocessable_entity
