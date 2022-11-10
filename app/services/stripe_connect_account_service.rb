@@ -3,43 +3,45 @@ class StripeConnectAccountService
   Stripe.api_key ="sk_test_51LxA5aDG0Cz60XkmJmG5SqF65UOdl7MC8qoJPwfKZdxw09kRSDUnO649B6UhZuzn05DMILFoy4Ptbz8zDSh1NeBy001ulT1oYP"
   Stripe.api_key = 'sk_test_51LxA5aDG0Cz60XkmJmG5SqF65UOdl7MC8qoJPwfKZdxw09kRSDUnO649B6UhZuzn05DMILFoy4Ptbz8zDSh1NeBy001ulT1oYP' if Rails.env.production?
 
-  def create_connect_customer_account(email)
-    begin
-      response = Stripe::Account.create({
-                               type: 'express', #account_type
-                               country: 'US' , #country
-                               email: email, #email
-                               capabilities: {
-                                 card_payments: {requested: true},
-                                 transfers: {requested: true},
-                               },
-                               business_type: 'individual',
-                               individual: {
-                                 email: email
-                               }
-                             })
-      if response.present?
-        #code here .....
-        # https://stripe.com/docs/api/accounts/create?lang=ruby
-        # Model name StripeConnectAccount
-        #response[:id]  Account id
-        # response[:email] Account created email
-        #response[:type] Account type
-        # response[:external_accounts][:url] External account links
-        # response[:login_links][:url]  Login Links
-        link = Stripe::AccountLink.create(
-          {
-            account: current_user.stripe_connect_id,
-            refresh_url: refresh_stripe_account_link,
-            return_url: 'https://textng.page.link/qL6j',
-            type: 'account_onboarding',
-          },
-          )
-      end
-    rescue Exception => e
-      #code here
-    end
-  end
+  # def create_connect_customer_account(email)
+  #   begin
+  #     response = Stripe::Account.create({
+  #                              type: 'express', #account_type
+  #                              country: 'US' , #country
+  #                              email: email, #email
+  #                              capabilities: {
+  #                                card_payments: {requested: true},
+  #                                transfers: {requested: true},
+  #                              },
+  #                              business_type: 'individual',
+  #                              individual: {
+  #                                email: email
+  #                              }
+  #                            })
+  #     if response.present?
+  #       #code here .....
+  #       # https://stripe.com/docs/api/accounts/create?lang=ruby
+  #       # Model name StripeConnectAccount
+  #       #response[:id]  Account id
+  #       # response[:email] Account created email
+  #       #response[:type] Account type
+  #       # response[:external_accounts][:url] External account links
+  #       # response[:login_links][:url]  Login Links
+  #       link = Stripe::AccountLink.create(
+  #         {
+  #           account: current_user.stripe_connect_id,
+  #           refresh_url: refresh_stripe_account_link,
+  #           return_url: 'https://textng.page.link/qL6j',
+  #           type: 'account_onboarding',
+  #         },
+  #         )
+  #     end
+  #   rescue Exception => e
+  #     #code here
+  #   end
+  # end
+
+  
 
 
   def create_stripe_account_link(user)
