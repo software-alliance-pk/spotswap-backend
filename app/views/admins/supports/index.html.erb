@@ -6,7 +6,6 @@
       <div class="header_side">
         <button type="button" class="noti_btn input">
           <img src="/assets/icon-bell.svg" alt="">
-          <span>7</span>
         </button>
       </div>
     </div>
@@ -16,7 +15,7 @@
           <div class="users_blk">
             <div class="top_blk">
               <div class="form_blk input search_blk">
-                <button type="button" class="btn">
+                <button type="button" class="btn search_btn">
                   <img src="/assets/search_icon.svg" alt="">
                 </button>
                 <input type="text" name="" class="input" placeholder="Search Messages">
@@ -28,7 +27,7 @@
                   <div class="user">
                     <div class="img">
                       <% if record.user.image.attached?%>
-                        <%= image_tag(record.user.image)%>
+                        <%= image_tag(record.user.image.url)%>
                       <% else %>
                         <img src="../../assets/images/default-profile.jpg" alt="">
                       <%end%>
@@ -55,7 +54,7 @@
               <div class="selected_chat">
                 <div class="img">
                   <% if @last_support.user.image.attached?%>
-                    <%= image_tag(@last_support.user.image)%>
+                    <%= image_tag(@last_support.user.image.url)%>
                   <% else %>
                     <img src="../../assets/images/default-profile.jpg" alt="">
                   <%end%>
@@ -75,12 +74,16 @@
                 </div>
               </div>
             </div>
-            <% @last_support.support_conversation.support_messages.each do |message|%>
-              <div class="msg_contain">
+            
+            <div class="msg_contain">
+              <div class="strike">
+                  <span>18 March 2021</span>
+              </div>
+              <% @last_support.support_conversation.support_messages.each do |message|%>
                 <div class="msg user">
                   <div class="profile">
                     <% if message.user.image.attached?%>
-                      <%= image_tag(message.user.image)%>
+                      <%= image_tag(message.user.image.url)%>
                     <% else %>
                       <img src="../../assets/images/default-profile.jpg" alt="">
                     <%end%>
@@ -90,14 +93,14 @@
                       <p>Open a Support Ticket <strong><%=@last_support.ticket_number%></strong></p>
                       <p><%=message.body%></p>
                       <% if message.image.attached?%>
-                      <div class="attch_blk">
-                        <div class="img">
-                          <%= image_tag message.image.url %>
+                        <div class="attch_blk">
+                          <div class="img">
+                            <%= image_tag message.image.url %>
+                          </div>
+                          <button type="button" class="btn down_btn">
+                            <img src="/assets/icon-arrow-bottom.svg" alt="">
+                          </button>
                         </div>
-                        <button type="button" class="btn down_btn">
-                          <img src="/assets/icon-download.svg" alt="">
-                        </button>
-                      </div>
                       <%end%>
                     </div>
                     <p><%=message.created_at.to_formatted_s(:long)%></p>
@@ -121,8 +124,8 @@
                     <p>May 22, 2022 | 9:00am</p>
                   </div>
                 </div>
-              </div>
-            <%end%>
+              <%end%>
+            </div>
             <%= form_with url: admin_send_message_admins_supports_path do |f| %>
               <%= hidden_field_tag :id, @last_support&.support_conversation.id %>
               <div class="send_blk">
@@ -137,8 +140,8 @@
                     <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', id: "submitaddphoto", style: "opacity:0" %>
                   </button>
                 </div>
-
-                <input type="text" name="message" class="input" placeholder="Type your message here">
+                <div class="sep"></div>
+                <input type="text" name="message" class="input" placeholder="Write your message here via email...">
                 <button type="submit" class="btn send_btn">
                   <img src="/assets/icon-send.svg" alt="">
                 </button>
