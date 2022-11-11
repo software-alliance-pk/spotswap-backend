@@ -125,23 +125,27 @@
       <%end%>
     </div>
 
-    <div class="popup" data-popup="confirm_money">
+    <div class="popup" data-popup="confirm_money" id="confirm_money_modal">
       <div class="overlay"></div>
       <div class="table_dv">
         <div class="table_cell">
           <div class="contain-fluid">
             <div class="row justify-content-center">
-              <div class="col-4">
+              <div class="col-3">
                 <div class="_inner">
-                  <button type="button" class="x_btn"></button>
+                  <%# <button type="button" class="x_btn"></button> %>
                   <div class="log_strip" style="background-image: url('/assets/logon-strip.svg')">
                     <p class="fs_5">Hey!</p>
                   </div>
                   <h4 class="text-center mb-4">Are you sure you want to send a money to this user?  </h4>
-                  <div class="btn_blk">
-                      <button class="site_btn px  blank stroke">No</button>
-                      <button class="site_btn px  pop_btn" data-popup="confirm_yes_money">Yes</button>
+                  <div class="row">
+                    <div class="col-6">
+                      <button class="site_btn px w-100 blank stroke">No</button>
                     </div>
+                    <div class="col-6">
+                      <button class="site_btn px w-100 pop_btn" data-popup="confirm_yes_money">Yes</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -31,3 +31,155 @@
 #view_detail .detail_list .item .total{
   color: #1E96FC;
 }
+
+
+/* Support Page Changes */
+#support .ctn .chat_blk .msg_contain::-webkit-scrollbar {
+  display: none;
+}
+
+#support .ctn .users_blk .users_list::-webkit-scrollbar {
+  display: none;
+}
+
+#support .ctn .users_blk .users_list li{
+  padding-bottom: 0;
+}
+
+#support .ctn .users_blk .users_list li .user{
+  padding-bottom: 3rem;
+  border-bottom: 1.04749px solid #EAEAEA;;
+}
+
+
+#support .ctn .chat_blk .send_blk .input{
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2.1rem;
+  color: rgb(9, 17, 14);
+}
+#support .ctn .chat_blk .send_blk .sep{
+  height: 2rem;
+  width: 0.1rem;
+  background-color: rgba(9, 17, 14, 1);
+  margin-left: 2.3rem;
+} 
+#support .ctn .chat_blk .send_blk .input::placeholder{
+  color: rgba(9, 17, 14, 0.4);
+}
+
+#support .ctn .chat_blk .send_blk .send_btn{
+  width: 5.2rem;
+  min-width: 5.2rem;
+  height: 5.2rem;
+  background-color: #E52628;
+  padding: 0;
+}
+#support .ctn .chat_blk .send_blk .send_btn > img{
+  width: 1.5rem;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  margin-left: 0.5rem;
+}
+
+#support .ctn .users_blk .search_blk .btn{
+  padding: 0;
+  width: 3rem;
+  min-width: 3rem;
+  height: 3rem;
+  margin-right: 2.3rem;
+}
+
+#support .ctn .users_blk .search_blk .input{
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+  color: rgba(0, 0, 0, 1);
+}
+#support .ctn .users_blk .search_blk .input::placeholder{
+  color: rgba(0, 0, 0, 0.2);
+}
+
+#support .ctn .chat_blk .msg_contain .msg .profile{
+  margin-bottom: 2.5rem;
+}
+
+#send_money_modal ._inner .dash_card{
+  margin: 0 auto;
+  width: fit-content;
+  min-width: 25.2rem;
+}
+
+#confirm_money_modal ._inner h4{
+  max-width: 37.4rem;
+  margin: 0 auto;
+  font-weight: 600;
+  font-size: 2.4rem;
+  line-height: 2.9rem;
+  letter-spacing: 0.05em;
+}
+
+
+#table_users .table__blk::-webkit-scrollbar {
+  display: none;
+}
+
+/* -------------- Sidebar -------------- */
+#sidebar .inside ul{
+  margin-right: -0.1rem;
+}
+#sidebar .inside ul > li > a{
+  position: relative;
+}
+
+#sidebar .inside ul > li > a.active::after{
+  content: "";
+  width: 0.5rem;
+  height: 4.5rem;
+  position: absolute;
+  top: -0.5rem;
+  right: -3.1rem;
+  background: #E52628;
+}
+
+
+/* ---------- Guidelines ---------- */
+#guidelines .guide ul li a.active{
+  background-color: #E3E3E3;
+}
+
+/* ----------strike---------- */
+.strike {
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 80%;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+}
+
+.strike>span {
+  position: relative;
+  display: inline-block;
+}
+
+.strike>span:before,
+.strike>span:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 9999px;
+  height: 1px;
+  background: #EAEAEA;
+}
+
+.strike>span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+
+.strike>span:after {
+  left: 100%;
+  margin-left: 15px;
+}
