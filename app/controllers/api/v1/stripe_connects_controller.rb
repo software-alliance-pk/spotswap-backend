@@ -1,6 +1,10 @@
 class Api::V1::StripeConnectsController < Api::V1::ApiController
   before_action :authorize_request
 
+  require 'stripe'
+  Stripe.api_key ="sk_test_51LxA5aDG0Cz60XkmJmG5SqF65UOdl7MC8qoJPwfKZdxw09kRSDUnO649B6UhZuzn05DMILFoy4Ptbz8zDSh1NeBy001ulT1oYP"
+  Stripe.api_key = 'sk_test_51LxA5aDG0Cz60XkmJmG5SqF65UOdl7MC8qoJPwfKZdxw09kRSDUnO649B6UhZuzn05DMILFoy4Ptbz8zDSh1NeBy001ulT1oYP' if Rails.env.production?
+
   def refresh_stripe_account_link
     @stripe_link = StripeConnectAccountService.new.create_stripe_account_link(@current_user)
   end
@@ -8,9 +12,9 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
   def user_stripe_connect_account
     stripe_connect_account = @current_user.stripe_connect_account
     if stripe_connect_account.present?
-      @account_details = StripeConnectAccount.new.retrieve_stripe_connect_account_against_given_user(stripe_connect_account.account_id)
+      @account_details = StripeConnectAccountService.new.retrieve_stripe_connect_account_against_given_user(stripe_connect_account.account_id)
     else
-      @account_details = StripeConnectAccountService.new.connect(@current_user)
+      @account_details = StripeConnectAccountService.new.create_connect_customer_account(@current_user)
     end
   end
 
@@ -18,6 +22,7 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
     account = Stripe::Account.create({
       type: "express",
       email: @current_user.email,
+      country: 'US' ,
       capabilities: {
         card_payments: { requested: true },
         transfers: { requested: true },
@@ -38,7 +43,7 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
         type: "account_onboarding",
       },
     )
-
+    debugger
     render json: { user: @current_user, link: link.url }
   end
 
