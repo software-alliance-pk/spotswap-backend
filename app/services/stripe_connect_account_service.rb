@@ -63,33 +63,24 @@ class StripeConnectAccountService
   end
 
   def delete_stripe_connect_account_against_given_user(account_id)
-    begin
-      Stripe::Account.delete(account_id)
-      #coder here
-      #https://stripe.com/docs/api/accounts/delete?lang=ruby
-    rescue Exception => e
-      return errors = { error: e.message }
-    end
+    Stripe::Account.delete(account_id)
+    #code here
+    #https://stripe.com/docs/api/accounts/delete?lang=ruby
   end
 
   def create_login_link_of_stripe_connect_account(account_id)
-      #https://stripe.com/docs/api/account/login_link?lang=ruby
-      begin
+    #https://stripe.com/docs/api/account/login_link?lang=ruby
 
-        Stripe::Account.create_login_link(
-        'acct_1Lyz13DGKaWpwN7t',
-        )
+      Stripe::Account.create_login_link(
+      'acct_1Lyz13DGKaWpwN7t',
+      )
 
-      #{
-      # "object": "login_link",
-      # "created": 1667224358,
-      # "url": "https://connect.stripe.com/express/PBRTAPCCkWvo",
-      # "id": "lael_MiPEyuaZaKhLSS"
-      #}
-    rescue Exception => e
-      return error = { error: e.message }
-    end
+    #{
+    # "object": "login_link",
+    # "created": 1667224358,
+    # "url": "https://connect.stripe.com/express/PBRTAPCCkWvo",
+    # "id": "lael_MiPEyuaZaKhLSS"
+    #}
   end
-
 
 end
