@@ -33,7 +33,7 @@ class Api::V1::MessagesController < Api::V1::ApiController
 
   def delete_conversation
 	  @conversation.destroy
-    render json: { message: "conversation is removed successfully"}, status: :ok
+    render json: { message: "Conversation has been removed successfully."}, status: :ok
   end
 
   def block_or_unblock_user

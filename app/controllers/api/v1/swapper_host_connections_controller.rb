@@ -22,7 +22,7 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
 
   def destroy_connection
     if @connection.destroy
-      render json: {message: "swapper host connection has been destroyed successfully."}, status: :ok
+      render json: {message: "Swapper connection with host has been cancelled successfully."}, status: :ok
     else
       render_error_messages(@connection)
     end
