@@ -4,7 +4,7 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
 
   def create_connection
     return render json: {error: "parking slot id is missing."}, status: :unprocessable_entity unless params[:parking_slot_id].present?
-    @connection = SwapperHostConnection.new(connection_params.merge(user_id: @current_user.id))
+    @connection = @current_user.build_swapper_host_connection(connection_params)
     if @connection.save
       @connection
     else
