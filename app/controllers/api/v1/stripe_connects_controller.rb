@@ -5,9 +5,9 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
     begin
       @stripe_link = StripeConnectAccountService.new.create_stripe_account_link(@current_user, refresh_stripe_account_link_api_v1_stripe_connects_url)
       render json: @stripe_link
-
+      
     rescue Exception => e
-      render json: { error:  e.message } , status: :unprocessable_entity
+      render json: { error:  e.message }, status: :unprocessable_entity
     end
   end
 
@@ -22,7 +22,7 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
       render json: @account_details
 
     rescue Exception => e
-      render json: { error:  e.message } , status: :unprocessable_entity
+      render json: { error:  e.message }, status: :unprocessable_entity
     end
   end
   
