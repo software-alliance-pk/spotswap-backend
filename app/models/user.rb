@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :blocked_user_details, dependent: :destroy
   has_many :conversations, dependent: :destroy
   has_one_attached :image, dependent: :destroy
-  has_many :parking_slots, dependent: :destroy
+  has_one :parking_slots, dependent: :destroy
   has_one :swapper_host_connection, dependent: :destroy
   has_many :user_referral_code_records, dependent: :destroy
 
