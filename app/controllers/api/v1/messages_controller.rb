@@ -14,13 +14,18 @@ class Api::V1::MessagesController < Api::V1::ApiController
   def create_conversation
     return render json: {error: "recepient id is missing."}, status: :unprocessable_entity unless params[:recepient_id].present?
     return render json: {error: "User with entered recepient id does not exist."}, status: :unprocessable_entity unless User.find_by_id(params[:recepient_id]).present?
-    @conversation = Conversation.new(conversation_params)
-    @conversation.sender_id = @current_user.id
-    if @conversation.save
+    @conversation = Conversation.find_by(sender_id: @current_user.id, recepient_id: params[:recepient_id])
+    if @conversation.present?
       @conversation
     else
-      render_error_messages(@conversation)
-    end
+      @conversation = Conversation.new(conversation_params)
+      @conversation.sender_id = @current_user.id
+      if @conversation.save
+        @conversation
+      else
+        render_error_messages(@conversation)
+      end
+    end 
   end
 
   def get_all_messages
