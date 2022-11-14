@@ -12,11 +12,9 @@ json.parking_slots @parking_slots do |parking_slot|
   json.car_model_name parking_slot.user.car_detail.car_model.title
 
   if parking_slot.user.car_detail.photos.attached?
-    json.car_images parking_slot.user.car_detail.photos do |photo|
-      json.url photo.url
-    end
+    json.car_image parking_slot.user.car_detail.photos[0].url
   else
-    json.car_images []
+    json.car_image ""
   end
 end
 
