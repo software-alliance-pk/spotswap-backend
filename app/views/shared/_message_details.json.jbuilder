@@ -8,5 +8,5 @@ json.recepient_name message.conversation.recepient_name
 json.created_at message.created_at
 json.conversation_id message.conversation_id
 json.message_image message.image.attached? ? message.image.url : ""
-json.sender_image message.conversation.sender_image.attached? ? message.conversation.sender_image.url : ""
+json.sender_image message.user.image.attached? ? message.user.image.url : ""
 json.recepient_image message.conversation.recepient_image.attached? ? message.conversation.recepient_image.url : ""

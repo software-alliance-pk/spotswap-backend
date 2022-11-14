@@ -4,6 +4,6 @@ class SwapperHostConnection < ApplicationRecord
   after_create :push_notification
 
   def push_notification
-    PushNotificationService.fcm_push_notification(self)
+    PushNotificationService.fcm_push_notification(self, self.parking_slot.user)
 	end
 end
