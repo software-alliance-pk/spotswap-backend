@@ -17,7 +17,7 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
       if stripe_connect_account.present?
         @account_details = StripeConnectAccountService.new.retrieve_stripe_connect_account(stripe_connect_account.account_id)
       else
-        @account_details = StripeConnectAccountService.new.create_connect_customer_account(@current_user, refresh_stripe_account_link_api_v1_stripe_connects_url)
+        @account_details = StripeConnectAccountService.new.create_connect_customer_account(@current_user, user_stripe_connect_account_api_v1_stripe_connects_url)
       end
       render json: @account_details
 
