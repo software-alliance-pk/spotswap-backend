@@ -34,18 +34,18 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
 
   def notification_fcm_token
     return render json: { error: "FCM token parameter is missing"}, status: :unprocessable_entity unless params[:fcm_token].present?
-    return render json: { error: "Latitude parameter is missing"},status: :unprocessable_entity unless params[:latitude].present?
-    return render json: { error: "Longitude parameter is missing "},status: :unprocessable_entity unless params[:longitude].present?
-    return render json: { error: "Address parameter is missing"},status: :unprocessable_entity unless params[:address].present?
+    return render json: { error: "Latitude parameter is missing"}, status: :unprocessable_entity unless params[:latitude].present?
+    return render json: { error: "Longitude parameter is missing "}, status: :unprocessable_entity unless params[:longitude].present?
+    return render json: { error: "Address parameter is missing"}, status: :unprocessable_entity unless params[:address].present?
     if @current_user.present?
         @current_user.update(latitude: params[:latitude], longitude: params[:longitude], address: params[:address])
-        if @current_user.mobile_devices.create(mobile_device_token: params[:fcm_token])
+        if @current_user.mobile_devices.first_or_create(mobile_device_token: params[:fcm_token])
           render json: { message: "fcm token has been associated with user.", fcm_token: params[:fcm_token] }, status: :ok
         else
           render json: { error: "fcm token could not associated with user, something went wrong." }, status: :unprocessable_entity
         end
     else
-      render json: { error: "params latitude, longitude and address could not updated, something went wrong." }, status: :unprocessable_entity
+      render json: { error: "current user is missing." }, status: :unprocessable_entity
     end
   end
 
