@@ -3,14 +3,12 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
   before_action :find_connection, only: [:update_screen_navigation_flags, :destroy_connection]
 
   def create_connection
-    return render json: {error: "parking slot id is missing."}, status: :unprocessable_entity unless params[:parking_slot_id].present?
-    #return render json: {error: "You already have connection with host."}, status: :unprocessable_entity if is_current_user_already_has_connection
-
-    @connection = @current_user.build_swapper_host_connection(connection_params)
+    return render json: {error: "Parking Slot ID is missing."}, status: :unprocessable_entity unless params[:parking_slot_id].present?
     slot = ParkingSlot.find_by_id(params[:parking_slot_id])
     return render json: {error: "Parking Slot with this ID is not present."}, status: :unprocessable_entity unless slot.present?
-    @connection.host_id = slot.user_id
-
+    return render json: {error: "You already have connection with #{@connection_check.first.host.name}."}, status: :unprocessable_entity unless is_current_user_already_has_connection.empty?
+    @connection = @current_user.build_swapper_host_connection(connection_params)
+    @connection.host_id =  slot.user.id
     if @connection.save
       @connection
     else
@@ -50,9 +48,9 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
     return render json: {error: "swapper host connection with this id is not present."}, status: :unprocessable_entity unless @connection.present?
   end
 
-  # def is_current_user_already_has_connection
-  #   connection = SwapperHostConnection.where(user_id: @current_user.id).or(SwapperHostConnection.where(host_id: @current_user.id))
-  #   return @current_user.swapper_host_connection.present?
-  # end
+  def is_current_user_already_has_connection
+    @connection_check = SwapperHostConnection.where(user_id: @current_user.id).or(SwapperHostConnection.where(host_id: @current_user.id))
+    return @connection_check
+  end
 
 end
