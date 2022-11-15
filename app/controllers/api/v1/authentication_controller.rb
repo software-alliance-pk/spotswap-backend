@@ -40,7 +40,6 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     if @current_user.present?
         @current_user.update(latitude: params[:latitude], longitude: params[:longitude], address: params[:address])
         if @current_user.mobile_devices.first_or_create(mobile_device_token: params[:fcm_token])
-          render json: { message: "fcm token has been associated with user.", fcm_token: params[:fcm_token] }, status: :ok
         else
           render json: { error: "fcm token could not associated with user, something went wrong." }, status: :unprocessable_entity
         end
