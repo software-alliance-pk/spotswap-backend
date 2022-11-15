@@ -4,7 +4,13 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
 
   def create_connection
     return render json: {error: "parking slot id is missing."}, status: :unprocessable_entity unless params[:parking_slot_id].present?
+    #return render json: {error: "Current user already has connection."}, status: :unprocessable_entity if is_current_user_already_has_connection
+
     @connection = @current_user.build_swapper_host_connection(connection_params)
+    slot = ParkingSlot.find_by_id(params[:parking_slot_id])
+    return render json: {error: "Parking Slot with this ID is not present."}, status: :unprocessable_entity unless slot.present?
+    @connection.host_id = slot.user_id
+
     if @connection.save
       @connection
     else
@@ -42,6 +48,10 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
     return render json: {error: "connection id is missing."}, status: :unprocessable_entity unless params[:connection_id].present?
     @connection = SwapperHostConnection.find_by_id(params[:connection_id])
     return render json: {error: "swapper host connection with this id is not present."}, status: :unprocessable_entity unless @connection.present?
+  end
+
+  def is_current_user_already_has_connection
+    return @current_user.swapper_host_connection.present?
   end
 
 end
