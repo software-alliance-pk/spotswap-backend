@@ -1,5 +1,5 @@
 json.id conversation.id
-json.sender_id conversation.sender_id
+json.sender_id conversation.user_id
 json.sender_name conversation.sender.name
 json.sender_image conversation&.sender&.image.attached? ? conversation.sender.image.url : ""
 json.recepient_id conversation.recepient_id
