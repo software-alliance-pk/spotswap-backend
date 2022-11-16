@@ -8,6 +8,8 @@ if @connection.present?
     json.swapper @connection.first.swapper
     json.host @connection.first.host
     json.parking_slot @connection.first.parking_slot
+    json.swapper_car_model @connection.first.swapper&.car_detail&.car_model
+    json.swapper_image @connection.first.swapper.image.attached? ? @connection.first.swapper.image.url : ""
   end
 else
   json.swapper_host_connection nil

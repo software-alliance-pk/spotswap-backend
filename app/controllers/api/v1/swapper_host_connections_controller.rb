@@ -6,7 +6,8 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
     return render json: {error: "Parking Slot ID is missing."}, status: :unprocessable_entity unless params[:parking_slot_id].present?
     slot = ParkingSlot.find_by_id(params[:parking_slot_id])
     return render json: {error: "Parking Slot with this ID is not present."}, status: :unprocessable_entity unless slot.present?
-    return render json: {error: "You already have connection with #{@connection_check.first.host.name}."}, status: :unprocessable_entity unless is_current_user_already_has_connection.empty?
+    connected_user = @current_user == @connection_check.first.host ? @connection_check.first.swapper : @connection_check.first.host unless is_current_user_already_has_connection.empty?
+    return render json: {error: "You already have connection with #{connected_user.name}."}, status: :unprocessable_entity unless is_current_user_already_has_connection.empty?
     @connection = @current_user.build_swapper_host_connection(connection_params)
     @connection.host_id =  slot.user.id
     if @connection.save
