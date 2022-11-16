@@ -4,6 +4,10 @@ puts @current_user.id
 puts "###################"
 
 connection = SwapperHostConnection.where(user_id: user.id).or(SwapperHostConnection.where(host_id: user.id))
+puts "###################"
+puts connection.count
+user.swapper_host_connection.id
+puts "###################"
 if connection.present?
   json.swapper_host_connection do
     json.swapper_host_connection_id user.swapper_host_connection.id
