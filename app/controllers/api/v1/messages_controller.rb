@@ -14,7 +14,7 @@ class Api::V1::MessagesController < Api::V1::ApiController
   def create_conversation
     return render json: {error: "recepient id is missing."}, status: :unprocessable_entity unless params[:recepient_id].present?
     return render json: {error: "User with entered recepient id does not exist."}, status: :unprocessable_entity unless User.find_by_id(params[:recepient_id]).present?
-    return render json: {error: "User can't create conversation with himself."}, status: :unprocessable_entity if @current_user.id == params[:recepient_id]  
+    #return render json: {error: "User can't create conversation with himself."}, status: :unprocessable_entity if @current_user.id == params[:recepient_id]  
     @conversation = Conversation.where(user_id: @current_user.id, recepient_id: params[:recepient_id]).or(Conversation.where(user_id: params[:recepient_id], recepient_id: @current_user.id))
     unless @conversation.empty?
       @conversation = @conversation.first
