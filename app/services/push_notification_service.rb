@@ -10,8 +10,12 @@ class PushNotificationService
           sound: 'default'
           }
         }
-    registration_id = connection.host.mobile_device.mobile_device_token
-    response = fcm_client.send(registration_id, options)
-    puts response
+    registration_id = connection.host&.mobile_device&.mobile_device_token
+    if registration_id.present?
+      response = fcm_client.send(registration_id, options)
+      puts response
+    else
+      puts "registration id is missing."
+    end
   end
 end
