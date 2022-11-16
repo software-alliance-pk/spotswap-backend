@@ -1,4 +1,10 @@
 user = @current_user
+puts "###################"
+puts @current_user
+puts "###################"
+puts "###################"
+puts current_user
+puts "###################"
 connection = SwapperHostConnection.where(user_id: user.id).or(SwapperHostConnection.where(host_id: user.id))
 if connection.present?
   json.swapper_host_connection do
