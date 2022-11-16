@@ -9,12 +9,11 @@ class PushNotificationService
           body: data[:body],
           sound: 'default'
           }
-          }
-          
+        }
     registration_ids = connection.host.mobile_devices.pluck(:mobile_device_token)
-    registration_ids.each_slice(20) do |registration_id|
+    registration_ids.each do |registration_id|
       response = fcm_client.send(registration_id, options)
-     puts response
+      puts response
     end
   end
 end
