@@ -39,7 +39,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     return render json: { error: "Address parameter is missing"}, status: :unprocessable_entity unless params[:address].present?
     if @current_user.present?
         @current_user.update(latitude: params[:latitude], longitude: params[:longitude], address: params[:address])
-        if @current_user.mobile_devices.first_or_create(mobile_device_token: params[:fcm_token])
+        if @current_user.build_mobile_device(mobile_device_token: params[:fcm_token])
           @connection =  SwapperHostConnection.where(user_id: @current_user.id).or(SwapperHostConnection.where(host_id: @current_user.id))
         else
           render json: { error: "fcm token could not associated with user, something went wrong." }, status: :unprocessable_entity
