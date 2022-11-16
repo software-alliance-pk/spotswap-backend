@@ -14,12 +14,11 @@ class Api::V1::MessagesController < Api::V1::ApiController
   def create_conversation
     return render json: {error: "recepient id is missing."}, status: :unprocessable_entity unless params[:recepient_id].present?
     return render json: {error: "User with entered recepient id does not exist."}, status: :unprocessable_entity unless User.find_by_id(params[:recepient_id]).present?
-    @conversation = Conversation.find_by(sender_id: @current_user.id, recepient_id: params[:recepient_id])
-    if @conversation.present?
-      @conversation
+    @conversation = Conversation.where(user_id: @current_user.id, recepient_id: params[:recepient_id]).or(Conversation.where(user_id: params[:recepient_id], recepient_id: @current_user.id))
+    unless @conversation.empty?
+      @conversation = @conversation.first
     else
-      @conversation = Conversation.new(conversation_params)
-      @conversation.sender_id = @current_user.id
+      @conversation = Conversation.new(conversation_params.merge(user_id: @current_user.id))
       if @conversation.save
         @conversation
       else
@@ -33,7 +32,7 @@ class Api::V1::MessagesController < Api::V1::ApiController
   end
 
   def get_all_conversations
-	  @conversations = Conversation.where(sender_id: @current_user.id).or(Conversation.where(recepient_id: @current_user.id)).order(created_at: :desc)
+	  @conversations = Conversation.where(user_id: @current_user.id).or(Conversation.where(recepient_id: @current_user.id)).order(created_at: :desc)
   end
 
   def delete_conversation
@@ -43,7 +42,7 @@ class Api::V1::MessagesController < Api::V1::ApiController
 
   def block_or_unblock_user
     return render json: {error: "user id is missing."}, status: :unprocessable_entity unless params[:user_id].present?
-    conversation = Conversation.find_by(recepient_id: @current_user.id, sender_id: params[:user_id])
+    conversation = Conversation.find_by(recepient_id: @current_user.id, user_id: params[:user_id])
     is_user_blocked = BlockedUserDetail.find_by(blocked_user_id: params[:user_id], user_id: @current_user.id)
     if is_user_blocked.present?
       conversation.update(is_blocked: false)
