@@ -5,11 +5,15 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   before_action :params_check, only: [:get_all_spots, :get_all_finders]
 
   def create_slot
-    @parking_slot = @current_user.build_parking_slot(slot_params)
-    if @parking_slot.save
-      @parking_slot
+    if @current_user.host_swapper_connection.present? || @current_user.swapper_host_connection.present?
+      return render json: {error: "You are Already in Connection."}, status: :unprocessable_entity
     else
-      render_error_messages(@parking_slot)
+      @parking_slot = @current_user.build_parking_slot(slot_params)
+      if @parking_slot.save
+        @parking_slot
+      else
+        render_error_messages(@parking_slot)
+      end
     end
   end
 
@@ -20,7 +24,7 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def get_all_spots
-    slots = ParkingSlot.within(0.6096, :units => :kms, :origin => [params[:latitude], params[:longitude]]).available_slots
+    slots = ParkingSlot.within(0.6096, :units => :kms, :origin => [params[:latitude], params[:longitude]]).where.not(user_id: @current_user.id).available_slots
     @parking_slots = []
     slots.each do |slot|
       if slot_size_check(slot)
