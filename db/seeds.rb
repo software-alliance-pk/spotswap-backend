@@ -15,6 +15,8 @@ car_brand = CarBrand.create(title: "Isuzu")
   car_brand.car_models.create(title: "Model #{index}")
 end
 
+Admin.create(email: "abdullah.hafeez515515@gmail.com", full_name: "Abdullah Hafeez", contact: "+923066412706", location: "Johar Town, Lahore", password: "admin123")
+
 Page.destroy_all
 Page.create(title: "Terms & Conditions", permalink: "terms&condition",content: "<h3 style='color:white;'> General Terms </h3>
   <p style='color:white;'> By accessing and placing an order with UI Design, you confirm that you are in agreement with and bound by the terms and conditions contained in the Terms Of Use outlined below. These terms apply to the entire website and any email or other type of communication between you and UI Design.</p>
