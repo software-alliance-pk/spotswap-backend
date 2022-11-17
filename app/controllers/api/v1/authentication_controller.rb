@@ -19,7 +19,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   def sign_up
     if params[:referrer_code].present?
       unless is_referral_code_valid(params[:referrer_code])
-        return render json: { error: "invalid referral code." }, status: :unprocessable_entity
+        return render json: { error: "Referral Code is Invalid." }, status: :unprocessable_entity
       end
     end
     @user = User.new(sign_up_params.merge(profile_type: 'manual', profile_complete: false))
