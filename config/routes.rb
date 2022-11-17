@@ -124,10 +124,9 @@ Rails.application.routes.draw do
 
       resources :stripe_connects, only: [] do
         collection do
-          get :refresh_stripe_account_link
+          get :retrieve_connect_account
           get :user_stripe_connect_account
-          get :connect
-          get :login_link
+          get :create_login_link
         end
       end
 
