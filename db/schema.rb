@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_10_141105) do
+ActiveRecord::Schema.define(version: 2022_11_16_145348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,11 +128,11 @@ ActiveRecord::Schema.define(version: 2022_11_10_141105) do
   end
 
   create_table "conversations", force: :cascade do |t|
-    t.integer "sender_id", null: false
     t.integer "recepient_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_blocked", default: false
+    t.integer "user_id", null: false
   end
 
   create_table "faqs", force: :cascade do |t|
@@ -241,6 +241,7 @@ ActiveRecord::Schema.define(version: 2022_11_10_141105) do
     t.bigint "parking_slot_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "host_id", null: false
     t.index ["parking_slot_id"], name: "index_swapper_host_connections_on_parking_slot_id"
     t.index ["user_id"], name: "index_swapper_host_connections_on_user_id"
   end
