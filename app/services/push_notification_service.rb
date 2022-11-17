@@ -1,21 +1,21 @@
 class PushNotificationService
   require 'fcm'
   def self.fcm_push_notification(connection)
-    message = {connection: connection, user: connection.user, parking_slot: connection.parking_slot}
-
+    data = {connection: connection, body: "Swapper #{connection.swapper.name} and Host #{connection.host.name} has been connected.", host: connection.host, parking_slot: connection.parking_slot, swapper: connection.swapper, finder_car_model: connection.swapper&.car_detail&.car_model}
     fcm_client = FCM.new("AAAAlr4iktw:APA91bF55dfM-lYWPqi-dHMnWGvrwQwRMAEJZD6Hu2P1mEdX8sHBcsVzLx3goF2E8ArNLw9EwvaRzlUGd5YDHCY9WOiu0mtP4jR8XXD2aH-5ItgZ12eY90NYxrNuisHjm3mIx8lsMFAo") # set your FCM_SERVER_KEY
     options = { priority: 'high',
-          data: { message: message },
+          data: { data: data },
           notification: {
-          body: message,
+          body: data[:body],
           sound: 'default'
           }
-          }
-    registration_ids = connection.parking_slot.user.mobile_devices.pluck(:mobile_device_token)
-    # A registration ID looks something like: “dAlDYuaPXes:APA91bFEipxfcckxglzRo8N1SmQHqC6g8SWFATWBN9orkwgvTM57kmlFOUYZAmZKb4XGGOOL9wqeYsZHvG7GEgAopVfVupk_gQ2X5Q4Dmf0Cn77nAT6AEJ5jiAQJgJ_LTpC1s64wYBvC”
-    registration_ids.each_slice(20) do |registration_id|
+        }
+    registration_id = connection.host&.mobile_device&.mobile_device_token
+    if registration_id.present?
       response = fcm_client.send(registration_id, options)
-     puts response
+      puts response
+    else
+      puts "registration id is missing."
     end
   end
 end

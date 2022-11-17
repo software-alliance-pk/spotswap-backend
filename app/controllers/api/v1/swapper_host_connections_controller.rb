@@ -3,8 +3,13 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
   before_action :find_connection, only: [:update_screen_navigation_flags, :destroy_connection]
 
   def create_connection
-    return render json: {error: "parking slot id is missing."}, status: :unprocessable_entity unless params[:parking_slot_id].present?
-    @connection = SwapperHostConnection.new(connection_params.merge(user_id: @current_user.id))
+    return render json: {error: "Parking Slot ID is missing."}, status: :unprocessable_entity unless params[:parking_slot_id].present?
+    slot = ParkingSlot.find_by_id(params[:parking_slot_id])
+    return render json: {error: "Parking Slot with this ID is not present."}, status: :unprocessable_entity unless slot.present?
+    connected_user = @current_user == @connection_check.first.host ? @connection_check.first.swapper : @connection_check.first.host unless is_current_user_already_has_connection.empty?
+    return render json: {error: "You already have connection with #{connected_user.name}."}, status: :unprocessable_entity unless is_current_user_already_has_connection.empty?
+    @connection = @current_user.build_swapper_host_connection(connection_params)
+    @connection.host_id =  slot.user.id
     if @connection.save
       @connection
     else
@@ -22,7 +27,7 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
 
   def destroy_connection
     if @connection.destroy
-      render json: {message: "swapper host connection has been destroyed successfully."}, status: :ok
+      render json: {message: "Swapper connection with host has been cancelled successfully."}, status: :ok
     else
       render_error_messages(@connection)
     end
@@ -42,6 +47,11 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
     return render json: {error: "connection id is missing."}, status: :unprocessable_entity unless params[:connection_id].present?
     @connection = SwapperHostConnection.find_by_id(params[:connection_id])
     return render json: {error: "swapper host connection with this id is not present."}, status: :unprocessable_entity unless @connection.present?
+  end
+
+  def is_current_user_already_has_connection
+    @connection_check = SwapperHostConnection.where(user_id: @current_user.id).or(SwapperHostConnection.where(host_id: @current_user.id))
+    return @connection_check
   end
 
 end

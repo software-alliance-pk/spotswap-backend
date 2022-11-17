@@ -6,14 +6,15 @@ class User < ApplicationRecord
   has_secure_password
   has_many :supports, dependent: :destroy
   has_many :messages, dependent: :destroy
-  has_many :mobile_devices, dependent: :destroy
+  has_one :mobile_device, dependent: :destroy
   has_many :card_details, dependent: :destroy
   has_many :quick_chats, dependent: :destroy
   has_many :blocked_user_details, dependent: :destroy
   has_many :conversations, dependent: :destroy
   has_one_attached :image, dependent: :destroy
-  has_one :parking_slots, dependent: :destroy
-  has_one :swapper_host_connection, dependent: :destroy
+  has_one :parking_slot, dependent: :destroy
+  has_one :swapper_host_connection, dependent: :destroy, class_name: :SwapperHostConnection, foreign_key: :user_id
+  has_one :host_swapper_connection, dependent: :destroy, class_name: :SwapperHostConnection, foreign_key: :host_id
   has_many :user_referral_code_records, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
