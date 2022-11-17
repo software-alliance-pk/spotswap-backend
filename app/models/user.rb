@@ -44,7 +44,9 @@ class User < ApplicationRecord
 
   def user_referral_code_record_generator
     if self.referrer_code.present? && self.referrer_id.present?
-      UserReferralCodeRecord.create(user_id: self.id, user_code: self.referral_code, referrer_code: self.referrer_code, referrer_id: self.referrer_id)
+      unless self.user_referral_code_records.where(referrer_code: self.referrer_code, referrer_id: self.referrer_id).present?
+       UserReferralCodeRecord.create(user_id: self.id, user_code: self.referral_code, referrer_code: self.referrer_code, referrer_id: self.referrer_id)
+      end
     end
   end
 
