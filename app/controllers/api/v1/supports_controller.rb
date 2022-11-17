@@ -5,7 +5,7 @@ class Api::V1::SupportsController < Api::V1::ApiController
   before_action :find_user, only: [:create_message]
 
   def create_ticket
-    @ticket = @current_user.supports.new(support_params.merge(ticket_number: generate_ticket_number.upcase))
+    @ticket = @current_user.supports.build(support_params.merge(ticket_number: generate_ticket_number.upcase))
     if @ticket.save
       @support_conversation = @ticket.build_support_conversation(sender_id: @ticket.user_id, recipient_id: Admin.admin.first.id)
       if @support_conversation.save
