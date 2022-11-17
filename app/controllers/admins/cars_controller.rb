@@ -11,7 +11,7 @@ class Admins::CarsController < ApplicationController
     @car_brand.image.attach(params[:image])
     if @car_brand.save
       redirect_to admins_cars_path
-      flash[:alert] = "Car Brand has been added."
+      flash[:alert] = "Car Brand has been added successfully."
     else
       redirect_to admins_cars_path
       flash[:alert] = @car_brand.errors.full_messages.to_sentence
@@ -23,7 +23,7 @@ class Admins::CarsController < ApplicationController
     @car_model = @car_brand.car_models.build(car_model_params)
     if @car_model.save
       redirect_to get_model_details_admins_cars_path(brand_id: @car_brand.id)
-      flash[:alert] = "Car Model has been added."
+      flash[:alert] = "Car Model has been added successfully."
     else
       redirect_to get_model_details_admins_cars_path(brand_id: @car_brand.id)
       flash[:alert] = @car_model.errors.full_messages.to_sentence
@@ -39,7 +39,7 @@ class Admins::CarsController < ApplicationController
     @car_brand = @car_model.car_brand
     if @car_model.update(car_model_params)
       redirect_to get_model_details_admins_cars_path(brand_id: @car_brand.id)
-      flash[:alert] = "Car Model has been updated."
+      flash[:alert] = "Car Model has been updated successfully."
     else
       redirect_to get_model_details_admins_cars_path(brand_id: @car_brand.id)
       flash[:alert] = @car_model.errors.full_messages.to_sentence
