@@ -25,21 +25,12 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
 
   def get_all_spots
     slots = ParkingSlot.within(0.6096, :units => :kms, :origin => [params[:latitude], params[:longitude]]).where.not(user_id: @current_user.id).available_slots
-    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    puts slots
-    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     @parking_slots = []
     slots.each do |slot|
       if slot_size_check(slot)
         @parking_slots << slot
       end
     end
-    puts "#############"
-    puts @parking_slots.count
-    puts "#############"
-    puts @parking_slots
-    puts "#############"
-
   end
 
   def get_all_finders
@@ -50,7 +41,7 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
 
   def find_parking_slot
     return render json: {error: "Parking slot id parameter is missing"},status: :unprocessable_entity  unless params[:id].present?
-    @parking_slot = ParkingSlot.find_by_id(params[:id])
+    @parking_slot =  ParkingSlot.find_by_id(params[:id])
     return render json: {error: "No such Parking slot is present"}, status: :unprocessable_entity unless @parking_slot.present?
   end
 
@@ -59,11 +50,6 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def slot_size_check(slot)
-    puts slot.id
-    puts @current_user
-    puts slot&.user&.car_detail&.length
-    puts @current_user&.car_detail&.length
-    puts slot&.user&.car_detail&.length >= @current_user&.car_detail&.length
     return slot&.user&.car_detail&.length >= @current_user&.car_detail&.length
   end
 
