@@ -31,6 +31,12 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
         @parking_slots.push(slot)
       end
     end
+    puts "#############"
+    puts @parking_slots.count
+    puts "#############"
+    puts @parking_slots
+    puts "#############"
+
   end
 
   def get_all_finders
