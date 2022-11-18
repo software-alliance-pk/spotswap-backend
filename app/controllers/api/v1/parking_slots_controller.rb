@@ -28,7 +28,10 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
     @parking_slots = []
     slots.each do |slot|
       if slot_size_check(slot)
-        @parking_slots.push(slot)
+        puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+        puts slot
+        puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+        @parking_slots << slot
       end
     end
     puts "#############"
