@@ -25,12 +25,12 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
 
   def get_all_spots
     slots = ParkingSlot.within(0.6096, :units => :kms, :origin => [params[:latitude], params[:longitude]]).where.not(user_id: @current_user.id).available_slots
+    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    puts slots
+    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     @parking_slots = []
     slots.each do |slot|
       if slot_size_check(slot)
-        puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-        puts slot
-        puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
         @parking_slots << slot
       end
     end
@@ -59,6 +59,8 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def slot_size_check(slot)
+    puts slot.id
+    puts @current_user
     puts slot&.user&.car_detail&.length
     puts @current_user&.car_detail&.length
     puts slot&.user&.car_detail&.length >= @current_user&.car_detail&.length
