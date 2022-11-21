@@ -45,15 +45,15 @@ class Api::V1::MessagesController < Api::V1::ApiController
 
   def block_or_unblock_user
     return render json: {error: "user id is missing."}, status: :unprocessable_entity unless params[:user_id].present?
-    conversation = Conversation.find_by(recepient_id: @current_user.id, user_id: params[:user_id])
+    @conversation = Conversation.where(recepient_id: @current_user.id, user_id: params[:user_id]).or(Conversation.where(recepient_id: params[:user_id], user_id: @current_user.id))
     is_user_blocked = BlockedUserDetail.find_by(blocked_user_id: params[:user_id], user_id: @current_user.id)
     if is_user_blocked.present?
-      conversation.update(is_blocked: false)
+      @conversation.update(is_blocked: false)
       is_user_blocked.destroy
       return render json: { message: "Conversation is unblocked."}, status: :ok
     else
-      if conversation.present?
-        conversation.update(is_blocked: true)
+      if @conversation.present?
+        @conversation.update(is_blocked: true)
         @block_user_detail = BlockedUserDetail.new(blocked_user_id: params[:user_id], user_id: @current_user.id)
         if @block_user_detail.save
           return render json: { message: "Conversation is blocked."}, status: :ok
