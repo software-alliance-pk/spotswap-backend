@@ -171,6 +171,8 @@ Rails.application.routes.draw do
         get :terms_and_conditions
         get :privacy_policy
         get :faqs
+        get :edit_terms_and_conditions
+        post :update_terms_and_conditions
       end
     end
 
