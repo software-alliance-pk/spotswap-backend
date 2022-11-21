@@ -25,6 +25,9 @@ class Admins::GuidelinesController < ApplicationController
   def faqs
 	end
 
+  def edit_faqs
+	end
+
 	private
   
   def authenticate_admin!

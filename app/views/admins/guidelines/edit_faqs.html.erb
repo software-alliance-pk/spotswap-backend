@@ -1,0 +1,55 @@
+<section id="account_section">
+  <%= render :partial => "shared/sidebar" %>
+  <div id="guidelines" class="main_side">
+    <div id="top_header">
+      <h2 class="mb-0">Guidelines</h2>
+      <div class="header_side">
+        <button type="button" class="noti_btn input">
+          <img src="/assets/icon-bell.svg" alt="">
+          <span>7</span>
+        </button>
+      </div>
+    </div>
+    <div class="top_btn">
+      <button class="site_btn round">Save</button>
+    </div>
+    <div class="guide">
+      <div class="row">
+        <div class="col-md-3">
+          <ul>
+            <li>
+              <a href="<%=terms_and_conditions_admins_guidelines_path%>" class="active">Terms & Condition</a>
+            </li>
+            <li>
+              <a href="<%=privacy_policy_admins_guidelines_path%>">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="<%=faqs_admins_guidelines_path%>">FAQs</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-9">
+          <div class="faq_edit">
+            <div class="top">
+              <a href="<%=faqs_admins_guidelines_path%>" class="icon">
+                <img src="/assets/Arrow - Left.svg" alt="">
+              </a>
+              <h5>Add More FAQ</h5>
+            </div>
+            <div class="textarea">
+              <textarea name="textarea" id="textarea" rows="6">FAQ Title: How to use Spot Swap</textarea>
+            </div>
+            <div class="detail">
+              <p>liqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi. Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi.
+                Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi. Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi. </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<!-- account_section -->
+<!-- Main Js -->
+<script src="/assets/main.js"></script>
