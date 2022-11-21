@@ -173,6 +173,7 @@ Rails.application.routes.draw do
         get :faqs
         get :edit_terms_and_conditions
         post :update_terms_and_conditions
+        get :edit_faqs
       end
     end
 
