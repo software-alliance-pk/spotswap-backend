@@ -11,26 +11,26 @@
       </div>
     </div>
     <div class="top_btn">
-      <button class="site_btn round">Edit</button>
+      <a href="<%=edit_terms_and_conditions_admins_guidelines_path%>" class="site_btn round">Edit</a>
     </div>
     <div class="guide">
       <div class="row">
         <div class="col-md-3">
           <ul>
-            <li >
-            <a href="<%=terms_and_conditions_admins_guidelines_path%>" class="active">Terms & Condition</a>
+            <li>
+              <a href="<%=terms_and_conditions_admins_guidelines_path%>" class="active">Terms & Condition</a>
             </li>
             <li>
-            <a href="<%=privacy_policy_admins_guidelines_path%>">Privacy Policy</a>
+              <a href="<%=privacy_policy_admins_guidelines_path%>">Privacy Policy</a>
             </li>
-            <li >
-            <a href="<%=faqs_admins_guidelines_path%>">FAQs</a>
+            <li>
+              <a href="<%=faqs_admins_guidelines_path%>">FAQs</a>
             </li>
           </ul>
         </div>
         <div class="col-md-9">
-          <div class="img">
-            <img src="/assets/Earning.jpg" alt="">
+          <div class="guidelines_detail">
+          <p><%=@terms_and_conditions.last.content.body%></p>
           </div>
         </div>
       </div>

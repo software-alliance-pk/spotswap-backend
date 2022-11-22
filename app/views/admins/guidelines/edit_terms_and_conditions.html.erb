@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="top_btn">
-      <a href="<%=faqs_admins_guidelines_path%>" class="site_btn round">Add More</a>
+      <a href="<%=edit_terms_and_conditions_admins_guidelines_path%>" class="site_btn round">Edit</a>
     </div>
     <div class="guide">
       <div class="row">
@@ -29,25 +29,19 @@
           </ul>
         </div>
         <div class="col-md-9">
-          <div class="faq_questions">
-            <%@faqs.each do |faq|%>
-              <div class="question_blk">
-              <%@count=@count+1%>
-                <div class="top">
-                  <h6>FAQ Question <%=@count%> </h6>
-                  <div class="icon_blk">
-                    <a href="<%=edit_faq_admins_guidelines_path(id: faq.id)%>" class="icon">
-                      <img src="/assets/Edit.svg" alt="">
-                    </a>
-                    <a href="<%=destroy_faq_admins_guidelines_path(id: faq.id)%>" class="icon">
-                      <img src="/assets/Delete.svg" alt="">
-                    </a>              
-                  </div>
-                </div>
-                <p><%=faq.content.body%></p>
+          <% @terms_and_conditions.each do |term|%>
+            <%= form_with(model: @page, url: update_terms_and_conditions_admins_guidelines_path(id: term.id)) do |f| %>
+            <div class="details my-4">
+              <div class="field">
+              <%= f.label :description %>
+              <%= f.rich_text_area :description, value: term.content.body, required: true %>
               </div>
-            <%end%>
-          </div>
+            </div>
+            <div class="btn_blk justify-content-between">
+              <%= f.submit class: "site_btn long", value: 'Save Changes' %>
+            </div>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>

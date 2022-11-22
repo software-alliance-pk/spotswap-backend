@@ -31,11 +31,13 @@
                   <img src="/assets/default-profile.jpg" alt="">
                 <%end%>
               </div>
-              <%= link_to brand.title, get_model_details_admins_cars_path(brand_id: brand.id) %>
+              <strong><%= link_to brand.title, get_model_details_admins_cars_path(brand_id: brand.id) %></strong>
             </div>
           </div>
         <%end%>
       </div>
+    <%else%>
+      There is no car brand present.
     <%end%>
     <div class="popup" data-popup="forget_pass">
     <div class="overlay"></div> 
@@ -54,11 +56,11 @@
                     <div class="img" style="width:80%">
                       <img src="/assets/upload-photo.png" alt="">
                     </div>
-                    <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;" %>
+                    <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;", required: true %>
                   </div>
                     <div class="form_blk">
                     <label class="text-center">Enter a card brand</label>
-                    <input type="text" name="name" class="input" placeholder="type here">
+                    <input type="text" name="name" class="input" placeholder="type here" required>
                     </div>  
                       <div class="btn_blk">
                         <button class="site_btn px">Add</button>
