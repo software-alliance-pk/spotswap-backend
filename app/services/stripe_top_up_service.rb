@@ -20,7 +20,6 @@ class StripeTopUpService
     end
   end
 
-
   def retrieve_top_up_info
     #https://stripe.com/docs/api/topups/retrieve
     begin
@@ -40,6 +39,5 @@ class StripeTopUpService
     rescue Exception => e
     end
   end
-
 
 end

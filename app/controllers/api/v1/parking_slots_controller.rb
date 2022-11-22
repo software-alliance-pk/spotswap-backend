@@ -37,10 +37,37 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
     @users = User.within(0.6096, :units => :kms, :origin => [params[:latitude], params[:longitude]])
   end
 
+  def transfer_slot
+    return render json: {error: "User ID is missing in parameters."}, status: :unprocessable_entity unless params[:user_id].present?
+    @slot = @current_user.parking_slot
+    return render json: {error: "You have not any Parking Slot."}, status: :unprocessable_entity unless @slot.present?
+    
+    @user = User.find_by_id(params[:user_id])
+    if @user.parking_slot.present?
+      @user.parking_slot.destroy
+    end
+
+    if @slot.update(user_id: params[:user_id])
+      @slot
+    else
+      render_error_messages(@slot)
+    end
+  end
+
+  def notify_swapper_on_slot_transfer
+    return render json: {error: "Slot Id is missing."}, status: :unprocessable_entity unless params[:slot_id].present?
+    @slot = ParkingSlot.find_by_id(params[:slot_id])
+    if PushNotificationService.notify_swapper_on_slot_transfer(@slot).present?
+      render json: {message: "Notification has been sent successfully to the Swapper."}, status: :ok
+    else
+      render json: {error: "Notification could not be sent."}, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def find_parking_slot
-    return render json: {error: "Parking slot id parameter is missing"},status: :unprocessable_entity  unless params[:id].present?
+    return render json: {error: "Parking slot id parameter is missing"}, status: :unprocessable_entity  unless params[:id].present?
     @parking_slot =  ParkingSlot.find_by_id(params[:id])
     return render json: {error: "No such Parking slot is present"}, status: :unprocessable_entity unless @parking_slot.present?
   end
