@@ -4,13 +4,17 @@ class StripeTopUpService
 
   def create_top_up
     begin
-      #https://stripe.com/docs/api/topups/create
-    Stripe::Topup.create({
-                           amount: 2000,
-                           currency: 'usd',
-                           description: 'Top-up for Jenny Rosen',
-                           statement_descriptor: 'Top-up',
-                         })
+      #https://stripe.com/docs/api/topups/create?lang=ruby
+      # To add dumpy plan we turn off the pay outs and then call this
+      #  Top-ups are limited to $100,000.00 USD per week. If you need a higher limit, please contact us via https://support.stripe.com/contact.)
+      Stripe::Topup.create(
+        {
+          amount: 2000,
+          currency: 'usd',
+          description: 'Top-up for week of May 31',
+          statement_descriptor: 'Weekly top-up',
+        },
+        )
     rescue Exception => e
       #code here
     end
