@@ -57,7 +57,7 @@
                     <div class="user">
                       <div class="ellipse">
                         <% if model.image.attached?%>
-                          <%= image_tag(model.image)%>
+                          <%= image_tag(model.image.url)%>
                         <% else %>
                           <img src="/assets/default-profile.jpg" alt="">
                         <%end%>
@@ -128,41 +128,41 @@
                     style="background-image: url('/assets/logon-strip.svg')">
                     <p class="fs_5">Add Car Model</p>
                   </div>
-                  <%= form_with url: create_model_admins_cars_path(brand_id: @car_models&.first&.car_brand&.id) do |f| %>
+                  <%= form_with url: create_model_admins_cars_path(brand_id: @brand_id) do |f| %>
                     <div class="prof_img" style="position:relative;">
                       <div class="img" style="width:80%">
                         <img src="/assets/upload-photo.png" alt="">
                       </div>
-                      <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;" %>
+                      <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;", required: true %>
                     </div>
                     <div class="row">
                       <div class="col-md-6">
                       <div class="form_blk">
                         <label for="">Card Model</label>
-                        <input type="text" name="title" class="input" placeholder="type here">
+                        <input type="text" name="title" class="input" placeholder="type here" required>
                       </div>
                       <div class="form_blk">
                         <label for="">Color</label>
-                        <input type="text" name="color" class="input" placeholder="type here">
+                        <input type="text" name="color" class="input" placeholder="type here" required>
                       </div>
                       <div class="form_blk">
                         <label for="">Released</label>
-                        <input type="text" name="released" class="input" placeholder="type here">
+                        <input type="text" name="released" class="input" placeholder="type here" required>
                       </div>
     
                         </div>
                         <div class="col-md-6">
                       <div class="form_blk">
                         <label for="">Length</label>
-                        <input type="text" name="length" class="input" placeholder="type here">
+                        <input type="text" name="length" class="input" placeholder="type here" required>
                       </div>
                       <div class="form_blk">
                         <label for="">Width</label>
-                        <input type="text" name="width" class="input" placeholder="type here">
+                        <input type="text" name="width" class="input" placeholder="type here" required>
                       </div>
                       <div class="form_blk">
                         <label for="">Height</label>
-                        <input type="text" name="height" class="input" placeholder="type here">
+                        <input type="text" name="height" class="input" placeholder="type here" required>
                       </div>
                         </div>
                     </div>
