@@ -100,6 +100,8 @@ Rails.application.routes.draw do
           post :make_slot_available
           post :get_all_spots
           post :get_all_finders
+          post :transfer_slot
+          post :notify_swapper_on_slot_transfer
         end
       end
 
@@ -119,6 +121,8 @@ Rails.application.routes.draw do
           post :create_connection
           post :update_screen_navigation_flags
           post :destroy_connection
+          post :notify_host_on_cancel_request
+          post :notify_swapper_for_confirm_arrival
         end
       end
 
