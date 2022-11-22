@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="top_btn">
-      <button class="site_btn round">Save Changes</button>
+      <a href="<%=edit_terms_and_conditions_admins_guidelines_path%>" class="site_btn round">Edit</a>
     </div>
     <div class="guide">
       <div class="row">
@@ -29,19 +29,19 @@
           </ul>
         </div>
         <div class="col-md-9">
-          <div class="faq_add">
-            <div class="img">
-              <img src="/assets/guide-add.svg" alt="">
+          <% @terms_and_conditions.each do |term|%>
+            <%= form_with(model: @page, url: update_terms_and_conditions_admins_guidelines_path(id: term.id)) do |f| %>
+            <div class="details my-4">
+              <div class="field">
+              <%= f.label :description %>
+              <%= f.rich_text_area :description, value: term.content.body, required: true %>
+              </div>
             </div>
-            <div class="detail">
-              <span>To all our valued User,</span>
-              <p>
-                Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi. Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi.
-                <br>
-                Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi. Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi. 
-              </p>
+            <div class="btn_blk justify-content-between">
+              <%= f.submit class: "site_btn long", value: 'Save Changes' %>
             </div>
-          </div>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>
