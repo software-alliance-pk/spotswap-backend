@@ -30,22 +30,23 @@
         </div>
         <div class="col-md-9">
           <div class="faq_questions">
-            <div class="question_blk">
-              <div class="top">
-                <h6>FAQ Question 1</h6>
-                <div class="icon_blk">
-                  <a href="<%=edit_faqs_admins_guidelines_path%>" class="icon">
-                    <img src="/assets/Edit.svg" alt="">
-                  </a>
-                  <a href="#" class="icon">
-                    <img src="/assets/Delete.svg" alt="">
-                  </a>              
+            <%@faqs.each do |faq|%>
+              <div class="question_blk">
+              <%@count=@count+1%>
+                <div class="top">
+                  <h6>FAQ Question <%=@count%> </h6>
+                  <div class="icon_blk">
+                    <a href="<%=edit_faq_admins_guidelines_path(id: faq.id)%>" class="icon">
+                      <img src="/assets/Edit.svg" alt="">
+                    </a>
+                    <a href="<%=destroy_faq_admins_guidelines_path(id: faq.id)%>" class="icon">
+                      <img src="/assets/Delete.svg" alt="">
+                    </a>              
+                  </div>
                 </div>
+                <p><%=faq.content.body%></p>
               </div>
-              <p>
-              Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi. Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi.
-              </p>
-            </div>
+            <%end%>
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@ class Admins::GuidelinesController < ApplicationController
 	end
 
   def edit_terms_and_conditions
+    @terms_and_conditions = Page.where(title: "Terms & Conditions")
 	end
 
   def update_terms_and_conditions
@@ -23,9 +24,24 @@ class Admins::GuidelinesController < ApplicationController
 	end
 
   def faqs
+    @faqs = Page.where(title: "FAQ")
+    @count = 0
 	end
 
-  def edit_faqs
+  def edit_faq
+	end
+
+  def destroy_faq
+    @faq = Page.find_by_id(params[:id])
+    if @faq.present?
+      if @faq.destroy
+        redirect_to faqs_admins_guidelines_path
+        flash[:alert] = "FAQ has been destroyed successfully."
+      else
+        redirect_to faqs_admins_guidelines_path
+        flash[:alert] = @faq.errors.full_messages.to_sentence
+      end
+    end
 	end
 
 	private

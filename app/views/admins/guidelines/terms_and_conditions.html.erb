@@ -29,19 +29,9 @@
           </ul>
         </div>
         <div class="col-md-9">
-          <% @terms_and_conditions.each do |term|%>
-            <%= form_with(model: @page, url: update_terms_and_conditions_admins_guidelines_path(id: term.id)) do |f| %>
-            <div class="details my-4">
-              <div class="field">
-              <%= f.label :description %>
-              <%= f.rich_text_area :description, value: term.content.body, required: true %>
-              </div>
-            </div>
-            <div class="btn_blk justify-content-between">
-              <%= f.submit class: "site_btn long", value: 'Save' %>
-            </div>
-            <% end %>
-          <% end %>
+          <div class="guidelines_detail">
+          <p><%=@terms_and_conditions.last.content.body%></p>
+          </div>
         </div>
       </div>
     </div>
