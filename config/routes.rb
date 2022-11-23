@@ -102,6 +102,8 @@ Rails.application.routes.draw do
           post :get_all_finders
           post :transfer_slot
           post :notify_swapper_on_slot_transfer
+          post :charge_amount
+          post :add_amount_to_wallet
         end
       end
 

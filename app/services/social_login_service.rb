@@ -61,7 +61,6 @@ class SocialLoginService
     user = User.find_by(email: data['email'])
     token = JsonWebTokenService.encode({ email: user.email })
     [user, token, " "]
-
   end
 
   private

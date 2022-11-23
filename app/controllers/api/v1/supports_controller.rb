@@ -64,7 +64,7 @@ class Api::V1::SupportsController < Api::V1::ApiController
 	end
 
   def support_params
-    params.permit(:status, :description, :image, :name)
+    params.permit(:status, :description, :image)
   end
 
   def message_params
