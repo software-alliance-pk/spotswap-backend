@@ -125,6 +125,7 @@ Rails.application.routes.draw do
           post :destroy_connection
           post :notify_host_on_cancel_request
           post :notify_swapper_for_confirm_arrival
+          post :notify_host_swapper_is_still_interested
         end
       end
 
