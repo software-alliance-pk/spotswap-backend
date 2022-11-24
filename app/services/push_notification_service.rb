@@ -30,13 +30,13 @@ class PushNotificationService
     end
   end
 
-  def self.notify_swapper_on_slot_transfer(slot)
+  def self.notify_swapper_on_slot_transfer(connection)
     data = {
-      host: slot.user,
-      car_model_name: slot.user&.car_detail&.car_model&.title,
-      user_image: slot.user.image.attached? ? slot.user.image.url : "",
-      car_image: slot.user.car_detail&.photos&.attached? ? slot.user.car_detail.photos[0].url : "",
-      parking_slot_image: slot.image.attached? ? slot.image.url : "",
+      host: connection.host,
+      car_model_name: connection.host&.car_detail&.car_model&.title,
+      user_image: connection.host&.image&.attached? ? connection.host.image.url : "",
+      car_image: connection.host&.car_detail&.photos&.attached? ? connection.host.car_detail.photos[0].url : "",
+      parking_slot_image: connection.parking_slot&.image&.attached? ? connection.parking_slot.image.url : "",
       user_type: "Host",
       body: "Slot has been transferred."
      }   
@@ -48,7 +48,7 @@ class PushNotificationService
          sound: 'default'
          }
        }
-   registration_id = slot&.user&.mobile_device&.mobile_device_token
+   registration_id = connection.&swapper&.mobile_device&.mobile_device_token
    if registration_id.present?
      response = fcm_client.send(registration_id, options)
      puts response

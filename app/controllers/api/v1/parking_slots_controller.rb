@@ -55,9 +55,10 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def notify_swapper_on_slot_transfer
-    return render json: {error: "Slot Id is missing."}, status: :unprocessable_entity unless params[:slot_id].present?
-    @slot = ParkingSlot.find_by_id(params[:slot_id])
-    if PushNotificationService.notify_swapper_on_slot_transfer(@slot).present?
+    return render json: {error: "Connection Id is missing."}, status: :unprocessable_entity unless params[:connection_id].present?
+    connection = SwapperHostConnection.find_by_id(params[:connection_id])
+    return render json: {error: "Connection with this Id is not present."}, status: :unprocessable_entity unless connection.present?
+    if PushNotificationService.notify_swapper_on_slot_transfer(connection).present?
       render json: {message: "Notification has been sent successfully to the Swapper."}, status: :ok
     else
       render json: {error: "Notification could not be sent."}, status: :unprocessable_entity
