@@ -6,6 +6,7 @@ class Admins::DashboardController < ApplicationController
 	def index
     if params[:type]=="view_all"
       @users = User.all.order(created_at: :desc)
+      @type = "view_all"
     else
       @users = User.all.order(created_at: :desc).limit(10)
     end

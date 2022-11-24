@@ -103,9 +103,11 @@
       </tbody>
     </table>
   </div>
-  <div class="view_all">
-    <a href="<%=admins_dashboard_index_path(type: "view_all")%>" >view all</a>
-  </div>
+  <%if @type != "view_all"%>
+    <div class="view_all">
+      <a href="<%=admins_dashboard_index_path(type: "view_all")%>" >view all</a>
+    </div>
+  <%end%>
   </div>
   </div>
   </section>
