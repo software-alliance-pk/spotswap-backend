@@ -2,11 +2,11 @@ class Admins::UsersController < ApplicationController
 	before_action :authenticate_admin!
 
 	def index
-    if params[:search_key].present? && !params[:search_key].nil?
-			@users = User.all.where('Lower(name) LIKE ?', "%#{params[:search_key].downcase}%").order(created_at: :desc)
+    if params[:search_key].present?
+			@users = User.custom_search(params[:search_key]).paginate(page: params[:page]).order(created_at: :desc)
 			@search_key = params[:search_key]
 		else
-      @users = User.all.order(created_at: :desc)
+      @users = User.all.paginate(page: params[:page]).order(created_at: :desc)
     end
 	end
 
