@@ -48,7 +48,7 @@ class PushNotificationService
          sound: 'default'
          }
        }
-   registration_id = connection.&swapper&.mobile_device&.mobile_device_token
+   registration_id = connection&.swapper&.mobile_device&.mobile_device_token
    if registration_id.present?
      response = fcm_client.send(registration_id, options)
      puts response
