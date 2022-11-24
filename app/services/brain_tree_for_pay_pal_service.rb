@@ -8,8 +8,6 @@ class BrainTreeForPayPalService
       )
   end
 
-
-
   def find_the_customer_at_pay_pal
     customer = @gateway.customer.find("887572767")
   end
@@ -33,7 +31,6 @@ class BrainTreeForPayPalService
       :fax => "614.555.5678",
       :website => "www.example.com"
     )
-    debugger
     if result.success?
       puts result.customer.id
     else

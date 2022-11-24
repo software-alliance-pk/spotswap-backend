@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_17_145407) do
+ActiveRecord::Schema.define(version: 2022_11_23_170702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,18 @@ ActiveRecord::Schema.define(version: 2022_11_17_145407) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "histories", force: :cascade do |t|
+    t.datetime "connection_date_time"
+    t.string "connection_location"
+    t.integer "swapper_fee"
+    t.integer "spotswap_fee"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "transaction_type"
+    t.index ["user_id"], name: "index_histories_on_user_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.string "body"
     t.boolean "read_status", default: false
@@ -228,7 +240,6 @@ ActiveRecord::Schema.define(version: 2022_11_17_145407) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
     t.integer "status", default: 0
     t.index ["user_id"], name: "index_supports_on_user_id"
   end
@@ -271,6 +282,7 @@ ActiveRecord::Schema.define(version: 2022_11_17_145407) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_top_up_created", default: false
     t.index ["user_id"], name: "index_user_referral_code_records_on_user_id"
   end
 
@@ -296,12 +308,21 @@ ActiveRecord::Schema.define(version: 2022_11_17_145407) do
     t.string "stripe_connect_id"
   end
 
+  create_table "wallets", force: :cascade do |t|
+    t.decimal "amount"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_wallets_on_user_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "blocked_user_details", "users"
   add_foreign_key "car_details", "users"
   add_foreign_key "car_models", "car_brands"
   add_foreign_key "card_details", "users"
+  add_foreign_key "histories", "users"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
   add_foreign_key "mobile_devices", "users"
@@ -319,4 +340,5 @@ ActiveRecord::Schema.define(version: 2022_11_17_145407) do
   add_foreign_key "user_car_models", "car_details"
   add_foreign_key "user_car_models", "car_models"
   add_foreign_key "user_referral_code_records", "users"
+  add_foreign_key "wallets", "users"
 end
