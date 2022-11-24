@@ -1,24 +1,28 @@
-car_brand = CarBrand.create(title: "Tesla")
+UserCarModel.destroy_all
+UserCarBrand.destroy_all
+CarBrand.destroy_all
+car_brand = CarBrand.create!(title: "Tesla")
 1.upto(4) do |index|
-  car_brand.car_models.create(title: "Model #{index}")
+  car_brand.car_models.create!(title: "Model #{index}", color: "Black", length: 2000, width: 2000, height: 2000, released: 2021)
 end
-car_brand = CarBrand.create(title: "Toyota")
+car_brand = CarBrand.create!(title: "Toyota")
 1.upto(4) do |index|
-  car_brand.car_models.create(title: "Model #{index}")
+  car_brand.car_models.create!(title: "Model #{index}", color: "White", length: 3000, width: 3000, height: 3000, released: 2022)
 end
-car_brand = CarBrand.create(title: "Hyundai")
+car_brand = CarBrand.create!(title: "Hyundai")
 1.upto(4) do |index|
-  car_brand.car_models.create(title: "Model #{index}")
+  car_brand.car_models.create!(title: "Model #{index}", color: "Red", length: 2000, width: 2000, height: 2000, released: 2020)
 end
-car_brand = CarBrand.create(title: "Isuzu")
+car_brand = CarBrand.create!(title: "Isuzu")
 1.upto(4) do |index|
-  car_brand.car_models.create(title: "Model #{index}")
+  car_brand.car_models.create!(title: "Model #{index}", color: "Grey", length: 2000, width: 2000, height: 2000, released: 2021)
 end
 
-Admin.create(email: "abdullah.hafeez515515@gmail.com", full_name: "Abdullah Hafeez", contact: "+923066412706", location: "Johar Town, Lahore", password: "admin123")
+Admin.destroy_all
+Admin.create!(email: "abdullah.hafeez515515@gmail.com", full_name: "Abdullah Hafeez", contact: "+923066412706", location: "Johar Town, Lahore", password: "admin123")
 
 Page.destroy_all
-Page.create(title: "Terms & Conditions", permalink: "terms&condition",content: "<h3 style='color:white;'> General Terms </h3>
+Page.create!(title: "Terms & Conditions", permalink: "terms&condition",content: "<h3 style='color:white;'> General Terms </h3>
   <p style='color:white;'> By accessing and placing an order with UI Design, you confirm that you are in agreement with and bound by the terms and conditions contained in the Terms Of Use outlined below. These terms apply to the entire website and any email or other type of communication between you and UI Design.</p>
   <h3 style='color:white;'> Templates </h3>
   <p style='color:white;'>All products and services are delivered by UI Design electronically to your email address. UI Design is not responsible for any technological delays beyond our control. If your spam blocker blocks our emails from reaching you or you do not provide a valid email address where you can be reachable then you can access your download from the Profile page.</p>
@@ -28,12 +32,12 @@ Page.create(title: "Terms & Conditions", permalink: "terms&condition",content: "
   <p style='color:white;'>Your use of the item is restricted to a single installation.
   The item may not be redistributed or resold.
   If the item contains licensed components, those components must only be used within the item and you must not extract and use them on a stand-alone basis.
-  If the item was created using materials which are the subject of a GNU General Public License (GPL), your use of the item is subject to the terms of the GPL in place of the foregoing conditions (to the extent the GPL applies).
+  If the item was create!d using materials which are the subject of a GNU General Public License (GPL), your use of the item is subject to the terms of the GPL in place of the foregoing conditions (to the extent the GPL applies).
   Extended License: Multiple Applications License
   Your use of the item may extend to multiple installations.
   The item may not be redistributed or resold.
   If the item contains licensed components, those components must only be used within the item and you must not extract and use them on a stand-alone basis.
-  If the item was created using materials which are the subject of a GNU General Public License (GPL), your use of the item is subject to the terms of the GPL in place of the foregoing conditions (to the extent the GPL applies).
+  If the item was create!d using materials which are the subject of a GNU General Public License (GPL), your use of the item is subject to the terms of the GPL in place of the foregoing conditions (to the extent the GPL applies).
   You are responsible to choose the appropriate license type. You are not allowed to redistribute these files in any way.</p>
   <h3 style='color:white;'> Security </h3>
   <p style='color:white;'>UI Design does not process any order payments through the website. All payments are processed securely through PayPal, a third party online payment provider.</p>
@@ -47,5 +51,5 @@ Page.create(title: "Terms & Conditions", permalink: "terms&condition",content: "
   <p style='color:white;'>UI Design reserves the right at any time and from time to time to modify or discontinue, temporarily or permanently, a subscription (or any part thereof) with or without notice. Prices of all subscriptions and products, including but not limited to monthly subscription plan fees, are subject to change upon 30 days notice from us. Such notice may be provided at any time by posting the changes to the UI Design website.</p>
   <h3 style='color:white;'> Warranty </h3>
   <p style='color:white;'>UI Design does not warranty or guarantee these templates in any manner. We cannot guarantee they will function with all 3rd party components, plugins or operating systems. Compatibility should be tested against the demonstration templates on the demo operating system simulators. Please ensure that the operating systems you use will work with the templates as we can not guarantee that UI Design templates will work with all operating systems. Our company reserves the right to change or modify current Terms and Conditions with no prior notice.</p>")
-Page.create(title: "Privacy Policy", permalink: "privacy_policy",content: "<p style='color:white;'>The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements: <q>Client</q>, <q>You</q> and <q>Your</q> refers to you, the person log on this website and compliant to the Company’s terms and conditions. <q>The Company</q>, <q>Ourselves</q>, <q>We</q>, <q>Our</q> and <q>Us</q>, refers to our Company. <q>Party</q>, <q>Parties</q>, or <q>Us</q>, refers to both the Client and ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner for the express purpose of meeting the Client’s needs in respect of provision of the Company’s stated services, in accordance with and subject to, prevailing law of Netherlands. Any use of the above terminology or other words in the singular, plural, capitalization and/or he/she or they, are taken as interchangeable and therefore as referring to same.</p>")
-Page.create(title: "FAQ", permalink: "faq",content: "<p style='color:white;'> The following organizations may link to our Website without prior written approval: </p> <ul> <li>Government agencies;</li> <li>Search engines;</li> <li>News organizations;</li> <li>Online directory distributors may link to our Website in the same manner as they hyperlink to the Websites of other listed businesses; and System wide Accredited Businesses except soliciting non-profit organizations, charity shopping malls, and charity fundraising groups which may not hyperlink to our Web site. </li> </ul> </n> <p style='color:white;'> These organizations may link to our home page, to publications or to other Website information so long as the link: (a) is not in any way deceptive; (b) does not falsely imply sponsorship, endorsement or approval of the linking party and its products and/or services; and (c) fits within the context of the linking party’s site. </p> </n> <p style='color:white;'> We may consider and approve other link requests from the following types of organizations: </p>")
+Page.create!(title: "Privacy Policy", permalink: "privacy_policy",content: "<p style='color:white;'>The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements: <q>Client</q>, <q>You</q> and <q>Your</q> refers to you, the person log on this website and compliant to the Company’s terms and conditions. <q>The Company</q>, <q>Ourselves</q>, <q>We</q>, <q>Our</q> and <q>Us</q>, refers to our Company. <q>Party</q>, <q>Parties</q>, or <q>Us</q>, refers to both the Client and ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner for the express purpose of meeting the Client’s needs in respect of provision of the Company’s stated services, in accordance with and subject to, prevailing law of Netherlands. Any use of the above terminology or other words in the singular, plural, capitalization and/or he/she or they, are taken as interchangeable and therefore as referring to same.</p>")
+Page.create!(title: "FAQ", permalink: "faq",content: "<p style='color:white;'> The following organizations may link to our Website without prior written approval: </p> <ul> <li>Government agencies;</li> <li>Search engines;</li> <li>News organizations;</li> <li>Online directory distributors may link to our Website in the same manner as they hyperlink to the Websites of other listed businesses; and System wide Accredited Businesses except soliciting non-profit organizations, charity shopping malls, and charity fundraising groups which may not hyperlink to our Web site. </li> </ul> </n> <p style='color:white;'> These organizations may link to our home page, to publications or to other Website information so long as the link: (a) is not in any way deceptive; (b) does not falsely imply sponsorship, endorsement or approval of the linking party and its products and/or services; and (c) fits within the context of the linking party’s site. </p> </n> <p style='color:white;'> We may consider and approve other link requests from the following types of organizations: </p>")
