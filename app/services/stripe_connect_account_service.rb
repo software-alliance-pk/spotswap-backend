@@ -30,7 +30,7 @@ class StripeConnectAccountService
       link = Stripe::AccountLink.create(
         {
           account: current_user.stripe_connect_id,
-          refresh_url: "https://example.com/return",
+          refresh_url: user_stripe_connect_account_api_v1_stripe_connects_url,
           return_url: "https://example.com/return",
           type: "account_onboarding",
         },
