@@ -71,7 +71,7 @@
                 <td>2021</td>
                 <td>2021</td>
                 <td>
-                  <div class="active justify-content-between ">
+                  <div class="active justify-content-between">
                     <span style="text-align: left; padding-left: 2rem"><%=user.status%></span>
                     <div class="dropdown">
                       <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -123,6 +123,11 @@
               </li>
             </ul>
           </nav>
+        </div>
+
+        <!-- pagination_section -->
+        <div class="digg_pagination mt-5">
+          <%= will_paginate @users %>
         </div>
       <%else%>
         There is no user present.  

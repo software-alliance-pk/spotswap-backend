@@ -23,6 +23,9 @@ gem 'jbuilder', '~> 2.7'
 gem 'redis', '~> 4.0'
 
 gem 'geokit-rails'
+gem 'pg_search'
+gem 'will_paginate', '~> 3.3'
+gem 'will_paginate-bootstrap'
 
 gem 'devise'
 gem 'actiontext', '~> 6.1.6'
