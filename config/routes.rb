@@ -33,6 +33,7 @@ Rails.application.routes.draw do
           post :destroy_card
           post :set_default_card
           get :get_default_card
+          post :make_payment_default
         end
       end
 
@@ -102,8 +103,14 @@ Rails.application.routes.draw do
           post :get_all_finders
           post :transfer_slot
           post :notify_swapper_on_slot_transfer
+        end
+      end
+
+      resources :wallets, only: [] do
+        collection do
           post :charge_amount
           post :add_amount_to_wallet
+          get :get_wallet_detail
         end
       end
 

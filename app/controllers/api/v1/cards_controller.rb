@@ -11,12 +11,13 @@ class Api::V1::CardsController < Api::V1::ApiController
     customer = check_customer_at_stripe
     stripe_token = payment_params[:token]
     card_name =  payment_params[:name]
-    card = StripeService.create_card(customer.id, stripe_token)
-    return render json: { error: "Card is not created on Stripe" }, status: 422 if card.blank?
-    @card = create_user_payment_card(card)
+    @stripe_card_response = StripeService.create_card(customer.id, stripe_token)
+    return render json: { error: "Card is not created on Stripe" }, status: 422 unless @stripe_card_response.present?
+    @card = create_user_payment_card(@stripe_card_response)
     make_first_card_as_default
     if @card
       @card
+      @stripe_card_response
     else
       render_error_messages(@card)
     end
@@ -36,6 +37,7 @@ class Api::V1::CardsController < Api::V1::ApiController
   end
 
   def destroy_card
+    @card_id = @card.card_id
     if @card.present?
       @card.destroy
       user_cards_info = @current_user.card_details
@@ -43,9 +45,10 @@ class Api::V1::CardsController < Api::V1::ApiController
       if find_first_card
         find_first_card.update(is_default: true)
       end
-      render json: { message: "Card deleted successfully." }, status: 200
+      customer = check_customer_at_stripe
+      @stripe_card_response = StripeService.destroy_card(customer.id, @card_id)
     else
-      render json: { error: "Such card does not exist." }, status: 200
+      render json: { error: "Such card does not exist." }, status: :unprocessable_entity
     end
   end
 
@@ -54,6 +57,17 @@ class Api::V1::CardsController < Api::V1::ApiController
       @card
     else
       render_error_messages(@card)
+    end
+  end
+
+  def make_payment_default
+    return render json: {error: "Card Detail Id is missing."}, status: :unprocessable_entity unless params[:card_detail_id].present?
+    return render json: {error: "Payment Type is missing."}, status: :unprocessable_entity unless params[:payment_type].present?
+    @default_payment = @current_user.build_default_payment(card_detail_id: params[:card_detail_id], payment_type: params[:payment_type])
+    if @default_payment.save
+      @card = StripeService.update_default_card_at_stripe(@current_user, @default_payment.card_detail.card_id)
+    else
+      render_error_messages(@default_payment)
     end
   end
 
@@ -106,12 +120,12 @@ class Api::V1::CardsController < Api::V1::ApiController
       exp_year: card.exp_year, last_digit: card.last4,
       brand: card.brand, country: payment_params[:country],
       fingerprint: card.fingerprint, name: payment_params[:name],
-      address: payment_params[:address]
+      address: payment_params[:address], payment_type: payment_params[:payment_type]
     )
   end
 
   def payment_params
-    params.permit(:token, :name, :id, :address, :country)
+    params.permit(:token, :name, :id, :address, :country, :payment_type, :card_detail_id)
   end
 
 end
