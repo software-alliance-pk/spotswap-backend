@@ -61,7 +61,7 @@ class Api::V1::CardsController < Api::V1::ApiController
     if @card
       @current_user.card_details.update_all(is_default: false) unless @card.is_default
       @card.update(is_default: true)
-      SetDefaultCardJob.perform_now(@current_user.id,@card.card_id)
+      SetDefaultCardJob.perform_now(@current_user.id, @card.card_id)
     end
   end
 
