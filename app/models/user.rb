@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_one :mobile_device, dependent: :destroy
   has_many :card_details, dependent: :destroy
+  #has_one :default_payment, class_name: :default_payment, through: :card_details
+  has_one :default_payment, dependent: :destroy
   has_many :quick_chats, dependent: :destroy
   has_many :blocked_user_details, dependent: :destroy
   has_many :conversations, dependent: :destroy
