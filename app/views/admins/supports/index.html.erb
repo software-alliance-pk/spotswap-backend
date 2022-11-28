@@ -5,7 +5,7 @@
       <h2 class="mb-0">Support</h2>
       <div class="header_side">
         <button type="button" class="noti_btn input">
-          <img src="/assets/icon-bell.svg" alt="">
+          <%= image_tag "icon-bell.svg" %>
         </button>
       </div>
     </div>
@@ -16,7 +16,7 @@
             <div class="top_blk">
               <div class="form_blk input search_blk">
                 <button type="button" class="btn search_btn">
-                  <img src="/assets/search_icon.svg" alt="">
+                  <%= image_tag "search_icon.svg" %>
                 </button>
                 <input type="text" name="" class="input" placeholder="Search Messages">
               </div>
@@ -29,7 +29,7 @@
                       <% if record.user.image.attached?%>
                         <%= image_tag(record.user.image.url)%>
                       <% else %>
-                        <img src="../../assets/images/default-profile.jpg" alt="">
+                        <%= image_tag "default-profile.jpg" %>
                       <%end%>
                     </div>
                     <div class="txt">
@@ -56,7 +56,7 @@
                   <% if @last_support.user.image.attached?%>
                     <%= image_tag(@last_support.user.image.url)%>
                   <% else %>
-                    <img src="../../assets/images/default-profile.jpg" alt="">
+                    <%= image_tag "default-profile.jpg" %>
                   <%end%>
                 </div>
                 <div class="txt">
@@ -85,7 +85,7 @@
                     <% if message.user.image.attached?%>
                       <%= image_tag(message.user.image.url)%>
                     <% else %>
-                      <img src="../../assets/images/default-profile.jpg" alt="">
+                      <%= image_tag "default-profile.jpg" %>
                     <%end%>
                   </div>
                   <div class="msg_wrapper">
@@ -98,7 +98,7 @@
                             <%= image_tag message.image.url %>
                           </div>
                           <button type="button" class="btn down_btn">
-                            <img src="/assets/icon-arrow-bottom.svg" alt="">
+                            <%= image_tag "icon-arrow-bottom.svg" %>
                           </button>
                         </div>
                       <%end%>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="msg admin">
                   <div class="profile">
-                    <img src="/assets/support-user.png" alt="">
+                    <%= image_tag "support-user.png" %>
                   </div>
                   <div class="msg_wrapper">
                     <div class="msg_blk">
@@ -131,19 +131,19 @@
               <div class="send_blk">
                 <div class="btn_blk flex-nowrap">
                   <button type="button" class="btn att-btn">
-                    <%= image_tag "/assets/icon-attach.svg", alt: "attachFile", id: "clickaddfile" %>
+                    <%= image_tag "icon-attach.svg", alt: "attachFile", id: "clickaddfile" %>
                     <%= f.file_field :file, accept: 'application/pdf,application/vnd.ms-excel', id: "submitaddfile", style: "opacity:0" %>
                   </button>
 
                   <button type="button" class="btn att-btn">
-                    <%= image_tag "/assets/icon-img", alt: "attachImage", id: "clickaddphoto" %>
+                    <%= image_tag "icon-img.svg", alt: "attachImage", id: "clickaddphoto" %>
                     <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', id: "submitaddphoto", style: "opacity:0" %>
                   </button>
                 </div>
                 <div class="sep"></div>
                 <input type="text" name="message" class="input" placeholder="Write your message here via email...">
                 <button type="submit" class="btn send_btn">
-                  <img src="/assets/icon-send.svg" alt="">
+                  <%= image_tag "icon-send.svg" %>
                 </button>
               </div>
             <%end%>

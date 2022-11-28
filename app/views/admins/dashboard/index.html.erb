@@ -1,118 +1,126 @@
 <section id="account_section">
-  <%= render :partial => "shared/sidebar" %> 
+  <%= render :partial => "shared/sidebar" %>
 
   <div id="dash" class="main_side">
-  <div id="top_header">
-  <h3 class="mb-0">Dashboard</h3>
-  <div class="header_side">
-    <div class="btn_blk">
-    <a href="<%=sub_admins_index_admins_dashboard_index_path%>" class="site_btn round">Sub Admin</a>
-    </div>
-    <button type="button" class="noti_btn input">
-    <img src="/assets/icon-bell.svg" alt="">
-    <span>7</span>
-    </button>
-  </div>
-  </div>
-  <div class="flex_row row">
-  <div class="col">
-    <div class="dash_card">
-    <div class="ico"><img src="/assets/icon-download.svg" alt=""></div>
-    <div class="txt">
-    <h3>203</h3>
-    <span>Downloads</span>
-    </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="dash_card">
-    <div class="ico"><img src="/assets/icon-team.svg" alt=""></div>
-    <div class="txt">
-    <h3><%=@users.count%></h3>
-    <span>Users</span>
-    </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="dash_card">
-      <div class="ico"><img src="/assets/icon-car.svg" alt=""></div>
-      <div class="txt">
-        <h3><%=@cars.count%></h3>
-        <span>Cars</span>
+    <div id="top_header">
+      <h3 class="mb-0">Dashboard</h3>
+      <div class="header_side">
+        <div class="btn_blk">
+          <a href="<%= sub_admins_index_admins_dashboard_index_path %>" class="site_btn round">Sub Admin</a>
+        </div>
+        <button type="button" class="noti_btn input">
+          <%= image_tag "icon-bell.svg" %>
+          <span>7</span>
+        </button>
       </div>
     </div>
-  </div>
-  <div class="col">
-    <div class="dash_card">
-    <div class="ico"><img src="/assets/icon-dollar.svg" alt=""></div>
-    <div class="txt">
-    <h3>600</h3>
-    <span>Revenue</span>
+    <div class="flex_row row">
+      <div class="col">
+        <div class="dash_card">
+          <div class="ico">
+            <%= image_tag "icon-download.svg" %>
+          </div>
+          <div class="txt">
+            <h3>203</h3>
+            <span>Downloads</span>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="dash_card">
+          <div class="ico">
+            <%= image_tag "icon-team.svg" %>
+          </div>
+          <div class="txt">
+            <h3><%= @users.count %></h3>
+            <span>Users</span>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="dash_card">
+          <div class="ico">
+            <img src="/assets/icon-car.svg" alt="">
+          </div>
+          <div class="txt">
+            <h3><%= @cars.count %></h3>
+            <span>Cars</span>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="dash_card">
+          <div class="ico">
+            <%= image_tag "icon-dollar.svg" %>
+          </div>
+          <div class="txt">
+            <h3>600</h3>
+            <span>Revenue</span>
+          </div>
+        </div>
+      </div>
+      <div class="col col-auto">
+        <div class="dash_card date_card">
+          <div class="txt">
+            <span><%= Time.now.strftime("%b") %></span>
+            <h3 class="text_prime"><%= Time.now.day %></h3>
+            <span><%= Time.now.year %></span>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
-  </div>
-  <div class="col col-auto">
-    <div class="dash_card date_card">
-    <div class="txt">
-    <span><%=Time.now.strftime("%b")%></span>
-    <h3 class="text_prime"><%=Time.now.day%></h3>
-    <span><%=Time.now.year%></span>
-    </div>
-    </div>
-  </div>
-  </div>
-  <div id="table_users">
-  <div class="table__blk">
-    <table>
-      <thead>
-        <tr>
-        <th style="width: 20rem;">USERS</th>
-        <th style="width: 20rem;">EMAIL</th>
-        <th style="width: 20rem;">PHONE NUMBER</th>
-        <th style="width: 19rem;">CAR</th>
-        <th style="width: 15rem;">CAR MAKE</th>
-        <th style="width: 15rem;">DATE JOINED</th>
-        <th style="width: 15rem;">YEAR BOUGHT</th>
-        <th style="width: 15rem;">STATUS</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @users.each do |user|%>
+    <div id="table_users">
+      <div class="table__blk">
+        <table>
+          <thead>
           <tr>
-            <td>
-              <div class="user">
-                <div class="ellipse">
-                  <% if user.image.attached?%>
-                    <%= image_tag(user.image.url)%>
-                  <% else %>
-                    <img src="/assets/default-profile.jpg" alt="">
-                  <%end%>
-                </div>
-                <div><%=user.name%></div>
-              </div>
-            </td>
-            <td><%=user.email%></td>
-            <td><%=user.contact%></td>
-            <td><%=user.car_detail&.car_brand&.title%> <%=user.car_detail&.car_model&.title%></td>
-            <td><%=user.car_detail&.car_model&.title%></td>
-            <td>2021</td>
-            <td>2021</td>
-            <td><span><%=user.status%></span></td>
+            <th style="width: 20rem;">USERS</th>
+            <th style="width: 20rem;">EMAIL</th>
+            <th style="width: 20rem;">PHONE NUMBER</th>
+            <th style="width: 19rem;">CAR</th>
+            <th style="width: 15rem;">CAR MAKE</th>
+            <th style="width: 15rem;">DATE JOINED</th>
+            <th style="width: 15rem;">YEAR BOUGHT</th>
+            <th style="width: 15rem;">STATUS</th>
           </tr>
-        <%end%>
-      </tbody>
-    </table>
-  </div>
-  <%if @type != "view_all"%>
-    <div class="view_all">
-      <a href="<%=admins_dashboard_index_path(type: "view_all")%>" >view all</a>
+          </thead>
+          <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td>
+                <div class="user">
+                  <div class="ellipse">
+                    <% if user.image.attached? %>
+                      <%= image_tag(user.image.url) %>
+                    <% else %>
+                      <img src="/assets/default-profile.jpg" alt="">
+                    <% end %>
+                  </div>
+                  <div><%= user.name %></div>
+                </div>
+              </td>
+              <td><%= user.email %></td>
+              <td><%= user.contact %></td>
+              <td><%= user.car_detail&.car_brand&.title %> <%= user.car_detail&.car_model&.title %></td>
+              <td><%= user.car_detail&.car_model&.title %></td>
+              <td>2021</td>
+              <td>2021</td>
+              <td><span><%= user.status %></span></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <% if @type != "view_all" %>
+        <div class="view_all">
+          <a href="<%= admins_dashboard_index_path(type: "view_all") %>">view all</a>
+        </div>
+      <% end %>
     </div>
-  <%end%>
   </div>
-  </div>
-  </section>
-  <!-- account_section -->
+</section>
+<!-- account_section -->
 
 
-  <!-- Main Js -->
-  <script src="/assets/main.js"></script>
+<!-- Main Js -->
+<script src="/assets/main.js"></script>

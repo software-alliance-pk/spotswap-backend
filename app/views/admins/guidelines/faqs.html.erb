@@ -5,7 +5,7 @@
       <h2 class="mb-0">Guidelines</h2>
       <div class="header_side">
         <button type="button" class="noti_btn input">
-          <img src="/assets/icon-bell.svg" alt="">
+          <%= image_tag "icon-bell.svg" %>
           <span>7</span>
         </button>
       </div>
@@ -37,10 +37,10 @@
                   <h6>FAQ Question <%=@count%> </h6>
                   <div class="icon_blk">
                     <a href="<%=edit_faq_admins_guidelines_path(id: faq.id)%>" class="icon">
-                      <img src="/assets/Edit.svg" alt="">
+                      <%= image_tag "Edit.svg" %>
                     </a>
                     <a href="<%=destroy_faq_admins_guidelines_path(id: faq.id)%>" class="icon">
-                      <img src="/assets/Delete.svg" alt="">
+                      <%= image_tag "Delete.svg" %>
                     </a>              
                   </div>
                 </div>

@@ -5,7 +5,7 @@
       <h2 class="mb-0">Car List</h2>
       <div class="header_side">
         <button type="button" class="noti_btn input">
-          <img src="/assets/icon-bell.svg" alt="">
+          <%= image_tag "icon-bell.svg" %>
           <span>7</span>
         </button>
       </div>
@@ -28,7 +28,7 @@
                 <% if brand.image.attached?%>
                   <%= image_tag(brand.image.url)%>
                 <% else %>
-                  <img src="/assets/default-profile.jpg" alt="">
+                  <%= image_tag "default-profile.jpg" %>
                 <%end%>
               </div>
               <strong><%= link_to brand.title, get_model_details_admins_cars_path(brand_id: brand.id) %></strong>
@@ -54,7 +54,7 @@
                 <%= form_with url: create_brand_admins_cars_path do |f| %>
                   <div class="prof_img" style="position:relative;">
                     <div class="img" style="width:80%">
-                      <img src="/assets/upload-photo.png" alt="">
+                      <%= image_tag "upload-photo.png" %>
                     </div>
                     <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;", required: true %>
                   </div>
