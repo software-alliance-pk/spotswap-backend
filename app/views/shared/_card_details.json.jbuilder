@@ -8,3 +8,4 @@ json.exp_month card.exp_month
 json.exp_year card.exp_year
 json.is_default card.is_default
 json.user_id card.user_id
+json.payment_type card.payment_type

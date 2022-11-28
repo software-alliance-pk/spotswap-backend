@@ -1,0 +1,1 @@
+json.stripe_card_response @stripe_card_response

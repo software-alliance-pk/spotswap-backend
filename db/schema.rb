@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2022_11_24_142246) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -124,6 +125,7 @@ ActiveRecord::Schema.define(version: 2022_11_24_142246) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "address"
+    t.integer "payment_type"
     t.index ["user_id"], name: "index_card_details_on_user_id"
   end
 
@@ -133,6 +135,15 @@ ActiveRecord::Schema.define(version: 2022_11_24_142246) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_blocked", default: false
     t.integer "user_id", null: false
+  end
+
+  create_table "default_payments", force: :cascade do |t|
+    t.string "payment_type"
+    t.bigint "card_detail_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
+    t.index ["card_detail_id"], name: "index_default_payments_on_card_detail_id"
   end
 
   create_table "faqs", force: :cascade do |t|
@@ -331,6 +342,7 @@ ActiveRecord::Schema.define(version: 2022_11_24_142246) do
   add_foreign_key "car_details", "users"
   add_foreign_key "car_models", "car_brands"
   add_foreign_key "card_details", "users"
+  add_foreign_key "default_payments", "card_details"
   add_foreign_key "histories", "users"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
