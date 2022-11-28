@@ -31,7 +31,7 @@ class StripeConnectAccountService
         {
           account: current_user.stripe_connect_id,
           refresh_url: user_stripe_connect_account_api_v1_stripe_connects_url,
-          return_url: "https://example.com/return",
+          return_url: "https://spotswap.page.link/RtQw",
           type: "account_onboarding",
         },
       )
