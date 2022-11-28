@@ -2,7 +2,12 @@ class Admins::UsersController < ApplicationController
 	before_action :authenticate_admin!
 
 	def index
-    @users = User.all.order(created_at: :desc)
+    if params[:search_key].present?
+			@users = User.custom_search(params[:search_key]).paginate(page: params[:page]).order(created_at: :desc)
+			@search_key = params[:search_key]
+		else
+      @users = User.all.paginate(page: params[:page]).order(created_at: :desc)
+    end
 	end
 
   def view_profile

@@ -4,7 +4,12 @@ class Admins::DashboardController < ApplicationController
   before_action :find_sub_admin, only: [:delete_sub_admin]
 
 	def index
-    @users = User.all.order(created_at: :desc)
+    if params[:type]=="view_all"
+      @users = User.all.order(created_at: :desc)
+      @type = "view_all"
+    else
+      @users = User.all.order(created_at: :desc).limit(10)
+    end
     @cars = CarDetail.all
 	end
 
