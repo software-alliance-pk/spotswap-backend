@@ -53,6 +53,17 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
     end
   end
 
+  def notify_host_swapper_is_still_interested
+    return render json: {error: "Connection Id is missing."}, status: :unprocessable_entity unless params[:connection_id].present?
+    connection = SwapperHostConnection.find_by_id(params[:connection_id])
+    return render json: {error: "Connection with this Id is not present."}, status: :unprocessable_entity unless connection.present?
+    if PushNotificationService.notify_host_swapper_is_still_interested(connection).present?
+      render json: {message: "Notification has been sent successfully to the Host."}, status: :ok
+    else
+      render json: {error: "Notification could not be sent."}, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def connection_params

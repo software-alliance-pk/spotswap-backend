@@ -13,7 +13,7 @@
               <%= form_with url: update_model_admins_cars_path(id: @model.id) do |f| %>
                 <div class="prof_img" style="position:relative;">
                   <div class="img" style="width:80%">
-                    <img src="/assets/upload-photo.png" alt="">
+                    <%= image_tag "upload-photo.png" %>
                   </div>
                   <%= f.file_field :image, value: @model.image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;" %>
                 </div>
