@@ -129,7 +129,7 @@
               <%end%>
             </div>
             <%= form_with url: admin_send_message_admins_supports_path do |f| %>
-              <%= hidden_field_tag :id, @last_support&.support_conversation.id %>
+              <%= hidden_field_tag :id, @last_support&.support_conversation&.id %>
               <div class="send_blk">
                 <div class="btn_blk flex-nowrap">
                   <button type="button" class="btn att-btn">
