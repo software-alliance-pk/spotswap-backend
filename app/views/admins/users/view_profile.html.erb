@@ -16,7 +16,7 @@
                       <% if @user.image.attached?%>
                         <%= image_tag(@user.image.url)%>
                       <% else %>
-                        <img src="/assets/default-profile.jpg" alt="">
+                        <%= image_tag "default-profile.jpg" %>
                       <%end%>
                     </div>
                     <a class="send_money site_btn" data-id="<%=@user.id%>">Send Money</a>
@@ -121,7 +121,7 @@
                         <div class="user_details">
                           <div class="top">
                             <div class="img">
-                              <img src="/assets/support-user.png" alt="">
+                              <%= image_tag "support-user.png" %>
                             </div>
                             <div class="txt">
                               <div class="host">

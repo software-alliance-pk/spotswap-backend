@@ -9,7 +9,7 @@
           <input type="text" name="" id="" class="input" placeholder="Search">
         </div> -->
         <button type="button" class="noti_btn input">
-          <img src="/assets/icon-bell.svg" alt="">
+          <%= image_tag "icon-bell.svg" %>
           <span>7</span>
         </button>
       </div>
@@ -18,7 +18,7 @@
       <%= form_with url: admins_users_path, method: :get do |f| %>
         <div class="form_blk input round_input ">
           <button class="btn" type="submit">
-            <img src="/assets/Search.svg" alt="">
+            <%= image_tag "Search.svg" %>
           </button>
           <%= f.text_field :search_key, value: @search_key, class: "input", placeholder: "Search user" %>
         </div>
@@ -26,7 +26,7 @@
       <div class="button_blk">
         <button class="site_btn round bg_white">Export CSV
           <div class="icon">
-            <img src="/assets/Download-black.svg" alt="">
+            <%= image_tag "Download-black.svg" %>
           </div>
         </button>
         <button class="site_btn round">Add User</button>
@@ -59,7 +59,7 @@
                 <td>
                     <div class="user">
                     <div class="ellipse">
-                      <img src="/assets/Ellipse-user.svg" alt="">
+                      <%= image_tag "Ellipse-user.svg" %>
                     </div>
                     <div><%=user.name%></div>
                     </div>
@@ -75,7 +75,7 @@
                     <span style="text-align: left; padding-left: 2rem"><%=user.status%></span>
                     <div class="dropdown">
                       <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/assets/dot-icon.svg" alt="">
+                        <%= image_tag "dot-icon.svg" %>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item view_detail" data-id="<%=user.id%>">View Details</a></li>
@@ -100,7 +100,7 @@
                 <div class="dropdown">
                   <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="icon">
-                      <img src="/assets/dropdown-icon.svg" alt="">
+                      <%= image_tag "dropdown-icon.svg" %>
                     </div>
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -115,10 +115,10 @@
 
               <li class="page_item me-4 d-flex">
                 <a class="page_link icon_blk fw_600" href="#" >                             
-                  <img src="/assets/left-arrow-icon.svg" aria-hidden="true" alt="icon">                                
+                  <%= image_tag "left-arrow-icon.svg" %>
                 </a>
                 <a class="page_link icon_blk fw_600" href="#" >                                                             
-                  <img src="/assets/right-arrow-icon.svg" aria-hidden="true" alt="icon">
+                  <%= image_tag "right-arrow-icon.svg" %>
                 </a>
               </li>
             </ul>
