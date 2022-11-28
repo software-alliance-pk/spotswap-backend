@@ -1,4 +1,3 @@
- <%= render "devise/shared/error_messages", resource: resource %>
  <section id="logon" style="background-image: url(<%= asset_path "Logon.jpg" %>)">
     <div class="contain">
       <div class="log_blk">
@@ -7,6 +6,7 @@
             <%= image_tag "logo-on.svg" %>
           </div>
           <h3>Reset Password</h3>
+          <%= render "devise/shared/error_messages", resource: resource %>
           <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
             <h6>New Password</h6>
             <%= f.hidden_field :reset_password_token %>
