@@ -5,7 +5,7 @@
       <div class="log_blk">
         <div class="form_wrapper">
           <div class="logo">
-            <img src="/assets/logo-on.svg" alt="">
+            <%= image_tag "logo-on.svg" %>
           </div>
           <h3 class="mb-0">Sign in to manage</h3>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -18,7 +18,7 @@
               <p><a href="<%=new_admin_password_path%>">Forgot password?</a></p>
             </div>
             <div class="form_blk input error">
-              <img src="/assets/icon-lock-blue.svg" alt="">
+              <%= image_tag "icon-lock-blue.svg" %>
               <%= f.password_field :password, autocomplete: "current-password" , placeholder: "Type here", class: "input" %>
             </div>
             <div class="btn_blk">
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="car_img">
-      <img src="/assets/bg-car.png" alt="">
+      <%= image_tag "bg-car.png" %>
     </div>
   </section>
   <!-- Logon Section -->

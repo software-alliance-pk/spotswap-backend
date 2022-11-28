@@ -4,7 +4,7 @@
       <div class="log_blk">
         <div class="form_wrapper">
           <div class="logo">
-            <img src="/assets/logo-on.svg" alt="">
+            <%= image_tag "logo-on.svg" %>
           </div>
           <h3>Forgot Password</h3>
           <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="car_img">
-      <img src="/assets/bg-car.png" alt="">
+      <%= image_tag "bg-car.png" %>
     </div>
 
   </section>
