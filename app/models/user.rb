@@ -1,15 +1,15 @@
 class User < ApplicationRecord
-  #include PgSearch::Model
+  include PgSearch::Model
 
-  # pg_search_scope :custom_search,
-  #                 against: [:name, :email, :contact, :status],
-  #                 # associated_against: {
-  #                 #   car_detail: [:color],
-  #                 #   user_car_brand: [:title],
-  #                 #   user_car_model: [:title]}
-  #                 using: {
-  #                   tsearch: { :prefix => true }
-  #                 }
+  pg_search_scope :custom_search,
+                  against: [:name, :email, :contact, :status],
+                  # associated_against: {
+                  #   car_detail: [:color],
+                  #   user_car_brand: [:title],
+                  #   user_car_model: [:title]}
+                  using: {
+                    tsearch: {dictionary: "english"}
+                  }
 
   attr_accessor :referrer_code, :referrer_id
 
@@ -52,7 +52,7 @@ class User < ApplicationRecord
   before_save :referral_code_generator
   after_commit :user_referral_code_record_generator
 
-  #self.per_page = 10
+  self.per_page = 10
 
   private
 
