@@ -65,14 +65,19 @@ class Api::V1::CardsController < Api::V1::ApiController
     return render json: {error: "Payment Type is missing."}, status: :unprocessable_entity unless params[:payment_type].present?
     @card_detail = CardDetail.find_by_id(params[:card_detail_id])
     return render json: {error: "Car Detail with this Id is not present."}, status: :unprocessable_entity unless @card_detail.present?
-    @default_payment = @current_user.build_default_payment(card_detail_id: params[:card_detail_id], payment_type: params[:payment_type])
-    if @default_payment.save
-      @current_user.card_details.update(is_default: false)
-      @default_payment.card_detail.update(is_default: true)
-      @card = StripeService.update_default_card_at_stripe(@current_user, @default_payment.card_detail.card_id)
+
+    if @card_detail.is_default == "true"
+      @default_payment = @car_detail.default_payment
     else
-      render_error_messages(@default_payment)
+      @default_payment = @current_user.build_default_payment(card_detail_id: params[:card_detail_id], payment_type: params[:payment_type])
+      if @default_payment.save
+        @current_user.card_details.update(is_default: false)
+        @default_payment.card_detail.update(is_default: true)
+      else
+        render_error_messages(@default_payment)
+      end
     end
+    @card = StripeService.update_default_card_at_stripe(@current_user, @default_payment.card_detail.card_id)
   end
 
   def set_default_card
