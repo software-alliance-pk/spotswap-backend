@@ -105,9 +105,13 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     
     if @car_detail.update(car_profile_params.except(:user_id, :car_brand_id, :car_model_id))
       @user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
-      render_error_messages(@user_car_brand) unless @user_car_brand.save
+      unless @user_car_brand.save
+        render_error_messages(@user_car_brand)
+      end
       @user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
-      render_error_messages(@user_car_model) unless @user_car_model.save
+      unless @user_car_model.save
+        render_error_messages(@user_car_model)
+      end
     else
       render_error_messages(@car_detail)
     end
