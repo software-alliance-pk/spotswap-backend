@@ -30,7 +30,7 @@ class Api::V1::CardsController < Api::V1::ApiController
   end
 
   def get_all_cards
-    @cards = @current_user.card_details
+    @cards = @current_user.card_details.order(created_at: :asc)
     if @cards.present?
       @cards
     end
