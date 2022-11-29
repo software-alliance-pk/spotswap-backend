@@ -3,5 +3,5 @@ class Support < ApplicationRecord
   belongs_to :user
   enum status: [:pending, :completed]
 
-  validates :description, :name, presence: true
+  validates :description, presence: true
 end
