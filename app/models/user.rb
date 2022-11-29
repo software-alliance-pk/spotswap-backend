@@ -21,7 +21,6 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_one :mobile_device, dependent: :destroy
   has_many :card_details, dependent: :destroy
-  #has_one :default_payment, class_name: :default_payment, through: :card_details
   has_one :default_payment, dependent: :destroy
   has_many :quick_chats, dependent: :destroy
   has_many :blocked_user_details, dependent: :destroy
@@ -31,7 +30,8 @@ class User < ApplicationRecord
   has_one :swapper_host_connection, dependent: :destroy, class_name: :SwapperHostConnection, foreign_key: :user_id
   has_one :host_swapper_connection, dependent: :destroy, class_name: :SwapperHostConnection, foreign_key: :host_id
   has_many :user_referral_code_records, dependent: :destroy
-  has_many :histories, dependent: :destroy
+  has_many :other_histories, dependent: :destroy
+  has_many :top_up_histories, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
