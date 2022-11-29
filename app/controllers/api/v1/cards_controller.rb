@@ -67,6 +67,7 @@ class Api::V1::CardsController < Api::V1::ApiController
     return render json: {error: "Car Detail with this Id is not present."}, status: :unprocessable_entity unless @card_detail.present?
     @default_payment = @current_user.build_default_payment(card_detail_id: params[:card_detail_id], payment_type: params[:payment_type])
     if @default_payment.save
+      @current_user.card_details.update(is_default: false)
       @default_payment.card_detail.update(is_default: true)
       @card = StripeService.update_default_card_at_stripe(@current_user, @default_payment.card_detail.card_id)
     else
