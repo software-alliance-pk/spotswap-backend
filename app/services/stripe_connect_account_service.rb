@@ -21,16 +21,11 @@ class StripeConnectAccountService
 
     if account.present?
       current_user.update(stripe_connect_id: account.id)
-
-      # response[:external_accounts][:url] External account links
-      # response[:login_links][:url]  Login Links
-
       StripeConnectAccount.create(account_id: account.id, account_country: account.country, account_type: account.type, user_id: current_user.id)
-
       link = Stripe::AccountLink.create(
         {
           account: current_user.stripe_connect_id,
-          refresh_url: user_stripe_connect_account_api_v1_stripe_connects_url,
+          refresh_url:  api_v1_stripe_connect_refresh_stripe_account_link_path,
           return_url: "https://spotswap.page.link/RtQw",
           type: "account_onboarding",
         },
@@ -39,12 +34,10 @@ class StripeConnectAccountService
     end
   end
 
-  #https://stripe.com/docs/api/accounts/retrieve?lang=ruby
   def retrieve_stripe_connect_account(account_id)
     response = Stripe::Account.retrieve(account_id)
   end
 
-  #https://stripe.com/docs/api/account/login_link?lang=ruby
   def create_login_link_of_stripe_connect_account(account_id)
     link = Stripe::Account.create_login_link(account_id)
   end
