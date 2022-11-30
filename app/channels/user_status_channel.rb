@@ -1,17 +1,14 @@
 class UserStatusChannel < ApplicationCable::Channel
 
   def subscribed
-    stream_from "user_status_channel"
-    if current_user
-      ActionCable.server.broadcast "user_status_channel", { user: current_user.id, online: :true }
-      current_user.update!(is_online: true)
+    if params[:user_id].present?
+      stream_from "user_#{(params[:user_id])}"
+    else
+      puts "User Id is missing."
     end
   end
 
   def unsubscribed
-    if current_user
-      ActionCable.server.broadcast "user_status_channel", { user: current_user.id, online: :false }
-      current_user.update!(is_online: false)
-    end
+    stop_all_streams
   end 
 end
