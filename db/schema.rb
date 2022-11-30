@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_29_140052) do
+ActiveRecord::Schema.define(version: 2022_11_30_075926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -328,6 +328,7 @@ ActiveRecord::Schema.define(version: 2022_11_29_140052) do
     t.string "country_code"
     t.string "referral_code"
     t.string "stripe_connect_id"
+    t.boolean "is_online", default: false
   end
 
   create_table "wallets", force: :cascade do |t|
