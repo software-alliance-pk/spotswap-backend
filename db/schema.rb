@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_24_142246) do
-
+ActiveRecord::Schema.define(version: 2022_11_30_092345) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "action_text_rich_texts", force: :cascade do |t|
@@ -162,6 +162,9 @@ ActiveRecord::Schema.define(version: 2022_11_24_142246) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "transaction_type"
+    t.integer "total_fee"
+    t.string "type"
+    t.integer "swapper_id", null: false
     t.index ["user_id"], name: "index_histories_on_user_id"
   end
 
@@ -326,6 +329,7 @@ ActiveRecord::Schema.define(version: 2022_11_24_142246) do
     t.string "country_code"
     t.string "referral_code"
     t.string "stripe_connect_id"
+    t.boolean "is_online", default: false
   end
 
   create_table "wallets", force: :cascade do |t|
