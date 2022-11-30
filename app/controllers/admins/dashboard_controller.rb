@@ -14,7 +14,12 @@ class Admins::DashboardController < ApplicationController
 	end
 
   def sub_admins_index
-    @sub_admins = Admin.where(category: "sub_admin").order(created_at: :desc)
+    if params[:search_key].present?
+      @sub_admins = Admin.custom_search(params[:search_key]).where(category: "sub_admin").paginate(page: params[:page]).order(created_at: :desc)
+			@search_key = params[:search_key]
+		else
+      @sub_admins = Admin.where(category: "sub_admin").paginate(page: params[:page]).order(created_at: :desc)
+    end 
   end
 
   def create_sub_admin

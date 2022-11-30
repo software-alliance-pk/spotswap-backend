@@ -17,12 +17,15 @@
             <%= image_tag "arrow_left.svg" %>
           </a>
         </div>
-        <div class="form_blk input round_input ">
-          <button class="btn">
-            <%= image_tag "Search.svg" %>
-          </button>
-          <input class="input" type="text" name="" id="" placeholder="Search car brand">
-        </div>
+        <%= form_with url: get_model_details_admins_cars_path, method: :get do |f| %>
+          <div class="form_blk input round_input ">
+            <button class="btn" type="submit">
+              <%= image_tag "Search.svg" %>
+            </button>
+            <%= f.hidden_field :brand_id, value: @brand_id%>
+            <%= f.text_field :search_key, value: @search_key, class: "input", placeholder: "Search car model" %>
+          </div>
+        <%end%>
       </div>
       <div class="button_blk">
         <button class="site_btn round bg_white">Export CSV
@@ -112,6 +115,10 @@
               </li>
             </ul>
           </nav>
+        </div>
+        <!-- pagination_section -->
+        <div class="digg_pagination mt-5">
+          <%= will_paginate @car_models %>
         </div>
       </div>
     <%else%>
