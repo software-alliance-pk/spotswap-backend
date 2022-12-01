@@ -11,17 +11,17 @@
       </div>
     </div>
     <div class="top_btn">
-      <input type="submit" class="site_btn round" value="Save Changes" form="edit-terms-form"></input>
+      <input type="submit" class="site_btn round" value="Save Changes" form="edit-policy-form"></input>
     </div>
     <div class="guide">
       <div class="row">
         <div class="col-md-3">
           <ul>
             <li>
-              <a href="<%=terms_and_conditions_admins_guidelines_path%>" class="active">Terms & Condition</a>
+              <a href="<%=terms_and_conditions_admins_guidelines_path%>">Terms & Condition</a>
             </li>
             <li>
-              <a href="<%=privacy_policy_admins_guidelines_path%>">Privacy Policy</a>
+              <a href="<%=privacy_policy_admins_guidelines_path%>" class="active">Privacy Policy</a>
             </li>
             <li>
               <a href="<%=faqs_admins_guidelines_path%>">FAQs</a>
@@ -29,16 +29,16 @@
           </ul>
         </div>
         <div class="col-md-9">
-          <% @terms_and_conditions.each do |term|%>
-            <%= form_with(model: @page, url: update_terms_and_conditions_admins_guidelines_path(id: term.id), :id => 'edit-terms-form') do |f| %>
+          <% @privacy_policy.each do |policy|%>
+            <%= form_with(model: @page, url: update_privacy_policy_admins_guidelines_path(id: policy.id), :id => 'edit-policy-form') do |f| %>
               <div class="details my-4">
                 <div class="field">
                 <%= f.label :description %>
-                <%= f.rich_text_area :description, value: term.content.body, required: true %>
+                <%= f.rich_text_area :description, value: policy.content.body, required: true %>
                 </div>
               </div>
               <div class="btn_blk justify-content-between">
-                <input type="hidden" id="term_id" name="term_id" value=<%=term.id%>>
+                <input type="hidden" id="policy_id" name="policy_id" value=<%=policy.id%>>
               </div>
             <% end %>
           <% end %>
