@@ -34,6 +34,7 @@ gem 'cloudinary'
 gem 'fcm'
 gem 'countries'
 gem 'rexml'
+gem 'pg_trgm', '~> 0.0.1'
 
 # Use Json Web Token (JWT) for token based authentication
 gem 'jwt'
