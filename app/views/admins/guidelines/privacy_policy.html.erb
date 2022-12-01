@@ -5,13 +5,13 @@
         <h2 class="mb-0">Guidelines</h2>
         <div class="header_side">
           <button type="button" class="noti_btn input">
-            <%= image_tag "icon-bell.svg" %>
+            <img src="/assets/icon-bell.svg" alt="">
             <span>7</span>
           </button>
         </div>
       </div>
       <div class="top_btn">
-        <button class="site_btn round">Edit</button>
+        <a href="<%=edit_privacy_policy_admins_guidelines_path%>" class="site_btn round">Edit</a>
       </div>
       <div class="guide">
         <div class="row">
@@ -20,18 +20,17 @@
               <li >
                 <a href="<%=terms_and_conditions_admins_guidelines_path%>">Terms & Condition</a>
               </li>
-              <li>
+              <li >
                 <a href="<%=privacy_policy_admins_guidelines_path%>" class="active">Privacy Policy</a>
               </li>
-              <li >
+              <li>
                 <a href="<%=faqs_admins_guidelines_path%>">FAQs</a>
               </li>
             </ul>
           </div>
           <div class="col-md-9">
-            <div class="img">
-              <%= image_tag "Earning.jpg" %>
-            </div>
+          <div class="guidelines_privacy">
+            <p><%=@privacy_policy.last.content.body%></p>
           </div>
         </div>
       </div>
