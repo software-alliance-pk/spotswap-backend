@@ -42,6 +42,7 @@ gem 'stripe'
 gem 'stripe_event'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+gem 'dotenv-rails'
 
 # Use Active Storage variant
 gem "braintree", "~> 4.9.0"
