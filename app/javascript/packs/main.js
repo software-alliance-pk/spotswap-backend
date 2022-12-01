@@ -1,10 +1,11 @@
-$(window).on("load", function () {
+$(document).on('turbolinks:load', function(){
 	/*_____ Toggle _____*/
 	$(document).on("click", ".toggle", function () {
 		$(".toggle").toggleClass("active");
 		// $("html").toggleClass("flow");
 		$("body").toggleClass("move");
 	});
+
 	$(document).on("click", ".toggle.active", function () {
 		$(".toggle").removeClass("active");
 		// $("html").removeClass("flow");
@@ -15,6 +16,7 @@ $(window).on("load", function () {
 	$(document).on("click", ".upload_blk > button", function () {
 		$(this).parent().children("input[type='file']").trigger("click");
 	});
+
 	$(document).on("change", "input[type='file']", function () {
 		let file = $(this).val();
 		if (this.files.length > 0) {
@@ -37,14 +39,17 @@ $(window).on("load", function () {
 			$("#vid_blk > iframe, #vid_blk > video").attr("src", "");
 		}
 	});
+
 	$(document).on("click", ".popup .x_btn", function () {
 		$(".popup").fadeOut();
 		$("html").removeClass("flow");
 		$("#vid_blk > iframe, #vid_blk > video").attr("src", "");
 	});
+
 	$(document).keydown(function (e) {
 		if (e.keyCode == 27) $(".popup .x_btn").click();
 	});
+
 	$(document).on("click", ".pop_btn", function (e) {
 		e.target;
 		e.relatedTarget;
@@ -53,6 +58,7 @@ $(window).on("load", function () {
 		$(".popup[data-popup= " + popUp + "]").fadeIn();
 		// $("#slick-restock").slick("setPosition");
 	});
+
 	$(document).on("click", ".pop_btn[data-src]", function () {
 		var src = $(this).attr("data-src");
 		$("#vid_blk > iframe, #vid_blk > video").attr("src", src);
@@ -107,6 +113,10 @@ $(window).on("load", function () {
 	|       OTHER JAVASCRIPT
 	|----------------------------------------------------------------------
 	*/
+	
+});
+
+$(document).on('turbolinks:load', function(){
 
 	$("#clickaddfile").click(function (){
 		$("#submitaddfile").trigger('click');
@@ -119,13 +129,60 @@ $(window).on("load", function () {
 	$('.edit_car_model').on('click', function(){
 		var attribute_id  = $(this).attr("data-id")
 		$.ajax({
-      url: `/admins/cars/edit_model?id=${attribute_id}`,
-      type: 'get',
-      data: this.data,
+			url: `/admins/cars/edit_model?id=${attribute_id}`,
+			type: 'get',
+			data: this.data,
 			success: function(response) {
 				$('.edit_popup_div').html(response)
 			}
-    })
+		})
 	});
 	
+	$('.view_detail').on('click', function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+			url: `/admins/users/view_profile?id=${attribute_id}`,
+			type: 'get',
+			data: this.data,
+			success: function(response) {
+				$('.profile_popup_div').html(response)
+			}
+		})
+	});
+
+	$('.send_money').on('click', function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+			url: `/admins/users/send_money_popup?id=${attribute_id}`,
+			type: 'get',
+			data: this.data,
+			success: function(response) {
+				$('.send_money_popup_div').html(response)
+			}
+		})
+	});
+
+	$('.disable_user').on('click', function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+			url: `/admins/users/disable_user_popup?id=${attribute_id}`,
+			type: 'get',
+			data: this.data,
+			success: function(response) {
+				$('.disable_user_popup_div').html(response)
+			}
+		})
+	});
+
+	$('.confirm_yes').on('click', function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+			url: `/admins/users/confirm_yes_popup?id=${attribute_id}`,
+			type: 'get',
+			data: this.data,
+			success: function(response) {
+				$('.confirm_yes_popup_div').html(response)
+			}
+		})
+	});
 });

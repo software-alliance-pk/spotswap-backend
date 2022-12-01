@@ -11,12 +11,14 @@
       </div>
     </div>
     <div class="search">
-      <div class="form_blk input round_input ">
-        <button class="btn">
-          <%= image_tag "search_icon.svg" %>
-        </button>
-        <input class="input " type="text" name="" id="" placeholder="Search car brand">
-      </div>
+      <%= form_with url: admins_cars_path, method: :get do |f| %>
+        <div class="form_blk input round_input ">
+          <button class="btn" type="submit">
+            <%= image_tag "Search.svg" %>
+          </button>
+          <%= f.text_field :search_key, value: @search_key, class: "input", placeholder: "Search car brand" %>
+        </div>
+      <%end%>
       <button class="site_btn round pop_btn" data-popup="forget_pass">Add Car Brand</button>
     </div>
     <% if @car_brands.present? %>

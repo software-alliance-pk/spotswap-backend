@@ -3,7 +3,12 @@ class Admins::CarsController < ApplicationController
   before_action :car_model_params, only: [:create_model]
 
 	def index
-    @car_brands = CarBrand.all.order(created_at: :desc)
+    if params[:search_key].present?
+      @car_brands = CarBrand.custom_search(params[:search_key]).order(created_at: :desc)
+			@search_key = params[:search_key]
+		else
+      @car_brands = CarBrand.all.order(created_at: :desc)
+    end
 	end
 
   def create_brand
@@ -47,7 +52,12 @@ class Admins::CarsController < ApplicationController
   end
 
   def get_model_details
-    @car_models = CarBrand.find_by_id(params[:brand_id])&.car_models
+    if params[:search_key].present?
+      @car_models = CarBrand.find_by_id(params[:brand_id])&.car_models.custom_search(params[:search_key]).paginate(page: params[:page]).order(created_at: :desc)
+			@search_key = params[:search_key]
+		else
+      @car_models = CarBrand.find_by_id(params[:brand_id])&.car_models.paginate(page: params[:page]).order(created_at: :desc)
+    end
     @brand_id = params[:brand_id]
   end
 
