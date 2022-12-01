@@ -6,23 +6,37 @@ class Api::V1::WalletsController < Api::V1::ApiController
       return render json: {error: "Amount is missing."}, status: :unprocessable_entity unless params[:amount].present?
       connection_details =  check_connection_create_before_charge_amount
       return render json: {error: "You have not any Swapper Host Connection."}, status: :unprocessable_entity unless connection_details.present?
-      user = connection_details.user_id == @current_user.id ? connection_details.host : connection_details.user
-      return render json: {error: "User has not any stripe connect account."}, status: :unprocessable_entity unless user.stripe_connect_account.present?
-      account_id = user.stripe_connect_account.account_id
+      return render json: {error: "User has not any stripe connect account."}, status: :unprocessable_entity unless connection_details.swapper.stripe_connect_account.present?
       @default_payment = @current_user.default_payment
       if @default_payment.present?
         if @default_payment.payment_type == "paypal"
           return render json: {error: "PayPal Payment is not completed yet."}, status: :unprocessable_entity
         elsif @default_payment.payment_type == "credit_card"
-          charge_amount_through_credit_card(params[:amount], account_id)
+          charge_amount_through_credit_card(params[:amount],connection_details)
+          create_payment_history("other_payment", connection_details, params[:amount])
         elsif @default_payment.payment_type == "wallet"
-          charge_amount_through_wallet(params[:amount], account_id)
+          charge_amount_through_wallet(params[:amount],connection_details)
+          create_payment_history("topup", connection_details, params[:amount])
+        else
+          return render json: {error: "Please enter the valid payment type"},status: :unprocessable_entity
         end
       else
         return render json: {error: "Please add Default Payment first."}, status: :unprocessable_entity
       end
     rescue Exception => e
-      render json: { error:  e.message }, status: :unprocessable_entity
+      render json: { error: e.message }, status: :unprocessable_entity
+    end
+  end
+
+  def create_payment_history(payment_type, connection_details, amount)
+    if payment_type == "other_payment"
+      @other_history = @current_user.other_histories.create(connection_date_time: connection_details.created_at,
+      connection_location: connection_details.parking_slot.address,
+      swapper_id: connection_details.swapper.id, swapper_fee: amount, spotswap_fee: 1)
+    else
+      @other_history = @current_user.top_up_histories.create(connection_date_time: connection_details.created_at,
+        connection_location: connection_details.parking_slot.address,
+        swapper_id: connection_details.swapper.id, swapper_fee: amount, spotswap_fee: 1)
     end
   end
 
@@ -72,13 +86,13 @@ class Api::V1::WalletsController < Api::V1::ApiController
     @current_user.swapper_host_connection || @current_user.host_swapper_connection
   end
 
-  def charge_amount_through_wallet(amount, account_id)
-    @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, account_id)
+  def charge_amount_through_wallet(amount,connection_details)
+    @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount,connection_details.swapper.stripe_connect_account.account_id)
   end
 
-  def charge_amount_through_credit_card(amount, account_id)
-    @charge_response = StripeChargeService.new.charge_amount_from_customer(amount)
-    @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, account_id)
+  def charge_amount_through_credit_card(amount,connection_details)
+    @charge_response = StripeChargeService.new.charge_amount_from_customer(amount,connection_details.swapper.stripe_connect_account.account_id)
+    @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount,connection_details.host.stripe_connect_account.account_id )
   end
 
   def charge_amount_through_paypal

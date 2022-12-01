@@ -144,6 +144,13 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :histories, only: [] do
+        collection do
+          get :get_user_top_up_histories
+          get :get_user_other_payment_histories
+        end
+      end
+
     end
   end
   
