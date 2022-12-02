@@ -10,7 +10,7 @@ gem 'activestorage'
 gem 'pg', '~> 1.4', '>= 1.4.3'
 # Use sqlite3 as the database for Active Record
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -34,6 +34,7 @@ gem 'cloudinary'
 gem 'fcm'
 gem 'countries'
 gem 'rexml'
+gem 'pg_trgm', '~> 0.0.1'
 
 # Use Json Web Token (JWT) for token based authentication
 gem 'jwt'
@@ -41,6 +42,7 @@ gem 'stripe'
 gem 'stripe_event'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+gem 'dotenv-rails'
 
 # Use Active Storage variant
 gem "braintree", "~> 4.9.0"
@@ -72,6 +74,11 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
+
+# gem 'capistrano', '~> 3.11'
+# gem 'capistrano-rails', '~> 1.4'
+# gem 'capistrano-passenger', '~> 0.2.0'
+# gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

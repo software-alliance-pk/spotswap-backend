@@ -6,10 +6,10 @@
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
-import "channels"
 import "./bootstrap.bundle.min"
-import "./datepicker"
 import "./main"
+import "./datepicker"
+import "channels"
 
 window.Rails = Rails;
 if(Rails.fire(document, "rails:attachBindings")) {
@@ -17,6 +17,7 @@ if(Rails.fire(document, "rails:attachBindings")) {
 }
 Turbolinks.start()
 ActiveStorage.start()
+
 
 require("trix")
 require("@rails/actiontext")
