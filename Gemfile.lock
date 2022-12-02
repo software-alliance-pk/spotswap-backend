@@ -100,6 +100,10 @@ GEM
       warden (~> 1.2.3)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.11.0)
     faraday (2.6.0)
       faraday-net_http (>= 2.0, < 3.1)
@@ -168,8 +172,9 @@ GEM
     pg_search (2.3.6)
       activerecord (>= 5.2)
       activesupport (>= 5.2)
+    pg_trgm (0.0.1)
     public_suffix (5.0.0)
-    puma (5.6.5)
+    puma (4.3.12)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.4)
@@ -310,6 +315,7 @@ DEPENDENCIES
   cloudinary
   countries
   devise
+  dotenv-rails
   fcm
   geokit-rails
   image_processing (~> 1.2)
@@ -319,7 +325,8 @@ DEPENDENCIES
   listen (~> 3.3)
   pg (~> 1.4, >= 1.4.3)
   pg_search
-  puma (~> 5.0)
+  pg_trgm (~> 0.0.1)
+  puma (~> 4.1)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.6)
   redis (~> 4.0)
