@@ -12,10 +12,12 @@ class Admins::UsersController < ApplicationController
 
   def view_profile
     @user = User.find_by(id: params[:id])
+    render partial: 'view_profile', locals:{user: @user}
   end
 
   def send_money_popup
     @user = User.find_by(id: params[:id])
+    render partial: 'send_money_popup', locals:{user: @user}
   end
 
   def disable_user_popup

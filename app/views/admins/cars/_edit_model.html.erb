@@ -10,44 +10,43 @@
                 style="background-image: url('/assets/logon-strip.svg')">
                 <p class="fs_5">Edit Car Model</p>
               </div>
-              <%= form_with url: update_model_admins_cars_path(id: @model.id) do |f| %>
+              <%= form_with url: update_model_admins_cars_path(id: model.id) do |f| %>
                 <div class="prof_img" style="position:relative;">
                   <div class="img" style="width:80%">
-                    <% if @model.image.attached?%>
-                      <%= image_tag(@model.image.url)%>
-                    <% else %>
-                      <img src="/assets//default-profile.jpg" alt="">
-                    <%end%>
+                    <%= image_tag "upload-photo.png" %>
                   </div>
-                  <%= f.file_field :image, value: @model.image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;" %>
+                  <div class="upload-preview">
+                    <img />
+                  </div>
+                  <%= f.file_field :image, class: "file", accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:0; left:0; opacity:0; padding-bottom: 100%;", required: true %>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form_blk">
                       <label for="">Card Model</label>
-                      <input type="text" name="title" value="<%=@model.title%>" class="input" placeholder="type here">
+                      <input type="text" name="title" value="<%=model.title%>" class="input" placeholder="type here">
                     </div>
                     <div class="form_blk">
                       <label for="">Color</label>
-                      <input type="text" name="color" value="<%=@model.color%>" class="input" placeholder="type here">
+                      <input type="text" name="color" value="<%=model.color%>" class="input" placeholder="type here">
                     </div>
                     <div class="form_blk">
                       <label for="">Released</label>
-                      <input type="text" name="released" value="<%=@model.released%>" class="input" placeholder="type here">
+                      <input type="text" name="released" value="<%=model.released%>" class="input" placeholder="type here">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form_blk">
                       <label for="">Length</label>
-                      <input type="text" name="length" value="<%=@model.length%>" class="input" placeholder="type here">
+                      <input type="text" name="length" value="<%=model.length%>" class="input" placeholder="type here">
                     </div>
                     <div class="form_blk">
                       <label for="">Width</label>
-                      <input type="text" name="width" value="<%=@model.width%>" class="input" placeholder="type here">
+                      <input type="text" name="width" value="<%=model.width%>" class="input" placeholder="type here">
                     </div>
                     <div class="form_blk">
                       <label for="">Height</label>
-                      <input type="text" name="height" value="<%=@model.height%>" class="input" placeholder="type here">
+                      <input type="text" name="height" value="<%=model.height%>" class="input" placeholder="type here">
                     </div>
                   </div>
                 </div>
