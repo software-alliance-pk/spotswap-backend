@@ -16,10 +16,10 @@
     },
     "bootstrap": {
       "js": [
-        "/packs/js/bootstrap-5f36272a1d8153789176.js"
+        "/packs/js/bootstrap-36ea0e7ef9615c79b7cf.js"
       ],
       "js.map": [
-        "/packs/js/bootstrap-5f36272a1d8153789176.js.map"
+        "/packs/js/bootstrap-36ea0e7ef9615c79b7cf.js.map"
       ]
     },
     "datepicker": {
@@ -32,10 +32,10 @@
     },
     "jquery": {
       "js": [
-        "/packs/js/jquery-03d7cee1836b164c260f.js"
+        "/packs/js/jquery-e4e1b2f1bea39f9d1ec3.js"
       ],
       "js.map": [
-        "/packs/js/jquery-03d7cee1836b164c260f.js.map"
+        "/packs/js/jquery-e4e1b2f1bea39f9d1ec3.js.map"
       ]
     },
     "main": {
