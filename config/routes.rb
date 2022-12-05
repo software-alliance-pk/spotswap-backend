@@ -53,7 +53,7 @@ Rails.application.routes.draw do
         collection do
           get :get_user
           post :update_user
-          post :check_user_status
+          post :update_user_status
         end
       end
 

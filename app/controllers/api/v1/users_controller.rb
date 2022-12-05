@@ -21,10 +21,17 @@ class Api::V1::UsersController < Api::V1::ApiController
     end
   end
 
-  def check_user_status
-    return render json: { error: "Conversation Id is missing." }, status: :unprocessable_entity unless params[:conversation_id].present?
-    @conversation = Conversation.find_by(id: params[:conversation_id])
-    return render json: { error: "Conversation with this Id is not present." }, status: :unprocessable_entity unless @conversation.present?
+  def update_user_status
+    return render json: { error: "User Current Status is missing in params." }, status: :unprocessable_entity unless params[:current_status].present?
+    if params[:current_status] == "online"
+      @current_user.update(is_online: true)
+      return render json: { message: "User Current Status is set to Online." }, status: :ok
+    elsif params[:current_status] == "offline"
+      @current_user.update(is_online: false)
+      return render json: { message: "User Current Status is set to Offline." }, status: :ok
+    else
+      return render json: { error: "Value of User Current Status is incorrect in params." }, status: :unprocessable_entity
+    end
   end
 
   private
