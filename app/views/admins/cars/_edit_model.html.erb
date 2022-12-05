@@ -18,6 +18,9 @@
                   <div class="upload-preview">
                     <img />
                   </div>
+                  <% if model.image.attached?%>
+                    <%= image_tag model.image.url, id: 'car_model_image'%>
+                  <%end%>
                   <%= f.file_field :image, class: "file", accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:0; left:0; opacity:0; padding-bottom: 100%;", required: true %>
                 </div>
                 <div class="row">
