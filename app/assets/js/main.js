@@ -1,4 +1,4 @@
-$(window).on("load", function () {
+$(document).on('turbolinks:load', function(){
 	/*_____ Toggle _____*/
 	$(document).on("click", ".toggle", function () {
 		$(".toggle").toggleClass("active");
@@ -179,7 +179,7 @@ $(window).on("load", function () {
 	$("#searchbtn").keyup(function (){
 		var word = $(this).val();
 		$("#searchform").trigger('submit');
-	});
+	});	
 
 	$(document).on("change", ".file", function(e){
 		var preview = $(".upload-preview img");
@@ -191,6 +191,8 @@ $(window).on("load", function () {
 				preview.attr("src", image_base64);
 		};
 		reader.readAsDataURL(file);
+		$("#car_model_image").removeAttr("style").hide();
+		$(".prof_img .img").removeAttr("style").hide();
 	});
 	
 });
