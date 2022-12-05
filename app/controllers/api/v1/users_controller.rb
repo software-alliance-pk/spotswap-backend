@@ -21,6 +21,12 @@ class Api::V1::UsersController < Api::V1::ApiController
     end
   end
 
+  def check_user_status
+    return render json: { error: "Conversation Id is missing." }, status: :unprocessable_entity unless params[:conversation_id].present?
+    @conversation = Conversation.find_by(id: params[:conversation_id])
+    return render json: { error: "Conversation with this Id is not present." }, status: :unprocessable_entity unless @conversation.present?
+  end
+
   private
 
   def find_user
