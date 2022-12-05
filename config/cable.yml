@@ -7,5 +7,5 @@ test:
 production:
   adapter: redis
   channel_prefix: spot_swap_production
-  url: redis://54.147.39.231:6379/1
+  url: redis://127.0.0.1:6379
 
