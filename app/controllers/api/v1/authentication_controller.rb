@@ -54,6 +54,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     fcm_token = @current_user.mobile_device
     if fcm_token.present?
       fcm_token.destroy
+      @current_user.update(is_online: false)
       render json: { message: "Log out successfully." }, status: :ok
     else
       render json: { error: "User has not any mobile device token." }, status: :unprocessable_entity
