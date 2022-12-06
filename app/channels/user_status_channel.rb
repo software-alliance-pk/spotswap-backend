@@ -3,7 +3,11 @@ class UserStatusChannel < ApplicationCable::Channel
   def subscribed
     if params[:user_id].present?
       stream_from "user_status_#{(params[:user_id])}"
+      puts params
       @conversation = Conversation.find_by(id: params[:conversation_id])
+      puts @conversation.present?
+      puts @conversation.user_id
+      puts @conversation.recepient_id
       
       if @conversation.present?
         puts "1111111111111111"
@@ -13,6 +17,7 @@ class UserStatusChannel < ApplicationCable::Channel
         elsif @conversation.recepient_id == params[:user_id].to_i
           puts "33333333333"
           @user = @conversation.sender
+          puts @user
         end
         if @user.present?
           puts "444444444444"
