@@ -1,14 +1,27 @@
 class UserStatusChannel < ApplicationCable::Channel
 
   def subscribed
-    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    puts params
-    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     if params[:user_id].present?
-      puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-      puts params
-      puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<"
       stream_from "user_#{(params[:user_id])}"
+      @conversation = Conversation.find_by(id: params[:conversation_id])
+      
+      if @conversation.present?
+        if @conversation.user_id == params[:user_id].to_i
+          @user = @conversation.recepient
+        elsif @conversation.recepient_id == params[:user_id].to_i
+          @user = @conversation.sender
+        end
+        if @user.present?
+          stream_from("conversation_#{(params[:conversation_id])}")
+          ActionCable.server.broadcast "user_status",
+          {
+            user_id: @user.id,
+            user_online_status: @user.is_online,
+          }
+        end
+      else
+        puts "conversation with this id is not present."
+      end
     else
       puts "User Id is missing."
     end
