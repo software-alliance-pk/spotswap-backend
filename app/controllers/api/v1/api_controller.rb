@@ -11,7 +11,7 @@ class Api::V1::ApiController < ActionController::API
       receipient_id: receipient_id,
       receipient_online_status: receipient_online_status
     }
-    ActionCable.server.broadcast("user_status_#{@current_user.id}", {
+    ActionCable.server.broadcast("user_status_#{conversation_id}", {
       title: 'Online Status',
       body: data
     })
