@@ -62,11 +62,11 @@ class PushNotificationService
     data = {
       swapper: swapper,
       car_model_name: swapper&.car_detail&.car_model&.title,
-      user_image: swapper.image.attached? ? swapper.image.url : "",
-      car_image: swapper.car_detail&.photos&.attached? ? swapper.car_detail.photos[0].url : "",
-      parking_slot_image: swapper&.parking_slot.image.attached? ? swapper&.parking_slot.image.url : "",
+      user_image: swapper&.image&.attached? ? swapper.image.url : "",
+      car_image: swapper&.car_detail&.photos&.attached? ? swapper.car_detail.photos[0].url : "",
+      parking_slot_image: swapper&.parking_slot&.image&.attached? ? swapper&.parking_slot.image.url : "",
       parking_slot_id: swapper&.parking_slot.id,
-      connection_id: swapper.swapper_host_connection.id,
+      connection_id: swapper&.swapper_host_connection.id,
       user_type: "Swapper",
       body: "Request has been cancelled by Swapper."
      }   
