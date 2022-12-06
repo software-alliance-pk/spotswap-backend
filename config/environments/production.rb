@@ -99,7 +99,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.action_cable.url = 'ws://localhost:3000/cable'
+  config.action_cable.url = 'ws://54.147.39.231/cable'
   config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
 
   # Inserts middleware to perform automatic connection switching.
@@ -124,7 +124,6 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
