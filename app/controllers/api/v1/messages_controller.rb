@@ -1,6 +1,7 @@
 class Api::V1::MessagesController < Api::V1::ApiController
   before_action :authorize_request
   before_action :find_conversation, only: [:create_message, :get_all_messages, :delete_conversation]
+  before_action :find_user_type_for_conversation, only: [:create_conversation,:get_all_messages]
 
   def create_message
     @message = @current_user.messages.build(message_params)
@@ -18,10 +19,12 @@ class Api::V1::MessagesController < Api::V1::ApiController
     @conversation = Conversation.where(user_id: @current_user.id, recepient_id: params[:recepient_id]).or(Conversation.where(user_id: params[:recepient_id], recepient_id: @current_user.id))
     unless @conversation.empty?
       @conversation = @conversation.first
+      generate_payload_for_online(@conversation.id,@conversation.sender.id,@conversation.sender.is_online,@conversation.recepient.id,@conversation.recepient.is_online)
     else
       @conversation = Conversation.new(conversation_params.merge(user_id: @current_user.id))
       if @conversation.save
         @conversation
+        generate_payload_for_online(@conversation.id,@conversation.sender.id,@conversation.sender.is_online,@conversation.recepient.id,@conversation.recepient.is_online)
       else
         render_error_messages(@conversation)
       end
@@ -29,8 +32,6 @@ class Api::V1::MessagesController < Api::V1::ApiController
   end
 
   def get_all_messages
-    @user_type = "Swapper" if @current_user.host_swapper_connection.present?
-    @user_type = "Host" if @current_user.swapper_host_connection.present?
 	  @messages = @conversation.messages.all.order(created_at: :desc)
   end
 
@@ -74,6 +75,12 @@ class Api::V1::MessagesController < Api::V1::ApiController
 
   def conversation_params
     params.permit(:recepient_id)
+  end
+
+
+  def find_user_type_for_conversation
+    @user_type = "Swapper" if @current_user.host_swapper_connection.present?
+    @user_type = "Host" if @current_user.swapper_host_connection.present?
   end
 
   def find_conversation
