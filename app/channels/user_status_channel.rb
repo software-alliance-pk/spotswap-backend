@@ -1,9 +1,9 @@
 class UserStatusChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "user_status_#{current_user.id}"
+    stream_from "user_status_#{params[:conversation_id]}"
   end
 
   def unsubscribed
-    stop_stream_from "user_status_#{current_user.id}"
+    stop_stream_from "user_status_#{params[:conversation_id]}"
   end
 end
