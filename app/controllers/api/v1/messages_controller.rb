@@ -19,12 +19,12 @@ class Api::V1::MessagesController < Api::V1::ApiController
     @conversation = Conversation.where(user_id: @current_user.id, recepient_id: params[:recepient_id]).or(Conversation.where(user_id: params[:recepient_id], recepient_id: @current_user.id))
     unless @conversation.empty?
       @conversation = @conversation.first
-      generate_payload_for_online(@conversation.id, @conversation.sender.id, @conversation.sender.is_online, @conversation.recepient.id, @conversation.recepient.is_online)
+      # generate_payload_for_online(@conversation.id, @conversation.sender.id, @conversation.sender.is_online, @conversation.recepient.id, @conversation.recepient.is_online)
     else
       @conversation = Conversation.new(conversation_params.merge(user_id: @current_user.id))
       if @conversation.save
         @conversation
-        generate_payload_for_online(@conversation.id, @conversation.sender.id, @conversation.sender.is_online, @conversation.recepient.id, @conversation.recepient.is_online)
+        # generate_payload_for_online(@conversation.id, @conversation.sender.id, @conversation.sender.is_online, @conversation.recepient.id, @conversation.recepient.is_online)
       else
         render_error_messages(@conversation)
       end
