@@ -3,7 +3,7 @@ class Api::V1::ApiController < ActionController::API
     render json: { error: 'No route matches with given address' }
   end
 
-  def generate_payload_for_online(conversation_id,sender_id,sender_online_status,receipient_id,receipient_online_status)
+  def generate_payload_for_online(conversation_id, sender_id, sender_online_status, receipient_id, receipient_online_status)
     data = {
       conversation_id: conversation_id,
       sender_id: sender_id,
@@ -13,7 +13,7 @@ class Api::V1::ApiController < ActionController::API
     }
     ActionCable.server.broadcast("user_status_#{@current_user.id}", {
       title: 'Online Status',
-      body: data.json
+      body: data
     })
   end
 
