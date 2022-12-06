@@ -2,7 +2,7 @@ class UserStatusChannel < ApplicationCable::Channel
 
   def subscribed
     if params[:user_id].present?
-      stream_from "user_#{(params[:user_id])}"
+      stream_from "user_status_#{(params[:user_id])}"
       @conversation = Conversation.find_by(id: params[:conversation_id])
       
       if @conversation.present?
@@ -13,7 +13,7 @@ class UserStatusChannel < ApplicationCable::Channel
         end
         if @user.present?
           stream_from("conversation_#{(params[:conversation_id])}")
-          ActionCable.server.broadcast "user_status",
+          ActionCable.server.broadcast "user_status_#{@user.id}",
           {
             user_id: @user.id,
             user_online_status: @user.is_online,
