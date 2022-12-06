@@ -1,6 +1,7 @@
 class UserStatusChannel < ApplicationCable::Channel
 
   def subscribed
+    puts params
     if params[:user_id].present?
       stream_from "user_status_#{(params[:user_id])}"
       puts params
