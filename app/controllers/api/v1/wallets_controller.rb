@@ -49,7 +49,11 @@ class Api::V1::WalletsController < Api::V1::ApiController
         @referral_code_record = check_referrer_code_already_in_use(@referrer)
       end
       
-      @topup_response = StripeTopUpService.new.create_top_up(params[:amount]) 
+      @topup_response = StripeTopUpService.new.create_top_up(params[:amount])
+      # debugger
+      # if @topup_response.status == "pending"
+      #   return render json: {error: "Your Connect account is Incomplete."}, status: :unprocessable_entity
+      # end
       @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]))
       @wallet.wallet_amount = params[:amount]
       if @wallet.save
