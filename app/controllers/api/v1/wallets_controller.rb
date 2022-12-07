@@ -42,17 +42,18 @@ class Api::V1::WalletsController < Api::V1::ApiController
   def add_amount_to_wallet
     begin
       return render json: {error: "Amount is missing."}, status: :unprocessable_entity unless params[:amount].present?
-      return render json: {error: "Referrer Code is missing."}, status: :unprocessable_entity unless params[:referrer_code].present?
       return render json: {error: "You have not any Stripe Connect Account, Please add it."}, status: :unprocessable_entity unless @current_user.stripe_connect_account.present?
-      @referrer = User.find_by(referral_code: params[:referrer_code])
-      return render json: {error: "Referral Code is InValid."}, status: :unprocessable_entity unless @referrer.present?
-      @referral_code_record = check_referrer_code_already_in_use(@referrer)
+      if params[:referrer_code].present?
+        @referrer = User.find_by(referral_code: params[:referrer_code])
+        return render json: {error: "Referral Code is InValid."}, status: :unprocessable_entity unless @referrer.present?
+        @referral_code_record = check_referrer_code_already_in_use(@referrer)
+      end
       
       @topup_response = StripeTopUpService.new.create_top_up(params[:amount]) 
       @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]))
       @wallet.wallet_amount = params[:amount]
       if @wallet.save
-        @referral_code_record.update(is_top_up_created: true)
+        @referral_code_record.update(is_top_up_created: true) if params[:referrer_code].present?
         @wallet
       else
         render_error_messages(@wallet)
