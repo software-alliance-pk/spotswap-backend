@@ -43,6 +43,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
     begin
       return render json: {error: "Amount is missing."}, status: :unprocessable_entity unless params[:amount].present?
       return render json: {error: "Referrer Code is missing."}, status: :unprocessable_entity unless params[:referrer_code].present?
+      return render json: {error: "You have not any Stripe Connect Account, Please add it."}, status: :unprocessable_entity unless @current_user.stripe_connect_account.present?
       @referrer = User.find_by(referral_code: params[:referrer_code])
       return render json: {error: "Referral Code is InValid."}, status: :unprocessable_entity unless @referrer.present?
       @referral_code_record = check_referrer_code_already_in_use(@referrer)
@@ -57,12 +58,12 @@ class Api::V1::WalletsController < Api::V1::ApiController
         render_error_messages(@wallet)
       end
     rescue Exception => e
-      render json: { error:  e.message }, status: :unprocessable_entity
+      render json: { error: e.message }, status: :unprocessable_entity
     end
   end
 
   def get_wallet_detail
-    return render json: {error: "You have not any Wallet."}, status: :unprocessable_entity unless @current_user.wallet.present?
+    return render json: {error: "You have not any Wallet, Please add it."}, status: :unprocessable_entity unless @current_user.wallet.present?
     @wallet_detail = @current_user.wallet
     @wallet_histories = @current_user.wallet_histories.order(created_at: :desc)
   end

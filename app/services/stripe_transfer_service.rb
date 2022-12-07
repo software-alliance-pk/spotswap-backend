@@ -7,7 +7,7 @@ class StripeTransferService
     response = Stripe::Transfer.create({
       amount: amount,
       currency: 'usd',
-      destination: account_id,
+      destination: account_id
     })
     return response
   end
