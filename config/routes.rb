@@ -147,7 +147,6 @@ Rails.application.routes.draw do
 
       resources :histories, only: [] do
         collection do
-          get :get_user_wallet_histories
           get :get_user_other_payment_histories
         end
       end
