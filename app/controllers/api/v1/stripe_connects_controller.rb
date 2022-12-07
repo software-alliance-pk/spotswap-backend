@@ -6,9 +6,9 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
     begin
       stripe_connect_account = @current_user.stripe_connect_account
       if stripe_connect_account.present?
-        @account_details = StripeConnectAccountService.new.retrieve_stripe_connect_account(stripe_connect_account.account_id)
+        @account_details = StripeConnectAccountService.new.retrieve_stripe_connect_account(stripe_connect_account.account_id, user_stripe_connect_account_api_v1_stripe_connects_path)
       else
-        @account_details = StripeConnectAccountService.new.create_connect_customer_account(@current_user, user_stripe_connect_account_api_v1_stripe_connects_url)
+        @account_details = StripeConnectAccountService.new.create_connect_customer_account(@current_user, user_stripe_connect_account_api_v1_stripe_connects_path)
       end
       render json: @account_details
 
@@ -29,7 +29,7 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
 
   def retrieve_connect_account
     begin
-      account = StripeConnectAccountService.new.retrieve_stripe_connect_account(@current_user.stripe_connect_id)
+      account = StripeConnectAccountService.new.retrieve_stripe_connect_account(@current_user.stripe_connect_id, user_stripe_connect_account_api_v1_stripe_connects_path)
       render json: { account: account }
 
     rescue Exception => e
