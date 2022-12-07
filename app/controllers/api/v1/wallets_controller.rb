@@ -48,8 +48,9 @@ class Api::V1::WalletsController < Api::V1::ApiController
       return render json: {error: "Referral Code is InValid."}, status: :unprocessable_entity unless @referrer.present?
       @referral_code_record = check_referrer_code_already_in_use(@referrer)
       
-      @topup_response = StripeTopUpService.new.create_top_up(params[:amount])  
+      @topup_response = StripeTopUpService.new.create_top_up(params[:amount]) 
       @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]))
+      @wallet.wallet_amount = params[:amount]
       if @wallet.save
         @referral_code_record.update(is_top_up_created: true)
         @wallet
@@ -64,6 +65,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
   def get_wallet_detail
     return render json: {error: "You have not any Wallet."}, status: :unprocessable_entity unless @current_user.wallet.present?
     @wallet_detail = @current_user.wallet
+    @wallet_histories = @current_user.wallet_histories.order(created_at: :desc)
   end
 
   private

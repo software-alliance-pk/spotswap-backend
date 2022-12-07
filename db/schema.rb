@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_30_092345) do
+ActiveRecord::Schema.define(version: 2022_12_07_091154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -332,6 +332,17 @@ ActiveRecord::Schema.define(version: 2022_11_30_092345) do
     t.boolean "is_online", default: false
   end
 
+  create_table "wallet_histories", force: :cascade do |t|
+    t.integer "top_up_description"
+    t.string "amount"
+    t.integer "transaction_type"
+    t.string "title"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_wallet_histories_on_user_id"
+  end
+
   create_table "wallets", force: :cascade do |t|
     t.decimal "amount"
     t.bigint "user_id", null: false
@@ -365,5 +376,6 @@ ActiveRecord::Schema.define(version: 2022_11_30_092345) do
   add_foreign_key "user_car_models", "car_details"
   add_foreign_key "user_car_models", "car_models"
   add_foreign_key "user_referral_code_records", "users"
+  add_foreign_key "wallet_histories", "users"
   add_foreign_key "wallets", "users"
 end

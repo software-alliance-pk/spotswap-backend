@@ -1,0 +1,1 @@
+json.wallet_histories @wallet_histories

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  top_up_description: 1
+  amount: MyString
+  transaction_type: 1
+  title: MyString
+  User: one
+
+two:
+  top_up_description: 1
+  amount: MyString
+  transaction_type: 1
+  title: MyString
+  User: two
