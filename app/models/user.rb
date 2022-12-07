@@ -33,7 +33,7 @@ class User < ApplicationRecord
   has_one :host_swapper_connection, dependent: :destroy, class_name: :SwapperHostConnection, foreign_key: :host_id
   has_many :user_referral_code_records, dependent: :destroy
   has_many :other_histories, dependent: :destroy
-  has_many :top_up_histories, dependent: :destroy
+  has_many :wallet_histories, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
