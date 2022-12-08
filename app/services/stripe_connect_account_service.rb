@@ -1,7 +1,7 @@
 class StripeConnectAccountService
   require 'stripe'
-  Stripe.api_key ="sk_test_51LxA5aDG0Cz60XkmJmG5SqF65UOdl7MC8qoJPwfKZdxw09kRSDUnO649B6UhZuzn05DMILFoy4Ptbz8zDSh1NeBy001ulT1oYP"
-  Stripe.api_key = 'sk_test_51LxA5aDG0Cz60XkmJmG5SqF65UOdl7MC8qoJPwfKZdxw09kRSDUnO649B6UhZuzn05DMILFoy4Ptbz8zDSh1NeBy001ulT1oYP' if Rails.env.production?
+  Stripe.api_key ="sk_test_51MCjGDF5sdpBo10rWKvpkwEhZJbh48Ag1IFb9mFDt7JROqylvQX1M5z1cnP3toNkOgYwGNSAXeYziixrF5nhTIPW00JCq17CG3"
+  Stripe.api_key = 'sk_test_51MCjGDF5sdpBo10rWKvpkwEhZJbh48Ag1IFb9mFDt7JROqylvQX1M5z1cnP3toNkOgYwGNSAXeYziixrF5nhTIPW00JCq17CG3' if Rails.env.production?
 
   # https://stripe.com/docs/api/accounts/create?lang=ruby
   def create_connect_customer_account(current_user, refresh_url)
@@ -25,7 +25,7 @@ class StripeConnectAccountService
       link = Stripe::AccountLink.create(
         {
           account: current_user.stripe_connect_id,
-          refresh_url: "http://52.55.254.156"+refresh_url,
+          refresh_url: "http://54.147.39.231"+refresh_url,
           return_url: "https://spotswap.page.link/RtQw",
           type: "account_onboarding",
         },
@@ -39,7 +39,7 @@ class StripeConnectAccountService
     link = Stripe::AccountLink.create(
       {
         account: account_id,
-        refresh_url: "http://52.55.254.156"+refresh_url,
+        refresh_url: "http://54.147.39.231"+refresh_url,
         return_url: "https://spotswap.page.link/RtQw",
         type: "account_onboarding",
       },

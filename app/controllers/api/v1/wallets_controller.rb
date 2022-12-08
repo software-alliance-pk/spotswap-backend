@@ -46,16 +46,17 @@ class Api::V1::WalletsController < Api::V1::ApiController
       else
         @connect_account = StripeConnectAccountService.new.create_connect_customer_account(@current_user, user_stripe_connect_account_api_v1_stripe_connects_path)
       end
-
-      if @connect_account[:response].charges_enabled == false
-        arr = ["You have not set up any Stripe Connect Account.", @connect_account[:link]]
-        return render json: {error: arr}, status: :unprocessable_entity
+      if @connect_account[:response].requirements.errors.present? || @connect_account[:response].requirements.disabled_reason.present? || @connect_account[:response].charges_enabled == false || @connect_account[:response].payouts_enabled == false
+        @link = StripeConnectAccountService.new.create_login_link_of_stripe_connect_account(@current_user.stripe_connect_account.account_id)
+        return render json: { error: ["You have not set up any Stripe Connect Account.", @link.url] }, status: :unprocessable_entity
+      # elsif @connect_account[:response].requirements.errors.empty? && @connect_account[:response].requirements.disabled_reason.present? && (@connect_account[:response].charges_enabled == false || @connect_account[:response].payouts_enabled == false)
+      #   return render json: { error: ["You have not set up any Stripe Connect Account.", @connect_account[:link]] }, status: :unprocessable_entity
       end
       if params[:referrer_code].present?
         @referrer = User.find_by(referral_code: params[:referrer_code])
         return render json: {error: "Referral Code is Invalid."}, status: :unprocessable_entity unless @referrer.present?
         @referral_code_record = check_referrer_code_already_in_use(@referrer)
-      end  
+      end
       @topup_response = StripeTopUpService.new.create_top_up(params[:amount])
 
       @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]))
