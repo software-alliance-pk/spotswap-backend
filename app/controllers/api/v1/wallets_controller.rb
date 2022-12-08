@@ -48,11 +48,12 @@ class Api::V1::WalletsController < Api::V1::ApiController
       end
 
       if @connect_account[:response].charges_enabled == false
-        return render json: {error: "You have not set up any Stripe Connect Account.", link: @connect_account[:link]}, status: :unprocessable_entity
+        arr = ["You have not set up any Stripe Connect Account.", @connect_account[:link]]
+        return render json: {error: arr}, status: :unprocessable_entity
       end
       if params[:referrer_code].present?
         @referrer = User.find_by(referral_code: params[:referrer_code])
-        return render json: {error: "Referral Code is InValid."}, status: :unprocessable_entity unless @referrer.present?
+        return render json: {error: "Referral Code is Invalid."}, status: :unprocessable_entity unless @referrer.present?
         @referral_code_record = check_referrer_code_already_in_use(@referrer)
       end  
       @topup_response = StripeTopUpService.new.create_top_up(params[:amount])
