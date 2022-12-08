@@ -1,5 +1,5 @@
 class Api::V1::CardsController < Api::V1::ApiController
-  Stripe.api_key = 'sk_test_51LxA5aDG0Cz60XkmJmG5SqF65UOdl7MC8qoJPwfKZdxw09kRSDUnO649B6UhZuzn05DMILFoy4Ptbz8zDSh1NeBy001ulT1oYP'
+  Stripe.api_key = 'sk_test_51MCjGDF5sdpBo10rWKvpkwEhZJbh48Ag1IFb9mFDt7JROqylvQX1M5z1cnP3toNkOgYwGNSAXeYziixrF5nhTIPW00JCq17CG3'
   before_action :authorize_request
   before_action :find_card, only: [:get_card, :destroy_card, :update_card, :set_default_card]
 
