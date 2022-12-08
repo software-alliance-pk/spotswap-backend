@@ -44,7 +44,7 @@ class StripeConnectAccountService
         type: "account_onboarding",
       },
     )
-    return account_details = {link: link.url }
+    return account_details = {response: response, link: link.url }
   end
 
   def create_login_link_of_stripe_connect_account(account_id)
