@@ -8,7 +8,6 @@ class Api::V1::WalletsController < Api::V1::ApiController
       return render json: {error: "You have not any Swapper Host Connection."}, status: :unprocessable_entity unless connection_details.present?
       return render json: {error: "User has not any stripe connect account."}, status: :unprocessable_entity unless connection_details.swapper.stripe_connect_account.present?
       @default_payment = @current_user.default_payment
-      debugger
       if @default_payment.present?
         if @default_payment.payment_type == "paypal"
           return render json: {error: "PayPal Payment is not completed yet."}, status: :unprocessable_entity
@@ -43,17 +42,17 @@ class Api::V1::WalletsController < Api::V1::ApiController
     begin
       return render json: {error: "Amount is missing."}, status: :unprocessable_entity unless params[:amount].present?
       return render json: {error: "You have not any Stripe Connect Account, Please add it."}, status: :unprocessable_entity unless @current_user.stripe_connect_account.present?
+      @connect_account = StripeConnectAccountService.new.retrieve_stripe_connect_account(@current_user.stripe_connect_account.account_id, user_stripe_connect_account_api_v1_stripe_connects_path)
+      if @connect_account[:response].charges_enabled == false
+        return render json: {error: "Your Connect Account is Incomplete.", link: @connect_account[:link]}, status: :unprocessable_entity
+      end
       if params[:referrer_code].present?
         @referrer = User.find_by(referral_code: params[:referrer_code])
         return render json: {error: "Referral Code is InValid."}, status: :unprocessable_entity unless @referrer.present?
         @referral_code_record = check_referrer_code_already_in_use(@referrer)
-      end
-      
+      end  
       @topup_response = StripeTopUpService.new.create_top_up(params[:amount])
-      # debugger
-      # if @topup_response.status == "pending"
-      #   return render json: {error: "Your Connect account is Incomplete."}, status: :unprocessable_entity
-      # end
+      
       @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]))
       @wallet.wallet_amount = params[:amount]
       if @wallet.save
