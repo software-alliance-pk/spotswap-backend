@@ -21,7 +21,7 @@ class StripeConnectAccountService
 
     if account.present?
       current_user.update(stripe_connect_id: account.id)
-      StripeConnectAccount.create(account_id: account.id, account_country: account.country, account_type: account.type, user_id: current_user.id)
+      response = StripeConnectAccount.create(account_id: account.id, account_country: account.country, account_type: account.type, user_id: current_user.id)
       link = Stripe::AccountLink.create(
         {
           account: current_user.stripe_connect_id,
@@ -30,7 +30,7 @@ class StripeConnectAccountService
           type: "account_onboarding",
         },
       )
-      return account_details = {link: link.url }
+      return account_details = {link: link.url, response: response}
     end
   end
 
