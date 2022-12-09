@@ -4,7 +4,7 @@ class PayPalPayOutsService < BaseService
     super
   end
 
-  def  create_payout
+  def  create_payout(dest_email = "sb-pyv7422138976@personal.example.com",amount= 20.00)
     uri = URI.parse("https://api-m.sandbox.paypal.com/v1/payments/payouts")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
@@ -22,12 +22,12 @@ class PayPalPayOutsService < BaseService
                                "items" => [
                                  {
                                    "amount" => {
-                                     "value" => "9.87",
+                                     "value" => amount,
                                      "currency" => "USD"
                                    },
                                    "sender_item_id" => "201403140002",
                                    "recipient_wallet" => "PAYPAL",
-                                   "receiver" => "sb-pyv7422138976@personal.example.com"
+                                   "receiver" => dest_email
                                  }
                                ]
                              })
