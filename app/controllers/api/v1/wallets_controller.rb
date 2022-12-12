@@ -18,9 +18,11 @@ class Api::V1::WalletsController < Api::V1::ApiController
           create_payment_history("other_payment", connection_details, params[:amount])
           connection = connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
           notify_host_payment_has_been_sent_from_swapper(connection_details, params[:amount])
+          connection.destroy
         elsif @default_payment.payment_type == "wallet"
           charge_amount_through_wallet(params[:amount]*100, connection_details)
           notify_host_payment_has_been_sent_from_swapper(connection_details, params[:amount])
+          connection_details.destroy
         else
           return render json: {error: "Please enter the valid payment type"},status: :unprocessable_entity
         end
