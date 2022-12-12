@@ -14,7 +14,7 @@ class Api::V1::CardsController < Api::V1::ApiController
     @stripe_card_response = StripeService.create_card(customer.id, stripe_token)
     return render json: { error: "Card is not created on Stripe" }, status: 422 unless @stripe_card_response.present?
     @card = create_user_payment_card(@stripe_card_response)
-    make_first_card_as_default
+    make_first_card_as_default(@card)
     if @card
       @card
       @stripe_card_response
@@ -118,8 +118,16 @@ class Api::V1::CardsController < Api::V1::ApiController
     return customer
   end
 
-  def make_first_card_as_default
-    @current_user.card_details.update(is_default: true) if @current_user.card_details.count < 2
+  def make_first_card_as_default(card)
+    if @current_user.card_details.count < 2
+      @current_user.card_details.update(is_default: true)
+      @default_payment = @current_user.build_default_payment(card_detail_id: card.id, payment_type: card.payment_type)
+      if @default_payment.save
+        @default_payment.card_detail.update(is_default: true)
+      else
+        render_error_messages(@default_payment)
+      end
+    end
   end
 
   def create_user_payment_card(card)
