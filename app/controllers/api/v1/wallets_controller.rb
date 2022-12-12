@@ -7,16 +7,20 @@ class Api::V1::WalletsController < Api::V1::ApiController
       connection_details =  check_connection_create_before_charge_amount
       return render json: {error: "You have not any Swapper Host Connection."}, status: :unprocessable_entity unless connection_details.present?
       return render json: {error: "User has not any stripe connect account."}, status: :unprocessable_entity unless connection_details.swapper.stripe_connect_account.present?
-      @default_payment = @current_user.default_payment
+      return render json: {error: "Host has not any stripe connect account."}, status: :unprocessable_entity unless connection_details.host.stripe_connect_account.present?
+
+      @default_payment = connection_details.swapper.default_payment
       if @default_payment.present?
         if @default_payment.payment_type == "paypal"
           return render json: {error: "PayPal Payment is not completed yet."}, status: :unprocessable_entity
         elsif @default_payment.payment_type == "credit_card"
           charge_amount_through_credit_card(params[:amount], connection_details)
           create_payment_history("other_payment", connection_details, params[:amount])
+          connection = connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
+          notify_host_payment_has_been_sent_from_swapper(connection_details, params[:amount])
         elsif @default_payment.payment_type == "wallet"
           charge_amount_through_wallet(params[:amount], connection_details)
-          create_payment_history("topup", connection_details, params[:amount])
+          notify_host_payment_has_been_sent_from_swapper(connection_details, params[:amount])
         else
           return render json: {error: "Please enter the valid payment type"},status: :unprocessable_entity
         end
@@ -98,12 +102,14 @@ class Api::V1::WalletsController < Api::V1::ApiController
   end
 
   def check_connection_create_before_charge_amount
-    @current_user.swapper_host_connection || @current_user.host_swapper_connection
+    @current_user.swapper_host_connection
   end
 
   def charge_amount_through_wallet(amount, connection_details)
     if connection_details.swapper.wallet.amount.to_i >= amount.to_i
       @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, connection_details.host.stripe_connect_account.account_id)
+      create_payment_history("topup", connection_details, amount)
+      connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
     else
       return render json: {error: "You have Insufficient Balance in your Wallet."}, status: :unprocessable_entity
     end
@@ -115,5 +121,9 @@ class Api::V1::WalletsController < Api::V1::ApiController
   end
 
   def charge_amount_through_paypal
+  end
+
+  def notify_host_payment_has_been_sent_from_swapper(connection, amount)
+    PushNotificationService.notify_host_payment_has_been_sent_from_swapper(connection, amount)
   end
 end
