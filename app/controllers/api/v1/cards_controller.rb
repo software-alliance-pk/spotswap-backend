@@ -64,7 +64,7 @@ class Api::V1::CardsController < Api::V1::ApiController
     return render json: {error: "Card Detail Id is missing."}, status: :unprocessable_entity unless params[:card_detail_id].present?
     return render json: {error: "Payment Type is missing."}, status: :unprocessable_entity unless params[:payment_type].present?
     @card_detail = CardDetail.find_by_id(params[:card_detail_id])
-    return recnder json: {error: "Car Detail with this Id is not present."}, status: :unprocessable_entity unless @card_detail.present?
+    return render json: {error: "Car Detail with this Id is not present."}, status: :unprocessable_entity unless @card_detail.present?
     if @card_detail.is_default == true
       @default_payment = @card_detail.default_payment
     else
