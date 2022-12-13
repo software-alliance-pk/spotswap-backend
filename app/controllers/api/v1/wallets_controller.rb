@@ -14,13 +14,13 @@ class Api::V1::WalletsController < Api::V1::ApiController
         if @default_payment.payment_type == "paypal"
           return render json: {error: "PayPal Payment is not completed yet."}, status: :unprocessable_entity
         elsif @default_payment.payment_type == "credit_card"
-          charge_amount_through_credit_card(params[:amount]*100, connection_details)
+          charge_amount_through_credit_card(params[:amount].to_i*100, connection_details)
           create_payment_history("other_payment", connection_details, params[:amount])
           connection = connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
           notify_host_payment_has_been_sent_from_swapper(connection_details, params[:amount])
-          connection.destroy
+          connection_details.destroy
         elsif @default_payment.payment_type == "wallet"
-          charge_amount_through_wallet(params[:amount]*100, connection_details)
+          charge_amount_through_wallet(params[:amount].to_i*100, connection_details)
           notify_host_payment_has_been_sent_from_swapper(connection_details, params[:amount])
           connection_details.destroy
         else
@@ -36,9 +36,9 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
   def create_payment_history(payment_type, connection_details, amount)
     if payment_type == "other_payment"
-      @other_history = @current_user.other_histories.create(connection_date_time: connection_details.created_at,
+      @other_history = @current_user.other_histories.create(connection_id: connection_details.id, connection_date_time: connection_details.created_at,
       connection_location: connection_details.parking_slot.address,
-      swapper_id: connection_details.swapper.id, swapper_fee: amount, spotswap_fee: 1)
+      swapper_id: connection_details.swapper.id, host_id: connection_details.host.id, swapper_fee: amount, spotswap_fee: 1, total_fee: amount+1)
     else
       @wallet_history = @current_user.wallet_histories.create(transaction_type: "credited", top_up_description: "spot_swap", amount: amount, title: "Payment")
     end
@@ -66,7 +66,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
         return render json: {error: "Referral Code is Invalid."}, status: :unprocessable_entity unless @referrer.present?
         @referral_code_record = check_referrer_code_already_in_use(@referrer)
       end
-      @topup_response = StripeTopUpService.new.create_top_up(params[:amount]*100)
+      @topup_response = StripeTopUpService.new.create_top_up(params[:amount].to_i*100)
 
       @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]))
       @wallet.wallet_amount = params[:amount]
