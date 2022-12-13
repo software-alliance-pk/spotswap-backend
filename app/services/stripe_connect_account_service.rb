@@ -30,7 +30,7 @@ class StripeConnectAccountService
           type: "account_onboarding",
         },
       )
-      return account_details = {link: link.url, response: response}
+      return account_details = {response: account, link: link.url}
     end
   end
 

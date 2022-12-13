@@ -61,22 +61,27 @@ class Api::V1::CardsController < Api::V1::ApiController
   end
 
   def make_payment_default
-    return render json: {error: "Card Detail Id is missing."}, status: :unprocessable_entity unless params[:card_detail_id].present?
     return render json: {error: "Payment Type is missing."}, status: :unprocessable_entity unless params[:payment_type].present?
-    @card_detail = CardDetail.find_by_id(params[:card_detail_id])
-    return render json: {error: "Car Detail with this Id is not present."}, status: :unprocessable_entity unless @card_detail.present?
-    if @card_detail.is_default == true
-      @default_payment = @card_detail.default_payment
-    else
-      @default_payment = @current_user.build_default_payment(card_detail_id: params[:card_detail_id], payment_type: params[:payment_type])
-      if @default_payment.save
-        @current_user.card_details.update(is_default: false)
-        @default_payment.card_detail.update(is_default: true)
+    unless params[:payment_type] == "wallet"
+      return render json: {error: "Card Detail Id is missing."}, status: :unprocessable_entity unless params[:card_detail_id].present?
+      @card_detail = CardDetail.find_by_id(params[:card_detail_id])
+      return render json: {error: "Car Detail with this Id is not present."}, status: :unprocessable_entity unless @card_detail.present?
+      return render json: {error: "User has not any Card with this Id."}, status: :unprocessable_entity unless @current_user.card_details.include? @card_detail
+      if @card_detail.is_default == true
+        @default_payment = @card_detail.default_payment
       else
-        render_error_messages(@default_payment)
+        @default_payment = @current_user.build_default_payment(card_detail_id: params[:card_detail_id], payment_type: params[:payment_type])
+        if @default_payment.save
+          @current_user.card_details.update(is_default: false)
+          @default_payment.card_detail.update(is_default: true)
+        else
+          render_error_messages(@default_payment)
+        end
       end
+      @card = StripeService.update_default_card_at_stripe(@current_user, @default_payment.card_detail.card_id)
+    else
+      @default_payment = @current_user.build_default_payment(payment_type: params[:payment_type])
     end
-    @card = StripeService.update_default_card_at_stripe(@current_user, @default_payment.card_detail.card_id)
   end
 
   def set_default_card

@@ -6,8 +6,8 @@ class Api::V1::WalletsController < Api::V1::ApiController
       return render json: {error: "Amount is missing."}, status: :unprocessable_entity unless params[:amount].present?
       connection_details =  check_connection_create_before_charge_amount
       return render json: {error: "You have not any Swapper Host Connection."}, status: :unprocessable_entity unless connection_details.present?
-      return render json: {error: "User has not any stripe connect account."}, status: :unprocessable_entity unless connection_details.swapper.stripe_connect_account.present?
-      return render json: {error: "Host has not any stripe connect account."}, status: :unprocessable_entity unless connection_details.host.stripe_connect_account.present?
+      return render json: {error: "User has not any Stripe Connect Account."}, status: :unprocessable_entity unless connection_details.swapper.stripe_connect_account.present?
+      return render json: {error: "Host has not any Stripe Connect Account."}, status: :unprocessable_entity unless connection_details.host.stripe_connect_account.present?
 
       @default_payment = connection_details.swapper.default_payment
       if @default_payment.present?
@@ -16,7 +16,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
         elsif @default_payment.payment_type == "credit_card"
           charge_amount_through_credit_card(params[:amount].to_i*100, connection_details)
           create_payment_history("other_payment", connection_details, params[:amount])
-          connection = connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
+          connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
           notify_host_payment_has_been_sent_from_swapper(connection_details, params[:amount])
           connection_details.destroy
         elsif @default_payment.payment_type == "wallet"
@@ -24,7 +24,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
           notify_host_payment_has_been_sent_from_swapper(connection_details, params[:amount])
           connection_details.destroy
         else
-          return render json: {error: "Please enter the valid payment type"},status: :unprocessable_entity
+          return render json: {error: "Please enter the valid payment type."},status: :unprocessable_entity
         end
       else
         return render json: {error: "Please add Default Payment first."}, status: :unprocessable_entity
@@ -52,15 +52,15 @@ class Api::V1::WalletsController < Api::V1::ApiController
       else
         @connect_account = StripeConnectAccountService.new.create_connect_customer_account(@current_user, user_stripe_connect_account_api_v1_stripe_connects_path)
       end
-      if @connect_account[:response]&.requirements&.errors.present? && (@connect_account[:response].charges_enabled == false || @connect_account[:response].payouts_enabled == false)
-        @link = StripeConnectAccountService.new.create_login_link_of_stripe_connect_account(@current_user.stripe_connect_account.account_id)
-        return render json: { error: ["Your Stripe Connect Account is Incomplete.", @link.url] }, status: :unprocessable_entity
-      elsif !@connect_account[:response]&.requirements&.errors.present? && (@connect_account[:response].charges_enabled == false || @connect_account[:response].payouts_enabled == false)
-        return render json: { error: ["You have not set up any Stripe Connect Account.", @connect_account[:link]] }, status: :unprocessable_entity
-
-      # elsif @connect_account[:response].requirements.errors.empty? && @connect_account[:response].requirements.disabled_reason.present? && (@connect_account[:response].charges_enabled == false || @connect_account[:response].payouts_enabled == false)
-      #   return render json: { error: ["You have not set up any Stripe Connect Account.", @connect_account[:link]] }, status: :unprocessable_entity
+      if @connect_account[:response]&.requirements&.errors.present?
+        #@link = StripeConnectAccountService.new.create_login_link_of_stripe_connect_account(@current_user.stripe_connect_account.account_id)
+        return render json: { error: ["Your Stripe Connect Account data is missing or invalid, Please provide valid data.", @connect_account[:link]] }, status: :unprocessable_entity
+      elsif @connect_account[:response].capabilities.card_payments.eql?("pending") && @connect_account[:response].details_submitted == true
+        return render json: { error: ["Your Account status is Pending, Please wait, It may takes almost 2 minutes.", @connect_account[:link]] }, status: :unprocessable_entity
+      elsif @connect_account[:response]&.requirements&.errors.empty? && (@connect_account[:response].charges_enabled == false || @connect_account[:response].payouts_enabled == false)
+        return render json: { error: ["Please Complete your Account Details after clicking on given link.", @connect_account[:link]] }, status: :unprocessable_entity
       end
+
       if params[:referrer_code].present?
         @referrer = User.find_by(referral_code: params[:referrer_code])
         return render json: {error: "Referral Code is Invalid."}, status: :unprocessable_entity unless @referrer.present?
