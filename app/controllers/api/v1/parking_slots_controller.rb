@@ -78,14 +78,6 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def slot_size_check(slot)
-    #debugger
-    Rails.logger.info "####################"
-    Rails.logger.info slot.id
-    Rails.logger.info slot&.user.id
-    Rails.logger.info slot&.user&.car_detail&.length
-    Rails.logger.info @current_user&.car_detail&.length
-    Rails.logger.info "####################"
-
     return slot&.user&.car_detail&.length >= @current_user&.car_detail&.length
   end
 
