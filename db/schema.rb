@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_13_082240) do
+ActiveRecord::Schema.define(version: 2022_12_14_084306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -139,11 +139,10 @@ ActiveRecord::Schema.define(version: 2022_12_13_082240) do
 
   create_table "default_payments", force: :cascade do |t|
     t.string "payment_type"
-    t.bigint "card_detail_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", null: false
-    t.index ["card_detail_id"], name: "index_default_payments_on_card_detail_id"
+    t.integer "card_detail_id"
   end
 
   create_table "faqs", force: :cascade do |t|
@@ -359,7 +358,6 @@ ActiveRecord::Schema.define(version: 2022_12_13_082240) do
   add_foreign_key "car_details", "users"
   add_foreign_key "car_models", "car_brands"
   add_foreign_key "card_details", "users"
-  add_foreign_key "default_payments", "card_details"
   add_foreign_key "histories", "users"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
