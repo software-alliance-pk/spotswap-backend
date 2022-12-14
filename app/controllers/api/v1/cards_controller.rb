@@ -133,7 +133,7 @@ class Api::V1::CardsController < Api::V1::ApiController
       @current_user.card_details.update(is_default: true)
       @default_payment = @current_user.build_default_payment(card_detail_id: card.id, payment_type: card.payment_type)
       if @default_payment.save
-        @default_payment.card_detail.update(is_default: true)
+        CardDetail.find_by(id: card.id).update(is_default: true)
       else
         render_error_messages(@default_payment)
       end
