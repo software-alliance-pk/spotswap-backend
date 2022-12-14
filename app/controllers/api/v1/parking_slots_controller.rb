@@ -78,6 +78,13 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def slot_size_check(slot)
+    #debugger
+    puts "########################"
+    puts slot&.user&.car_detail
+    puts slot&.user&.car_detail.length
+    puts @current_user&.car_detail&.length
+    puts "########################"
+
     return slot&.user&.car_detail&.length >= @current_user&.car_detail&.length
   end
 
