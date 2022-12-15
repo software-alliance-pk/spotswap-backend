@@ -40,7 +40,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     if @current_user.present?
         @current_user.update(latitude: params[:latitude], longitude: params[:longitude], address: params[:address])
         user = @current_user.build_mobile_device(mobile_device_token: params[:fcm_token])
-        if user.save 
+        if user.save
          @connection = SwapperHostConnection.where(user_id: @current_user.id).or(SwapperHostConnection.where(host_id: @current_user.id))
         else
           render json: { error: "fcm token could not associated with user, something went wrong." }, status: :unprocessable_entity
