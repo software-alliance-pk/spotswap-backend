@@ -17,13 +17,13 @@
             <%= image_tag "arrow_left.svg" %>
           </a>
         </div>
-        <%= form_with url: get_model_details_admins_cars_path, method: :get do |f| %>
+        <%= form_with url: get_model_details_admins_cars_path, id: "searchform", method: :get do |f| %>
           <div class="form_blk input round_input ">
             <button class="btn" type="submit">
               <%= image_tag "Search.svg" %>
             </button>
             <%= f.hidden_field :brand_id, value: @brand_id%>
-            <%= f.text_field :search_key, value: @search_key, class: "input", placeholder: "Search car model" %>
+            <%= f.text_field :search_key, id: "searchbtn", value: @search_key, class: "input", placeholder: "Search car model" %>
           </div>
         <%end%>
       </div>
@@ -77,8 +77,8 @@
                   <td>
                     <div class="active ">
                       <span><%=model.released%></span>
-                      <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                      <div class="dropdown dropstart">
+                        <button class="btn" type="button" id="dropdownMenuButton1"
                           data-bs-toggle="dropdown" aria-expanded="false">
                           <%= image_tag "dot-icon.svg" %>
                         </button>
@@ -142,7 +142,10 @@
                       <div class="img" style="width:80%">
                         <%= image_tag "upload-photo.png" %>
                       </div>
-                      <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;", required: true %>
+                      <div class="upload-preview">
+                          <img />
+                      </div>
+                      <%= f.file_field :image, class: "file", accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:0; left:0; opacity:0; padding-bottom: 100%;", required: true %>
                     </div>
                     <div class="row">
                       <div class="col-md-6">

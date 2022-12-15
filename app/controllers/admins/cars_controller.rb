@@ -37,6 +37,7 @@ class Admins::CarsController < ApplicationController
 
   def edit_model
     @model = CarModel.find_by_id(params[:id])
+    render partial: 'edit_model', locals:{model: @model}
   end
 
   def update_model

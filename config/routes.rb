@@ -190,11 +190,16 @@ Rails.application.routes.draw do
       collection do
         get :terms_and_conditions
         get :privacy_policy
+        get :edit_privacy_policy
         get :faqs
         get :edit_terms_and_conditions
-        post :update_terms_and_conditions
         get :edit_faq
+        get :add_faq
         get :destroy_faq
+        post :create_faq
+        post :update_faq
+        post :update_privacy_policy
+        post :update_terms_and_conditions
       end
     end
 

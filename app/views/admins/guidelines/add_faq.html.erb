@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="top_btn">
-      <input type="submit" class="site_btn round" value="Save" form="update-faq-form"></input>
+      <input type="submit" class="site_btn round" value="Add" form="add-faq-form"></input>
     </div>
     <div class="guide">
       <div class="row">
@@ -36,14 +36,13 @@
               </a>
               <h5>Add More FAQ</h5>
             </div>
-            <%= form_with url: update_faq_admins_guidelines_path, :id => 'update-faq-form' do |f| %>
+            <%= form_with url: create_faq_admins_guidelines_path, :id => 'add-faq-form' do |f| %>
               <div class="textarea">
-                <input type="text" class="input" name="question" placeholder="Enter Title" value="<%=@faq.question%>" required>
+                <input type="text" class="input" name="question" placeholder="Enter Title" required>
               </div>
               <div class="detail">
-                <%= f.text_area :answer, :value => @faq.answer, :class => "input h-100", required: true%>
+                <textarea class="input h-100" name="answer" placeholder="Enter Description" required></textarea>
               </div>
-              <input type="hidden" id="faq_id" name="faq_id" value=<%=@faq.id%>>
             <%end%>
           </div>
         </div>

@@ -11,20 +11,20 @@
       </div>
     </div>
     <div class="top_btn">
-      <a href="<%=faqs_admins_guidelines_path%>" class="site_btn round">Add More</a>
+      <a href="<%= add_faq_admins_guidelines_path %>" class="site_btn round">Add More</a>
     </div>
     <div class="guide">
       <div class="row">
         <div class="col-md-3">
           <ul>
             <li>
-              <a href="<%=terms_and_conditions_admins_guidelines_path%>" class="active">Terms & Condition</a>
+              <a href="<%=terms_and_conditions_admins_guidelines_path%>">Terms & Condition</a>
             </li>
             <li>
               <a href="<%=privacy_policy_admins_guidelines_path%>">Privacy Policy</a>
             </li>
             <li>
-              <a href="<%=faqs_admins_guidelines_path%>">FAQs</a>
+              <a href="<%=faqs_admins_guidelines_path%>" class="active">FAQs</a>
             </li>
           </ul>
         </div>
@@ -32,20 +32,21 @@
           <div class="faq_questions">
             <%@faqs.each do |faq|%>
               <div class="question_blk">
-              <%@count=@count+1%>
+                <%@count=@count+1%>
                 <div class="top">
-                  <h6>FAQ Question <%=@count%> </h6>
+                  <h6><%=faq.question%></h6>
                   <div class="icon_blk">
-                    <a href="<%=edit_faq_admins_guidelines_path(id: faq.id)%>" class="icon">
+                    <a href="<%=edit_faq_admins_guidelines_path(faq_id: faq.id)%>" class="icon">
                       <%= image_tag "Edit.svg" %>
                     </a>
-                    <a href="<%=destroy_faq_admins_guidelines_path(id: faq.id)%>" class="icon">
+                    <a href="<%=destroy_faq_admins_guidelines_path(faq_id: faq.id)%>" class="icon">
                       <%= image_tag "Delete.svg" %>
                     </a>              
                   </div>
                 </div>
-                <p><%=faq.content.body%></p>
+                <p><%=faq.answer%></p>
               </div>
+              <hr>
             <%end%>
           </div>
         </div>

@@ -15,12 +15,12 @@
       </div>
     </div>
     <div class="search">
-      <%= form_with url: admins_users_path, method: :get do |f| %>
+      <%= form_with url: admins_users_path, id: "searchform", method: :get do |f| %>
         <div class="form_blk input round_input ">
           <button class="btn" type="submit">
             <%= image_tag "Search.svg" %>
           </button>
-          <%= f.text_field :search_key, value: @search_key, class: "input", placeholder: "Search user" %>
+          <%= f.text_field :search_key, id: "searchbtn", value: @search_key, class: "input", placeholder: "Search user" %>
         </div>
       <%end%>
       <div class="button_blk">
@@ -29,7 +29,6 @@
             <%= image_tag "Download-black.svg" %>
           </div>
         </button>
-        <button class="site_btn round">Add User</button>
       </div>
     </div>
     <div class="profile_popup_div"></div>
@@ -59,7 +58,11 @@
                 <td>
                     <div class="user">
                     <div class="ellipse">
-                      <%= image_tag "Ellipse-user.svg" %>
+                      <% if user.image.attached?%>
+                        <%= image_tag(user.image.url)%>
+                      <% else %>
+                        <%= image_tag "default-profile.jpg" %>
+                      <%end%>
                     </div>
                     <div><%=user.name%></div>
                     </div>
