@@ -2,34 +2,34 @@
   <div class="inside">
     <div class="logo_blk">
       <div class="logo">
-        <a href="<%= admins_dashboard_index_path %>">
+        <a href="<%= admins_dashboard_index_path %>" class="<%=check_controller('dashboard')%>">
           <%= image_tag "logo_icon.svg" %>
         </a>
       </div>
     </div>
     <ul style="background-image: url(<%= asset_path "strip_left.svg" %>)">
       <li>
-        <a href="<%= admins_dashboard_index_path %>" class="active">
+        <a href="<%= admins_dashboard_index_path %>" class="<%=check_controller('dashboard')%>">
           <%= image_tag "icon-category.svg" %>
         </a>
       </li>
       <li>
-        <a href="<%= admins_users_path %>">
+        <a href="<%= admins_users_path %>" class="<%=check_controller('users')%>">
           <%= image_tag "icon-users.svg" %>
         </a>
       </li>
       <li>
-        <a href="<%= admins_cars_path %>">
+        <a href="<%= admins_cars_path %>" class="<%=check_controller('cars')%>">
           <%= image_tag "icon-car2.svg" %>
         </a>
       </li>
       <li>
-        <a href="<%= terms_and_conditions_admins_guidelines_path %>">
+        <a href="<%= terms_and_conditions_admins_guidelines_path %>" class="<%=check_controller('guidelines')%>">
           <%= image_tag "icon-document.svg" %>
         </a>
       </li>
       <li>
-        <a href="<%= admins_supports_path %>">
+        <a href="<%= admins_supports_path %>" class="<%=check_controller('supports')%>">
           <%= image_tag "icon-phone.svg" %>
         </a>
       </li>

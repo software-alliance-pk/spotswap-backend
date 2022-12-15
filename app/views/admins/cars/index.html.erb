@@ -11,12 +11,12 @@
       </div>
     </div>
     <div class="search">
-      <%= form_with url: admins_cars_path, method: :get do |f| %>
+      <%= form_with url: admins_cars_path, id: "searchform", method: :get do |f| %>
         <div class="form_blk input round_input ">
           <button class="btn" type="submit">
             <%= image_tag "Search.svg" %>
           </button>
-          <%= f.text_field :search_key, value: @search_key, class: "input", placeholder: "Search car brand" %>
+          <%= f.text_field :search_key, id: "searchbtn", value: @search_key, class: "input", placeholder: "Search car brand" %>
         </div>
       <%end%>
       <button class="site_btn round pop_btn" data-popup="forget_pass">Add Car Brand</button>
@@ -58,7 +58,10 @@
                     <div class="img" style="width:80%">
                       <%= image_tag "upload-photo.png" %>
                     </div>
-                    <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:40px; left:0; opacity:0;", required: true %>
+                    <div class="upload-preview">
+                        <img />
+                    </div>
+                    <%= f.file_field :image, class: "file", accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:0; left:0; opacity:0; padding-bottom: 100%;", required: true %>
                   </div>
                     <div class="form_blk">
                     <label class="text-center">Enter a card brand</label>

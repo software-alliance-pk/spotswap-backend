@@ -1,6 +1,7 @@
 .view_all{
   text-align: center;
 }
+
 .view_all a{
   font-weight: 600;
   font-size: 1.6rem;
@@ -51,19 +52,20 @@
   border-bottom: 1.04749px solid #EAEAEA;;
 }
 
-
 #support .ctn .chat_blk .send_blk .input{
   font-weight: 400;
   font-size: 1.6rem;
   line-height: 2.1rem;
   color: rgb(9, 17, 14);
 }
+
 #support .ctn .chat_blk .send_blk .sep{
   height: 2rem;
   width: 0.1rem;
   background-color: rgba(9, 17, 14, 1);
   margin-left: 2.3rem;
 } 
+
 #support .ctn .chat_blk .send_blk .input::placeholder{
   color: rgba(9, 17, 14, 0.4);
 }
@@ -75,6 +77,7 @@
   background-color: #E52628;
   padding: 0;
 }
+
 #support .ctn .chat_blk .send_blk .send_btn > img{
   width: 1.5rem;
   min-width: 1.5rem;
@@ -96,6 +99,7 @@
   line-height: 2.2rem;
   color: rgba(0, 0, 0, 1);
 }
+
 #support .ctn .users_blk .search_blk .input::placeholder{
   color: rgba(0, 0, 0, 0.2);
 }
@@ -119,9 +123,13 @@
   letter-spacing: 0.05em;
 }
 
-
 #table_users .table__blk::-webkit-scrollbar {
   display: none;
+}
+
+#users .popup ._inner .top_blk .img img{
+  height: 100%;
+  object-fit: cover;
 }
 
 /* -------------- Sidebar -------------- */
@@ -141,7 +149,6 @@
   right: -3.1rem;
   background: #E52628;
 }
-
 
 /* ---------- Guidelines ---------- */
 #guidelines .guide ul li a.active{
@@ -182,4 +189,7 @@
 .strike>span:after {
   left: 100%;
   margin-left: 15px;
+}
+#table_users .table__blk table tbody tr:last-child td{
+  padding-bottom: 4rem;
 }

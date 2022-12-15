@@ -1,4 +1,4 @@
-$(window).on("load", function () {
+$(document).on('turbolinks:load', function(){
 	/*_____ Toggle _____*/
 	$(document).on("click", ".toggle", function () {
 		$(".toggle").toggleClass("active");
@@ -140,7 +140,7 @@ $(window).on("load", function () {
     })
 	});
 
-	$('.send_money').on('click', function(){
+	$(document).on('click', ".send_money", function(){
 		var attribute_id  = $(this).attr("data-id")
 		$.ajax({
       url: `/admins/users/send_money_popup?id=${attribute_id}`,
@@ -174,6 +174,25 @@ $(window).on("load", function () {
 				$('.confirm_yes_popup_div').html(response)
 			}
     })
+	});
+
+	$("#searchbtn").keyup(function (){
+		var word = $(this).val();
+		$("#searchform").trigger('submit');
+	});	
+
+	$(document).on("change", ".file", function(e){
+		var preview = $(".upload-preview img");
+		var input = $(e.currentTarget);
+		var file = input[0].files[0];
+		var reader = new FileReader();
+		reader.onload = function(e){
+				image_base64 = e.target.result;
+				preview.attr("src", image_base64);
+		};
+		reader.readAsDataURL(file);
+		$("#car_model_image").removeAttr("style").hide();
+		$(".prof_img .img").removeAttr("style").hide();
 	});
 	
 });

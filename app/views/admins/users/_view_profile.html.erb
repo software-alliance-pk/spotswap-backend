@@ -13,27 +13,28 @@
                   </div>
                   <div class="top_blk">
                     <div class="img">
-                      <% if @user.image.attached?%>
-                        <%= image_tag(@user.image.url)%>
+                      <% if user.image.attached?%>
+                        <%= image_tag(user.image.url)%>
                       <% else %>
                         <%= image_tag "default-profile.jpg" %>
                       <%end%>
                     </div>
-                    <a class="send_money site_btn" data-id="<%=@user.id%>">Send Money</a>
+                    <button type="button" class="send_money site_btn" data-id="<%=user.id%>">Send Money</button>
                   </div>
+                  <div class="send_money_popup_div"></div>
                   <div class="detail_blk">
                     <h5>Personal Information</h5>
                     <div class="row my-5">
                       <div class="col-2">Name</div>
-                      <div class="col-5"><h6><%=@user.name%></h6></div>
+                      <div class="col-5"><h6><%=user.name%></h6></div>
                       <div class="col-2">Car Brand</div>
-                      <div class="col-3"><h6><%=@user&.car_detail&.car_brand&.title%></h6></div>
+                      <div class="col-3"><h6><%=user&.car_detail&.car_brand&.title%></h6></div>
                       <div class="col-2">Email</div>
-                      <div class="col-5"><h6><%=@user.email%></h6></div>
+                      <div class="col-5"><h6><%=user.email%></h6></div>
                       <div class="col-2">Model</div>
-                      <div class="col-3"><h6><%=@user&.car_detail&.car_model&.title%></h6></div>
+                      <div class="col-3"><h6><%=user&.car_detail&.car_model&.title%></h6></div>
                       <div class="col-2">Number</div>
-                      <div class="col-5"><h6><%=@user.contact%></h6></div>
+                      <div class="col-5"><h6><%=user.contact%></h6></div>
                       <div class="col-2">Brought</div>
                       <div class="col-3"><h6>2021</h6></div>
                     </div>
