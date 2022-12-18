@@ -5,8 +5,8 @@ class PayPalConnectAccountService < BaseService
   end
 
 
-  def retrevie_paypal_customer_account(account_id = "YjlhZjA2ZDktYTI5Mi00NGM4LThkYTYtMzcyMDFiMTAxOWQyY0hweVowSVFRMVRpR1BldlM3YSs4WUFIdDBwdTBXZE84MllEMEhlcXBUOD12Mg==")
-    uri = URI.parse("https://api.sandbox.paypal.com/v2/customer/partner-referrals/#{account_id}")
+  def retrevie_paypal_customer_account(current_user = User.first)
+    uri = URI.parse("https://api.sandbox.paypal.com/v2/customer/partner-referrals/#{current_user.paypal_partner_account.account_id}")
     request = Net::HTTP::Get.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{@token}"
@@ -19,13 +19,13 @@ class PayPalConnectAccountService < BaseService
     return result = JSON.parse(response.body)  if response.code  == "200"
   end
 
-  def create_connect_customer_account(current_user = 1)
+  def create_connect_customer_account(current_user = User.first)
     uri = URI.parse("https://api-m.sandbox.paypal.com/v2/customer/partner-referrals")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{@token}"
     request.body = JSON.dump({
-                               "tracking_id" => "PAYPAL_CUSTOMER_#{current_user}",
+                               "tracking_id" => "PAYPAL_CUSTOMER_#{current_user.id}",
                                "operations" => [
                                  {
                                    "operation" => "API_INTEGRATION",
@@ -40,7 +40,11 @@ class PayPalConnectAccountService < BaseService
                                    }
                                  }
                                ],
-                               "products" => ["EXPRESS_CHECKOUT","REFUND","ACCOUNT_BALANCE","DIRECT_PAYMENT","TRANSACTION_DETAILS"],
+                               "referral_user_payer_id" => {
+                                 "type" => "PAYER_ID",
+                                 "value" => "RFYUH2QQDGUQU"
+                               },
+                               "products" => ["EXPRESS_CHECKOUT"],
                                "legal_consents" => [
                                  {
                                    "type" => "SHARE_DATA_CONSENT",
@@ -63,6 +67,12 @@ class PayPalConnectAccountService < BaseService
       http.request(request)
     end
     debugger
-    return result = JSON.parse(response.body)  if response.code  == "200"
+    result = JSON.parse(response.body)  if response.code  == "201"
+    if result["links"].present?
+      pay_pal_connect_id = result["links"].first["href"].split("/").last
+      account_type = "partner-referrals"
+      account = current_user.build_paypal_partner_account(account_id:pay_pal_connect_id,account_type:account_type)
+      account.save
+    end
   end
 end
