@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_14_084306) do
+ActiveRecord::Schema.define(version: 2022_12_16_184439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -207,6 +207,15 @@ ActiveRecord::Schema.define(version: 2022_12_14_084306) do
     t.index ["user_id"], name: "index_parking_slots_on_user_id"
   end
 
+  create_table "paypal_partner_accounts", force: :cascade do |t|
+    t.string "account_id"
+    t.string "account_type"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_paypal_partner_accounts_on_user_id"
+  end
+
   create_table "pg_search_documents", force: :cascade do |t|
     t.text "content"
     t.string "searchable_type"
@@ -363,6 +372,7 @@ ActiveRecord::Schema.define(version: 2022_12_14_084306) do
   add_foreign_key "messages", "users"
   add_foreign_key "mobile_devices", "users"
   add_foreign_key "parking_slots", "users"
+  add_foreign_key "paypal_partner_accounts", "users"
   add_foreign_key "quick_chats", "users"
   add_foreign_key "stripe_connect_accounts", "users"
   add_foreign_key "support_conversations", "supports"

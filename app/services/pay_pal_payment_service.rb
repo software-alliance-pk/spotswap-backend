@@ -37,8 +37,8 @@ class PayPalPaymentService <  BaseService
                                  }
                                ],
                                "redirect_urls": {
-                                 "return_url": "https://spotswap.page.link/RtQw",
-                                 "cancel_url": "https://spotswap.page.link/RtQw"
+                                 "return_url": "http://localhost:3000/api/v1/pay_pal/pay_pal_confirm",
+                                 "cancel_url": "http://localhost:3000/api/v1/pay_pal/pay_pal_cancel"
                                }
                              })
 
@@ -49,9 +49,10 @@ class PayPalPaymentService <  BaseService
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(request)
     end
+    return response.body
   end
 
-  def transfer_amount(payment_id = "PAYID-MOJAJMY5TJ46490YG3248534",account_id="NC8AYA37LCYKY")
+  def transfer_amount(payment_id,account_id)
     uri = URI.parse("https://api-m.sandbox.paypal.com/v1/payments/payment/#{payment_id}/execute")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"

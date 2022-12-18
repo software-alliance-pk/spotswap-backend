@@ -19,6 +19,13 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :pay_pal, only:[] do
+        collection do
+          get :pay_pal_confirm
+          get :pay_pal_cancel
+        end
+      end
+
       resources :stripe_connects, only: [] do
         get :refresh_stripe_account_link
         get :user_stripe_connect_account
