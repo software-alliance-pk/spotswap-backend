@@ -53,15 +53,15 @@
             <div class="top_blk">
               <div class="selected_chat">
                 <div class="img">
-                  <% if @last_support.user.image.attached?%>
+                  <% if @last_support&.user&.image&.attached?%>
                     <%= image_tag(@last_support.user.image.url)%>
                   <% else %>
                     <%= image_tag "default-profile.jpg" %>
                   <%end%>
                 </div>
                 <div class="txt">
-                  <h6 class="mb-0"><%=@last_support.user.name%></h6>
-                  <p class="mb-0"><%=@last_support.ticket_number%></p>
+                  <h6 class="mb-0"><%=@last_support&.user&.name%></h6>
+                  <p class="mb-0"><%=@last_support&.ticket_number%></p>
                 </div>
                 <div class="dropdown">
                   <button class="site_btn blank sm dropdown-toggle chevron" data-bs-toggle="dropdown">
@@ -79,11 +79,11 @@
               <div class="strike">
                   <span>18 March 2021</span>
               </div>
-              <% if @last_support.support_conversation.present? %>
+              <% if @last_support&.support_conversation.present? %>
                 <% @last_support.support_conversation.support_messages.each do |message|%>
                 <div class="msg user">
                   <div class="profile">
-                    <% if message.user.image.attached?%>
+                    <% if message&.user.image.attached?%>
                       <%= image_tag(message.user.image.url)%>
                     <% else %>
                       <%= image_tag "default-profile.jpg" %>
@@ -91,12 +91,12 @@
                   </div>
                   <div class="msg_wrapper">
                     <div class="msg_blk">
-                      <p>Open a Support Ticket <strong><%=@last_support.ticket_number%></strong></p>
-                      <p><%=message.body%></p>
-                      <% if message.image.attached?%>
+                      <p>Open a Support Ticket <strong><%=@last_support&.ticket_number%></strong></p>
+                      <p><%=message&.body%></p>
+                      <% if message&.image&.attached?%>
                         <div class="attch_blk">
                           <div class="img">
-                            <%= image_tag message.image.url %>
+                            <%= image_tag message&.image&.url %>
                           </div>
                           <button type="button" class="btn down_btn">
                             <%= image_tag "icon-arrow-bottom.svg" %>
