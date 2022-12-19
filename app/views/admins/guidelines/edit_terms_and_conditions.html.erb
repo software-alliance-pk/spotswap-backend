@@ -33,7 +33,6 @@
             <%= form_with(model: @page, url: update_terms_and_conditions_admins_guidelines_path(id: term.id), :id => 'edit-terms-form') do |f| %>
               <div class="details my-4">
                 <div class="field">
-                <%= f.label :description %>
                 <%= f.rich_text_area :description, value: term.content.body, required: true %>
                 </div>
               </div>

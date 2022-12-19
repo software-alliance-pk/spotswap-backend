@@ -9,6 +9,7 @@
           <span>7</span>
         </button>
       </div>
+      <%= render :partial => "shared/error_success_messages" %>
     </div>
     <div class="search">
       <div class="arrow_section">
@@ -39,7 +40,6 @@
     <!-- table_section -->
     <%if @car_models.present?%>
       <div id="table_users">
-
         <div class="table__blk">
           <%# pop up to edit sub admin %>
           <div class="edit_popup_div"></div>
@@ -97,32 +97,26 @@
           </table>
         </div>
 
-        <!-- pagination_section -->
-        <div class="paginate_sec">
-          <nav aria-label="Page navigation example">
-            <ul class="pagination">
+        <%if @car_models.present?%>
+          <!-- pagination_section -->
+          <div class="paginate_sec">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
               <li class="d-flex me-4">
-                Rows per page: 10
+              Rows per page: <%=@car_models.size%>
               </li>
-              <li>1-10 of 30</li>
+              <% params[:page] = params[:page].nil? ? "1" :  params[:page] %>
+              <li><%=params[:page]%> of <%=@car_models.total_pages%></li>
               <li class="page_item me-4 d-flex">
-                <a class="page_link icon_blk fw_600" href="#">
-                  <%= image_tag "left-arrow-icon.svg" %>
-                </a>
-                <a class="page_link icon_blk fw_600" href="#">
-                  <%= image_tag "right-arrow-icon.svg" %>
-                </a>
               </li>
-            </ul>
-          </nav>
-        </div>
-        <!-- pagination_section -->
-        <div class="digg_pagination mt-5">
-          <%= will_paginate @car_models %>
-        </div>
+              </ul>
+            </nav>
+            <%= will_paginate @car_models %>
+          </div>
+        <%end%>
       </div>
     <%else%>
-      There is no model present.
+      <p class="no_modal">There is no car model present.</p>
     <%end%>
     
     <div class="popup" data-popup="Add_car_model">
@@ -150,7 +144,7 @@
                     <div class="row">
                       <div class="col-md-6">
                       <div class="form_blk">
-                        <label for="">Card Model</label>
+                        <label for="">Car Model</label>
                         <input type="text" name="title" class="input" placeholder="type here" required>
                       </div>
                       <div class="form_blk">
@@ -196,3 +190,18 @@
 <!-- account_section -->
 <!-- Main Js -->
 <script src="/assets/main.js"></script>
+
+<script>
+$("div.pagination a").addClass("d-none");
+$("div.pagination em.current").addClass("d-none");
+$("a.next_page").removeClass("d-none");
+$("a.previous_page").removeClass("d-none");
+
+$(document).ready(function(){
+  $(".next_page").text("");
+  $(".previous_page").text("");
+  
+  $(".next_page").prepend("<img src='/assets/right-arrow-icon.svg' class='pagi_image next'/>");
+  $(".previous_page").prepend("<img src='/assets/left-arrow-icon.svg' class='pagi_image'/>");
+});
+</script>

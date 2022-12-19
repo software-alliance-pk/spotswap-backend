@@ -9,6 +9,7 @@
           <span>7</span>
         </button>
       </div>
+      <%= render :partial => "shared/error_success_messages" %>
     </div>
     <div class="search">
       <%= form_with url: admins_cars_path, id: "searchform", method: :get do |f| %>
@@ -39,7 +40,7 @@
         <%end%>
       </div>
     <%else%>
-      There is no car brand present.
+      <p class="no_modal">There is no car brand present.</p>
     <%end%>
     <div class="popup" data-popup="forget_pass">
     <div class="overlay"></div> 

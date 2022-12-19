@@ -54,7 +54,7 @@ class User < ApplicationRecord
   before_save :referral_code_generator
   after_commit :user_referral_code_record_generator
 
-  self.per_page = 10
+  self.per_page = 1
 
   private
 
