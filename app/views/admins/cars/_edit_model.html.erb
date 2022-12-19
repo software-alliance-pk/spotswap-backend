@@ -21,12 +21,12 @@
                   <% if model.image.attached?%>
                     <%= image_tag model.image.url, id: 'car_model_image'%>
                   <%end%>
-                  <%= f.file_field :image, class: "file", accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:0; left:0; opacity:0; padding-bottom: 100%;", required: true %>
+                  <%= f.file_field :image, class: "file", accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:0; left:0; opacity:0; padding-bottom: 100%;" %>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form_blk">
-                      <label for="">Card Model</label>
+                      <label for="">Car Model</label>
                       <input type="text" name="title" value="<%=model.title%>" class="input" placeholder="type here">
                     </div>
                     <div class="form_blk">

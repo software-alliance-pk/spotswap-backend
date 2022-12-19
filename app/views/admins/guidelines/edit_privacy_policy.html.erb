@@ -33,7 +33,6 @@
             <%= form_with(model: @page, url: update_privacy_policy_admins_guidelines_path(id: policy.id), :id => 'edit-policy-form') do |f| %>
               <div class="details my-4">
                 <div class="field">
-                <%= f.label :description %>
                 <%= f.rich_text_area :description, value: policy.content.body, required: true %>
                 </div>
               </div>

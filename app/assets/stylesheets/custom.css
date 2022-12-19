@@ -193,3 +193,45 @@
 #table_users .table__blk table tbody tr:last-child td{
   padding-bottom: 4rem;
 }
+
+.no_modal{
+  z-index: -1;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+}
+
+.trix-button-group{
+  border: transparent !important;
+  gap: 1rem;
+  margin-bottom: 3rem !important
+}
+
+.trix-button.trix-button--icon{
+  width: 3.5rem;
+  height: 3.5rem;
+  border-color: transparent !important;
+  border-radius: 0.6rem;
+  box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.15);
+}
+
+.next_page.disabled, .previous_page.disabled{
+  opacity: 0.4;
+}
+
+.pagi_image{
+  padding: 0.4rem;
+  width: 17px;
+  min-width: 17px;
+  height: 20px;
+}
+
+.pagi_image.next{
+  margin-left: 3rem;
+}

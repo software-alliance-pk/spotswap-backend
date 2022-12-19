@@ -13,6 +13,7 @@
           <span>7</span>
         </button>
       </div>
+      <%= render :partial => "shared/error_success_messages" %>
     </div>
     <div class="search">
       <%= form_with url: admins_users_path, id: "searchform", method: :get do |f| %>
@@ -94,46 +95,25 @@
           </table>
         </div>
 
-        <!-- pagination_section -->
-        <div class="paginate_sec">
-          <nav aria-label="Page navigation example">
-            <ul class="pagination">
+        <%if @users.present?%>
+          <!-- pagination_section -->
+          <div class="paginate_sec">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
               <li class="d-flex me-4">
-              Rows per page: 10
-                <div class="dropdown">
-                  <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="icon">
-                      <%= image_tag "dropdown-icon.svg" %>
-                    </div>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                  </ul>
-                </div>
+              Rows per page: <%=@users.size%>
               </li>
-
-              <li>1-10 of 30</li>
-
+              <% params[:page] = params[:page].nil? ? "1" :  params[:page] %>
+              <li><%=params[:page]%> of <%=@users.total_pages%></li>
               <li class="page_item me-4 d-flex">
-                <a class="page_link icon_blk fw_600" href="#" >                             
-                  <%= image_tag "left-arrow-icon.svg" %>
-                </a>
-                <a class="page_link icon_blk fw_600" href="#" >                                                             
-                  <%= image_tag "right-arrow-icon.svg" %>
-                </a>
               </li>
-            </ul>
-          </nav>
-        </div>
-
-        <!-- pagination_section -->
-        <div class="digg_pagination mt-5">
-          <%= will_paginate @users %>
-        </div>
+              </ul>
+            </nav>
+            <%= will_paginate @users %>
+          </div>
+        <%end%>
       <%else%>
-        There is no user present.  
+        <p class="no_modal">There is no user present.</p>
       <%end%>
     </div>
 
