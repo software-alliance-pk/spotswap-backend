@@ -24,6 +24,5 @@ class Admin < ApplicationRecord
   has_one_attached :image, dependent: :destroy
   self.per_page = 1
 
-  validates :full_name, :category, :contact, :location , presence: true
-  validates :contact, uniqueness: true
+  validates :full_name, :category, presence: true
 end
