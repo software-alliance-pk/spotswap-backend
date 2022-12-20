@@ -39,7 +39,7 @@ class PushNotificationService
       parking_slot_image: connection.parking_slot&.image&.attached? ? connection.parking_slot.image.url : "",
       user_type: "Host",
       body: "Slot has been transferred."
-     }   
+     }
    fcm_client = FCM.new("AAAAlr4iktw:APA91bF55dfM-lYWPqi-dHMnWGvrwQwRMAEJZD6Hu2P1mEdX8sHBcsVzLx3goF2E8ArNLw9EwvaRzlUGd5YDHCY9WOiu0mtP4jR8XXD2aH-5ItgZ12eY90NYxrNuisHjm3mIx8lsMFAo") # set your FCM_SERVER_KEY
    options = { priority: 'high',
          data: { data: data, notification_type: "transfer_parking_slot" },
@@ -66,7 +66,7 @@ class PushNotificationService
       car_image: swapper&.car_detail&.photos&.attached? ? swapper.car_detail.photos[0].url : "",
       parking_slot_image: swapper&.parking_slot&.image&.attached? ? swapper&.parking_slot.image.url : "",
       parking_slot_id: swapper&.parking_slot&.id,
-      connection_id: swapper&.swapper_host_connection.id,
+      connection_id: swapper&.swapper_host_connection&.id,
       user_type: "Swapper",
       body: "Request has been cancelled by Swapper."
      }   
