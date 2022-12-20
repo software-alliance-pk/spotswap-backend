@@ -49,7 +49,7 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
     return render json: {error: "Swapper Id is missing."}, status: :unprocessable_entity unless params[:swapper_id].present?
     @user = User.find_by_id(params[:swapper_id])
     @connection = SwapperHostConnection.find_by(user_id: @user.id)
-    return render json: {error: "The connection has been destroyed because of swapper hasn't confirmed his arrival within 30 seconds."}, status: :unprocessable_entity unless @connection.present?
+    return render json: {error: "The Connection has been destroyed, because swapper did not confirm his arrival."}, status: :unprocessable_entity unless @connection.present?
     if PushNotificationService.notify_swapper_for_confirm_arrival(@user).present?
       render json: {message: "Notification has been sent successfully to the Swapper."}, status: :ok
     else
