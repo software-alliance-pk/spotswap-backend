@@ -36,6 +36,8 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
   def notify_host_on_cancel_request
     return render json: {error: "Swapper Id is missing."}, status: :unprocessable_entity unless params[:swapper_id].present?
     @user = User.find_by_id(params[:swapper_id])
+    @connection = SwapperHostConnection.find_by(user_id: @user.id)
+    return render json: {error: "Swapper with given Id has not any Swapper Host Connection."}, status: :unprocessable_entity unless @connection.present?
     if PushNotificationService.notify_host_on_cancel_request(@user).present?
       render json: {message: "Notification has been sent successfully to the Host."}, status: :ok
     else
@@ -46,6 +48,8 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
   def notify_swapper_for_confirm_arrival
     return render json: {error: "Swapper Id is missing."}, status: :unprocessable_entity unless params[:swapper_id].present?
     @user = User.find_by_id(params[:swapper_id])
+    @connection = SwapperHostConnection.find_by(user_id: @user.id)
+    return render json: {error: "Other user unable to acknowledge the connection in Time."}, status: :unprocessable_entity unless @connection.present?
     if PushNotificationService.notify_swapper_for_confirm_arrival(@user).present?
       render json: {message: "Notification has been sent successfully to the Swapper."}, status: :ok
     else
