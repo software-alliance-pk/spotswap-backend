@@ -194,5 +194,18 @@ $(document).on('turbolinks:load', function(){
 		$("#car_model_image").removeAttr("style").hide();
 		$(".prof_img .img").removeAttr("style").hide();
 	});
+
+	$("div.pagination a").addClass("d-none");
+	$("div.pagination em.current").addClass("d-none");
+	$("a.next_page").removeClass("d-none");
+	$("a.previous_page").removeClass("d-none");
+
+	$(document).ready(function(){
+		$(".next_page").text("");
+		$(".previous_page").text("");
+		
+		$(".next_page").prepend("<img src='/assets/right-arrow-icon.svg' class='pagi_image next'/>");
+		$(".previous_page").prepend("<img src='/assets/left-arrow-icon.svg' class='pagi_image'/>");
+	});
 	
 });

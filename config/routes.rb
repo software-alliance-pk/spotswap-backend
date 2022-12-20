@@ -220,7 +220,8 @@ Rails.application.routes.draw do
 
   devise_for :admins,
   controllers: {
-      passwords: 'admins/passwords'
+      passwords: 'admins/passwords',
+      registrations: 'admins/registrations'
   }
   
   get '/*a', to: 'api/v1/api#not_found'

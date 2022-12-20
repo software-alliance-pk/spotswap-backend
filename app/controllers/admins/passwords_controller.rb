@@ -6,7 +6,7 @@ class Admins::PasswordsController < Devise::PasswordsController
   end
 
   def after_sending_reset_password_instructions_path_for(resource)
-    flash[:alert] = "Reset password link has been sent, please check our email."
+    flash[:alert] = "Reset password link has been sent, please check your email."
     edit_admin_password_path(:reset_password_token => $otp_token)
   end
 
