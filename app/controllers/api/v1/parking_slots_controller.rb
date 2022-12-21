@@ -49,6 +49,7 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
 
     if @slot.update(user_id: params[:user_id])
       @slot
+      @user.swapper_host_connection.destroy
     else
       render_error_messages(@slot)
     end
@@ -59,6 +60,12 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
     connection = SwapperHostConnection.find_by_id(params[:connection_id])
     return render json: {error: "Connection with this Id is not present."}, status: :unprocessable_entity unless connection.present?
     if PushNotificationService.notify_swapper_on_slot_transfer(connection).present?
+
+      #Need to remove after m4
+      slot = connection.parking_slot
+      slot.update(user_id: connection.swapper.id)
+      connection.destroy
+
       render json: {message: "Notification has been sent successfully to the Swapper."}, status: :ok
     else
       render json: {error: "Notification could not be sent."}, status: :unprocessable_entity
