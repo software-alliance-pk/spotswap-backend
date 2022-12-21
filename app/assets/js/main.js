@@ -152,7 +152,7 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
-	$('.disable_user').on('click', function(){
+	$(document).on('click', ".disable_user", function(){
 		var attribute_id  = $(this).attr("data-id")
 		$.ajax({
       url: `/admins/users/disable_user_popup?id=${attribute_id}`,
@@ -164,7 +164,7 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
-	$('.confirm_yes').on('click', function(){
+	$(document).on('click', ".confirm_yes", function(){
 		var attribute_id  = $(this).attr("data-id")
 		$.ajax({
       url: `/admins/users/confirm_yes_popup?id=${attribute_id}`,
@@ -207,5 +207,9 @@ $(document).on('turbolinks:load', function(){
 		$(".next_page").prepend("<img src='/assets/right-arrow-icon.svg' class='pagi_image next'/>");
 		$(".previous_page").prepend("<img src='/assets/left-arrow-icon.svg' class='pagi_image'/>");
 	});
+
+	$(document).on("click", ".reload_page", function(){
+		location.reload();
+	})
 	
 });
