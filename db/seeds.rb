@@ -19,7 +19,7 @@ car_brand = CarBrand.create!(title: "Isuzu")
 end
 
 Admin.destroy_all
-Admin.create!(email: "abdullah.hafeez515515@gmail.com", full_name: "Abdullah Hafeez", contact: "+923066412706", location: "Johar Town, Lahore", password: "admin123")
+Admin.create!(email: "admin@example.com", full_name: "Super Admin", contact: "+923066412707", location: "Johar Town, Lahore", password: "admin123")
 
 Page.destroy_all
 Page.create!(title: "Terms & Conditions", permalink: "terms&condition",content: "<h3 style='color:white;'> General Terms </h3>
