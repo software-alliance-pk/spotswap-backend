@@ -176,6 +176,10 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
+	$(document).on('click', ".confirm_no", function(){
+		location.reload();
+	});
+
 	$("#searchbtn").keyup(function (){
 		var word = $(this).val();
 		$("#searchform").trigger('submit');
@@ -211,5 +215,5 @@ $(document).on('turbolinks:load', function(){
 	$(document).on("click", ".reload_page", function(){
 		location.reload();
 	})
-	
+
 });
