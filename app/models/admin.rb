@@ -22,7 +22,7 @@ class Admin < ApplicationRecord
   enum status: [:active, :disabled]
   has_many :support_conversations, dependent: :destroy, foreign_key: :recipient_id
   has_one_attached :image, dependent: :destroy
-  self.per_page = 1
+  self.per_page = 10
 
   validates :full_name, :category, presence: true
 end
