@@ -190,8 +190,9 @@
   left: 100%;
   margin-left: 15px;
 }
+
 #table_users .table__blk table tbody tr:last-child td{
-  padding-bottom: 4rem;
+  padding-bottom: 6rem;
 }
 
 .no_modal{

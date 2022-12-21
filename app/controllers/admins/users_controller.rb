@@ -27,6 +27,7 @@ class Admins::UsersController < ApplicationController
   def confirm_yes_popup
     @user = User.find_by(id: params[:id])
     @user.destroy
+    render partial: 'confirm_yes_popup'
   end
 
 	private
