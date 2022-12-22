@@ -12,7 +12,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
       @default_payment = connection_details.swapper.default_payment
       if @default_payment.present?
         if @default_payment.payment_type == "paypal"
-          return render json: {error: "PayPal Payment is not completed yet."}, status: :unprocessable_entity
+          @paypal_payment_response = PayPalPaymentService.new.create_payment
         elsif @default_payment.payment_type == "credit_card"
           charge_amount_through_credit_card(params[:amount].to_i*100, connection_details)
           create_payment_history("other_payment", connection_details, params[:amount])
@@ -119,7 +119,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
   def charge_amount_through_credit_card(amount, connection_details)
     @charge_response = StripeChargeService.new.charge_amount_from_customer(amount, connection_details.swapper.stripe_connect_account.account_id)
-    @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, connection_details.host.stripe_connect_account.account_id )
+    @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, connection_details.host.stripe_connect_account.account_id)
   end
 
   def charge_amount_through_paypal

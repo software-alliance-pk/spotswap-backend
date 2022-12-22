@@ -4,8 +4,7 @@ class PayPalConnectAccountService < BaseService
     super
   end
 
-
-  def retrevie_paypal_customer_account(current_user = User.first)
+  def retrevie_paypal_customer_account(current_user)
     uri = URI.parse("https://api.sandbox.paypal.com/v2/customer/partner-referrals/#{current_user.paypal_partner_account.account_id}")
     request = Net::HTTP::Get.new(uri)
     request.content_type = "application/json"
@@ -16,10 +15,11 @@ class PayPalConnectAccountService < BaseService
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(request)
     end
-    return result = JSON.parse(response.body)  if response.code  == "200"
+    result = JSON.parse(response.body) if response.code  == "200"
+    return account_details = {account_id: result["links"].first["href"].split("/").last, response: result}
   end
 
-  def create_connect_customer_account(current_user = User.first)
+  def create_paypal_customer_account(current_user)
     uri = URI.parse("https://api-m.sandbox.paypal.com/v2/customer/partner-referrals")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
@@ -40,10 +40,6 @@ class PayPalConnectAccountService < BaseService
                                    }
                                  }
                                ],
-                               "referral_user_payer_id" => {
-                                 "type" => "PAYER_ID",
-                                 "value" => "RFYUH2QQDGUQU"
-                               },
                                "products" => ["EXPRESS_CHECKOUT"],
                                "legal_consents" => [
                                  {
@@ -56,7 +52,9 @@ class PayPalConnectAccountService < BaseService
                                  "return_url_description" => "the url to return the merchant after the paypal onboarding process.",
                                  "action_renewal_url" => "https://testenterprises.com/renew-exprired-url",
                                  "show_add_credit_card" => true
-                               }
+                               },
+                               "email" => current_user.email,
+                               "preferred_language_code" => "en-US",
                              })
 
     req_options = {
@@ -66,13 +64,13 @@ class PayPalConnectAccountService < BaseService
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(request)
     end
-    debugger
     result = JSON.parse(response.body)  if response.code  == "201"
     if result["links"].present?
       pay_pal_connect_id = result["links"].first["href"].split("/").last
       account_type = "partner-referrals"
-      account = current_user.build_paypal_partner_account(account_id:pay_pal_connect_id,account_type:account_type)
+      account = current_user.build_paypal_partner_account(account_id: pay_pal_connect_id, account_type: account_type)
       account.save
     end
+    return account_details = {account_id: result["links"].first["href"].split("/").last, response: result}
   end
 end
