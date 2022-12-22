@@ -4,7 +4,7 @@ class PayPalPayOutsService < BaseService
     super
   end
 
-  def  create_payout(dest_email = "sb-pyv7422138976@personal.example.com",amount= 20.00)
+  def create_payout(dest_email = "sb-lu2o323466027@personal.example.com", amount= 10.00)
     uri = URI.parse("https://api-m.sandbox.paypal.com/v1/payments/payouts")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
@@ -39,8 +39,8 @@ class PayPalPayOutsService < BaseService
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(request)
     end
+    return response
   end
-
 
   def create_batch_id
     SecureRandom.hex(10)

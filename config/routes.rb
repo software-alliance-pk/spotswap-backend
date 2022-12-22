@@ -152,6 +152,16 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :pay_pal, only: [] do
+        collection do
+          post :pay_pal_confirm
+          get :create_paypal_customer_account
+          get :create_payment
+          post :transfer_amount
+          post :create_payout
+        end
+      end
+
       resources :histories, only: [] do
         collection do
           get :get_user_other_payment_histories

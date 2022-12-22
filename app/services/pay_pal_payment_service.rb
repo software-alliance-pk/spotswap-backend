@@ -4,7 +4,7 @@ class PayPalPaymentService <  BaseService
     super
   end
 
-  def create_payment(email = "sb-lu2o323466027@personal.example.com", amount = 30.00,spotswap_fee=1.00)
+  def create_payment(email = "sb-lu2o323466027@personal.example.com", amount = 30.00, spotswap_fee = 1.00)
     total_amount = amount + spotswap_fee
     uri = URI.parse("https://api-m.sandbox.paypal.com/v1/payments/payment")
     request = Net::HTTP::Post.new(uri)
@@ -52,7 +52,7 @@ class PayPalPaymentService <  BaseService
     return response.body
   end
 
-  def transfer_amount(payment_id,account_id)
+  def transfer_amount(account_id, payment_id)
     uri = URI.parse("https://api-m.sandbox.paypal.com/v1/payments/payment/#{payment_id}/execute")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
@@ -65,9 +65,9 @@ class PayPalPaymentService <  BaseService
     req_options = {
       use_ssl: uri.scheme == "https",
     }
-
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(request)
     end
+    return response
   end
 end
