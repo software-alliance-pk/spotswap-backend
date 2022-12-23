@@ -8,6 +8,7 @@
           <%= image_tag "icon-bell.svg" %>
         </button>
       </div>
+      <%= render :partial => "shared/error_success_messages" %>
     </div>
     <div class="ctn">
       <div class="row">
@@ -71,10 +72,10 @@
                   </button>
                   <ul class="dropdown-menu">
                     <li>
-                      <button type="button">Ongoing</button>
+                      <a href="<%= update_ticket_status_admins_supports_path(support_id: @last_support.id, status: 'pending', id: @last_support&.user&.id) %>">Pending</a>
                     </li>
                     <li>
-                      <button type="button">Completed</button>
+                      <a href="<%= update_ticket_status_admins_supports_path(support_id: @last_support.id, status: 'completed', id: @last_support&.user&.id) %>">Completed</a>
                     </li>
                   </ul>
                 </div>
@@ -86,10 +87,10 @@
               </div>
               <% if @last_support&.support_conversation.present? %>
                 <% @last_support.support_conversation.support_messages.each do |message| %>
-                  <% if  message.support_conversation.sender.email ==  message.sender.email %>
+                  <% if message.support_conversation.sender.email ==  message.sender.email %>
                     <div class="msg user">
                       <div class="profile">
-                          <%= image_tag message&.support_conversation&.sender&.image&.attached? ? message.support_conversation.sender.image.url : "default-profile.jpg" %>
+                        <%= image_tag message&.support_conversation&.sender&.image&.attached? ? message.support_conversation.sender.image.url : "default-profile.jpg" %>
                       </div>
                       <div class="msg_wrapper">
                         <div class="msg_blk">
