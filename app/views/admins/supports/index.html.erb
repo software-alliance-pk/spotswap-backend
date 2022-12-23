@@ -24,6 +24,7 @@
             <ul class="users_list">
               <% @supports.each do |record| %>
                 <li>
+                  <%= link_to get_specific_chat_admins_support_path(id: record.id) do %>
                   <div class="user">
                     <div class="img">
                       <% if record.user.image.attached? %>
@@ -43,6 +44,7 @@
                       </div>
                     </div>
                   </div>
+                    <%end%>
                 </li>
               <% end %>
             </ul>
@@ -150,7 +152,7 @@
                   </button>
                 </div>
                 <div class="sep"></div>
-                <input type="text" name="message" class="input" placeholder="Write your message here via email...">
+                <input type="text" name="message" id="input_field_text" class="input" placeholder="Write your message here via email...">
                 <button type="submit" class="btn send_btn">
                   <%= image_tag "icon-send.svg" %>
                 </button>
