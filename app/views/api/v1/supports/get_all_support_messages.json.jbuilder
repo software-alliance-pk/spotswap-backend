@@ -6,7 +6,7 @@ json.support_messages @support_messages do |support_message|
   json.read_status support_message.read_status
   json.sender_id support_message.sender_id
   json.sender_name conversation.sender_name
-  json.recepient_id support_message.user_id
+  json.recepient_id conversation.recipient_id
   json.recepient_name conversation.recipient_full_name
   json.type support_message.type? ? support_message.type : ""
   json.created_at support_message.created_at

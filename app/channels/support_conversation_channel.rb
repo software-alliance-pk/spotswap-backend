@@ -1,10 +1,9 @@
 class SupportConversationChannel < ApplicationCable::Channel 
   # calls when a client connects to the server
   def subscribed
-    if params[:support_conversation_id].present?
-      stream_from("support_conversation_#{(params[:support_conversation_id])}")
-    else
-      puts "support_conversation_id is missing."
+    stop_all_streams
+    SupportConversation.where(sender_id: current_user).or(SupportConversation.where(recipient_id: current_user)).find_each do |conversation|
+      stream_from "support_conversation_#{conversation.id}"
     end
   end
 
