@@ -4,7 +4,7 @@ class Admins::CarsController < ApplicationController
 
 	def index
     if params[:search_key].present?
-      @car_brands = CarBrand.custom_search(params[:search_key]).order(created_at: :desc)
+      @car_brands = CarBrand.where('title ILIKE :search_key', search_key: "%#{params[:search_key]}%").order(created_at: :desc)
 			@search_key = params[:search_key]
 		else
       @car_brands = CarBrand.all.order(created_at: :desc)
@@ -54,7 +54,12 @@ class Admins::CarsController < ApplicationController
 
   def get_model_details
     if params[:search_key].present?
-      @car_models = CarBrand.find_by_id(params[:brand_id])&.car_models.custom_search(params[:search_key]).paginate(page: params[:page]).order(created_at: :desc)
+      @car_models = CarBrand.find_by_id(params[:brand_id])&.car_models
+      .where('title ILIKE :search_key OR color ILIKE :search_key 
+       OR cast(length as text) ILIKE :search_key
+       OR cast(width as text) ILIKE :search_key OR cast(height as text) ILIKE :search_key 
+       OR cast(released as text) ILIKE :search_key', search_key: "%#{params[:search_key]}%")
+      .paginate(page: params[:page]).order(created_at: :desc)
 			@search_key = params[:search_key]
 		else
       @car_models = CarBrand.find_by_id(params[:brand_id])&.car_models.paginate(page: params[:page]).order(created_at: :desc)
