@@ -22,111 +22,120 @@
               </div>
             </div>
             <ul class="users_list">
-              <%@supports.each do |record|%>
+              <% @supports.each do |record| %>
                 <li>
+                  <%= link_to get_specific_chat_admins_support_path(id: record.id) do %>
                   <div class="user">
                     <div class="img">
-                      <% if record.user.image.attached?%>
-                        <%= image_tag(record.user.image.url)%>
+                      <% if record.user.image.attached? %>
+                        <%= image_tag(record.user.image.url) %>
                       <% else %>
                         <%= image_tag "default-profile.jpg" %>
-                      <%end%>
+                      <% end %>
                     </div>
                     <div class="txt">
-                      <h6 class="mb-0"><%=record.user.name%></h6>
+                      <h6 class="mb-0"><%= record.user.name %></h6>
                       <div class="d-flex">
-                        <p class="msg"><%=last_message(record.user)%></p>
-                        <p>• <%=time_ago_in_words(last_seen(record.user)) if last_seen(record.user).present?  %></p>
+                        <p class="msg"><%= last_message(record) %></p>
+                        <p>• <%= time_ago_in_words(last_seen(record)) if last_seen(record).present? %></p>
                       </div>
                       <div class="u_msg">
-                        <%=unread_count(record.user)%>
+                        <%= unread_count(record) %>
                       </div>
                     </div>
                   </div>
+                    <%end%>
                 </li>
-              <%end%>
+              <% end %>
             </ul>
           </div>
         </div>
-        <div class="col-8">
+        <div class="col-8" data-admin="<%= current_admin.email %>" id="admin_email">
           <div class="chat_blk">
             <div class="top_blk">
               <div class="selected_chat">
                 <div class="img">
-                  <% if @last_support&.user&.image&.attached?%>
-                    <%= image_tag(@last_support.user.image.url)%>
+                  <% if @last_support&.user&.image&.attached? %>
+                    <%= image_tag(@last_support.user.image.url) %>
                   <% else %>
                     <%= image_tag "default-profile.jpg" %>
-                  <%end%>
+                  <% end %>
                 </div>
                 <div class="txt">
-                  <h6 class="mb-0"><%=@last_support&.user&.name%></h6>
-                  <p class="mb-0"><%=@last_support&.ticket_number%></p>
+                  <h6 class="mb-0"><%= @last_support&.user&.name %></h6>
+                  <p class="mb-0"><%= @last_support&.ticket_number %></p>
                 </div>
                 <div class="dropdown">
                   <button class="site_btn blank sm dropdown-toggle chevron" data-bs-toggle="dropdown">
                     Mark as
                   </button>
-                  <ul class="dropdown-menu" >
-                    <li><button type="button">Ongoing</button></li>
-                    <li><button type="button">Completed</button></li>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button type="button">Ongoing</button>
+                    </li>
+                    <li>
+                      <button type="button">Completed</button>
+                    </li>
                   </ul>
                 </div>
               </div>
             </div>
-            
-            <div class="msg_contain">
+            <div class="msg_contain" data-id="<%= @last_support&.support_conversation&.id %>" id="chatmessagebox">
               <div class="strike">
-                  <span>18 March 2021</span>
+                <span>18 March 2021</span>
               </div>
               <% if @last_support&.support_conversation.present? %>
-                <% @last_support.support_conversation.support_messages.each do |message|%>
-                <div class="msg user">
-                  <div class="profile">
-                    <% if message&.user.image.attached?%>
-                      <%= image_tag(message.user.image.url)%>
-                    <% else %>
-                      <%= image_tag "default-profile.jpg" %>
-                    <%end%>
-                  </div>
-                  <div class="msg_wrapper">
-                    <div class="msg_blk">
-                      <p>Open a Support Ticket <strong><%=@last_support&.ticket_number%></strong></p>
-                      <p><%=message&.body%></p>
-                      <% if message&.image&.attached?%>
-                        <div class="attch_blk">
-                          <div class="img">
-                            <%= image_tag message&.image&.url %>
-                          </div>
-                          <button type="button" class="btn down_btn">
-                            <%= image_tag "icon-arrow-bottom.svg" %>
-                          </button>
+                <% @last_support.support_conversation.support_messages.each do |message| %>
+                  <% if  message.support_conversation.sender.email ==  message.sender.email %>
+                    <div class="msg user">
+                      <div class="profile">
+                          <%= image_tag message&.support_conversation&.sender&.image&.attached? ? message.support_conversation.sender.image.url : "default-profile.jpg" %>
+                      </div>
+                      <div class="msg_wrapper">
+                        <div class="msg_blk">
+                          <p>Open a Support Ticket <strong><%= @last_support&.ticket_number %></strong></p>
+                          <p><%= message&.body %></p>
+                          <% if message&.image&.attached? %>
+                            <div class="attch_blk">
+                              <div class="img">
+                                <%= image_tag message&.image&.url %>
+                              </div>
+                              <button type="button" class="btn down_btn">
+                                <%= image_tag "icon-arrow-bottom.svg" %>
+                              </button>
+                            </div>
+                          <% end %>
                         </div>
-                      <%end%>
+                        <p><%= message.created_at.to_formatted_s(:long) %></p>
+                      </div>
                     </div>
-                    <p><%=message.created_at.to_formatted_s(:long)%></p>
-                  </div>
-                </div>
-                <div class="msg admin">
-                  <div class="profile">
-                    <%= image_tag "support-user.png" %>
-                  </div>
-                  <div class="msg_wrapper">
-                    <div class="msg_blk">
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium sem
-                        sit amet venenatis commodo. Nullam aliquam lacus nisl, varius luctus 
-                        mauris hendrerit ut. Etiam eros lectus, commodo nec nisl in, aliquet 
-                        congue quam. Morbi condimentum lectus id urna gravida, at facilisis 
-                        lectus consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing 
-                        elit.
-                      </p>
+                  <% else %>
+                    <div class="msg admin">
+                      <div class="profile">
+                        <%= image_tag "default-profile.jpg" %>
+                      </div>
+                      <div class="msg_wrapper">
+                        <div class="msg_blk">
+                          <p>
+                             <%= message.body %>
+                            <% if message&.image&.attached? %>
+                            <div class="attch_blk">
+                              <div class="img">
+                                <%= image_tag message&.image&.url %>
+                              </div>
+                              <button type="button" class="btn down_btn">
+                                <%= image_tag "icon-arrow-bottom.svg" %>
+                              </button>
+                            </div>
+                          <% end %>
+                          </p>
+                        </div>
+                        <p><%= message.created_at.to_formatted_s(:long) %></p>
+                      </div>
                     </div>
-                    <p>May 22, 2022 | 9:00am</p>
-                  </div>
-                </div>
-              <%end%>
-              <%end%>
+                  <% end %>
+                <% end %>
+              <% end %>
             </div>
             <%= form_with url: admin_send_message_admins_supports_path do |f| %>
               <%= hidden_field_tag :id, @last_support&.support_conversation&.id %>
@@ -143,19 +152,18 @@
                   </button>
                 </div>
                 <div class="sep"></div>
-                <input type="text" name="message" class="input" placeholder="Write your message here via email...">
+                <input type="text" name="message" id="input_field_text" class="input" placeholder="Write your message here via email...">
                 <button type="submit" class="btn send_btn">
                   <%= image_tag "icon-send.svg" %>
                 </button>
               </div>
-            <%end%>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- account_section -->
-
-<!-- Main Js -->
-<script src="/assets/main.js"></script>
+<script>
+    $(".msg_contain").scrollTop($(".msg_contain")[0].scrollHeight);
+</script>

@@ -28,7 +28,14 @@ class Admins::SupportsController < ApplicationController
     end
   end
 
-	private
+  def get_specific_chat
+    @last_support = Support.find_by(id: params["id"])
+    @supports = Support.pending.order(created_at: :desc)
+    render 'index'
+  end
+
+
+  private
   
   def authenticate_admin!
     if admin_signed_in?
