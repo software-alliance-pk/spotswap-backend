@@ -9,7 +9,7 @@ class Api::V1::SupportsController < Api::V1::ApiController
     if @ticket.save
       @support_conversation = @ticket.build_support_conversation(sender_id: @ticket.user_id, recipient_id: Admin.admin.first.id)
       if @support_conversation.save
-        @support_message = @support_conversation.support_messages.build(sender_id: @ticket.user_id, user_id: Admin.admin.first.id, body: @ticket.description, image: support_params[:image])
+        @support_message = @support_conversation.support_messages.build(sender_id: @ticket.user_id, body: @ticket.description, image: support_params[:image])
         @support_message.save
       end
     else
@@ -28,7 +28,7 @@ class Api::V1::SupportsController < Api::V1::ApiController
 
   def create_message
     @support_message = SupportMessage.new(message_params)
-    @support_message.user_id = Admin.admin.first.id
+    @support_message.user_id = @current_user.id
     if @support_message.save
       @support_message
     else
