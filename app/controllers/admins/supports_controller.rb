@@ -3,8 +3,10 @@ class Admins::SupportsController < ApplicationController
   include SupportsHelper
 
 	def index
+    
     @supports = Support.pending.order(created_at: :desc)
     @last_support = @supports.first
+    
 	end
 
   def admin_send_message

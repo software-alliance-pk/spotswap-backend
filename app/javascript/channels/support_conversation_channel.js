@@ -23,16 +23,16 @@ $(document).on('turbolinks:load', function(){
                 if (data.user_id == null) {
                     $(".msg_contain").append('<div class="msg admin">' +
                         '<div class="profile">' +
-                        (data.sender_image !== null ? "<img src=" + data.sender_image + ">" : "<img src='/assets/default-profile.jpg'>") +
+                        (data.sender_image !== '' ? "<img src=" + data.sender_image + ">" : "<img src='/assets/default-profile.jpg'>") +
                         '</div>' +
                         '<div class="msg_wrapper">' +
                         '<div class="msg_blk">' +
                         '<p>' + data.body +
                         '<div class="attch_blk">' +
                         '<div class="img">' +
-                        (data.message_image !== null ? "<img src=" + data.message_image + ">" + '</div>' +
+                        (data.message_image !== '' ? "<img src=" + data.message_image + ">" + '</div>' +
                         '<button type="button" class="btn down_btn">' +
-                        '<img src="/assets/icon-download.svg" alt="">' +
+                        '<img src="/assets/icon-arrow-bottom.svg" alt="">' +
                         '</button>' +
                         '</div>' : "") +
                         '</p>' +
@@ -45,7 +45,7 @@ $(document).on('turbolinks:load', function(){
                 } else {
                     $(".msg_contain").append('<div class="msg user">' +
                         '<div class="profile">' +
-                        (data.sender_image !== null ? "<img src=" + data.sender_image + ">" : "<img src='/assets/default-profile.jpg'>") +
+                        (data.sender_image !== '' ? "<img src=" + data.sender_image + ">" : "<img src='/assets/default-profile.jpg'>") +
                         '</div>' +
                         '<div class="msg_wrapper">' +
                         '<div class="msg_blk">' +
@@ -53,14 +53,12 @@ $(document).on('turbolinks:load', function(){
                         data.ticket_number.ticket_number +
                         '</strong></p>' +
                         '<p>' + data.body + '</p>' +
-                        (data.message_image !== null ?
-                            '<div class="attch_blk">' +
-                            "<img src=" + data.message_image + ">" +
-                            '<div class="img">' + '<img src="/assets/icon-download.svg" alt="">' + '</div>' +
-                            '<button type="button" class="btn down_btn">' + '</button>' +
-                            '</div>' : '') +
+                        '<div class="attch_blk">' +
+                        (data.message_image !== '' ? '<div class="img">' + "<img src=" + data.message_image + ">" + '</div>'  +
+                        '<button type="button" class="btn down_btn">' +'<img src="/assets/icon-arrow-bottom.svg">' + '</button>'
+                        +'</div>' : '')
+                         +
                         '</div>' + '<p>' + data.created_at + '</p>' +
-                        '</div>' +
                         '</div>');
                 }
                 $(".msg_contain").scrollTop($(".msg_contain")[0].scrollHeight);

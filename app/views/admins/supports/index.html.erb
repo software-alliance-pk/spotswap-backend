@@ -15,12 +15,14 @@
         <div class="col-4">
           <div class="users_blk">
             <div class="top_blk">
-              <div class="form_blk input search_blk">
-                <button type="button" class="btn search_btn">
-                  <%= image_tag "search_icon.svg" %>
-                </button>
-                <input type="text" name="" class="input" placeholder="Search Messages">
-              </div>
+              <%= form_with url: admins_supports_path, id: "searchform", method: :get do |f| %>
+                <div class="form_blk input search_blk">
+                  <button class="btn" type="submit">
+                    <%= image_tag "Search.svg" %>
+                  </button>
+                  <%= f.text_field :search_key, id: "searchbtn", value: @search_key, class: "input", placeholder: "Search" %>
+                </div>
+              <%end%>
             </div>
             <ul class="users_list">
               <% @supports.each do |record| %>
