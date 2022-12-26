@@ -225,6 +225,7 @@ Rails.application.routes.draw do
         get :index
         post :admin_send_message
         get :update_ticket_status
+        get :download
       end
       member do
         get :get_specific_chat

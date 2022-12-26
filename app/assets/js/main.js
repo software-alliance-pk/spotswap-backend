@@ -183,7 +183,7 @@ $(document).on('turbolinks:load', function(){
 	$("#searchbtn").keyup(function (){
 		var word = $(this).val();
 		$("#searchform").trigger('submit');
-	});	
+	});
 
 	$(document).on("change", ".file", function(e){
 		var preview = $(".upload-preview img");
