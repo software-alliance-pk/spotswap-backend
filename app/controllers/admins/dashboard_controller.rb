@@ -15,7 +15,10 @@ class Admins::DashboardController < ApplicationController
 
   def sub_admins_index
     if params[:search_key].present?
-      @sub_admins = Admin.custom_search(params[:search_key]).where(category: "sub_admin").paginate(page: params[:page]).order(created_at: :desc)
+      @sub_admins = Admin.where('full_name ILIKE :search_key OR email ILIKE :search_key 
+      OR contact ILIKE :search_key OR location ILIKE :search_key', search_key: "%#{params[:search_key]}%")
+      .where(category: "sub_admin").paginate(page: params[:page]).order(created_at: :desc)
+
 			@search_key = params[:search_key]
 		else
       @sub_admins = Admin.where(category: "sub_admin").paginate(page: params[:page]).order(created_at: :desc)
