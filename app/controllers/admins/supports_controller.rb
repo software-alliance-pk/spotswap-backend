@@ -1,12 +1,16 @@
 class Admins::SupportsController < ApplicationController
   before_action :authenticate_admin!
   include SupportsHelper
+  require 'open-uri'
 
 	def index
-    
-    @supports = Support.pending.order(created_at: :desc)
+    if params[:search_key].present?
+      @supports = Support.joins(:user).where('users.name ILIKE :search_key', search_key: "%#{params[:search_key]}%").all.order(created_at: :desc)
+			@search_key = params[:search_key]
+		else
+      @supports = Support.all.order(created_at: :desc)
+    end
     @last_support = @supports.first
-    
 	end
 
   def admin_send_message
@@ -46,6 +50,14 @@ class Admins::SupportsController < ApplicationController
       flash[:alert] = "Support Ticket Status has been changed to Completed."
     end
     redirect_back(fallback_location: root_path)
+  end
+
+  def download
+    @message = SupportMessage.find_by(id: params[:id])
+    url = url_for(@message.image)
+    download = URI.open(url)
+    filename = url.to_s.split('/')[-1]
+    send_data download.read, disposition: 'attachment', filename: filename
   end
 
   private

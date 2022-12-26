@@ -16,7 +16,7 @@
           <div class="users_blk">
             <div class="top_blk">
               <%= form_with url: admins_supports_path, id: "searchform", method: :get do |f| %>
-                <div class="form_blk input search_blk">
+                <div class="form_blk input search_blk ">
                   <button class="btn" type="submit">
                     <%= image_tag "Search.svg" %>
                   </button>
@@ -74,10 +74,10 @@
                   </button>
                   <ul class="dropdown-menu">
                     <li>
-                      <a href="<%= update_ticket_status_admins_supports_path(support_id: @last_support.id, status: 'pending', id: @last_support&.user&.id) %>">Pending</a>
+                      <a href="<%= update_ticket_status_admins_supports_path(support_id: @last_support&.id, status: 'pending', id: @last_support&.user&.id) %>">Pending</a>
                     </li>
                     <li>
-                      <a href="<%= update_ticket_status_admins_supports_path(support_id: @last_support.id, status: 'completed', id: @last_support&.user&.id) %>">Completed</a>
+                      <a href="<%= update_ticket_status_admins_supports_path(support_id: @last_support&.id, status: 'completed', id: @last_support&.user&.id) %>">Completed</a>
                     </li>
                   </ul>
                 </div>
@@ -129,6 +129,7 @@
                               <button type="button" class="btn down_btn">
                                 <%= image_tag "icon-arrow-bottom.svg" %>
                               </button>
+                              <%= link_to 'Download', download_admins_supports_path(id: message.id) %>
                             </div>
                           <% end %>
                           </p>
