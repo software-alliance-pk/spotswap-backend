@@ -3,7 +3,12 @@ class Admins::SupportsController < ApplicationController
   include SupportsHelper
 
 	def index
-    @supports = Support.pending.order(created_at: :desc)
+    if params[:search_key].present?
+      @supports = Support.joins(:user).where('users.name ILIKE :search_key', search_key: "%#{params[:search_key]}%").all.order(created_at: :desc)
+			@search_key = params[:search_key]
+		else
+      @supports = Support.all.order(created_at: :desc)
+    end
     @last_support = @supports.first
 	end
 
