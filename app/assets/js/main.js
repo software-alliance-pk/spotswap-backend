@@ -181,6 +181,7 @@ $(document).on('turbolinks:load', function(){
 	});
 
 	$("#searchbtn").keyup(function (){
+		debugger
 		var word = $(this).val();
 		$("#searchform").trigger('submit');
 	});	
