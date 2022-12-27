@@ -15,16 +15,19 @@
         <div class="col-4">
           <div class="users_blk">
             <div class="top_blk">
-              <%= form_with url: admins_supports_path, id: "searchform", method: :get do |f| %>
+              <%= form_with url: admins_supports_path, id: "searchform2", method: :get do |f| %>
                 <div class="form_blk input search_blk ">
-                  <button class="btn" type="submit">
+                  <button class="btn" id="customsearchbtn" type="submit">
                     <%= image_tag "Search.svg" %>
                   </button>
-                  <%= f.text_field :search_key, id: "searchbtn", value: @search_key, class: "input", placeholder: "Search" %>
+                  <%= f.text_field :search_key, id: "searchbtn2", value: @search_key, class: "input", placeholder: "Search" %>
                 </div>
               <%end%>
             </div>
             <ul class="users_list">
+              <%unless @supports.present?%>
+                There is no Support Ticket Present.
+              <%end%>
               <% @supports.each do |record| %>
                 <li>
                   <%= link_to get_specific_chat_admins_support_path(id: record.id) do %>
@@ -84,11 +87,15 @@
               </div>
             </div>
             <div class="msg_contain" data-id="<%= @last_support&.support_conversation&.id %>" id="chatmessagebox">
-              <div class="strike">
-                <span>18 March 2021</span>
-              </div>
+               <% last_index = '' %>
               <% if @last_support&.support_conversation.present? %>
                 <% @last_support.support_conversation.support_messages.each do |message| %>
+                  <% if last_index != message.created_at.strftime("%D") %>
+                    <div class="strike">
+                      <span><%= message.created_at.strftime("%d %B %Y") %></span>
+                    </div>
+                    <% last_index = message.created_at.strftime("%D") %>
+                  <%end%>
                   <% if message.support_conversation.sender.email ==  message.sender.email %>
                     <div class="msg user">
                       <div class="profile">
@@ -104,12 +111,12 @@
                                 <%= image_tag message&.image&.url %>
                               </div>
                               <button type="button" class="btn down_btn">
-                                <%= image_tag "icon-arrow-bottom.svg" %>
+                                <%= link_to image_tag("icon-arrow-bottom.svg"), download_admins_supports_path(id: message.id) %>
                               </button>
                             </div>
                           <% end %>
                         </div>
-                        <p><%= message.created_at.to_formatted_s(:long) %></p>
+                        <p><%= message.created_at.strftime("%H:%M") %></p>
                       </div>
                     </div>
                   <% else %>
@@ -121,20 +128,19 @@
                         <div class="msg_blk">
                           <p>
                              <%= message.body %>
-                            <% if message&.image&.attached? %>
+                          <% if message&.image&.attached? %>
                             <div class="attch_blk">
                               <div class="img">
                                 <%= image_tag message&.image&.url %>
                               </div>
                               <button type="button" class="btn down_btn">
-                                <%= image_tag "icon-arrow-bottom.svg" %>
+                              <%= link_to image_tag("icon-arrow-bottom.svg"), download_admins_supports_path(id: message.id) %>
                               </button>
-                              <%= link_to 'Download', download_admins_supports_path(id: message.id) %>
                             </div>
                           <% end %>
                           </p>
                         </div>
-                        <p><%= message.created_at.to_formatted_s(:long) %></p>
+                        <p><%= message.created_at.strftime("%H:%M") %></p>
                       </div>
                     </div>
                   <% end %>
@@ -170,4 +176,11 @@
 </section>
 <script>
     $(".msg_contain").scrollTop($(".msg_contain")[0].scrollHeight);
+    $(document).ready(function(){
+      $("#searchbtn2").keyup(function (){
+        var word = $(this).val();
+        $("#customsearchbtn").trigger('click');
+      });
+
+    });
 </script>

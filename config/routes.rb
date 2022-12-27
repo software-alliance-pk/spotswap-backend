@@ -188,6 +188,7 @@ Rails.application.routes.draw do
         get :send_money_popup
         get :disable_user_popup
         get :confirm_yes_popup
+        get :export_csv, defaults: { format: :csv }
       end
     end
 

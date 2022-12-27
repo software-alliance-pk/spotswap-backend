@@ -1,4 +1,4 @@
-class Admins::SupportsController < ApplicationController
+  class Admins::SupportsController < ApplicationController
   before_action :authenticate_admin!
   include SupportsHelper
   require 'open-uri'
@@ -11,6 +11,7 @@ class Admins::SupportsController < ApplicationController
       @supports = Support.all.order(created_at: :desc)
     end
     @last_support = @supports.first
+    render 'index'
 	end
 
   def admin_send_message
@@ -25,7 +26,7 @@ class Admins::SupportsController < ApplicationController
           data["user_id"] = @message.sender_id
           data["sender_id"] = @message.support_conversation.sender.id
           data["recipient_id"] =  @message.support_conversation.recipient.id
-          data["created_at"] = @message.created_at
+          data["created_at"] = @message.created_at.strftime("%H:%M")
           data["updated_at"] = @message.updated_at
           data["image"] = @message&.image&.url
           ActionCable.server.broadcast "support_conversations_#{@message.support_conversation_id}", { title: 'chat', body: data.as_json }
@@ -36,26 +37,29 @@ class Admins::SupportsController < ApplicationController
 
   def get_specific_chat
     @last_support = Support.find_by(id: params["id"])
-    @supports = Support.pending.order(created_at: :desc)
+    @supports = Support.all.order(created_at: :desc)
     render 'index'
   end
 
   def update_ticket_status
     @support = Support.find_by(id: params[:support_id])
+    unless @support.present?
+      redirect_back(fallback_location: root_path) and return
+    end
     if params[:status] == "pending"
       @support.update(status: "pending")
-      flash[:alert] = "Support Ticket Status has been changed to Pending."
+      flash[:alert] = "Support Ticket Status has been updated to Pending."
     elsif params[:status] == "completed"
       @support.update(status: "completed")
-      flash[:alert] = "Support Ticket Status has been changed to Completed."
+      flash[:alert] = "Support Ticket Status has been updated to Completed."
     end
     redirect_back(fallback_location: root_path)
   end
 
   def download
     @message = SupportMessage.find_by(id: params[:id])
-    url = url_for(@message.image)
-    download = URI.open(url)
+    url = @message.image.url
+    download = URI.open(@message.image.url)
     filename = url.to_s.split('/')[-1]
     send_data download.read, disposition: 'attachment', filename: filename
   end

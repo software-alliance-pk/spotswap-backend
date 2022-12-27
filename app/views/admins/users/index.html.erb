@@ -4,10 +4,6 @@
     <div id="top_header">
       <h2>Users</h2>
       <div class="header_side">
-        <!-- <div class="form_blk input">
-          <img src="/assets/icon-search.svg" alt="">
-          <input type="text" name="" id="" class="input" placeholder="Search">
-        </div> -->
         <button type="button" class="noti_btn input">
           <%= image_tag "icon-bell.svg" %>
           <span>7</span>
@@ -25,11 +21,10 @@
         </div>
       <%end%>
       <div class="button_blk">
-        <button class="site_btn round bg_white">Export CSV
-          <div class="icon">
-            <%= image_tag "Download-black.svg" %>
-          </div>
-        </button>
+        <%= link_to export_csv_admins_users_path, :class => 'site_btn round bg_white' do %>
+          <%= image_tag "Download-black.svg"%>
+          Export CSV
+        <% end %>  
       </div>
     </div>
     <div class="profile_popup_div"></div>
