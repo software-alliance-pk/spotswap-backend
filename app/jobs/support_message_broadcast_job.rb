@@ -13,7 +13,7 @@ class SupportMessageBroadcastJob < ApplicationJob
       recepient_id: message.support_conversation.recipient,
       recepient_name: message.support_conversation.recipient_full_name,
       type: message.type,
-      created_at: message.created_at,
+      created_at: message.created_at.strftime("%H:%M"),
       user_id: message.user_id,
       message_image: message.image.attached? ? message.image.url : "",
       sender_image: message.support_conversation.sender_image.attached? ? message.support_conversation.sender_image.url : "",

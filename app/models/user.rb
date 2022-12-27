@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  require 'csv'
   attr_accessor :referrer_code, :referrer_id
 
   has_one :car_detail, dependent: :destroy
@@ -53,6 +54,17 @@ class User < ApplicationRecord
     if self.referrer_code.present? && self.referrer_id.present?
       unless self.user_referral_code_records.where(referrer_code: self.referrer_code, referrer_id: self.referrer_id).present?
        UserReferralCodeRecord.create(user_id: self.id, user_code: self.referral_code, referrer_code: self.referrer_code, referrer_id: self.referrer_id)
+      end
+    end
+  end
+
+  def self.to_csv
+    attributes = %w{name email contact address}
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.find_each do |user|
+        csv << attributes.map{ |attr| user.send(attr) }
       end
     end
   end

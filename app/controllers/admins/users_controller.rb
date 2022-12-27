@@ -1,5 +1,6 @@
 class Admins::UsersController < ApplicationController
 	before_action :authenticate_admin!
+  require 'csv'
 
 	def index
     if params[:search_key].present?
@@ -15,6 +16,13 @@ class Admins::UsersController < ApplicationController
   def view_profile
     @user = User.find_by(id: params[:id])
     render partial: 'view_profile', locals:{user: @user}
+  end
+
+  def export_csv
+    @users = User.all
+    respond_to do |format|
+      format.csv { send_data @users.to_csv, filename: "users.csv" }
+    end
   end
 
   def send_money_popup

@@ -41,7 +41,6 @@ $(document).on('turbolinks:load', function(){
                         '</div>' +
                         '</div>');
 
-
                 } else {
                     $(".msg_contain").append('<div class="msg user">' +
                         '<div class="profile">' +
