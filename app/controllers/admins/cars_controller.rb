@@ -78,6 +78,17 @@ class Admins::CarsController < ApplicationController
     end  
   end
 
+  def export_csv
+    @models = CarBrand.find_by(id: params[:id]).car_models
+    unless @models.present?
+      redirect_back(fallback_location: root_path) and return
+    end
+
+    respond_to do |format|
+      format.csv { send_data @models.to_csv, filename: "car_models-#{Date.today}.csv" }
+    end
+  end
+
 	private
   
   def authenticate_admin!

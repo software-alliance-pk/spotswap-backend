@@ -29,11 +29,10 @@
         <%end%>
       </div>
       <div class="button_blk">
-        <button class="site_btn round bg_white">Export CSV
-          <div class="icon">
-            <%= image_tag "Download-black.svg" %>
-          </div>
-        </button>
+        <%= link_to export_csv_admins_cars_path(id: @brand_id), :class => 'site_btn round bg_white' do %>
+          Export CSV
+          <%= image_tag "Download-black.svg"%>
+        <% end %>
         <button class="site_btn round pop_btn" data-popup="Add_car_model">Add Car Model</button>
       </div>
     </div>
