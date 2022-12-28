@@ -201,6 +201,7 @@ Rails.application.routes.draw do
         post :create_brand
         post :create_model
         post :update_model
+        get :export_csv, defaults: { format: :csv }
       end
     end
 

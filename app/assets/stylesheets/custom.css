@@ -256,3 +256,7 @@
 #success_login ._inner .log_strip > p {
   color: var(--light);
 }
+
+.search .button_blk .bg_white > img{
+  filter: none !important;
+}
