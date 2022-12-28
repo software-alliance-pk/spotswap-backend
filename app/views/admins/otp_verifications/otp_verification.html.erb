@@ -1,0 +1,57 @@
+
+<section id="logon" style="background-image: url('/assets/Logon.jpg')">
+  <div class="contain">
+    <div class="log_blk">
+      <div class="form_wrapper">
+        <div class="logo">
+          <img src="/assets/logo-on.svg" alt="">
+        </div>
+        <h3 class="text-center">Enter OTP</h3>
+        <div class="text-center px-5 mx-4">
+          <p>We’ve sent an OTP to your email to confirm that this is you</p>
+        </div>
+        <p style="position:absolute; left:1%; font-weight:600; margin-top:10px; color:red;"><%= alert %></p>
+        <%= form_for :otp, url: verify_otp_admins_otp_verifications_path do |f| %>
+          <div class="d-flex gap-3">
+            <div class="form_blk">
+              <input type="text" class="input text-center" placeholder="0" name="otp[first_digit]" id="otp_first_digit" maxlength="1" onkeyup="jump(this, 'otp_second_digit')">
+            </div>
+            <div class="form_blk">
+              <input type="text" class="input text-center" placeholder="0" name="otp[second_digit]" id="otp_second_digit" maxlength="1" onkeyup="jump(this, 'otp_third_digit')">
+            </div>
+            <div class="form_blk">
+              <input type="text" class="input text-center" placeholder="0" name="otp[third_digit]" id="otp_third_digit" maxlength="1" onkeyup="jump(this, 'otp_fourth_digit')">
+            </div>
+            <div class="form_blk">
+              <input type="text" class="input text-center" placeholder="0" name="otp[fourth_digit]" id="otp_fourth_digit" maxlength="1" onkeyup="jump(this, 'otp_fifth_digit')">
+            </div>
+            <div class="form_blk">
+              <input type="text" class="input text-center" placeholder="0" name="otp[fifth_digit]" id="otp_fifth_digit" maxlength="1" onkeyup="jump(this, 'otp_sixth_digit')">
+            </div>
+            <div class="form_blk">
+              <input type="text" class="input text-center" placeholder="0" name="otp[sixth_digit]" id="otp_sixth_digit" maxlength="1" onkeyup="jump(this, 'otp_first_digit')">
+            </div>
+          </div>
+          <div class="btn_blk">
+            <%= f.submit "Confirm", class: 'site_btn w-100' %>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <div class="car_img">
+    <img src="/assets/bg-car.png" alt="">
+  </div>
+</section>
+<!-- Logon Section -->
+
+<!-- Main Js -->
+<script src="/assets/main.js"></script>
+<script>
+  function jump(field, automove) {
+    if (field.value.length >= 1)
+    {
+      document.getElementById(automove).focus();
+    }
+  }
+</script>

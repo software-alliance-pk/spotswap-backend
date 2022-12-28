@@ -7,6 +7,7 @@
       </div>
       <h3 class="mb-0">Sign up to manage</h3>
       <%= render "devise/shared/error_messages", resource: resource %>
+      <p style="position:absolute; left:1%; font-weight:600; margin-top:10px; color:red;"><%= alert %></p>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <h5>Full Name</h5>
         <div class="form_blk">

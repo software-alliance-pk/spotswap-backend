@@ -233,6 +233,14 @@ Rails.application.routes.draw do
         get :get_specific_chat
       end
     end
+
+    resources :otp_verifications, only: [] do
+      collection do
+        get :otp_verification
+        post :verify_otp
+      end
+    end
+
   end
 
   devise_for :admins,
