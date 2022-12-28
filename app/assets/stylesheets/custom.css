@@ -260,3 +260,8 @@
 .search .button_blk .bg_white > img{
   filter: none !important;
 }
+
+.no_user_found{
+  text-align: center;
+  font-size: 2.4rem;
+}
