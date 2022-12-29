@@ -15,7 +15,8 @@ class Admins::UsersController < ApplicationController
 
   def view_profile
     @user = User.find_by(id: params[:id])
-    render partial: 'view_profile', locals:{user: @user}
+    @histories = @user.other_histories
+    render partial: 'view_profile', locals:{user: @user, histories: @histories}
   end
 
   def export_csv
@@ -38,6 +39,12 @@ class Admins::UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @user.destroy
     render partial: 'confirm_yes_popup'
+  end
+
+  def get_host_details
+    @history = OtherHistory.find_by(id: params[:id])
+    @host = User.find_by(id: @history.host_id)
+    render partial: 'view_host_details', locals:{history: @history, host: @host}
   end
 
 	private
