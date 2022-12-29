@@ -1,0 +1,56 @@
+<div class="user_details">
+  <div class="top">
+    <div class="img">
+      <% if @host.image.attached?%>
+        <%= image_tag(@host.image.url)%>
+      <% else %>
+        <%= image_tag "default-profile.jpg" %>
+      <%end%>
+    </div>
+    <div class="txt">
+      <div class="host">
+        <h6 class="mb-0"><%=@host.name%></h6>
+        <span>host</span>
+      </div>
+      <p><%=@host.car_detail.car_brand.title%>&nbsp<%=@host.car_detail.car_model.title%></p>
+    </div>
+  </div>
+  <ul class="detail_list">
+    <li>
+      <div class="item">
+        <p>Date</p>
+        <h6><%=@history.connection_date_time.strftime("%b %e %Y")%></h6>
+      </div>
+    </li>
+    <li>
+      <div class="item">
+        <p>Time</p>
+        <h6><%=@history.connection_date_time.strftime("%H:%M")%></h6>
+      </div>
+    </li>
+    <li>
+      <div class="item">
+        <p>Location</p>
+        <h6><%=@history.connection_location%></h6>
+      </div>
+    </li>
+    <li>
+      <div class="item">
+        <p>Swapper Fee</p>
+        <h6>$<%=@history.swapper_fee.to_f%></h6>
+      </div>
+    </li>
+    <li>
+      <div class="item">
+        <p>SpotSwap Fee</p>
+        <h6>$<%=@history.spotswap_fee.to_f%></h6>
+      </div>
+    </li>
+    <li>
+      <div class="item">
+        <p>Total</p>
+        <h6 class="total">$<%=@history.total_fee.to_f%></h6>
+      </div>
+    </li>
+  </ul>
+</div>

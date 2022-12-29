@@ -214,6 +214,18 @@ $(document).on('turbolinks:load', function(){
 
 	$(document).on("click", ".reload_page", function(){
 		location.reload();
-	})
+	});
+
+	$(document).on("click", "#history_item", function () {
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+      url: `/admins/users/get_host_details?id=${attribute_id}`,
+      type: 'get',
+      data: this.data,
+			success: function(response) {
+				$('.host_details_div').html(response)
+			}
+    })
+	});
 
 });

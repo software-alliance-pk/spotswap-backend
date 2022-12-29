@@ -36,141 +36,39 @@
                       <div class="col-2">Number</div>
                       <div class="col-5"><h6><%=user.contact%></h6></div>
                       <div class="col-2">Brought</div>
-                      <div class="col-3"><h6>2021</h6></div>
+                      <div class="col-3"><h6><%=user&.car_detail&.car_model&.released%></h6></div>
                     </div>
                     <h5>History</h5>
                     <div class="row">
                       <div class="col-5">
-                        <div class="history_blk">
+                        <div class="history_blk position-relative">
                           <ul class="history_list">
-                            <li>
-                              <div class="item">
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
-                                  <p>$11.00</p>
-                                </div>
-                                <p><span>$11.00</span> • <span>10:30AM</span></p>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="item">
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
-                                  <p>$11.00</p>
-                                </div>
-                                <p><span>$11.00</span> • <span>10:30AM</span></p>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="item">
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
-                                  <p>$11.00</p>
-                                </div>
-                                <p><span>$11.00</span> • <span>10:30AM</span></p>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="item">
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
-                                  <p>$11.00</p>
-                                </div>
-                                <p><span>$11.00</span> • <span>10:30AM</span></p>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="item">
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
-                                  <p>$11.00</p>
-                                </div>
-                                <p><span>$11.00</span> • <span>10:30AM</span></p>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="item">
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
-                                  <p>$11.00</p>
-                                </div>
-                                <p><span>$11.00</span> • <span>10:30AM</span></p>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="item">
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
-                                  <p>$11.00</p>
-                                </div>
-                                <p><span>$11.00</span> • <span>10:30AM</span></p>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="item">
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <h6 class="mb-0 fw-normal">Mall Parking</h6>
-                                  <p>$11.00</p>
-                                </div>
-                                <p><span>$11.00</span> • <span>10:30AM</span></p>
-                              </div>
-                            </li>
+                            <%if @histories.present?%>
+                              <%@histories.each do |history|%>
+                                <%connection = SwapperHostConnection.find_by(id: history.connection_id)%>
+                                <%slot = ParkingSlot.find_by(id: connection.parking_slot_id)%>
+                                <li>
+                                  <div class="item" id ="history_item" data-id="<%=history.id%>">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                      <h6 class="mb-0 fw-normal"><%=slot&.address%></h6>
+                                      <p>$<%=history.total_fee.to_f%></p>
+                                    </div>
+                                    <p><span><%=history.created_at.strftime("%b %e %Y")%></span> &nbsp • &nbsp <span><%=history.created_at.strftime("%H:%M")%></span></p>
+                                  </div>
+                                </li>
+                              <%end%>
+                            <%else%>
+                            <div class="no_history">
+                              <p>There is no history present.</p>
+                            </div>
+                            <%end%>
                           </ul>
                         </div>
                       </div>
                       <div class="col-7">
-                        <div class="user_details">
-                          <div class="top">
-                            <div class="img">
-                              <%= image_tag "support-user.png" %>
-                            </div>
-                            <div class="txt">
-                              <div class="host">
-                                <h6 class="mb-0">Antoine Madie Smith</h6>
-                                <span>host</span>
-                              </div>
-                              <p>Honda Civic GL300</p>
-                            </div>
-                          </div>
-                          <ul class="detail_list">
-                            <li>
-                              <div class="item">
-                                <p>Date</p>
-                                <h6>July 25, 2022</h6>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="item">
-                                <p>Time</p>
-                                <h6>10:00 AM</h6>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="item">
-                                <p>Location</p>
-                                <h6>Washington DC, USA</h6>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="item">
-                                <p>Swapper Fee</p>
-                                <h6>$10.00</h6>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="item">
-                                <p>SpotSwap Fee</p>
-                                <h6>$1.00</h6>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="item">
-                                <p>Total</p>
-                                <h6 class="total">$11.00</h6>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
+                        <%if @histories.present?%>
+                          <div class="host_details_div"></div>
+                        <%end%>
                       </div>
                     </div>
                   </div>
