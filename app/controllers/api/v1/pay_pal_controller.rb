@@ -18,10 +18,10 @@ class Api::V1::PayPalController < Api::V1::ApiController
   
   def transfer_amount
     begin
-      response = PayPalPaymentService.new.transfer_amount(params["acount_id"], params["payment_id"])
+      response = PayPalPaymentService.new.transfer_amount(params["acount_id"], params["payment_id"], token)
       render json: response
     rescue Exception => e
-      render json: { error:  e.message }, status: :unprocessable_entity
+      render json: { error: e.message }, status: :unprocessable_entity
     end
   end
 
@@ -30,7 +30,7 @@ class Api::V1::PayPalController < Api::V1::ApiController
       response = PayPalPaymentService.new.create_payment
       render json: response
     rescue Exception => e
-      render json: { error:  e.message }, status: :unprocessable_entity
+      render json: { error: e.message }, status: :unprocessable_entity
     end
   end
 
@@ -39,7 +39,7 @@ class Api::V1::PayPalController < Api::V1::ApiController
       response = PayPalPayOutsService.new.create_payout
       render json: response
     rescue Exception => e
-      render json: { error:  e.message }, status: :unprocessable_entity
+      render json: { error: e.message }, status: :unprocessable_entity
     end
   end
 end

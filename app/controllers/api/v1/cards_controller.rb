@@ -34,6 +34,8 @@ class Api::V1::CardsController < Api::V1::ApiController
     if @cards.present?
       @cards
     end
+    @wallet = [*@current_user.wallet]
+    @paypal_account = @current_user.paypal_partner_account
   end
 
   def destroy_card
