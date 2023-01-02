@@ -64,7 +64,7 @@ class PayPalConnectAccountService < BaseService
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(request)
     end
-    result = JSON.parse(response.body)  if response.code  == "201"
+    result = JSON.parse(response.body) if response.code  == "201"
     if result["links"].present?
       pay_pal_connect_id = result["links"].first["href"].split("/").last
       account_type = "partner-referrals"
