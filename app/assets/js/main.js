@@ -228,4 +228,23 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
+	$(document).on("keyup keypress", function(e){
+		debugger
+		if ($('#message_validation').val() == '' && $('.image_validation').val() == ''){
+			var keyCode = e.keyCode || e.which;
+			if (keyCode === 13) {
+				e.preventDefault();
+				return false;
+			}
+    }
+	})
+
+	$("#send_button").on("click", function(e){
+		debugger
+		if ($('#message_validation').val() == '' && $('.image_validation').val() == ''){
+				e.preventDefault();
+				return false;
+			}
+	})
+
 });
