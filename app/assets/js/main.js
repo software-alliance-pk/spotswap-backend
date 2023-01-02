@@ -229,8 +229,7 @@ $(document).on('turbolinks:load', function(){
 	});
 
 	$(document).on("keyup keypress", function(e){
-		debugger
-		if ($('#message_validation').val() == '' && $('.image_validation').val() == ''){
+		if ($('#input_field_text').val() == '' && $('#submitaddphoto').val() == ''){
 			var keyCode = e.keyCode || e.which;
 			if (keyCode === 13) {
 				e.preventDefault();
@@ -239,9 +238,8 @@ $(document).on('turbolinks:load', function(){
     }
 	})
 
-	$("#send_button").on("click", function(e){
-		debugger
-		if ($('#message_validation').val() == '' && $('.image_validation').val() == ''){
+	$(".send_btn").on("click", function(e){
+		if ($('#input_field_text').val() == '' && $('#submitaddphoto').val() == ''){
 				e.preventDefault();
 				return false;
 			}
