@@ -18,7 +18,7 @@ class Api::V1::PayPalController < Api::V1::ApiController
   
   def transfer_amount
     begin
-      response = PayPalPaymentService.new.transfer_amount(params["acount_id"], params["payment_id"], token)
+      response = PayPalPaymentService.new.transfer_amount(params["account_id"], params["payment_id"], params[:token])
       render json: response
     rescue Exception => e
       render json: { error: e.message }, status: :unprocessable_entity
@@ -27,6 +27,7 @@ class Api::V1::PayPalController < Api::V1::ApiController
 
   def create_payment
     begin
+      response1 = PayPalGetUserInformationService.new.fetch_user_information(params[:token])
       response = PayPalPaymentService.new.create_payment(@current_user, params[:token])
       render json: response
     rescue Exception => e
