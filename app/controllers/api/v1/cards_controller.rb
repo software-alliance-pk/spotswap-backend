@@ -14,7 +14,9 @@ class Api::V1::CardsController < Api::V1::ApiController
     @stripe_card_response = StripeService.create_card(customer.id, stripe_token)
     return render json: { error: "Card is not created on Stripe" }, status: 422 unless @stripe_card_response.present?
     @card = create_user_payment_card(@stripe_card_response)
-    make_first_card_as_default(@card)
+    # unless @current_user.paypal_partner_account.is_default? && @current_user.wallet.is_default?
+    #   make_first_card_as_default(@card)
+    # end
     if @card
       @card
       @stripe_card_response
@@ -34,7 +36,10 @@ class Api::V1::CardsController < Api::V1::ApiController
     if @cards.present?
       @cards
     end
-    @wallet = [*@current_user.wallet]
+    @wallet = @current_user.wallet
+    unless @current_user.paypal_partner_account.present?
+      @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
+    end
     @paypal_account = @current_user.paypal_partner_account
   end
 
@@ -76,15 +81,28 @@ class Api::V1::CardsController < Api::V1::ApiController
         if @default_payment.save
           @current_user.card_details.update(is_default: false)
           CardDetail.find_by(id: @default_payment.card_detail_id).update(is_default: true)
+          @current_user.paypal_partner_account.update(is_default: false)
+          @current_user.wallet.update(is_default: false) if @current_user.wallet.present?
         else
           render_error_messages(@default_payment)
         end
       end
       @card = StripeService.update_default_card_at_stripe(@current_user, CardDetail.find_by(id: @default_payment.card_detail_id).card_id)
-    else
+    elsif params[:payment_type] == "wallet"
       @default_payment = @current_user.build_default_payment(payment_type: params[:payment_type])
       if @default_payment.save
         @current_user.card_details.update(is_default: false)
+        @current_user.paypal_partner_account.update(is_default: false)
+        @current_user.wallet.update(payment_type:"wallet", is_default: true) if @current_user.wallet.present?
+      else
+        render_error_messages(@default_payment)
+      end
+    elsif params[:payment_type] == "paypal"
+      @default_payment = @current_user.build_default_payment(payment_type: params[:payment_type])
+      if @default_payment.save
+        @current_user.card_details.update(is_default: false)
+        @current_user.wallet.update(is_default: false) if @current_user.wallet.present?
+        @current_user.paypal_partner_account.update(payment_type:"paypal",is_default: true)
       else
         render_error_messages(@default_payment)
       end

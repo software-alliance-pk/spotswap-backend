@@ -15,4 +15,5 @@ json.payment_histories @payment_histories do |history|
   json.swapper_fee history.swapper_fee
   json.spotswap_fee history.spotswap_fee
   json.total_fee history.total_fee
+  json.slot_transfer_date_time history.created_at
 end

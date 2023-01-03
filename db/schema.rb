@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_02_093717) do
+ActiveRecord::Schema.define(version: 2023_01_03_123554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -208,12 +208,11 @@ ActiveRecord::Schema.define(version: 2023_01_02_093717) do
   end
 
   create_table "paypal_partner_accounts", force: :cascade do |t|
-    t.string "account_id"
-    t.string "account_type"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "email"
+    t.boolean "is_default", default: true
+    t.integer "payment_type"
     t.index ["user_id"], name: "index_paypal_partner_accounts_on_user_id"
   end
 
@@ -359,6 +358,8 @@ ActiveRecord::Schema.define(version: 2023_01_02_093717) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_default", default: false
+    t.integer "payment_type"
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 

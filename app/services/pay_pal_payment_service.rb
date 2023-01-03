@@ -52,6 +52,25 @@ class PayPalPaymentService <  BaseService
     return response.body
   end
 
+  def fetch_user_information(token)
+    uri = URI.parse("https://api-m.sandbox.paypal.com/v1/payments/payment/#{payment_id}/execute")
+    request = Net::HTTP::Post.new(uri)
+    request.content_type = "application/json"
+    request["Authorization"] = "Bearer #{token}"
+    request.body = JSON.dump({
+                               "payer_id" => account_id
+                             })
+
+    #payer_id means Destination Account
+    req_options = {
+      use_ssl: uri.scheme == "https",
+    }
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+    return response.body
+  end
+
   def transfer_amount(account_id, payment_id, token)
     uri = URI.parse("https://api-m.sandbox.paypal.com/v1/payments/payment/#{payment_id}/execute")
     request = Net::HTTP::Post.new(uri)
@@ -68,6 +87,6 @@ class PayPalPaymentService <  BaseService
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(request)
     end
-    return response
+    return response.body
   end
 end
