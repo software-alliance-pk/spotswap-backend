@@ -4,7 +4,7 @@ class PayPalPaymentService <  BaseService
     super
   end
 
-  def create_payment(email = "sb-lu2o323466027@personal.example.com", amount = 10.00, spotswap_fee = 1.00, token)
+  def create_payment(current_user, token, amount = 10.00, spotswap_fee = 1.00)
     total_amount = amount + spotswap_fee
     uri = URI.parse("https://api-m.sandbox.paypal.com/v1/payments/payment")
     request = Net::HTTP::Post.new(uri)
@@ -30,15 +30,15 @@ class PayPalPaymentService <  BaseService
                                      }
                                    },
                                    "description" => "The payment transaction description.",
-                                   "custom" => email,
+                                   "custom" => "micheal@spotswap.app",
                                    "payment_options" => {
                                      "allowed_payment_method" => "INSTANT_FUNDING_SOURCE"
                                    }
                                  }
                                ],
                                "redirect_urls": {
-                                 "return_url": "http://localhost:3000/api/v1/pay_pal/pay_pal_confirm",
-                                 "cancel_url": "http://localhost:3000/api/v1/pay_pal/pay_pal_cancel"
+                                 "return_url": "https://example.com",
+                                 "cancel_url": "https://example.com"
                                }
                              })
 
