@@ -48,9 +48,9 @@ class PayPalConnectAccountService < BaseService
                                  }
                                ],
                                "partner_config_override" => {
-                                 "return_url" => "https://testenterprises.com/merchantonboarded",
+                                 "return_url" => "https://example.com",
                                  "return_url_description" => "the url to return the merchant after the paypal onboarding process.",
-                                 "action_renewal_url" => "https://testenterprises.com/renew-exprired-url",
+                                 "action_renewal_url" => "https://example.com",
                                  "show_add_credit_card" => true
                                },
                                "email" => current_user.email,

@@ -4,7 +4,6 @@ class PayPalGetUserInformationService < BaseService
   require 'uri'
 
   def fetch_user_information(token)
-    debugger
     uri = URI.parse("https://api-m.sandbox.paypal.com/v1/identity/oauth2/userinfo?schema=paypalv1.1")
     request = Net::HTTP::Get.new(uri)
     request.content_type = "application/json"
