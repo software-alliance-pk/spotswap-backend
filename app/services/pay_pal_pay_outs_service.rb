@@ -4,7 +4,7 @@ class PayPalPayOutsService < BaseService
     super
   end
 
-  def create_payout(dest_email = "sb-svqqg24175819@personal.example.com", amount= 10.00)
+  def create_payout(dest_email, amount= 10.00)
     uri = URI.parse("https://api-m.sandbox.paypal.com/v1/payments/payouts")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
