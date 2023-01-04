@@ -15,8 +15,10 @@ class PayPalConnectAccountService < BaseService
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(request)
     end
-    result = JSON.parse(response.body) if response.code  == "200"
-    return account_details = {account_id: result["links"].first["href"].split("/").last, response: result}
+    if response.code  == "200"
+      result = JSON.parse(response.body)
+      return account_details = {account_id: result["links"].first["href"].split("/").last, response: result}
+    end
   end
 
   def create_paypal_customer_account(current_user)
@@ -64,13 +66,15 @@ class PayPalConnectAccountService < BaseService
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(request)
     end
-    result = JSON.parse(response.body) if response.code  == "201"
-    if result["links"].present?
-      pay_pal_connect_id = result["links"].first["href"].split("/").last
-      account_type = "partner-referrals"
-      account = current_user.build_paypal_partner_account(account_id: pay_pal_connect_id, account_type: account_type)
-      account.save
+    if response.code  == "201"
+      result = JSON.parse(response.body)
+      if result["links"].present?
+        pay_pal_connect_id = result["links"].first["href"].split("/").last
+        account_type = "partner-referrals"
+        account = current_user.build_paypal_partner_account(account_id: pay_pal_connect_id, account_type: account_type)
+        account.save
+      end
+      return account_details = {account_id: result["links"].first["href"].split("/").last, response: result}
     end
-    return account_details = {account_id: result["links"].first["href"].split("/").last, response: result}
   end
 end

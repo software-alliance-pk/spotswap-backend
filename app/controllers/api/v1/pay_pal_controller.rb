@@ -27,7 +27,7 @@ class Api::V1::PayPalController < Api::V1::ApiController
 
   def create_payment
     begin
-      response = PayPalPaymentService.new.create_payment(@current_user, params[:token])
+      response = PayPalPaymentService.new.create_payment(@current_user)
       render json: response
     rescue Exception => e
       render json: { error: e.message }, status: :unprocessable_entity

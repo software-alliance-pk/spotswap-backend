@@ -156,7 +156,7 @@ Rails.application.routes.draw do
         collection do
           post :pay_pal_confirm
           get :create_paypal_customer_account
-          post :create_payment
+          get :create_payment
           post :transfer_amount
           post :create_payout
         end
