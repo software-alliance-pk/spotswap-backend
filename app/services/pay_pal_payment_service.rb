@@ -4,12 +4,12 @@ class PayPalPaymentService <  BaseService
     super
   end
 
-  def create_payment(current_user, token, amount = 10.00, spotswap_fee = 1.00)
+  def create_payment(current_user, amount = 10.00, spotswap_fee = 1.00)
     total_amount = amount + spotswap_fee
     uri = URI.parse("https://api-m.sandbox.paypal.com/v1/payments/payment")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
-    request["Authorization"] = "Bearer #{token}"
+    request["Authorization"] = "Bearer #{@token}"
     request.body = JSON.dump({
                                "intent" => "sale",
                                "payer" => {
@@ -52,11 +52,11 @@ class PayPalPaymentService <  BaseService
     return response.body
   end
 
-  def transfer_amount(account_id, payment_id, token)
+  def transfer_amount(account_id, payment_id)
     uri = URI.parse("https://api-m.sandbox.paypal.com/v1/payments/payment/#{payment_id}/execute")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
-    request["Authorization"] = "Bearer #{token}"
+    request["Authorization"] = "Bearer #{@token}"
     request.body = JSON.dump({
                                "payer_id" => account_id
                              })
