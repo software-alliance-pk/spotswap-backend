@@ -155,10 +155,10 @@ Rails.application.routes.draw do
       resources :pay_pal, only: [] do
         collection do
           post :pay_pal_confirm
-          get :create_paypal_customer_account
+          post :create_paypal_customer_account
           get :create_payment
           post :transfer_amount
-          post :create_payout
+          get :create_payout
         end
       end
 

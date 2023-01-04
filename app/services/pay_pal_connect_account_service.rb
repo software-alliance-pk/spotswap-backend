@@ -21,7 +21,7 @@ class PayPalConnectAccountService < BaseService
     end
   end
 
-  def create_paypal_customer_account(current_user)
+  def create_paypal_customer_account(current_user, email)
     uri = URI.parse("https://api-m.sandbox.paypal.com/v2/customer/partner-referrals")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
@@ -55,7 +55,7 @@ class PayPalConnectAccountService < BaseService
                                  "action_renewal_url" => "https://example.com",
                                  "show_add_credit_card" => true
                                },
-                               "email" => current_user.email,
+                               "email" => email,
                                "preferred_language_code" => "en-US",
                              })
 
@@ -71,10 +71,10 @@ class PayPalConnectAccountService < BaseService
       if result["links"].present?
         pay_pal_connect_id = result["links"].first["href"].split("/").last
         account_type = "partner-referrals"
-        account = current_user.build_paypal_partner_account(account_id: pay_pal_connect_id, account_type: account_type)
+        account = current_user.build_paypal_partner_account(account_id: pay_pal_connect_id, account_type: account_type, email: email)
         account.save
       end
-      return account_details = {account_id: result["links"].first["href"].split("/").last, response: result}
+      return account_details = {account_id: result["links"].first["href"].split("/").last, response: result, account: account}
     end
   end
 end

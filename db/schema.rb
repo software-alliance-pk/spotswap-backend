@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_04_074927) do
+ActiveRecord::Schema.define(version: 2023_01_04_113851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -215,6 +215,7 @@ ActiveRecord::Schema.define(version: 2023_01_04_074927) do
     t.integer "payment_type"
     t.string "account_id"
     t.string "account_type"
+    t.string "email"
     t.index ["user_id"], name: "index_paypal_partner_accounts_on_user_id"
   end
 
