@@ -4,7 +4,7 @@ class Api::V1::PayPalController < Api::V1::ApiController
   def create_paypal_customer_account
     begin
       paypal_account = @current_user.paypal_partner_account
-      if paypal_account.present?
+      if paypal_account.present? && params[:email]== paypal_account.email
         @account_details = PayPalConnectAccountService.new.retrevie_paypal_customer_account(@current_user)
       else
         @account_details = PayPalConnectAccountService.new.create_paypal_customer_account(@current_user, params[:email])
