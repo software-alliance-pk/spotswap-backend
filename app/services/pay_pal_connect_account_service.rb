@@ -17,7 +17,7 @@ class PayPalConnectAccountService < BaseService
     end
     if response.code  == "200"
       result = JSON.parse(response.body)
-      return account_details = {account_id: result["links"].first["href"].split("/").last, response: result}
+      return account_details = {email: current_user.email, account_id: result["links"].first["href"].split("/").last, response: result}
     end
   end
 
@@ -68,13 +68,7 @@ class PayPalConnectAccountService < BaseService
     end
     if response.code  == "201"
       result = JSON.parse(response.body)
-      if result["links"].present?
-        # pay_pal_connect_id = result["links"].first["href"].split("/").last
-        # account_type = "partner-referrals"
-        # account = current_user.build_paypal_partner_account(account_id: pay_pal_connect_id, account_type: account_type, email: email)
-        # account.save
-      end
-      return account_details = { response: result}
+      return account_details = { email: email, response: result }
     end
   end
 end
