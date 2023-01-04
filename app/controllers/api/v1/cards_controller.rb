@@ -41,6 +41,7 @@ class Api::V1::CardsController < Api::V1::ApiController
       @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
     end
     @paypal_account = @current_user.paypal_partner_account
+    @paypal_account.payment_type = "paypal"
   end
 
   def destroy_card
