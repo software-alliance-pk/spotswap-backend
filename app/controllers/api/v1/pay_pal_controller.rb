@@ -15,6 +15,19 @@ class Api::V1::PayPalController < Api::V1::ApiController
       render json: { error:  e.message }, status: :unprocessable_entity
     end
   end
+
+  def save_paypal_account_details
+    return render json: { error: "Email is missing in params." }, status: :unprocessable_entity unless params[:email].present?
+    return render json: { error: "Link is missing in params." }, status: :unprocessable_entity unless params[:link].present?
+    pay_pal_connect_id = params[:link].split("/").last
+    account_type = "partner-referrals"
+    account = @current_user.build_paypal_partner_account(account_id: pay_pal_connect_id, account_type: account_type, email: params[:email])
+    if account.save
+      return render json: { message: "Your Paypal Account has been connected." }, status: :ok
+    else
+      return render json: { error: "Your Paypal Account could not be connected." }, status: :unprocessable_entity
+    end
+  end
   
   def transfer_amount
     begin
