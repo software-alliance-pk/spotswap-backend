@@ -183,14 +183,14 @@ class Api::V1::CardsController < Api::V1::ApiController
   end
 
   def create_user_payment_card(card)
-    unless @current_user.wallet.present? && @current_user.paypal_partner_account.present?
+    if @current_user.wallet.present? || @current_user.paypal_partner_account.present?
       @current_user.card_details.create(
       card_id: card.id, exp_month: card.exp_month,
       exp_year: card.exp_year, last_digit: card.last4,
       brand: card.brand, country: payment_params[:country],
       fingerprint: card.fingerprint, name: payment_params[:name],
       address: payment_params[:address], payment_type: payment_params[:payment_type],
-      is_default: true, payment_type: "credit_card"
+      payment_type: "credit_card"
     )
     else
       @current_user.card_details.create(
@@ -199,7 +199,7 @@ class Api::V1::CardsController < Api::V1::ApiController
       brand: card.brand, country: payment_params[:country],
       fingerprint: card.fingerprint, name: payment_params[:name],
       address: payment_params[:address], payment_type: payment_params[:payment_type],
-      is_default: false, payment_type: "credit_card"
+      is_default: true, payment_type: "credit_card"
     )
     end
     
