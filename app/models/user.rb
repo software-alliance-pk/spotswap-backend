@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   has_one :car_detail, dependent: :destroy
   has_one :stripe_connect_account, dependent: :destroy
-  has_one :paypal_partner_account, dependent: :destroy
+  has_many :paypal_partner_accounts, dependent: :destroy
   has_one :wallet, dependent: :destroy
   has_secure_password
   has_many :supports, dependent: :destroy
