@@ -17,7 +17,7 @@ class PayPalConnectAccountService < BaseService
     end
     if response.code  == "200"
       result = JSON.parse(response.body)
-      return account_details = {email: current_user.email, user_name: current_user.name, account_id: result["links"].first["href"].split("/").last, response: result}
+      return account_details = {email: current_user.email, account_id: result["links"].first["href"].split("/").last, response: result}
     end
   end
 
@@ -68,7 +68,7 @@ class PayPalConnectAccountService < BaseService
     end
     if response.code  == "201"
       result = JSON.parse(response.body)
-      return account_details = { email: email, user_name: current_user.name, response: result }
+      return account_details = { email: email, response: result }
     end
   end
 end
