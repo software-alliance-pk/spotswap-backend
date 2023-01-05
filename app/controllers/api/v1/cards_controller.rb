@@ -37,31 +37,32 @@ class Api::V1::CardsController < Api::V1::ApiController
       @cards
     end
     @wallet = @current_user.wallet
-    unless @current_user.paypal_partner_account.present?
-      if @current_user.wallet.present? && !@current_user.card_details.present?
-        if @current_user.wallet.is_default?
-          @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: false).save
-        else
-          @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
-        end
-      elsif @current_user.card_details.present? && !@current_user.wallet.present?
-        if (@current_user.card_details.pluck(:is_default).include? true)
-          @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: false).save
-        else
-          @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
-        end
-      elsif @current_user.card_details.present? && @current_user.wallet.present?
-        if @current_user.wallet.is_default? || (@current_user.card_details.pluck(:is_default).include? true)
-          @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: false).save
-        else
-          @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
-        end
-      else
-        @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
-      end
-    end
-    @paypal_account = @current_user.paypal_partner_account
-    @paypal_account.payment_type = "paypal"
+
+    # unless @current_user.paypal_partner_account.present?
+    #   if @current_user.wallet.present? && !@current_user.card_details.present?
+    #     if @current_user.wallet.is_default?
+    #       @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: false).save
+    #     else
+    #       @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
+    #     end
+    #   elsif @current_user.card_details.present? && !@current_user.wallet.present?
+    #     if (@current_user.card_details.pluck(:is_default).include? true)
+    #       @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: false).save
+    #     else
+    #       @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
+    #     end
+    #   elsif @current_user.card_details.present? && @current_user.wallet.present?
+    #     if @current_user.wallet.is_default? || (@current_user.card_details.pluck(:is_default).include? true)
+    #       @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: false).save
+    #     else
+    #       @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
+    #     end
+    #   else
+    #     @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
+    #   end
+    # end
+
+    @paypal_account = [*@current_user.paypal_partner_account] if @current_user.paypal_partner_account.present?
   end
 
   def destroy_card
@@ -182,13 +183,26 @@ class Api::V1::CardsController < Api::V1::ApiController
   end
 
   def create_user_payment_card(card)
-    @current_user.card_details.create(
+    unless @current_user.wallet.present? && @current_user.paypal_partner_account.present?
+      @current_user.card_details.create(
       card_id: card.id, exp_month: card.exp_month,
       exp_year: card.exp_year, last_digit: card.last4,
       brand: card.brand, country: payment_params[:country],
       fingerprint: card.fingerprint, name: payment_params[:name],
-      address: payment_params[:address], payment_type: payment_params[:payment_type]
+      address: payment_params[:address], payment_type: payment_params[:payment_type],
+      is_default: true, payment_type: "credit_card"
     )
+    else
+      @current_user.card_details.create(
+      card_id: card.id, exp_month: card.exp_month,
+      exp_year: card.exp_year, last_digit: card.last4,
+      brand: card.brand, country: payment_params[:country],
+      fingerprint: card.fingerprint, name: payment_params[:name],
+      address: payment_params[:address], payment_type: payment_params[:payment_type],
+      is_default: false, payment_type: "credit_card"
+    )
+    end
+    
   end
 
   def payment_params

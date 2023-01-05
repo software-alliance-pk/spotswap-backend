@@ -21,7 +21,11 @@ class Api::V1::PayPalController < Api::V1::ApiController
     return render json: { error: "Link is missing in params." }, status: :unprocessable_entity unless params[:link].present?
     pay_pal_connect_id = params[:link].split("/").last
     account_type = "partner-referrals"
-    account = @current_user.build_paypal_partner_account(account_id: pay_pal_connect_id, account_type: account_type, email: params[:email])
+    unless @current_user.wallet.present? && @current_user.card_details.present?
+      account = @current_user.build_paypal_partner_account(account_id: pay_pal_connect_id, account_type: account_type, email: params[:email], is_default: true, payment_type: "paypal")
+    else
+      account = @current_user.build_paypal_partner_account(account_id: pay_pal_connect_id, account_type: account_type, email: params[:email], payment_type: "paypal")
+    end
     if account.save
       return render json: { message: "Your Paypal Account has been connected." }, status: :ok
     else
