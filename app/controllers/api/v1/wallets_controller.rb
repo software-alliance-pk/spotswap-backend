@@ -66,8 +66,11 @@ class Api::V1::WalletsController < Api::V1::ApiController
         @referral_code_record = check_referrer_code_already_in_use(@referrer)
       end
       @topup_response = StripeTopUpService.new.create_top_up(params[:amount].to_i*100)
-
-      @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]), payment_type: "wallet")
+      unless @current_user.paypal_partner_account.present? && @current_user.card_details.present?
+        @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]), is_default: true, payment_type: "wallet")
+      else
+        @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]), is_default: false, payment_type: "wallet")
+      end
       @wallet.wallet_amount = params[:amount]
       if @wallet.save
         @referral_code_record.update(is_top_up_created: true) if params[:referrer_code].present?
