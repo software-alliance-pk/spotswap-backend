@@ -62,7 +62,7 @@ class Api::V1::CardsController < Api::V1::ApiController
     #   end
     # end
 
-    @paypal_account = [*@current_user.paypal_partner_account] if @current_user.paypal_partner_account.present?
+    @paypal_account = @current_user&.paypal_partner_accounts
   end
 
   def destroy_card
@@ -102,8 +102,8 @@ class Api::V1::CardsController < Api::V1::ApiController
         @default_payment = @current_user.build_default_payment(card_detail_id: params[:card_detail_id], payment_type: params[:payment_type])
         if @default_payment.save
           @current_user.card_details.update(is_default: false)
-          CardDetail.find_by(id: @default_payment.card_detail_id).update(is_default: true)
-          @current_user.paypal_partner_account.update(is_default: false)
+          @card_detail.update(is_default: true)
+          @current_user.paypal_partner_accounts.update(is_default: false) if @current_user.paypal_partner_accounts.present?
           @current_user.wallet.update(is_default: false) if @current_user.wallet.present?
         else
           render_error_messages(@default_payment)
@@ -113,20 +113,29 @@ class Api::V1::CardsController < Api::V1::ApiController
     elsif params[:payment_type] == "wallet"
       @default_payment = @current_user.build_default_payment(payment_type: params[:payment_type])
       if @default_payment.save
-        @current_user.card_details.update(is_default: false)
-        @current_user.paypal_partner_account.update(is_default: false)
+        @current_user.card_details.update(is_default: false) if @current_user.card_details.present?
+        @current_user.paypal_partner_accounts.update(is_default: false) if @current_user.paypal_partner_accounts.present?
         @current_user.wallet.update(payment_type:"wallet", is_default: true) if @current_user.wallet.present?
       else
         render_error_messages(@default_payment)
       end
     elsif params[:payment_type] == "paypal"
-      @default_payment = @current_user.build_default_payment(payment_type: params[:payment_type])
-      if @default_payment.save
-        @current_user.card_details.update(is_default: false)
-        @current_user.wallet.update(is_default: false) if @current_user.wallet.present?
-        @current_user.paypal_partner_account.update(payment_type:"paypal",is_default: true)
+      return render json: {error: "Paypal Account Id is missing."}, status: :unprocessable_entity unless params[:paypal_account_id].present?
+      @paypal_account = PaypalPartnerAccount.find_by_id(params[:paypal_account_id])
+      return render json: {error: "Paypal Account with this Id is not present."}, status: :unprocessable_entity unless @paypal_account.present?
+      return render json: {error: "User has not any Paypal Account with this Id."}, status: :unprocessable_entity unless @current_user.paypal_partner_accounts.include? @paypal_account
+      if @paypal_account.is_default == true
+        @paypal_account = DefaultPayment.find_by(paypal_account_id: @paypal_account.id)
       else
-        render_error_messages(@default_payment)
+        @default_payment = @current_user.build_default_payment(payment_type: params[:payment_type], paypal_account_id: params[:paypal_account_id])
+        if @default_payment.save
+          @current_user.card_details.update(is_default: false) if @current_user.card_details.present?
+          @current_user.wallet.update(is_default: false) if @current_user.wallet.present?
+          @current_user.paypal_partner_accounts.update(is_default: false) if @current_user.paypal_partner_accounts.present?
+          @paypal_account.update(payment_type:"paypal", is_default: true)
+        else
+          render_error_messages(@default_payment)
+        end
       end
     end
   end
@@ -183,7 +192,7 @@ class Api::V1::CardsController < Api::V1::ApiController
   end
 
   def create_user_payment_card(card)
-    if @current_user.wallet.present? || @current_user.paypal_partner_account.present?
+    if @current_user.wallet.present? || @current_user.paypal_partner_accounts.present? || ((@current_user.card_details.pluck(:is_default).include? true) if @current_user.card_details.present?)
       @current_user.card_details.create(
       card_id: card.id, exp_month: card.exp_month,
       exp_year: card.exp_year, last_digit: card.last4,

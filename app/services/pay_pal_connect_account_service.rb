@@ -4,8 +4,8 @@ class PayPalConnectAccountService < BaseService
     super
   end
 
-  def retrevie_paypal_customer_account(current_user)
-    uri = URI.parse("https://api.sandbox.paypal.com/v2/customer/partner-referrals/#{current_user.paypal_partner_account.account_id}")
+  def retrevie_paypal_customer_account(current_user, account)
+    uri = URI.parse("https://api.sandbox.paypal.com/v2/customer/partner-referrals/#{account.account_id}")
     request = Net::HTTP::Get.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{@token}"

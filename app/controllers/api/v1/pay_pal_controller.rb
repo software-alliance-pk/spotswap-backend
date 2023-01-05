@@ -3,9 +3,14 @@ class Api::V1::PayPalController < Api::V1::ApiController
 
   def create_paypal_customer_account
     begin
-      paypal_account = @current_user.paypal_partner_account
-      if paypal_account.present? && params[:email]== paypal_account.email
-        @account_details = PayPalConnectAccountService.new.retrevie_paypal_customer_account(@current_user)
+      paypal_accounts = @current_user.paypal_partner_accounts
+      if paypal_accounts.present?
+        paypal_accounts.each do |account|
+          if account.email == params[:email]
+            @account_details = PayPalConnectAccountService.new.retrevie_paypal_customer_account(@current_user, account)
+          end
+        end
+        @account_details = PayPalConnectAccountService.new.create_paypal_customer_account(@current_user, params[:email])
       else
         @account_details = PayPalConnectAccountService.new.create_paypal_customer_account(@current_user, params[:email])
       end
@@ -22,9 +27,9 @@ class Api::V1::PayPalController < Api::V1::ApiController
     pay_pal_connect_id = params[:link].split("/").last
     account_type = "partner-referrals"
     if @current_user.wallet.present? || @current_user.card_details.present?
-      account = @current_user.build_paypal_partner_account(account_id: pay_pal_connect_id, account_type: account_type, email: params[:email], payment_type: "paypal")
+      account = @current_user.paypal_partner_accounts.build(account_id: pay_pal_connect_id, account_type: account_type, email: params[:email], payment_type: "paypal")
     else
-      account = @current_user.build_paypal_partner_account(account_id: pay_pal_connect_id, account_type: account_type, email: params[:email], is_default: true, payment_type: "paypal")
+      account = @current_user.paypal_partner_accounts.build(account_id: pay_pal_connect_id, account_type: account_type, email: params[:email], is_default: true, payment_type: "paypal")
     end
     if account.save
       return render json: { message: "Your Paypal Account has been connected." }, status: :ok
@@ -44,8 +49,8 @@ class Api::V1::PayPalController < Api::V1::ApiController
 
   def create_payment
     begin
-      if @current_user.paypal_partner_account.present?
-        email = @current_user.paypal_partner_account.email
+      if @current_user.paypal_partner_accounts.present?
+        email = @current_user.paypal_partner_accounts.last.email
       end
       response = PayPalPaymentService.new.create_payment(@current_user, email)
       render json: response
@@ -56,8 +61,8 @@ class Api::V1::PayPalController < Api::V1::ApiController
 
   def create_payout
     begin
-      if @current_user.paypal_partner_account.present?
-        email = @current_user.paypal_partner_account.email
+      if @current_user.paypal_partner_accounts.present?
+        email = @current_user.paypal_partner_accounts.last.email
       end
       response = PayPalPayOutsService.new.create_payout(email)
       render json: response
