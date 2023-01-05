@@ -38,8 +38,24 @@ class Api::V1::CardsController < Api::V1::ApiController
     end
     @wallet = @current_user.wallet
     unless @current_user.paypal_partner_account.present?
-      if @current_user.wallet.is_default? || (@current_user.card_details.pluck(:is_default).include? true)
-        @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: false).save
+      if @current_user.wallet.present? && !@current_user.card_details.present?
+        if @current_user.wallet.is_default?
+          @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: false).save
+        else
+          @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
+        end
+      elsif @current_user.card_details.present? && !@current_user.wallet.present?
+        if (@current_user.card_details.pluck(:is_default).include? true)
+          @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: false).save
+        else
+          @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
+        end
+      elsif @current_user.card_details.present? && @current_user.wallet.present?
+        if @current_user.wallet.is_default? || (@current_user.card_details.pluck(:is_default).include? true)
+          @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: false).save
+        else
+          @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
+        end
       else
         @current_user.build_paypal_partner_account(payment_type: "paypal", is_default: true).save
       end
