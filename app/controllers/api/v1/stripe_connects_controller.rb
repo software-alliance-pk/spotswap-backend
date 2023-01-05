@@ -10,7 +10,11 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
         wallet = @current_user.wallet
       else
         @account_details = StripeConnectAccountService.new.create_connect_customer_account(@current_user, user_stripe_connect_account_api_v1_stripe_connects_path)
-        wallet = @current_user.build_wallet(amount: 0)
+        if @current_user.paypal_partner_accounts.present? || @current_user.card_details.present?
+          wallet = @current_user.build_wallet(amount: 0, payment_type: "wallet")
+        else
+          wallet = @current_user.build_wallet(amount: 0, payment_type: "wallet", is_default: true)
+        end
         if wallet.save
           wallet
         end
