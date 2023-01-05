@@ -70,9 +70,18 @@ class Api::V1::CardsController < Api::V1::ApiController
     if @card.present?
       @card.destroy
       user_cards_info = @current_user.card_details
-      find_first_card = user_cards_info&.first unless user_cards_info.pluck(:is_default).include?(true)
-      if find_first_card
-        find_first_card.update(is_default: true)
+
+      if !user_cards_info.present?
+        if @current_user.wallet.present?
+          @current_user.wallet.update(is_default: true)
+        elsif @current_user.paypal_partner_accounts.present?
+          @current_user.paypal_partner_accounts.first.update(is_default: true)
+        end
+      else
+        find_first_card = user_cards_info&.first unless user_cards_info.pluck(:is_default).include?(true)
+        if find_first_card
+          find_first_card.update(is_default: true)
+        end
       end
       customer = check_customer_at_stripe
       @stripe_card_response = StripeService.destroy_card(customer.id, @card_id)
