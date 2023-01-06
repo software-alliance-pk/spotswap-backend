@@ -38,7 +38,7 @@ class PushNotificationService
       car_image: connection.host&.car_detail&.photos&.attached? ? connection.host.car_detail.photos[0].url : "",
       parking_slot_image: connection.parking_slot&.image&.attached? ? connection.parking_slot.image.url : "",
       user_type: "Host",
-      swapper_payment_type: connection&.swapper&.default_payment&.payment_type
+      swapper_payment_type: connection&.swapper&.default_payment&.payment_type,
       body: "#{host.name} wants to transfer his parking slot."
      }
    fcm_client = FCM.new("AAAAlr4iktw:APA91bF55dfM-lYWPqi-dHMnWGvrwQwRMAEJZD6Hu2P1mEdX8sHBcsVzLx3goF2E8ArNLw9EwvaRzlUGd5YDHCY9WOiu0mtP4jR8XXD2aH-5ItgZ12eY90NYxrNuisHjm3mIx8lsMFAo") # set your FCM_SERVER_KEY
