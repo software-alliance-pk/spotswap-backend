@@ -8,18 +8,21 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
       if stripe_connect_account.present?
         @account_details = StripeConnectAccountService.new.retrieve_stripe_connect_account(stripe_connect_account.account_id, user_stripe_connect_account_api_v1_stripe_connects_path)
         wallet = @current_user.wallet
+        default_payment = @current_user.default_payment
       else
         @account_details = StripeConnectAccountService.new.create_connect_customer_account(@current_user, user_stripe_connect_account_api_v1_stripe_connects_path)
         if @current_user.paypal_partner_accounts.present? || @current_user.card_details.present?
           wallet = @current_user.build_wallet(amount: 0, payment_type: "wallet")
         else
           wallet = @current_user.build_wallet(amount: 0, payment_type: "wallet", is_default: true)
+          default_payment = @current_user.build_default_payment(payment_type: "wallet")
         end
         if wallet.save
           wallet
+          default_payment.save
         end
       end
-      render json: {account_details: @account_details, wallet: wallet}
+      render json: {account_details: @account_details, wallet: wallet, default_payment: default_payment}
 
     rescue Exception => e
       render json: { error:  e.message }, status: :unprocessable_entity
