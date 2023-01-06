@@ -68,8 +68,10 @@ class Api::V1::WalletsController < Api::V1::ApiController
       @topup_response = StripeTopUpService.new.create_top_up(params[:amount].to_i*100)
       if @current_user.paypal_partner_accounts.present? || @current_user.card_details.present?
         @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]), payment_type: "wallet")
+        create_wallet_history(params[:amount])
       else
         @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]), is_default: true, payment_type: "wallet")
+        create_wallet_history(params[:amount])
       end
       @wallet.wallet_amount = params[:amount]
       if @wallet.save
@@ -113,6 +115,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
     if connection_details.swapper.wallet.amount.to_i >= amount.to_i
       @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, connection_details.host.stripe_connect_account.account_id)
       create_payment_history("topup", connection_details, amount)
+      @current_user.wallet_histories.create(transaction_type: "debited", top_up_description: "spot_swap", amount: amount, title: "Payment")
       connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
     else
       return render json: {error: "You have Insufficient Balance in your Wallet."}, status: :unprocessable_entity
@@ -129,5 +132,10 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
   def notify_host_payment_has_been_sent_from_swapper(connection, amount)
     PushNotificationService.notify_host_payment_has_been_sent_from_swapper(connection, amount)
+  end
+
+  def create_wallet_history(amount)
+    StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount.to_i, @current_user.stripe_connect_account.account_id)
+    @current_user.wallet_histories.create(transaction_type: "credited", top_up_description: "bank_transfer", amount: amount, title: "Top Up")
   end
 end
