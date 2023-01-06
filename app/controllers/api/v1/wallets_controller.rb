@@ -38,7 +38,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
     if payment_type == "other_payment"
       @other_history = @current_user.other_histories.create(connection_id: connection_details.id, connection_date_time: connection_details.created_at,
       connection_location: connection_details.parking_slot.address,
-      swapper_id: connection_details.swapper.id, host_id: connection_details.host.id, swapper_fee: amount, spotswap_fee: 1, total_fee: amount+1)
+      swapper_id: connection_details.swapper.id, host_id: connection_details.host.id, swapper_fee: amount, spotswap_fee: 1, total_fee: amount.to_i+1)
     else
       @wallet_history = @current_user.wallet_histories.create(transaction_type: "credited", top_up_description: "spot_swap", amount: amount, title: "Payment")
     end
