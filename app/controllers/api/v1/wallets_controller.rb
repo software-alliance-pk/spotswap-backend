@@ -34,16 +34,6 @@ class Api::V1::WalletsController < Api::V1::ApiController
     end
   end
 
-  def create_payment_history(payment_type, connection_details, amount)
-    if payment_type == "other_payment"
-      @other_history = @current_user.other_histories.create(connection_id: connection_details.id, connection_date_time: connection_details.created_at,
-      connection_location: connection_details.parking_slot.address,
-      swapper_id: connection_details.swapper.id, host_id: connection_details.host.id, swapper_fee: amount, spotswap_fee: 1, total_fee: amount.to_i+1)
-    else
-      @wallet_history = @current_user.wallet_histories.create(transaction_type: "credited", top_up_description: "spot_swap", amount: amount, title: "Payment")
-    end
-  end
-
   def add_amount_to_wallet
     begin
       return render json: {error: "Amount is missing."}, status: :unprocessable_entity unless params[:amount].present?
@@ -115,10 +105,20 @@ class Api::V1::WalletsController < Api::V1::ApiController
     if connection_details.swapper.wallet.amount.to_i >= amount.to_i
       @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, connection_details.host.stripe_connect_account.account_id)
       create_payment_history("topup", connection_details, amount)
-      @current_user.wallet_histories.create(transaction_type: "debited", top_up_description: "spot_swap", amount: amount, title: "Payment")
+      connection_details.host.wallet_histories.create(transaction_type: "credited", amount: amount)
       connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
     else
       return render json: {error: "You have Insufficient Balance in your Wallet."}, status: :unprocessable_entity
+    end
+  end
+
+  def create_payment_history(payment_type, connection_details, amount)
+    if payment_type == "other_payment"
+      @other_history = @current_user.other_histories.create(connection_id: connection_details.id, connection_date_time: connection_details.created_at,
+      connection_location: connection_details.parking_slot.address,
+      swapper_id: connection_details.swapper.id, host_id: connection_details.host.id, swapper_fee: amount, spotswap_fee: 1, total_fee: amount.to_i+1)
+    else
+      @wallet_history = @current_user.wallet_histories.create(transaction_type: "debited", top_up_description: "spot_swap", amount: amount, title: "Payment")
     end
   end
 
