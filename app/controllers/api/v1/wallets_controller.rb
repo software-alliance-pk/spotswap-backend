@@ -120,10 +120,8 @@ class Api::V1::WalletsController < Api::V1::ApiController
   end
 
   def charge_amount_through_credit_card(amount, connection_details)
-    Rails.logger.info "hi from charge_amount_through_credit_card"
     @charge_response = StripeChargeService.new.charge_amount_from_customer(amount, connection_details.swapper.stripe_connect_account.account_id)
     @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, connection_details.host.stripe_connect_account.account_id)
-    Rails.logger.info "hi from charge_amount_through_credit_card"
   end
 
   def charge_amount_through_paypal
