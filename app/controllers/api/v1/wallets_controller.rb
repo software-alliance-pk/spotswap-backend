@@ -6,21 +6,21 @@ class Api::V1::WalletsController < Api::V1::ApiController
       return render json: {error: "Amount is missing."}, status: :unprocessable_entity unless params[:amount].present?
       connection_details =  check_connection_create_before_charge_amount
       return render json: {error: "You have not any Swapper Host Connection."}, status: :unprocessable_entity unless connection_details.present?
-      return render json: {error: "User has not any Stripe Connect Account."}, status: :unprocessable_entity unless connection_details.swapper.stripe_connect_account.present?
-      return render json: {error: "Host has not any Stripe Connect Account."}, status: :unprocessable_entity unless connection_details.host.stripe_connect_account.present?
+      # return render json: {error: "User has not any Stripe Connect Account."}, status: :unprocessable_entity unless connection_details.swapper.stripe_connect_account.present?
+      # return render json: {error: "Host has not any Stripe Connect Account."}, status: :unprocessable_entity unless connection_details.host.stripe_connect_account.present?
 
       @default_payment = connection_details.swapper.default_payment
       if @default_payment.present?
         if @default_payment.payment_type == "paypal"
           @paypal_payment_response = PayPalPaymentService.new.create_payment
         elsif @default_payment.payment_type == "credit_card"
-          charge_amount_through_credit_card(params[:amount].to_i*100, connection_details)
-          create_payment_history("other_payment", connection_details, params[:amount])
+          charge_amount_through_credit_card(params[:amount], connection_details)
+          create_payment_history("other_payment", connection_details, params[:amount].to_i-1)
           connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
           notify_host_payment_has_been_sent_from_swapper(connection_details, params[:amount])
           connection_details.destroy
         elsif @default_payment.payment_type == "wallet"
-          charge_amount_through_wallet(params[:amount].to_i*100, connection_details)
+          charge_amount_through_wallet(params[:amount], connection_details)
           notify_host_payment_has_been_sent_from_swapper(connection_details, params[:amount])
           connection_details.destroy
         else
@@ -103,7 +103,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
   def charge_amount_through_wallet(amount, connection_details)
     if connection_details.swapper.wallet.amount.to_i >= amount.to_i
-      @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, connection_details.host.stripe_connect_account.account_id)
+      @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id)
       create_payment_history("topup", connection_details, amount)
       connection_details.host.wallet_histories.create(transaction_type: "credited", amount: amount)
       connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
@@ -116,13 +116,14 @@ class Api::V1::WalletsController < Api::V1::ApiController
     if payment_type == "other_payment"
       @other_history = @current_user.other_histories.create(connection_id: connection_details.id, connection_date_time: connection_details.created_at,
       connection_location: connection_details.parking_slot.address,
-      swapper_id: connection_details.swapper.id, host_id: connection_details.host.id, swapper_fee: amount, spotswap_fee: 1, total_fee: amount.to_i+1)
+      swapper_id: connection_details.swapper.id, host_id: connection_details.host.id, swapper_fee: amount, spotswap_fee: 1, total_fee: amount+1)
     else
       @wallet_history = @current_user.wallet_histories.create(transaction_type: "debited", top_up_description: "spot_swap", amount: amount, title: "Payment")
     end
   end
 
   def charge_amount_through_credit_card(amount, connection_details)
+    amount = amount.to_i*100
     @charge_response = StripeChargeService.new.charge_amount_from_customer(amount, connection_details.swapper.stripe_connect_account.account_id)
     @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, connection_details.host.stripe_connect_account.account_id)
   end
@@ -135,7 +136,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
   end
 
   def create_wallet_history(amount)
-    StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount.to_i, @current_user.stripe_connect_account.account_id)
+    # StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount.to_i, @current_user.stripe_connect_account.account_id)
     @current_user.wallet_histories.create(transaction_type: "credited", top_up_description: "bank_transfer", amount: amount, title: "Top Up")
   end
 end

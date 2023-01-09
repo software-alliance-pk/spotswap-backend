@@ -3,11 +3,11 @@ class StripeChargeService
 
   def charge_amount_from_customer(amount, account_id)
     response = Stripe::Charge.create({
-                            amount: amount,
-                            currency: 'usd',
-                            source: account_id,
-                            description: 'My First Test Charge (created for API docs at https://www.stripe.com/docs/api)',
-                          })
+      amount: amount,
+      currency: 'usd',
+      source: account_id,
+      description: 'My First Test Charge (created for API docs at https://www.stripe.com/docs/api)',
+    })
     return response
   end
 end
