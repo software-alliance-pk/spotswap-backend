@@ -1,13 +1,21 @@
 class Admins::PasswordsController < Devise::PasswordsController
   
   def create
-    if Admin.last.email == params[:admin][:email]
-      $otp = 6.times.map{rand(10)}.join
-      super
+    if forget_password_params[:email].present?
+      @admin  = Admin.find_by(email: forget_password_params[:email])
+      if @admin.present?
+        session[:admin_email_used_for_reset_password] = @admin.email
+        @admin.otp = 6.times.map{rand(10)}.join
+        @admin.save
+        super
+      else
+        flash[:alert] = "No admin exist's against this email"
+        redirect_to new_admin_password_path
+      end
     else
+      flash[:alert] = "Email can't be blank"
       redirect_to new_admin_password_path
-      flash[:alert] = "Invalid Email"
-    end 
+    end
   end
 
   def update
@@ -40,5 +48,10 @@ class Admins::PasswordsController < Devise::PasswordsController
   def after_sending_reset_password_instructions_path_for(resource)
     otp_verification_admins_otp_verifications_path
   end
+
+  def forget_password_params
+    params.require(:admin).permit(:email)
+  end
+
 
 end
