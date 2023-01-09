@@ -7,9 +7,9 @@ class StripeTopUpService
       {
         amount: amount,
         currency: 'usd',
-        description: 'Top-up for week of May 31',
+        description: 'Top-up',
         statement_descriptor: 'Weekly top-up',
-      },
+      }
       )
   end
 
