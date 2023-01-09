@@ -15,10 +15,7 @@ class Admins::RegistrationsController < Devise::RegistrationsController
         respond_with resource, location: after_inactive_sign_up_path_for(resource) and return
       end
     else
-      clean_up_passwords resource
-      set_minimum_password_length
-      flash[:alert] = resource.errors.full_messages.last
-      redirect_to new_admin_registration_path
+      super
     end
   end
 end
