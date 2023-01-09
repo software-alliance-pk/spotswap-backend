@@ -10,5 +10,8 @@ class Admin < ApplicationRecord
   has_one_attached :image, dependent: :destroy
   self.per_page = 10
 
+  validates :email, presence: true
+  validates :email, uniqueness: true
+
   validates :full_name, :category, presence: true
 end
