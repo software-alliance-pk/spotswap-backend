@@ -108,7 +108,11 @@ class Api::V1::WalletsController < Api::V1::ApiController
     if connection_details.swapper.wallet.amount.to_i >= amount.to_i
       @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id)
       create_payment_history("topup", connection_details, amount)
-      connection_details.host.wallet_histories.create(transaction_type: "credited", amount: amount)
+      connection_details.host.wallet_histories.create(transaction_type: "credited", amount: (amount.to_i-1), title: "Credited")
+
+      wallet_new_amount = connection_details.host.wallet.amount + (amount.to_i-1)
+      connection_details.host.wallet.update(amount: wallet_new_amount)
+
       connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
       @is_wallet_out_of_balance = false
     else
@@ -123,6 +127,8 @@ class Api::V1::WalletsController < Api::V1::ApiController
       swapper_id: connection_details.swapper.id, host_id: connection_details.host.id, swapper_fee: amount, spotswap_fee: 1, total_fee: amount+1)
     else
       @wallet_history = @current_user.wallet_histories.create(transaction_type: "debited", top_up_description: "spot_swap", amount: amount, title: "Payment")
+      wallet_new_amount = @current_user.wallet.amount - amount.to_i
+      @current_user.wallet.update(amount: wallet_new_amount)
     end
   end
 
