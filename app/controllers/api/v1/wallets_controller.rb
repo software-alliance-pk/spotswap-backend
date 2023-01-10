@@ -16,6 +16,11 @@ class Api::V1::WalletsController < Api::V1::ApiController
         elsif @default_payment.payment_type == "credit_card"
           charge_amount_through_credit_card(params[:amount], connection_details)
           create_payment_history("other_payment", connection_details, params[:amount].to_i-1)
+          connection_details.host.wallet_histories.create(transaction_type: "credited", amount: params[:amount].to_i-1, title: "Credited")
+
+          wallet_new_amount = connection_details.host.wallet.amount + params[:amount].to_i-1
+          connection_details.host.wallet.update(amount: wallet_new_amount)
+
           connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
           notify_host_payment_has_been_sent_from_swapper(connection_details, params[:amount])
           connection_details.destroy
