@@ -21,6 +21,9 @@ class Api::V1::WalletsController < Api::V1::ApiController
           connection_details.destroy
         elsif @default_payment.payment_type == "wallet"
           charge_amount_through_wallet(params[:amount], connection_details)
+          if @is_wallet_out_of_balance
+            return render json: {error: "You have Insufficient Balance in your Wallet."}, status: :unprocessable_entity
+          end
           notify_host_payment_has_been_sent_from_swapper(connection_details, params[:amount])
           connection_details.destroy
         else
@@ -76,7 +79,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
   end
 
   def get_wallet_detail
-    return render json: {error: "You have not any Wallet, Please add it."}, status: :unprocessable_entity unless @current_user.wallet.present?
+    return render json: {error: "You have not set up your wallet, Please add it first."}, status: :unprocessable_entity unless @current_user.wallet.present?
     @wallet_detail = @current_user.wallet
     @wallet_histories = @current_user.wallet_histories.order(created_at: :desc)
   end
@@ -107,8 +110,9 @@ class Api::V1::WalletsController < Api::V1::ApiController
       create_payment_history("topup", connection_details, amount)
       connection_details.host.wallet_histories.create(transaction_type: "credited", amount: amount)
       connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
+      @is_wallet_out_of_balance = false
     else
-      return render json: {error: "You have Insufficient Balance in your Wallet."}, status: :unprocessable_entity
+      @is_wallet_out_of_balance = true
     end
   end
 
