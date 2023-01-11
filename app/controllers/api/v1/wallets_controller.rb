@@ -147,7 +147,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
   end
 
   def notify_host_payment_has_been_sent_from_swapper(connection, amount)
-    PushNotificationService.notify_host_payment_has_been_sent_from_swapper(connection, amount)
+    PushNotificationService.notify_host_payment_has_been_sent_from_swapper(connection, amount.to_i-1)
   end
 
   def create_wallet_history(amount)
