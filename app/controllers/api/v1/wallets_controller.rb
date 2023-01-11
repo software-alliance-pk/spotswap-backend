@@ -6,13 +6,11 @@ class Api::V1::WalletsController < Api::V1::ApiController
       return render json: {error: "Amount is missing."}, status: :unprocessable_entity unless params[:amount].present?
       connection_details =  check_connection_create_before_charge_amount
       return render json: {error: "You have not any Swapper Host Connection."}, status: :unprocessable_entity unless connection_details.present?
-      # return render json: {error: "User has not any Stripe Connect Account."}, status: :unprocessable_entity unless connection_details.swapper.stripe_connect_account.present?
-      # return render json: {error: "Host has not any Stripe Connect Account."}, status: :unprocessable_entity unless connection_details.host.stripe_connect_account.present?
 
       @default_payment = connection_details.swapper.default_payment
       if @default_payment.present?
         if @default_payment.payment_type == "paypal"
-          @paypal_payment_response = PayPalPaymentService.new.create_payment
+          
         elsif @default_payment.payment_type == "credit_card"
           charge_amount_through_credit_card(params[:amount], connection_details)
           create_payment_history("other_payment", connection_details, params[:amount].to_i-1)
