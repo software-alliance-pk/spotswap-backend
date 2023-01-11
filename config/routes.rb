@@ -61,6 +61,7 @@ Rails.application.routes.draw do
           get :get_user
           post :update_user
           post :update_user_status
+          post :swapper_location_tracking
         end
       end
 
