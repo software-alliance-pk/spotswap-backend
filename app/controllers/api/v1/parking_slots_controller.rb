@@ -6,6 +6,8 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
 
   def create_slot
     return render json: {error: "You have not any Stripe Connect Account, Please Add it first."}, status: :unprocessable_entity unless @current_user.stripe_connect_account.present?
+    return render json: {error: "You have not any Paypal Account, Please Add it first."}, status: :unprocessable_entity unless @current_user.paypal_partner_accounts.present?
+
     if @current_user.host_swapper_connection.present? || @current_user.swapper_host_connection.present?
       return render json: {error: "You are Already in Connection."}, status: :unprocessable_entity
     else
