@@ -13,7 +13,8 @@ class Api::V1::WalletsController < Api::V1::ApiController
           
         elsif @default_payment.payment_type == "credit_card"
           charge_amount_through_credit_card(params[:amount], connection_details)
-          create_payment_history("other_payment", connection_details, params[:amount].to_i-1)
+          create_payment_history("other_payment", connection_details.swapper, connection_details, params[:amount].to_i-1)
+          create_payment_history("other_payment", connection_details.host, connection_details, params[:amount].to_i-1)
           connection_details.host.wallet_histories.create(transaction_type: "credited", amount: params[:amount].to_i-1, title: "Credited")
 
           wallet_new_amount = connection_details.host.wallet.amount + params[:amount].to_i-1
@@ -110,7 +111,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
   def charge_amount_through_wallet(amount, connection_details)
     if connection_details.swapper.wallet.amount.to_i >= amount.to_i
       @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id)
-      create_payment_history("topup", connection_details, amount)
+      create_payment_history("topup", @current_user, connection_details, amount)
       connection_details.host.wallet_histories.create(transaction_type: "credited", amount: (amount.to_i-1), title: "Credited")
 
       wallet_new_amount = connection_details.host.wallet.amount + (amount.to_i-1)
@@ -123,13 +124,13 @@ class Api::V1::WalletsController < Api::V1::ApiController
     end
   end
 
-  def create_payment_history(payment_type, connection_details, amount)
+  def create_payment_history(payment_type, user, connection_details, amount)
     if payment_type == "other_payment"
-      @other_history = @current_user.other_histories.create(connection_id: connection_details.id, connection_date_time: connection_details.created_at,
+      @other_history = user.other_histories.create(connection_id: connection_details.id, connection_date_time: connection_details.created_at,
       connection_location: connection_details.parking_slot.address,
       swapper_id: connection_details.swapper.id, host_id: connection_details.host.id, swapper_fee: amount, spotswap_fee: 1, total_fee: amount+1)
     else
-      @wallet_history = @current_user.wallet_histories.create(transaction_type: "debited", top_up_description: "spot_swap", amount: amount, title: "Payment")
+      @wallet_history = user.wallet_histories.create(transaction_type: "debited", top_up_description: "spot_swap", amount: amount, title: "Payment")
       wallet_new_amount = @current_user.wallet.amount - amount.to_i
       @current_user.wallet.update(amount: wallet_new_amount)
     end
