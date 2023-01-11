@@ -27,7 +27,7 @@ class PayPalPayOutsService < BaseService
                                    },
                                    "sender_item_id" => "201403140002",
                                    "recipient_wallet" => "PAYPAL",
-                                   "receiver" => "sb-lu2o323466027@personal.example.com"
+                                   "receiver" => dest_email
                                  }
                                ]
                              })
