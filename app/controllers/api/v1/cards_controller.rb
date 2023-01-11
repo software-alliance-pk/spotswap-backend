@@ -83,6 +83,7 @@ class Api::V1::CardsController < Api::V1::ApiController
         find_first_card = user_cards_info&.first unless user_cards_info.pluck(:is_default).include?(true)
         if find_first_card
           find_first_card.update(is_default: true)
+          default_payment = @current_user.build_default_payment(card_detail_id: find_first_card.id, payment_type: "credit_card")
         end
       end
       customer = check_customer_at_stripe
