@@ -47,7 +47,8 @@ class Api::V1::PayPalController < Api::V1::ApiController
       payout_response = PayPalPayOutsService.new.create_payout(email)
 
       connection_details = @current_user.swapper_host_connection
-      create_payment_history(connection_details)
+      create_payment_history(connection_details.swapper, connection_details)
+      create_payment_history(connection_details.host, connection_details)
       connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
       notify_host_payment_has_been_sent_from_swapper(connection_details)
       connection_details.destroy
@@ -71,8 +72,8 @@ class Api::V1::PayPalController < Api::V1::ApiController
 
   private
 
-  def create_payment_history(connection_details)
-    @other_history = @current_user.other_histories.create(connection_id: connection_details.id, connection_date_time: connection_details.created_at,
+  def create_payment_history(user, connection_details)
+    @other_history = user.other_histories.create(connection_id: connection_details.id, connection_date_time: connection_details.created_at,
     connection_location: connection_details.parking_slot.address,
     swapper_id: connection_details.swapper.id, host_id: connection_details.host.id, swapper_fee: 10, spotswap_fee: 1, total_fee: 11)
   end
