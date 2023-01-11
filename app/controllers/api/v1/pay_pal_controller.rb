@@ -43,9 +43,15 @@ class Api::V1::PayPalController < Api::V1::ApiController
   def transfer_amount
     begin
       payment_response = PayPalPaymentService.new.transfer_amount(params["account_id"], params["payment_id"])
-
-      email = @current_user.email
+      email = @current_user.swapper_host_connection.host.paypal_partner_accounts.first.email
       payout_response = PayPalPayOutsService.new.create_payout(email)
+
+      connection_details = @current_user.swapper_host_connection
+      create_payment_history(connection_details)
+      connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
+      notify_host_payment_has_been_sent_from_swapper(connection_details, 10)
+      connection_details.destroy
+
       return render json: { payment_response: JSON.parse(payment_response), payout_response: JSON.parse(payout_response) }, status: :ok
     rescue Exception => e
       render json: { error: e.message }, status: :unprocessable_entity
@@ -61,6 +67,14 @@ class Api::V1::PayPalController < Api::V1::ApiController
     rescue Exception => e
       render json: { error: e.message }, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def create_payment_history(connection_details)
+    @other_history = @current_user.other_histories.create(connection_id: connection_details.id, connection_date_time: connection_details.created_at,
+    connection_location: connection_details.parking_slot.address,
+    swapper_id: connection_details.swapper.id, host_id: connection_details.host.id, swapper_fee: 10, spotswap_fee: 1, total_fee: 11)
   end
 
 end
