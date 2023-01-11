@@ -156,7 +156,7 @@ class PushNotificationService
        connection_location: connection.parking_slot.address,
        swapper_fee: amount.to_i - 1,
        spot_swap_fee: "1",
-       body: "Swapper #{connection.swapper.name} has been sent payment of $#{amount}.00."
+       body: "Swapper #{connection.swapper.name} has been sent payment of $#{amount}.00"
      }   
    fcm_client = FCM.new("AAAAlr4iktw:APA91bF55dfM-lYWPqi-dHMnWGvrwQwRMAEJZD6Hu2P1mEdX8sHBcsVzLx3goF2E8ArNLw9EwvaRzlUGd5YDHCY9WOiu0mtP4jR8XXD2aH-5ItgZ12eY90NYxrNuisHjm3mIx8lsMFAo") # set your FCM_SERVER_KEY
    options = { priority: 'high',
