@@ -4,7 +4,8 @@ class PayPalPaymentService <  BaseService
     super
   end
 
-  def create_payment(current_user, email, amount = 10.00, spotswap_fee = 1.00)
+  def create_payment(current_user, amount = 10.00, spotswap_fee = 1.00)
+    email = current_user.paypal_partner_accounts.where(is_default: true).last.email
     total_amount = amount + spotswap_fee
     uri = URI.parse("https://api-m.sandbox.paypal.com/v1/payments/payment")
     request = Net::HTTP::Post.new(uri)
@@ -61,7 +62,6 @@ class PayPalPaymentService <  BaseService
                                "payer_id" => account_id
                              })
 
-    # payer_id means destination account
     req_options = {
       use_ssl: uri.scheme == "https",
     }

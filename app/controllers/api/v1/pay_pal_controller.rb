@@ -14,7 +14,7 @@ class Api::V1::PayPalController < Api::V1::ApiController
       else
         @account_details = PayPalConnectAccountService.new.create_paypal_customer_account(@current_user, params[:email])
       end
-      render json: @account_details
+      render json: @account_details, status: :ok
 
     rescue Exception => e
       render json: { error:  e.message }, status: :unprocessable_entity
@@ -24,6 +24,8 @@ class Api::V1::PayPalController < Api::V1::ApiController
   def save_paypal_account_details
     return render json: { error: "Email is missing in params." }, status: :unprocessable_entity unless params[:email].present?
     return render json: { error: "Link is missing in params." }, status: :unprocessable_entity unless params[:link].present?
+    return render json: { error: "Paypal Account with this email already exist." }, status: :unprocessable_entity if PaypalPartnerAccount.pluck(:email).include? (params[:email])
+
     pay_pal_connect_id = params[:link].split("/").last
     account_type = "partner-referrals"
     if @current_user.wallet.present? || @current_user.card_details.present?
@@ -40,8 +42,11 @@ class Api::V1::PayPalController < Api::V1::ApiController
   
   def transfer_amount
     begin
-      response = PayPalPaymentService.new.transfer_amount(params["account_id"], params["payment_id"])
-      render json: response
+      payment_response = PayPalPaymentService.new.transfer_amount(params["account_id"], params["payment_id"])
+
+      email = @current_user.email
+      payout_response = PayPalPayOutsService.new.create_payout(email)
+      return render json: { payment_response: JSON.parse(payment_response), payout_response: JSON.parse(payout_response) }, status: :ok
     rescue Exception => e
       render json: { error: e.message }, status: :unprocessable_entity
     end
@@ -49,25 +54,13 @@ class Api::V1::PayPalController < Api::V1::ApiController
 
   def create_payment
     begin
-      if @current_user.paypal_partner_accounts.present?
-        email = @current_user.paypal_partner_accounts.last.email
-      end
-      response = PayPalPaymentService.new.create_payment(@current_user, email)
-      render json: response
+      return render json: { error: "Please make your Paypal Account Default first." }, status: :unprocessable_entity unless @current_user.paypal_partner_accounts.pluck(:is_default).include? true
+      response = PayPalPaymentService.new.create_payment(@current_user)
+      render json: response, status: :ok
+      
     rescue Exception => e
       render json: { error: e.message }, status: :unprocessable_entity
     end
   end
 
-  def create_payout
-    begin
-      if @current_user.paypal_partner_accounts.present?
-        email = @current_user.paypal_partner_accounts.last.email
-      end
-      response = PayPalPayOutsService.new.create_payout(email)
-      render json: response
-    rescue Exception => e
-      render json: { error: e.message }, status: :unprocessable_entity
-    end
-  end
 end
