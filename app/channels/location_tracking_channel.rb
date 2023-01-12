@@ -1,9 +1,11 @@
 class LocationTrackingChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "swapper_location_tracking"
+    connection = current_user.host_swapper_connection || current_user.swapper_host_connection
+    stream_from "swapper_location_tracking_with_connection_id_#{connection.id}"
   end
 
   def unsubscribed
-    stop_stream_from "swapper_location_tracking"
+    connection = current_user.host_swapper_connection || current_user.swapper_host_connection
+    stop_stream_from "swapper_location_tracking_with_connection_id_#{connection.id}"
   end
 end

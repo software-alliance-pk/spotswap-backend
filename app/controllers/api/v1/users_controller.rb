@@ -48,7 +48,7 @@ class Api::V1::UsersController < Api::V1::ApiController
       # connection = @current_user.swapper_host_connection
       # swapper = connection.swapper
       @current_user.update(latitude: params[:latitude], longitude: params[:longitude], address: params[:address])
-      ActionCable.server.broadcast("swapper_location_updated", {
+      ActionCable.server.broadcast("swapper_location_tracking_with_connection_id_#{@current_user.swapper_host_connection.id}", {
           title: 'swapper_location_updated',
           body: {swapper_id: @current_user.id , swapper_address: @current_user.address, swapper_latitude: @current_user.latitude, swapper_longitude: @current_user.longitude}
         })
