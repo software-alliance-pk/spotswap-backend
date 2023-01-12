@@ -23,7 +23,7 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
       end
     end
     @user = User.new(sign_up_params.merge(profile_type: 'manual', profile_complete: false))
-    @user.referrer_code = params[:referrer_code] if params[:referrer_code].present?
+    @user.referrer_code = @referrer_user.referral_code if params[:referrer_code].present?
     @user.referrer_id = @referrer_user.id if params[:referrer_code].present?
     if @user.save
       @token = JsonWebToken.encode(user_id: @user.id)
