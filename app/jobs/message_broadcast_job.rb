@@ -14,7 +14,8 @@ class MessageBroadcastJob < ApplicationJob
       created_at: message.created_at,
       message_image: message.image.attached? ? message.image.url : "",
       sender_image: message.user.image.attached? ? message.user.image.url : "",
-      recepient_image: message.conversation.recepient_image.attached? ? message.conversation.recepient_image.url : ""
+      recepient_image: message.conversation.recepient_image.attached? ? message.conversation.recepient_image.url : "",
+      type: "user_message"
     }
     ActionCable.server.broadcast(build_conversation_id(message.conversation_id), payload)
   end
