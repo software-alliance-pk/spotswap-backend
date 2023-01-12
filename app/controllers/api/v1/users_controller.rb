@@ -44,14 +44,18 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   def swapper_location_tracking
-    connection = SwapperHostConnection.find_by(id: params[:connection_id])
-    swapper = connection.swapper
-    swapper.update(latitude: params[:latitude], longitude: params[:longitude], address: params[:address])
-    ActionCable.server.broadcast("swapper_location_updated", {
-        title: 'swapper_location_updated',
-        body: {swapper_id: swapper.id , swapper_address: swapper.address, swapper_latitude: swapper.latitude, swapper_longitude: swapper.longitude}
-      })
-    return render json: { message: "User's current location has been updated."}, status: :ok
+    if @current_user.swapper_host_connection.present?
+      # connection = @current_user.swapper_host_connection
+      # swapper = connection.swapper
+      @current_user.update(latitude: params[:latitude], longitude: params[:longitude], address: params[:address])
+      ActionCable.server.broadcast("swapper_location_updated", {
+          title: 'swapper_location_updated',
+          body: {swapper_id: @current_user.id , swapper_address: @current_user.address, swapper_latitude: @current_user.latitude, swapper_longitude: @current_user.longitude}
+        })
+      return render json: { message: "User's current location has been updated.", swapper: @current_user}, status: :ok
+    else
+      return render json: { error: "You have not any swapper host connection."}, status: :unprocessable_entity
+    end
   end
 
   private
