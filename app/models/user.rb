@@ -30,6 +30,7 @@ class User < ApplicationRecord
             length: { minimum: 6 },
             if: -> { new_record? || !password.nil? }
   validates :contact, presence: true, uniqueness: true
+  after_save :check_is_online_update
 
   enum status: [:active, :disabled]
 
@@ -66,6 +67,12 @@ class User < ApplicationRecord
       all.find_each do |user|
         csv << attributes.map{ |attr| user.send(attr) }
       end
+    end
+  end
+
+  def check_is_online_update
+    if self.saved_change_to_is_online?
+      StatusBroadcastJob.perform_now(self)
     end
   end
 
