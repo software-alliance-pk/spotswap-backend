@@ -40,7 +40,7 @@ class User < ApplicationRecord
   :lat_column_name => :latitude,
   :lng_column_name => :longitude
 
-  before_save :referral_code_generator
+  before_create :referral_code_generator
   after_commit :user_referral_code_record_generator
 
   self.per_page = 10
