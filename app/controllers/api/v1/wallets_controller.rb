@@ -150,7 +150,6 @@ class Api::V1::WalletsController < Api::V1::ApiController
   end
 
   def create_wallet_history(amount)
-    # StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount.to_i, @current_user.stripe_connect_account.account_id)
     @current_user.wallet_histories.create(transaction_type: "credited", top_up_description: "bank_transfer", amount: amount, title: "Top Up")
   end
 end
