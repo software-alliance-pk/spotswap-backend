@@ -1,2 +1,24 @@
+<div id="error-message">
 <p style="position:absolute; left:5%; font-weight:600; margin-top:130px;"><%= notice %></p>
-<p style="position:absolute; left:5%; font-weight:600; margin-top:130px;"><%= alert %></p>
+	
+</div>
+<div id="notice-message"><p style="position:absolute; left:5%; font-weight:600; margin-top:130px;"><%= alert %></p></div>
+
+
+<script type="text/javascript">
+	setTimeout(function() {
+  $('#error-message').hide();
+}, 1000);
+
+setTimeout(function() {
+  $('#notice-message').hide();
+}, 1000);
+
+
+
+
+
+</script>
+
+
+
