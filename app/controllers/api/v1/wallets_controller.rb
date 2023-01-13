@@ -139,7 +139,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
   def charge_amount_through_credit_card(amount, connection_details)
     amount = amount.to_i*100
     @charge_response = StripeChargeService.new.charge_amount_from_customer(amount, connection_details.swapper.stripe_customer_id)
-    @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, connection_details.host.stripe_connect_account.account_id)
+    @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount-100, connection_details.host.stripe_connect_account.account_id)
   end
 
   def charge_amount_through_paypal
