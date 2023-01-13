@@ -110,7 +110,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
   def charge_amount_through_wallet(amount, connection_details)
     if connection_details.swapper.wallet.amount.to_i >= amount.to_i
-      @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id)
+      @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((amount.to_i-1)*100, connection_details.host.stripe_connect_account.account_id)
       create_payment_history("topup", @current_user, connection_details, amount)
       connection_details.host.wallet_histories.create(transaction_type: "credited", amount: (amount.to_i-1), title: "Credited")
 
