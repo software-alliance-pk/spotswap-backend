@@ -11,6 +11,7 @@ class Admins::DashboardController < ApplicationController
       @users = User.all.order(created_at: :desc).limit(10)
     end
     @cars = CarDetail.all
+    @revenue = Admin.admin.first.revenue&.amount
 	end
 
   def sub_admins_index
