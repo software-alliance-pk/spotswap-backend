@@ -1,4 +1,5 @@
 class CarModel < ApplicationRecord
+  require 'csv'
   belongs_to :car_brand
   has_one_attached :image, dependent: :destroy
   self.per_page = 10

@@ -20,12 +20,12 @@
                 </div>
               </div>
               <%= form_for :revenue, url: send_money_admins_users_path(:format => :js), remote: true do |f| %>
-                <%= f.hidden_field :user_id, value:user.id  %>
-                <%= f.hidden_field :admin_id, value:admin.id  %>
+                <%= f.hidden_field :user_id, value:user.id %>
+                <%= f.hidden_field :admin_id, value:admin.id %>
 
                 <div class="form_blk">
                   <label for="">type here</label>
-                  <%= f.number_field :amount, placeholder: "type here", class: "input"%>
+                  <%= f.number_field :amount, placeholder: "type here", class: "input", required: :true, min: 1%>
                 </div>
                 <div class="btn_blk">
                   <%= f.submit "Add", class: 'site_btn px pop_btn' %>
