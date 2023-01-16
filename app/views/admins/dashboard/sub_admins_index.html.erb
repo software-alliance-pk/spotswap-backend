@@ -131,6 +131,11 @@
                           <div class="form_blk">
                             <h6>Email</h6>
                             <input type="email" name="email" class="input" placeholder="type here" required>
+                             <%if flash.alert.present? %>
+                          <span>
+                          <%= show_sub_admin_message(flash.alert,"Email") %>
+                          </span>
+                        <% end %>
                           </div>
                           <div class="form_blk">
                             <h6>Location</h6>
@@ -146,13 +151,19 @@
                             <h6>Phone Number</h6>
                             <div>
                               <%= f.select :country_code, options_for_select(ISO3166::Country.all.map { |country| [country.emoji_flag, country.country_code] }), {} %>
-                              <input type="text" name="contact" class="input" placeholder="type here" required>
+                              <input type="number" name="contact" class="input" placeholder="type here" required>
+                              
                             </div>
                             
                           </div>
                           <div class="form_blk">
                             <h6>Temporary Password</h6>
                             <input type="password" name="password" class="input" placeholder="type here" required>
+                            <%if flash.alert.present? %>
+                          <span>
+                          <%= show_sub_admin_message(flash.alert,"Password") %>
+                          </span>
+                        <% end %>
                           </div>
                         </div>
                       </div>
@@ -173,4 +184,7 @@
 <!-- account_section -->
 
 <!-- Main Js -->
-<script src="/assets/main.js"></script>
+<script src="/assets/main.js">
+  
+
+</script>
