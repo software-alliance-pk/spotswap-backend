@@ -20,7 +20,9 @@ class Admins::UsersController < ApplicationController
   end
 
   def export_csv
-    @users = User.all
+    @start_date = (params[:start_date]).to_datetime
+    @end_date = ((params[:end_date]).to_datetime + 1.day)
+    @users = User.where('created_at BETWEEN ? AND ?', @start_date, @end_date)
     respond_to do |format|
       format.csv { send_data @users.to_csv, filename: "users-#{Date.today}.csv" }
     end
@@ -41,12 +43,16 @@ class Admins::UsersController < ApplicationController
       user = User.find_by(id: params[:revenue][:user_id])
       admin = Admin.find_by(id: params[:revenue][:admin_id])
       amount = params[:revenue][:amount].to_i
+      unless user.stripe_connect_account.present?
+        return flash[:alert] = "User has not any Stripe Connect Account."
+      end
+
       if admin.revenue.amount >= amount
         @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, user.stripe_connect_account.account_id)
         update_revenue(amount, admin)
         @is_amount_transfer = true
       else
-        flash[:alert] = "You have Insufficient Balance in your Revenue."
+        return flash[:alert] = "You have Insufficient Balance in your Revenue."
       end
     end
   end

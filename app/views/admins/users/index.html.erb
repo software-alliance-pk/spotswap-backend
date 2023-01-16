@@ -20,11 +20,16 @@
           <%= f.text_field :search_key, id: "searchbtn", value: @search_key, class: "input", placeholder: "Search user" %>
         </div>
       <%end%>
+      
       <div class="button_blk">
-        <%= link_to export_csv_admins_users_path, :class => 'site_btn round bg_white' do %>
-          Export CSV
-          <%= image_tag "Download-black.svg"%>
-        <% end %>  
+        <%= form_with url: export_csv_admins_users_path, :class => 'd-flex align-items-center justify-center gap-5', method: :get do |f| %>
+          <input type="date" name="start_date" class="input" placeholder="Start Date" required>
+          <input type="date" name="end_date" class="input" placeholder="End Date" required>
+          <button class="site_btn round bg_white d-flex align-items-center justify-content-center" role='button'>
+            <p class='text-black m-0 export-text'>Export CSV</p>
+            <img src="/assets/Download-black.svg" height='16.5px' width='17.53px' />
+          </button>
+        <% end %>
       </div>
     </div>
     <div class="profile_popup_div"></div>
