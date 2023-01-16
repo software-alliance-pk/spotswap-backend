@@ -116,7 +116,7 @@
           </tbody>
         </table>
       </div>
-      <% if @type != "view_all" %>
+      <% if @type != "view_all" && @users.count!=0 %>
         <div class="view_all">
           <a href="<%= admins_dashboard_index_path(type: "view_all") %>">view all</a>
         </div>

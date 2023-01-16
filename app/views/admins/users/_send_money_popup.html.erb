@@ -15,19 +15,22 @@
                   <%= image_tag "icon-dollar.svg" %>
                 </div>
                 <div class="txt">
-                  <h3>600</h3>
+                  <h3><%=admin.revenue&.amount%></h3>
                   <span>Your Total Credit</span>
                 </div>
               </div>
-              <form action="">
+              <%= form_for :revenue, url: send_money_admins_users_path(:format => :js), remote: true do |f| %>
+                <%= f.hidden_field :user_id, value:user.id  %>
+                <%= f.hidden_field :admin_id, value:admin.id  %>
+
                 <div class="form_blk">
                   <label for="">type here</label>
-                  <input type="text" class="input" placeholder="type here">
+                  <%= f.number_field :amount, placeholder: "type here", class: "input"%>
                 </div>
                 <div class="btn_blk">
-                  <button type="button" class="site_btn px pop_btn" data-popup="confirm_money">Add</button>
+                  <%= f.submit "Add", class: 'site_btn px pop_btn' %>
                 </div>
-              </form>
+              <%end%>
             </div>
           </div>
         </div>

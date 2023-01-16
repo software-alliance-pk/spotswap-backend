@@ -28,7 +28,27 @@ class Admins::UsersController < ApplicationController
 
   def send_money_popup
     @user = User.find_by(id: params[:id])
-    render partial: 'send_money_popup', locals:{user: @user}
+    render partial: 'send_money_popup', locals:{user: @user, admin: Admin.admin.last}
+  end
+
+  def send_money
+
+  end
+
+  def send_money_confirmed
+    @is_amount_transfer = false
+    if params[:revenue][:user_id].present? && params[:revenue][:admin_id].present? && params[:revenue][:amount].present?
+      user = User.find_by(id: params[:revenue][:user_id])
+      admin = Admin.find_by(id: params[:revenue][:admin_id])
+      amount = params[:revenue][:amount].to_i
+      if admin.revenue.amount >= amount
+        @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, user.stripe_connect_account.account_id)
+        update_revenue(amount, admin)
+        @is_amount_transfer = true
+      else
+        flash[:alert] = "You have Insufficient Balance in your Revenue."
+      end
+    end
   end
 
   def disable_user_popup
@@ -56,4 +76,9 @@ class Admins::UsersController < ApplicationController
       redirect_to new_admin_session_path, :notice => 'You need to sign in or sign up before continuing.'
     end
 	end
+
+  def update_revenue(amount, admin)
+    amount = admin&.revenue&.amount - amount
+    admin.revenue.update(amount: amount) if amount.present?
+  end
 end
