@@ -1,4 +1,4 @@
-json.finders @users do |user|
+json.finders @compatible_users do |user|
   json.id user.id
   json.name user.name
   json.email user.email

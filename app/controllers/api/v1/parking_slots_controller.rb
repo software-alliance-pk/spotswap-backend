@@ -37,7 +37,13 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def get_all_finders
-    @users = User.within(0.6096, :units => :kms, :origin => [params[:latitude], params[:longitude]])
+    users = User.within(0.6096, :units => :kms, :origin => [params[:latitude], params[:longitude]])
+    @compatible_users = []
+    users.each do |user|
+      if is_swapper_car_size_compatible(user)
+        @compatible_users << user
+      end
+    end
   end
 
   def transfer_slot
@@ -88,7 +94,11 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def slot_size_check(slot)
-    return slot&.user&.car_detail&.length >= @current_user&.car_detail&.length
+    return (slot&.user&.car_detail&.length >= @current_user&.car_detail&.length) && (slot&.user&.car_detail&.width >= @current_user&.car_detail&.width)
+  end
+
+  def is_swapper_car_size_compatible(user)
+    return (user&.car_detail&.length <= @current_user&.car_detail&.length) && (user&.car_detail&.width <= @current_user&.car_detail&.width)
   end
 
   def params_check
