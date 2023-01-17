@@ -2,7 +2,10 @@
 <p style="position:absolute; left:5%; font-weight:600; margin-top:130px;"><%= notice %></p>
 	
 </div>
-<div id="notice-message"><p style="position:absolute; left:7%; font-weight:600; margin-top:55px;"><%= alert %></p></div>
+<% if flash[:success_alert].present? %>
+<div id="notice-message"><p style="position:absolute; left:5%; font-weight:600; margin-top:130px;"><%= flash[:success_alert] %></p></div>
+<%end%>
+
 
 
 <script type="text/javascript">
