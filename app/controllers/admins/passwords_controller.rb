@@ -1,20 +1,12 @@
 class Admins::PasswordsController < Devise::PasswordsController
   
   def create
-    if forget_password_params[:email].present?
-      @admin  = Admin.find_by(email: forget_password_params[:email])
-      if @admin.present?
-        session[:admin_email_used_for_reset_password] = @admin.email
-        @admin.otp = 6.times.map{rand(10)}.join
-        @admin.save
-        super
-      else
-        flash[:notice] = "No admin exist's against this email"
-        redirect_to new_admin_password_path
-      end
+    if Admin.last.email == params[:admin][:email]
+      $otp = 6.times.map{rand(10)}.join
+      super
     else
-      flash[:notice] = "Email can't be blank"
       redirect_to new_admin_password_path
+      flash[:notice] = "Email can't be blank"
     end
   end
 
