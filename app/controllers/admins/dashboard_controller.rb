@@ -33,10 +33,10 @@ class Admins::DashboardController < ApplicationController
     @sub_admin.category = "sub_admin"
     if @sub_admin.save
       redirect_to sub_admins_index_admins_dashboard_index_path
-      flash[:alert] = "Sub Admin has been created successfully."
+      flash[:success_alert] = "Sub Admin has been created successfully."
     else
       redirect_to sub_admins_index_admins_dashboard_index_path
-      flash[:alert] = @sub_admin.errors.full_messages.to_sentence
+      flash[:alert] = @sub_admin.errors.full_messages
     end
   end
 

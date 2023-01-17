@@ -6,20 +6,35 @@
           <%= image_tag "logo-on.svg" %>
         </div>
         <h3 class="mb-0">Sign in to manage</h3>
-        <p style="position:absolute; left:1%; font-weight:600; margin-top:10px; color:red;"><%= alert %></p>
+        <%if params[:admin].present?%>
+          <%if !params[:admin][:password].blank? && !params[:admin][:password].blank? %>
+          <p style="position:absolute; left:1%; font-weight:600; margin-top:10px; color:red;"><%= alert %></p><%end%>
+          <%end%>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <h5>Email Address</h5>
           <div class="form_blk error">
             <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Type here", class: "input" %>
+            <%if params[:admin].present?%>
+              <%if params[:admin][:email].blank? %>
+              <p style="color:red;">Email can't be blank.</p>
+              <%end%>
+            <%end%>
           </div>
           <div class="d-flex justify-content-between">
             <h5>Password</h5>
             <p><a href="<%= new_admin_password_path %>">Forgot password?</a></p>
           </div>
-          <div class="form_blk input error">
+          <div class="form_blk error">
             <%= image_tag "icon-lock-blue.svg" %>
             <%= f.password_field :password, autocomplete: "current-password", placeholder: "Type here", class: "input" %>
+            <%if params[:admin].present?%>
+            <%if params[:admin][:password].blank? %>
+              <p style="color:red;">Password can't be blank.</p>
+              <%end%>
+            <%end%>
           </div>
+            
+
           <div class="btn_blk">
             <button type="submit" class="site_btn w-100">Sign in</button>
           </div>
