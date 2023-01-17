@@ -30,6 +30,7 @@ class User < ApplicationRecord
             length: { minimum: 6 },
             if: -> { new_record? || !password.nil? }
   validates :contact, presence: true, uniqueness: true
+  after_save :check_is_online_update
 
   enum status: [:active, :disabled]
 
@@ -39,7 +40,7 @@ class User < ApplicationRecord
   :lat_column_name => :latitude,
   :lng_column_name => :longitude
 
-  before_save :referral_code_generator
+  before_create :referral_code_generator
   after_commit :user_referral_code_record_generator
 
   self.per_page = 10
@@ -66,6 +67,12 @@ class User < ApplicationRecord
       all.find_each do |user|
         csv << attributes.map{ |attr| user.send(attr) }
       end
+    end
+  end
+
+  def check_is_online_update
+    if self.saved_change_to_is_online?
+      StatusBroadcastJob.perform_now(self)
     end
   end
 

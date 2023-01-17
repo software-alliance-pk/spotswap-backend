@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_05_145121) do
+ActiveRecord::Schema.define(version: 2023_01_13_164209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -238,6 +238,14 @@ ActiveRecord::Schema.define(version: 2023_01_05_145121) do
     t.index ["user_id"], name: "index_quick_chats_on_user_id"
   end
 
+  create_table "revenues", force: :cascade do |t|
+    t.integer "amount"
+    t.bigint "admin_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_id"], name: "index_revenues_on_admin_id"
+  end
+
   create_table "stripe_connect_accounts", force: :cascade do |t|
     t.string "account_id"
     t.string "account_country"
@@ -345,6 +353,7 @@ ActiveRecord::Schema.define(version: 2023_01_05_145121) do
     t.string "referral_code"
     t.string "stripe_connect_id"
     t.boolean "is_online", default: false
+    t.integer "referrer_id"
   end
 
   create_table "wallet_histories", force: :cascade do |t|

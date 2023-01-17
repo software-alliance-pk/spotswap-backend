@@ -1,7 +1,6 @@
 class Api::V1::StripeConnectsController < Api::V1::ApiController
   before_action :authorize_request
 
-
   def user_stripe_connect_account
     begin
       stripe_connect_account = @current_user.stripe_connect_account
