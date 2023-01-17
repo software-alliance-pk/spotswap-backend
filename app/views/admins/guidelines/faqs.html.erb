@@ -14,7 +14,7 @@
     <div class="top_btn">
       <a href="<%= add_faq_admins_guidelines_path %>" class="site_btn round">Add More</a>
     </div>
-    <div class="guide">
+    <div class="guide" style="position: relative">
       <div class="row">
         <div class="col-md-3">
           <ul>
@@ -29,28 +29,32 @@
             </li>
           </ul>
         </div>
-        <div class="col-md-9">
-          <div class="faq_questions">
-            <%@faqs.each do |faq|%>
-              <div class="question_blk">
-                <%@count=@count+1%>
-                <div class="top">
-                  <h6><%=faq.question%></h6>
-                  <div class="icon_blk">
-                    <a href="<%=edit_faq_admins_guidelines_path(faq_id: faq.id)%>" class="icon">
-                      <%= image_tag "Edit.svg" %>
-                    </a>
-                    <a href="<%=destroy_faq_admins_guidelines_path(faq_id: faq.id)%>" class="icon">
-                      <%= image_tag "Delete.svg" %>
-                    </a>              
+        <%if @faqs.present?%>
+          <div class="col-md-9">
+            <div class="faq_questions">
+              <%@faqs.each do |faq|%>
+                <div class="question_blk">
+                  <%@count=@count+1%>
+                  <div class="top">
+                    <h6><%=faq.question%></h6>
+                    <div class="icon_blk">
+                      <a href="<%=edit_faq_admins_guidelines_path(faq_id: faq.id)%>" class="icon">
+                        <%= image_tag "Edit.svg" %>
+                      </a>
+                      <a href="<%=destroy_faq_admins_guidelines_path(faq_id: faq.id)%>" class="icon">
+                        <%= image_tag "Delete.svg" %>
+                      </a>              
+                    </div>
                   </div>
+                  <p><%=faq.answer%></p>
                 </div>
-                <p><%=faq.answer%></p>
-              </div>
-              <hr>
-            <%end%>
+                <hr>
+              <%end%>
+            </div>
           </div>
-        </div>
+        <%else%>
+          <p class="no_faq">There is no faq present.</p>
+        <%end%>
       </div>
     </div>
   </div>

@@ -44,7 +44,7 @@ class Admins::UsersController < ApplicationController
       admin = Admin.find_by(id: params[:revenue][:admin_id])
       amount = params[:revenue][:amount].to_i
       unless user.stripe_connect_account.present?
-        return flash[:alert] = "User has not any Stripe Connect Account."
+        return flash[:notice] = "User has not any Stripe Connect Account."
       end
 
       if admin.revenue.amount >= amount
@@ -52,7 +52,7 @@ class Admins::UsersController < ApplicationController
         update_revenue(amount, admin)
         @is_amount_transfer = true
       else
-        return flash[:alert] = "You have Insufficient Balance in your Revenue."
+        return flash[:notice] = "You have Insufficient Balance in your Revenue."
       end
     end
   end

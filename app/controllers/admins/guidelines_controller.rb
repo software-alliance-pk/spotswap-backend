@@ -14,10 +14,10 @@ class Admins::GuidelinesController < ApplicationController
     @page = Page.find_by(id: params[:term_id])
     if @page.content.update(body: params[:description])
       redirect_to terms_and_conditions_admins_guidelines_path
-      flash[:alert] = "Terms and Conditions have been updated successfully."
+      flash[:notice] = "Terms and Conditions have been updated successfully."
     else
       redirect_to terms_and_conditions_admins_guidelines_path
-      flash[:alert] = @page.content.errors.full_messages.to_sentence
+      flash[:notice] = @page.content.errors.full_messages.to_sentence
     end
 	end
   
@@ -33,10 +33,10 @@ class Admins::GuidelinesController < ApplicationController
     @page = Page.find_by(id: params[:policy_id])
     if @page.content.update(body: params[:description])
       redirect_to privacy_policy_admins_guidelines_path
-      flash[:alert] = "Privacy Policy has been updated successfully."
+      flash[:notice] = "Privacy Policy has been updated successfully."
     else
       redirect_to privacy_policy_admins_guidelines_path
-      flash[:alert] = @page.content.errors.full_messages.to_sentence
+      flash[:notice] = @page.content.errors.full_messages.to_sentence
     end
 	end
 
@@ -52,10 +52,10 @@ class Admins::GuidelinesController < ApplicationController
     @faq = Faq.new(faq_params)
     if @faq.save
       redirect_to faqs_admins_guidelines_path
-      flash[:alert] = "FAQ has been created successfully."
+      flash[:notice] = "FAQ has been created successfully."
     else
       redirect_to faqs_admins_guidelines_path
-      flash[:alert] = @faq.errors.full_messages.to_sentence
+      flash[:notice] = @faq.errors.full_messages.to_sentence
     end
 	end
 
@@ -66,10 +66,10 @@ class Admins::GuidelinesController < ApplicationController
   def update_faq
     if @faq.update(faq_params)
       redirect_to faqs_admins_guidelines_path
-      flash[:alert] = "FAQ has been updated successfully."
+      flash[:notice] = "FAQ has been updated successfully."
     else
       redirect_to faqs_admins_guidelines_path
-      flash[:alert] = @faq.errors.full_messages.to_sentence
+      flash[:notice] = @faq.errors.full_messages.to_sentence
     end
   end
 
@@ -78,10 +78,10 @@ class Admins::GuidelinesController < ApplicationController
     if @faq.present?
       if @faq.destroy
         redirect_to faqs_admins_guidelines_path
-        flash[:alert] = "FAQ has been destroyed successfully."
+        flash[:notice] = "FAQ has been destroyed successfully."
       else
         redirect_to faqs_admins_guidelines_path
-        flash[:alert] = @faq.errors.full_messages.to_sentence
+        flash[:notice] = @faq.errors.full_messages.to_sentence
       end
     end
 	end
@@ -100,7 +100,7 @@ class Admins::GuidelinesController < ApplicationController
     @faq = Faq.find_by_id(params[:faq_id])
     unless @faq.present?
       redirect_to faqs_admins_guidelines_path
-      flash[:alert] = "FAQ with this Id is not present."
+      flash[:notice] = "FAQ with this Id is not present."
     end
   end
 
