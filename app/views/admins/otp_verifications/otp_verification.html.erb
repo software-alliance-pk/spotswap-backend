@@ -10,7 +10,7 @@
         <div class="text-center px-5 mx-4">
           <p>We’ve sent an OTP to your email to confirm that this is you</p>
         </div>
-        <p style="position:absolute; left:1%; font-weight:600; margin-top:10px; color:red;"><%= alert %></p>
+        <p style="position:absolute; left:1%; font-weight:600; margin-top:10px; color:red;"><%= notice %></p>
         <%= form_for :otp, url: verify_otp_admins_otp_verifications_path do |f| %>
           <%= f.hidden_field :email, value:@email  %>
           <div class="d-flex gap-3">

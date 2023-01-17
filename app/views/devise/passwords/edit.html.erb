@@ -6,7 +6,7 @@
             <%= image_tag "logo-on.svg" %>
           </div>
           <h3>Reset Password</h3>
-          <p style="left:1%; font-weight:600; color:red;"><%= alert %></p>
+          <p style="left:1%; font-weight:600; color:red;"><%= notice %></p>
           <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
             <h6>New Password</h6>
             <%= f.hidden_field :reset_password_token %>

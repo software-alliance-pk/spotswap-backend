@@ -8,9 +8,9 @@ class Admins::OtpVerificationsController < ApplicationController
     @admin = Admin.find_by(email: reset_password_params[:email])
     if combine_otp&.present?
       if  @admin.otp == combine_otp
-        redirect_to edit_admin_password_path(:reset_password_token => @admin.otp)
+        redirect_to edit_admin_password_path(:reset_password_token => $otp_token)
       else
-        flash[:notice] = "OTP does n't match"
+        flash[:notice] = "Invalid OTP"
         redirect_to otp_verification_admins_otp_verifications_path
       end
     else

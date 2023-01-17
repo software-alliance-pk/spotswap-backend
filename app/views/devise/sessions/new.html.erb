@@ -24,17 +24,17 @@
             <h5>Password</h5>
             <p><a href="<%= new_admin_password_path %>">Forgot password?</a></p>
           </div>
-          <div class="form_blk input error">
+          <div class="form_blk input error mb-0">
             <%= image_tag "icon-lock-blue.svg" %>
             <%= f.password_field :password, autocomplete: "current-password", placeholder: "Type here", class: "input" %>
-            <%if params[:admin].present?%>
+          </div>
+          <%if params[:admin].present?%>
             <%if params[:admin][:password].blank? %>
               <p style="color:red;">Password can't be blank.</p>
-              <%end%>
             <%end%>
-          </div>
+          <%end%>
             
-          <div class="btn_blk">
+          <div class="btn_blk mt-5">
             <button type="submit" class="site_btn w-100">Sign in</button>
           </div>
         <% end %>
