@@ -14,6 +14,11 @@ class Admin < ApplicationRecord
 
   validates :email, presence: true
   validates :email, uniqueness: true
+  validates :password,
+            length: { minimum: 10 },
+            if: -> { new_record? || !password.nil? }
+  # validate :password, presence: true
+
 
   validates :full_name, :category, presence: true
 end
