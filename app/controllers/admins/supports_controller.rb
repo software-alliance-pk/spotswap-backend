@@ -48,10 +48,10 @@
     end
     if params[:status] == "pending"
       @support.update(status: "pending")
-      flash[:alert] = "Support Ticket Status has been updated to Pending."
+      flash[:success_alert] = "Support Ticket Status has been updated to Pending."
     elsif params[:status] == "completed"
       @support.update(status: "completed")
-      flash[:alert] = "Support Ticket Status has been updated to Completed."
+      flash[:success_alert] = "Support Ticket Status has been updated to Completed."
     end
     redirect_back(fallback_location: root_path)
   end

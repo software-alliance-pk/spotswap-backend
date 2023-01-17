@@ -4,7 +4,7 @@ let chat_id = ''
 $(document).on('turbolinks:load', function(){
     chat_id = $("#chatmessagebox").attr('data-id');
 });
-$(document).on('turbolinks:load', function(){
+$(document).ready(function(){
     chat_id = $("#chatmessagebox").attr('data-id');
     const email = $("#admin_email").data("admin");
     console.log(chat_id);

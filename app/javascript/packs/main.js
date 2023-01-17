@@ -186,20 +186,20 @@ $(document).on('turbolinks:load', function(){
 		})
 	});
 
-	// $(document).on("keyup keypress", function(e){
-	// 	if ($('#input_field_text').val() == '' && $('#submitaddphoto').val() == ''){
-	// 		var keyCode = e.keyCode || e.which;
-	// 		if (keyCode === 13) {
-	// 			e.preventDefault();
-	// 			return false;
-	// 		}
-  //   }
-	// })
+	$(document).on("keyup keypress", function(e){
+		if ($('#input_field_text').val() == '' && $('#submitaddphoto').val() == ''){
+			var keyCode = e.keyCode || e.which;
+			if (keyCode === 13) {
+				e.preventDefault();
+				return false;
+			}
+    }
+	})
 
-	// $(".send_btn").on("click", function(e){
-	// 	if ($('#input_field_text').val() == '' && $('#submitaddphoto').val() == ''){
-	// 			e.preventDefault();
-	// 			return false;
-	// 		}
-	// })
+	$(".send_btn").on("click", function(e){
+		if ($('#input_field_text').val() == '' && $('#submitaddphoto').val() == ''){
+				e.preventDefault();
+				return false;
+			}
+	})
 });

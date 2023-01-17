@@ -8,8 +8,8 @@
           <%= image_tag "icon-bell.svg" %>
         </button>
       </div>
-      <%= render :partial => "shared/error_success_messages" %>
     </div>
+    <%= render :partial => "shared/error_success_messages" %>
     <div class="ctn">
       <div class="row">
         <div class="col-4">
@@ -34,7 +34,7 @@
                   <div class="user">
                     <div class="img">
                       <% if record.user.image.attached? %>
-                        <%= image_tag(record.user.image.url) %>
+                        <%= image_tag(record.user.image.url, class: "h-100") %>
                       <% else %>
                         <%= image_tag "default-profile.jpg" %>
                       <% end %>
@@ -52,7 +52,7 @@
                   </div>
                     <%end%>
                 </li>
-              <% end %>
+              <%end%>
             </ul>
           </div>
         </div>
@@ -62,7 +62,7 @@
               <div class="selected_chat">
                 <div class="img">
                   <% if @last_support&.user&.image&.attached? %>
-                    <%= image_tag(@last_support.user.image.url) %>
+                    <%= image_tag(@last_support.user.image.url, class: "h-100") %>
                   <% else %>
                     <%= image_tag "default-profile.jpg" %>
                   <% end %>
@@ -96,10 +96,10 @@
                     </div>
                     <% last_index = message.created_at.strftime("%D") %>
                   <%end%>
-                  <% if message.support_conversation.sender.email ==  message.sender.email %>
+                  <% if message.user_id != nil %>
                     <div class="msg user">
                       <div class="profile">
-                        <%= image_tag message&.support_conversation&.sender&.image&.attached? ? message.support_conversation.sender.image.url : "default-profile.jpg" %>
+                        <%= image_tag message&.support_conversation&.sender&.image&.attached? ? message.support_conversation.sender.image.url : "default-profile.jpg", class: "h-100" %>
                       </div>
                       <div class="msg_wrapper">
                         <div class="msg_blk">
@@ -122,7 +122,7 @@
                   <% else %>
                     <div class="msg admin">
                       <div class="profile">
-                        <%= image_tag "default-profile.jpg" %>
+                        <%= image_tag message&.support_conversation&.recipient&.image&.attached? ? message.support_conversation.recipient.image.url : "default-profile.jpg", class: "h-100" %>
                       </div>
                       <div class="msg_wrapper">
                         <div class="msg_blk">

@@ -287,3 +287,6 @@
 	color: #000000;
   font-family: arial, sans-serif;
 }
+#support .ctn .chat_blk .msg_contain .msg .profile > img{
+  object-fit: cover !important;
+}
