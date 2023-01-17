@@ -9,11 +9,11 @@ class Admins::PasswordsController < Devise::PasswordsController
         @admin.save
         super
       else
-        flash[:alert] = "No admin exist's against this email"
+        flash[:notice] = "No admin exist's against this email"
         redirect_to new_admin_password_path
       end
     else
-      flash[:alert] = "Email can't be blank"
+      flash[:notice] = "Email can't be blank"
       redirect_to new_admin_password_path
     end
   end
@@ -35,7 +35,7 @@ class Admins::PasswordsController < Devise::PasswordsController
       respond_with resource, location: after_resetting_password_path_for(resource)
     else
       set_minimum_password_length
-      flash[:alert] = resource.errors.full_messages.last
+      flash[:notice] = resource.errors.full_messages.last
       redirect_to edit_admin_password_path(reset_password_token: resource_params[:reset_password_token])
     end
   end

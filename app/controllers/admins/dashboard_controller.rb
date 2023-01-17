@@ -43,10 +43,10 @@ class Admins::DashboardController < ApplicationController
   def delete_sub_admin
     if @sub_admin.destroy
       redirect_to sub_admins_index_admins_dashboard_index_path
-      flash[:alert] = "Sub Admin has been deleted successfully."
+      flash[:notice] = "Sub Admin has been deleted successfully."
     else
       redirect_to sub_admins_index_admins_dashboard_index_path
-      flash[:alert] = @sub_admin.errors.full_messages.to_sentence
+      flash[:notice] = @sub_admin.errors.full_messages.to_sentence
     end
   end
 
@@ -61,9 +61,9 @@ class Admins::DashboardController < ApplicationController
 	end
 
   def find_sub_admin
-    return flash[:alert] = "Id parameter is missing." unless params[:id].present?
+    return flash[:notice] = "Id parameter is missing." unless params[:id].present?
     @sub_admin = Admin.find_by_id(params[:id])
-    return flash[:alert] = "Sub Admin with this id is not present." unless @sub_admin.present?
+    return flash[:notice] = "Sub Admin with this id is not present." unless @sub_admin.present?
   end
 
   def sub_admin_params

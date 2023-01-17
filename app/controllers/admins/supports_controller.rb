@@ -53,7 +53,7 @@
       @support.update(status: "completed")
       flash[:success_alert] = "Support Ticket Status has been updated to Completed."
     end
-    redirect_back(fallback_location: root_path)
+    redirect_to get_specific_chat_admins_support_path(id: params[:support_id])
   end
 
   def download
