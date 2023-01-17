@@ -1,0 +1,34 @@
+<div class="popup" style="display: block">
+  <div class="overlay"></div>
+  <div class="table_dv">
+    <div class="table_cell">
+      <div class="contain-fluid">
+        <div class="row justify-content-center">
+          <div class="col-3">
+            <div class="_inner">
+              <button type="button" class="x_btn"></button>
+              <div class="log_strip" style="background-image: url('/assets/logon-strip.svg')">
+                <p class="fs_5">Hey!</p>
+              </div>
+              <h4 class="text-center mb-4">Are you sure you want to send the money to this user?  </h4>
+              <div class="row">
+                <div class="col-6">
+                  <a class="site_btn px w-100 blank stroke cancel_send_money">No</a>
+                </div>
+                <div class="col-6">
+                <%= form_for :revenue, url: send_money_confirmed_admins_users_path(:format => :js), remote: true do |f| %>
+                  <%= f.hidden_field :user_id, value: locals[:user_id] %>
+                  <%= f.hidden_field :admin_id, value: locals[:admin_id] %>
+                  <%= f.hidden_field :amount, value: locals[:amount] %>
+
+                  <%= f.submit "Yes", class: 'site_btn px w-100 pop_btn' %>
+                <%end%>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

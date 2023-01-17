@@ -45,6 +45,7 @@ class Api::V1::PayPalController < Api::V1::ApiController
       payment_response = PayPalPaymentService.new.transfer_amount(params["account_id"], params["payment_id"])
       email = @current_user.swapper_host_connection.host.paypal_partner_accounts.first.email
       payout_response = PayPalPayOutsService.new.create_payout(email)
+      update_revenue(1)
 
       connection_details = @current_user.swapper_host_connection
       create_payment_history(connection_details.swapper, connection_details)
@@ -80,6 +81,12 @@ class Api::V1::PayPalController < Api::V1::ApiController
 
   def notify_host_payment_has_been_sent_from_swapper(connection)
     PushNotificationService.notify_host_payment_has_been_sent_from_swapper(connection, 10)
+  end
+
+  def update_revenue(amount)
+    admin = Admin.admin.first
+    amount = admin&.revenue&.amount + amount
+    admin.revenue.update(amount: amount) if amount.present?
   end
 
 end

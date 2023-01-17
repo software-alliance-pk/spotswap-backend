@@ -55,7 +55,7 @@
             <%= image_tag "icon-dollar.svg" %>
           </div>
           <div class="txt">
-            <h3>600</h3>
+            <h3><%= @revenue %></h3>
             <span>Revenue</span>
           </div>
         </div>
@@ -116,7 +116,7 @@
           </tbody>
         </table>
       </div>
-      <% if @type != "view_all" %>
+      <% if @type != "view_all" && @users.count!=0 %>
         <div class="view_all">
           <a href="<%= admins_dashboard_index_path(type: "view_all") %>">view all</a>
         </div>

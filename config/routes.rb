@@ -191,6 +191,8 @@ Rails.application.routes.draw do
         get :confirm_yes_popup
         get :get_host_details
         get :export_csv, defaults: { format: :csv }
+        post :send_money
+        post :send_money_confirmed
       end
     end
 

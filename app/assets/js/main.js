@@ -152,6 +152,7 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
+
 	$(document).on('click', ".disable_user", function(){
 		var attribute_id  = $(this).attr("data-id")
 		$.ajax({
@@ -228,6 +229,12 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
+	$(document).on("click", ".cancel_send_money", function () {
+		$('#confirm_transfer_money_popup_div').empty();
+  	$('#send_money_popup_div').empty();
+	});
+
+	
 	// $(document).on("keyup keypress", function(e){
 	// 	if ($('#input_field_text').val() == '' && $('#submitaddphoto').val() == ''){
 	// 		var keyCode = e.keyCode || e.which;
