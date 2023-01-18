@@ -4,10 +4,12 @@ class Admins::GuidelinesController < ApplicationController
 
 	def terms_and_conditions
     @terms_and_conditions = Page.where(title: "Terms & Conditions")
+    @notifications = Notification.all
 	end
 
   def edit_terms_and_conditions
     @terms_and_conditions = Page.where(title: "Terms & Conditions")
+    @notifications = Notification.all
 	end
 
   def update_terms_and_conditions
@@ -23,10 +25,12 @@ class Admins::GuidelinesController < ApplicationController
   
   def privacy_policy
     @privacy_policy = Page.where(title: "Privacy Policy")
+    @notifications = Notification.all
 	end
 
   def edit_privacy_policy
     @privacy_policy = Page.where(title: "Privacy Policy")
+    @notifications = Notification.all
 	end
 
   def update_privacy_policy
@@ -43,9 +47,11 @@ class Admins::GuidelinesController < ApplicationController
   def faqs
     @faqs = Faq.all.order(created_at: :desc)
     @count = 0
+    @notifications = Notification.all
 	end
 
   def add_faq
+    @notifications = Notification.all
 	end
 
   def create_faq
@@ -61,6 +67,7 @@ class Admins::GuidelinesController < ApplicationController
 
   def edit_faq
     @faq = Faq.find_by_id(params[:faq_id])
+    @notifications = Notification.all
 	end
 
   def update_faq

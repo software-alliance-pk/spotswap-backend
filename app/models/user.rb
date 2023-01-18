@@ -22,6 +22,7 @@ class User < ApplicationRecord
   has_many :user_referral_code_records, dependent: :destroy
   has_many :other_histories, dependent: :destroy
   has_many :wallet_histories, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }

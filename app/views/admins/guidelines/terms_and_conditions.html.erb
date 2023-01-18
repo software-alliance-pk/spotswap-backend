@@ -4,10 +4,13 @@
     <div id="top_header">
       <h2 class="mb-0">Guidelines</h2>
       <div class="header_side">
-        <button type="button" class="noti_btn input">
+      <div class="dropdown" id="notify_dropDown">
+        <button type="button" class="noti_btn input" data-bs-auto-close="outside" data-bs-toggle="dropdown">
           <%= image_tag "icon-bell.svg" %>
-          <span>7</span>
+          <span><%=@notifications.count%></span>
         </button>
+        <%= render 'shared/notifications', :locals => {:notifications => @notifications } %>
+      </div>
       </div>
     </div>
     <%= render :partial => "shared/error_success_messages" %>

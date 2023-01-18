@@ -303,3 +303,20 @@
 #support .ctn .chat_blk .msg_contain .msg .profile > img{
   object-fit: cover !important;
 }
+
+#notify_dropDown .dropdown-menu{
+  min-width: 50rem !important;
+  background-color:  #eff7fa;
+}
+
+#notify_dropDown .notify_blk{
+  list-style: none;
+  padding: 0 2rem;
+  margin: 2rem 0 0  0;
+  max-height: 46rem;
+  overflow: auto;
+}
+
+#notify_dropDown .notify_blk li{
+  margin-bottom: 2rem;
+}

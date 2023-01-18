@@ -9,10 +9,13 @@
           <img src="/assets/icon-search.svg" alt="">
           <input type="text" name="" id="" class="input" placeholder="Search">
         </div> -->
-        <button type="button" class="noti_btn input">
-          <%= image_tag "icon-bell.svg" %>
-          <span>7</span>
-        </button>
+        <div class="dropdown" id="notify_dropDown">
+          <button type="button" class="noti_btn input" data-bs-auto-close="outside" data-bs-toggle="dropdown">
+            <%= image_tag "icon-bell.svg" %>
+            <span><%=@notifications.count%></span>
+          </button>
+          <%= render 'shared/notifications', :locals => {:notifications => @notifications } %>
+        </div>
       </div>
     </div>
     <%= render :partial => "shared/error_success_messages" %>

@@ -8,10 +8,13 @@
         <div class="btn_blk">
           <a href="<%= sub_admins_index_admins_dashboard_index_path %>" class="site_btn round">Sub Admin</a>
         </div>
-        <button type="button" class="noti_btn input">
-          <%= image_tag "icon-bell.svg" %>
-          <span>7</span>
-        </button>
+        <div class="dropdown" id="notify_dropDown">
+          <button type="button" class="noti_btn input" data-bs-auto-close="outside" data-bs-toggle="dropdown">
+            <%= image_tag "icon-bell.svg" %>
+            <span><%=@notifications.count%></span>
+          </button>
+          <%= render 'shared/notifications', :locals => {:notifications => @notifications } %>
+        </div>
       </div>
     </div>
     <%= render :partial => "shared/error_success_messages" %>

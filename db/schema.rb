@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_13_164209) do
+ActiveRecord::Schema.define(version: 2023_01_18_123704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -188,6 +188,17 @@ ActiveRecord::Schema.define(version: 2023_01_13_164209) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_mobile_devices_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "subject"
+    t.string "body"
+    t.boolean "is_clear", default: false
+    t.string "notify_by"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "swapper_id"
+    t.integer "host_id"
   end
 
   create_table "pages", force: :cascade do |t|
