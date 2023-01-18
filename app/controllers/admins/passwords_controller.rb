@@ -1,7 +1,7 @@
 class Admins::PasswordsController < Devise::PasswordsController
   
   def create
-    if Admin.last.email == params[:admin][:email]
+    if Admin.admin.last.email == params[:admin][:email]
       $otp = 6.times.map{rand(10)}.join
       super
     elsif
