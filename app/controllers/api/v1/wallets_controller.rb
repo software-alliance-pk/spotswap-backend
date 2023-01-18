@@ -73,6 +73,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
       @wallet.wallet_amount = params[:amount]
       if @wallet.save
         @referral_code_record.update(is_top_up_created: true) if params[:referrer_code].present?
+        default_payment = @current_user.build_default_payment(payment_type: "wallet").save
         @wallet
       else
         render_error_messages(@wallet)
