@@ -69,7 +69,7 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
     connection = SwapperHostConnection.find_by_id(params[:connection_id])
     return render json: {error: "Connection with this Id is not present."}, status: :unprocessable_entity unless connection.present?
     if PushNotificationService.notify_swapper_on_slot_transfer(connection).present?
-      Notification.create(subject: "Slot Transfer", body: "#{connection.host.name} wants to transfer his parking slot.", notify_by: "Host", swapper_id: connection.swapper_id, host_id: connection.host_id)
+      Notification.create(subject: "Slot Transfer", body: "#{connection.host.name} wants to transfer his parking slot.", notify_by: "Host", swapper_id: connection.user_id, host_id: connection.host_id)
 
       #Need to remove after m4
       # slot = connection.parking_slot
