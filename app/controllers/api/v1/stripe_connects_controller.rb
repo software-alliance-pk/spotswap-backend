@@ -15,10 +15,10 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
         else
           wallet = @current_user.build_wallet(amount: 0, payment_type: "wallet", is_default: true)
           default_payment = @current_user.build_default_payment(payment_type: "wallet")
+          default_payment.save!
         end
         if wallet.save
           wallet
-          default_payment.save!
         end
       end
       render json: {account_details: @account_details, wallet: wallet, default_payment: default_payment}
