@@ -1,7 +1,7 @@
 <section id="logon" style="background-image: url(<%= asset_path "Logon.jpg" %>)">
   <div class="contain">
     <div class="log_blk">
-      <div class="form_wrapper">
+      <div class="form_wrapper ">
         <div class="logo">
           <%= image_tag "logo-on.svg" %>
         </div>
@@ -11,23 +11,23 @@
           <% if resource&.errors[:full_name]&.any? %>
             <p style="font-weight:600; color:red;" class="hide_error">Full Name <%= resource&.errors[:full_name][0] %></p>
           <% end %>
-          <div class="form_blk input <%= resource&.errors[:full_name]&.any? ? "error" : "" %>">
-            <%= f.text_field :full_name, autofocus: true, autocomplete: "email", placeholder: "Type here", class: "input" %>
+          <div class="form_blk <%= resource&.errors[:full_name]&.any? ? "error" : "" %>">
+            <%= f.text_field :full_name, autofocus: true, autocomplete: "email", placeholder: "Type here", class: "input border-0" %>
           </div>
           <h5>Email Address</h5>
           <% if resource&.errors[:email]&.any? %>
             <p style="font-weight:600;color:red;" class="hide_error">Email <%= resource&.errors[:email][0] %></p>
           <% end %>
-          <div class="form_blk input <%= resource&.errors[:email]&.any? ? "error" : "" %>">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Type here", class: "input" %>
+          <div class="form_blk <%= resource&.errors[:email]&.any? ? "error" : "" %>">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Type here", class: "input border-0" %>
           </div>
           <h5>Password</h5>
           <% if resource&.errors[:password]&.any? %>
             <p style="font-weight:600; color:red;" class="hide_error">Password <%= resource&.errors[:password][0] %></p>
           <% end %>
-          <div class="form_blk input <%= resource&.errors[:password]&.any? ? "error" : "" %>">
+          <div class="form_blk input border-0 <%= resource&.errors[:password]&.any? ? "error" : "" %>">
             <%= image_tag "icon-lock-blue.svg" %>
-            <%= f.password_field :password, autocomplete: "new-password", class: "input" %>
+            <%= f.password_field :password, autocomplete: "new-password", class: "input border-0" %>
           </div>
           <div class="btn_blk pop_btn">
             <button type="submit" class="site_btn w-100">Sign Up</button>
@@ -43,10 +43,10 @@
 </section>
 <script src="/assets/main.js"></script>
 <script>
-  $(".hide_error").hide(3500);
+  $(".hide_error").hide(30000);
   var url = window.location.href;
   if(url.split("/").length !=5)
   {
-      window.history.replaceState(null,null,"/admins/sign_up")
+    window.history.replaceState(null,null,"/admins/sign_up")
   }
 </script>

@@ -4,9 +4,13 @@ class Admins::PasswordsController < Devise::PasswordsController
     if Admin.last.email == params[:admin][:email]
       $otp = 6.times.map{rand(10)}.join
       super
+    elsif
+      params[:admin][:email]==''
+      redirect_to new_admin_password_path
+      flash[:alert] = "Email can't be blank"
     else
       redirect_to new_admin_password_path
-      flash[:notice] = "Email can't be blank"
+      flash[:alert] = "Invalid Email"
     end
   end
 
@@ -44,6 +48,4 @@ class Admins::PasswordsController < Devise::PasswordsController
   def forget_password_params
     params.require(:admin).permit(:email)
   end
-
-
 end
