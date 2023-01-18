@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subject: MyString
+  body: MyString
+  notifiable_type: MyString
+  notifiable_id: 1
+  is_clear: false
+  notify_by: MyString
+
+two:
+  subject: MyString
+  body: MyString
+  notifiable_type: MyString
+  notifiable_id: 1
+  is_clear: false
+  notify_by: MyString

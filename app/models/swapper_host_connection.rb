@@ -7,5 +7,6 @@ class SwapperHostConnection < ApplicationRecord
 
   def push_notification
     PushNotificationService.fcm_push_notification(self)
+    Notification.create(subject: "New Connection Created", body: "New swapper host connection has been created.", notify_by: "Swapper", swapper_id: self.swapper_id, host_id: self.host_id)
 	end
 end

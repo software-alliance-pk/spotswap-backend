@@ -9,6 +9,7 @@ class Admins::CarsController < ApplicationController
 		else
       @car_brands = CarBrand.all.order(created_at: :desc)
     end
+    @notifications = Notification.all
 	end
 
   def create_brand
@@ -65,6 +66,7 @@ class Admins::CarsController < ApplicationController
       @car_models = CarBrand.find_by_id(params[:brand_id])&.car_models.paginate(page: params[:page]).order(created_at: :desc)
     end
     @brand_id = params[:brand_id]
+    @notifications = Notification.all
   end
 
   def delete_model
