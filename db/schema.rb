@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_18_123704) do
+ActiveRecord::Schema.define(version: 2023_01_18_142817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -199,6 +199,8 @@ ActiveRecord::Schema.define(version: 2023_01_18_123704) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "swapper_id"
     t.integer "host_id"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "pages", force: :cascade do |t|
@@ -398,6 +400,7 @@ ActiveRecord::Schema.define(version: 2023_01_18_123704) do
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
   add_foreign_key "mobile_devices", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "parking_slots", "users"
   add_foreign_key "paypal_partner_accounts", "users"
   add_foreign_key "quick_chats", "users"

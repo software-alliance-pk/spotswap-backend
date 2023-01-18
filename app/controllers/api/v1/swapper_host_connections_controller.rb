@@ -43,7 +43,7 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
     @connection = SwapperHostConnection.find_by(user_id: @user.id)
     return render json: {error: "Swapper with given Id has not any Swapper Host Connection."}, status: :unprocessable_entity unless @connection.present?
     if PushNotificationService.notify_host_on_cancel_request(@user).present?
-      Notification.create(subject: "Cancel Connection Request", body: "Request has been cancelled by Swapper.", notify_by: "Swapper", swapper_id: connection.user_id, host_id: connection.host_id)
+      Notification.create(subject: "Cancel Connection Request", body: "Request has been cancelled by Swapper.", notify_by: "Swapper", user_id: connection.host_id, swapper_id: connection.user_id, host_id: connection.host_id)
       render json: {message: "Notification has been sent successfully to the Host."}, status: :ok
     else
       render json: {error: "Notification could not be sent."}, status: :unprocessable_entity
@@ -56,7 +56,7 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
     @connection = SwapperHostConnection.find_by(user_id: @user.id)
     return render json: {error: "The Connection has been destroyed, because swapper did not confirm his arrival."}, status: :unprocessable_entity unless @connection.present?
     if PushNotificationService.notify_swapper_for_confirm_arrival(@user).present?
-      Notification.create(subject: "Confirm Arrival", body: "Host is issuing a Confirm Arrival, are you still interested in the spot?.", notify_by: "Host", swapper_id: connection.user_id, host_id: connection.host_id)
+      Notification.create(subject: "Confirm Arrival", body: "Host is issuing a Confirm Arrival, are you still interested in the spot?.", notify_by: "Host", user_id: connection.user_id, swapper_id: connection.user_id, host_id: connection.host_id)
       render json: {message: "Notification has been sent successfully to the Swapper."}, status: :ok
     else
       render json: {error: "Notification could not be sent."}, status: :unprocessable_entity
@@ -68,7 +68,7 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
     connection = SwapperHostConnection.find_by_id(params[:connection_id])
     return render json: {error: "Connection with this Id is not present."}, status: :unprocessable_entity unless connection.present?
     if PushNotificationService.notify_host_swapper_is_still_interested(connection).present?
-      Notification.create(subject: "Still Interested in Slot", body: "Swapper #{connection.swapper.name} is still interested in your Parking Slot.", notify_by: "Swapper", swapper_id: connection.user_id, host_id: connection.host_id)
+      Notification.create(subject: "Still Interested in Slot", body: "Swapper #{connection.swapper.name} is still interested in your Parking Slot.", notify_by: "Swapper", user_id: connection.host_id, swapper_id: connection.user_id, host_id: connection.host_id)
       render json: {message: "Notification has been sent successfully to the Host."}, status: :ok
     else
       render json: {error: "Notification could not be sent."}, status: :unprocessable_entity

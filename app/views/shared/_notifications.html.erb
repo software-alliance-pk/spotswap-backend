@@ -6,21 +6,25 @@
   </div>
   <div class="text">
     <ul class="notify_blk">
-      <% @notifications.each do |notification| %>
-        <li>
-          <div class="blk">
-            <div class="profile">
-              <div class="d-flex justify-content-between w-100">
+      <% if @notifications.present?%>
+        <% @notifications.each do |notification| %>
+          <li>
+            <div class="blk">
+              <div class="profile">
+                <div class="d-flex justify-content-between w-100">
                   <h5 class="mb-0"><%= notification.subject %></h5>
                   <p><%= notification.created_at.strftime('%d/%m/%Y at %H:%M') %></p>
-               </div>
+                </div>
+              </div>
+              <div class="content">
+                <p><%= notification.body %></p>
+              </div>
             </div>
-            <div class="content">
-              <p><%= notification.body %></p>
-            </div>
-          </div>
-        </li>
-      <% end %>
+          </li>
+        <% end %>
+      <%else%>
+          <p class="text-center fs_6"><strong> There is not any notification present. </strong></p>
+      <%end%>
     </ul>
   </div>
 </div>
