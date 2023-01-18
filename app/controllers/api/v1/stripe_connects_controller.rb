@@ -18,7 +18,7 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
         end
         if wallet.save
           wallet
-          default_payment.save
+          default_payment.save!
         end
       end
       render json: {account_details: @account_details, wallet: wallet, default_payment: default_payment}

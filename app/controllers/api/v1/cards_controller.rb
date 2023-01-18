@@ -46,10 +46,10 @@ class Api::V1::CardsController < Api::V1::ApiController
       if !user_cards_info.present?
         if @current_user.wallet.present?
           @current_user.wallet.update(is_default: true)
-          default_payment = @current_user.build_default_payment(payment_type: "wallet")
+          default_payment = @current_user.build_default_payment(payment_type: "wallet").save!
         elsif @current_user.paypal_partner_accounts.present?
           @current_user.paypal_partner_accounts.first.update(is_default: true)
-          default_payment = @current_user.build_default_payment(paypal_account_id: @current_user.paypal_partner_accounts.first.id, payment_type: "paypal")
+          default_payment = @current_user.build_default_payment(paypal_account_id: @current_user.paypal_partner_accounts.first.id, payment_type: "paypal").save!
         end
       else
         find_first_card = user_cards_info&.first unless user_cards_info.pluck(:is_default).include?(true)
