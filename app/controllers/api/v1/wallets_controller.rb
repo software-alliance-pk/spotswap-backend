@@ -150,7 +150,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
   def notify_host_payment_has_been_sent_from_swapper(connection, amount)
     PushNotificationService.notify_host_payment_has_been_sent_from_swapper(connection, amount.to_i-1)
-    Notification.create(subject: "Payment Sent by Swapper", body: "Swapper #{connection.swapper.name} has been sent payment of $#{amount}.00", notify_by: "Swapper", user_id: connection.host_id, swapper_id: connection.user_id, host_id: connection.host_id)
+    Notification.create(subject: "Payment Sent by Swapper", body: "Swapper #{connection.swapper.name} has been sent payment of $11.00", notify_by: "Swapper", user_id: connection.host_id, swapper_id: connection.user_id, host_id: connection.host_id)
   end
 
   def create_wallet_history(amount)
