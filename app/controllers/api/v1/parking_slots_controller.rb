@@ -71,7 +71,7 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
     if PushNotificationService.notify_swapper_on_slot_transfer(connection).present?
       Notification.create(subject: "Slot Transfer", body: "#{connection.host.name} wants to transfer his parking slot.", notify_by: "Host", user_id: connection.user_id, swapper_id: connection.user_id, host_id: connection.host_id)
 
-      #Need to remove after m4
+      # need to remove after m4
       # slot = connection.parking_slot
       # slot.update(user_id: connection.swapper.id)
       # connection.destroy
