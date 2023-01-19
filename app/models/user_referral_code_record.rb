@@ -7,9 +7,9 @@ class UserReferralCodeRecord < ApplicationRecord
   def check_user_eligibility_for_top_up
     @transfer_response = nil
     records = UserReferralCodeRecord.where(referrer_id: self.referrer_id)
+    user = User.find_by_id(self.referrer_id)
     if records.count != 0 && records.count%10 == 0
-      @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(10*100, User.find_by_id(self.referrer_id).stripe_connect_account.account_id)
-       
+      @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(10*100, user.stripe_connect_account.account_id) if user.stripe_connect_account.present?
     end
     return @transfer_response
   end
