@@ -81,7 +81,7 @@ class Api::V1::PayPalController < Api::V1::ApiController
 
   def notify_host_payment_has_been_sent_from_swapper(connection)
     PushNotificationService.notify_host_payment_has_been_sent_from_swapper(connection, 10)
-    Notification.create(subject: "Payment Transfer", body: "Swapper #{connection.swapper.name} has been sent payment of $#{amount}.00", notify_by: "Swapper", user_id: connection.host_id, swapper_id: connection.user_id, host_id: connection.host_id)
+    Notification.create(subject: "Payment Transfer", body: "Swapper #{connection.swapper.name} has been sent payment of $10.00", notify_by: "Swapper", user_id: connection.host_id, swapper_id: connection.user_id, host_id: connection.host_id)
   end
 
   def update_revenue(amount)
