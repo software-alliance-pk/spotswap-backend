@@ -12,7 +12,7 @@ class Admins::DashboardController < ApplicationController
     end
     @cars = CarDetail.all
     @revenue = Admin.admin.first.revenue&.amount
-    @notifications = Notification.all
+    @notifications = Notification.all.order(created_at: :desc)
 	end
 
   def sub_admins_index
@@ -25,7 +25,7 @@ class Admins::DashboardController < ApplicationController
 		else
       @sub_admins = Admin.where(category: "sub_admin").paginate(page: params[:page]).order(created_at: :desc)
     end
-    @notifications = Notification.all
+    @notifications = Notification.all.order(created_at: :desc)
   end
 
   def create_sub_admin

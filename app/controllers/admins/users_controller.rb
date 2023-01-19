@@ -11,7 +11,7 @@ class Admins::UsersController < ApplicationController
 		else
       @users = User.all.paginate(page: params[:page]).order(created_at: :desc)
     end
-    @notifications = Notification.all
+    @notifications = Notification.all.order(created_at: :desc)
 	end
 
   def view_profile
