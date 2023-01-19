@@ -14,7 +14,7 @@ class UserReferralCodeRecord < ApplicationRecord
         if user.wallet.present?
           amount = user.wallet.amount
           user.wallet.update(amount: amount+10)
-          user.wallet_histories.create(transaction_type: "credited", top_up_description: "bank_transfer", amount: 10, title: "Top Up")
+          user.wallet_histories.create(transaction_type: "credited", top_up_description: "bank_transfer", amount: 10, title: "Credited")
         end
       end
     end

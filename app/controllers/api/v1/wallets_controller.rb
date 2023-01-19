@@ -155,7 +155,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
   end
 
   def create_wallet_history(amount)
-    @current_user.wallet_histories.create(transaction_type: "credited", top_up_description: "bank_transfer", amount: amount, title: "Credited")
+    @current_user.wallet_histories.create(transaction_type: "credited", top_up_description: "bank_transfer", amount: amount, title: "Top Up")
   end
 
   def update_revenue(amount)
