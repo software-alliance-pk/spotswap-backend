@@ -56,7 +56,7 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
     @connection = SwapperHostConnection.find_by(user_id: @user.id)
     return render json: {error: "The Connection has been destroyed, because swapper did not confirm his arrival."}, status: :unprocessable_entity unless @connection.present?
     if PushNotificationService.notify_swapper_for_confirm_arrival(@user).present?
-      Notification.create(subject: "Confirm Arrival", body: "Host is issuing a Confirm Arrival, are you still interested in the spot?.", notify_by: "Host", user_id: connection.user_id, swapper_id: connection.user_id, host_id: connection.host_id)
+      Notification.create(subject: "Confirm Arrival", body: "Host is issuing a Confirm Arrival, are you still interested in the spot?.", notify_by: "Host", user_id: @connection.user_id, swapper_id: @connection.user_id, host_id: @connection.host_id)
       render json: {message: "Notification has been sent successfully to the Swapper."}, status: :ok
     else
       render json: {error: "Notification could not be sent."}, status: :unprocessable_entity
