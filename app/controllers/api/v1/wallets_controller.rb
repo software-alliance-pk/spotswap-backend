@@ -58,6 +58,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
       end
 
       if params[:referrer_code].present?
+        return render json: {error: "You can't use your own referral code."}, status: :unprocessable_entity if @current_user.referral_code == params[:referrer_code]
         @referrer = User.find_by(referral_code: params[:referrer_code])
         return render json: {error: "Referral Code is Invalid."}, status: :unprocessable_entity unless @referrer.present?
         @referral_code_record = check_referrer_code_already_in_use(@referrer)
