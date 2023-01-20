@@ -38,6 +38,7 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
 
   def get_all_finders
     users = User.within(0.6096, :units => :kms, :origin => [params[:latitude], params[:longitude]])
+    users = users.where(profile_complete: true)
     @compatible_users = []
     users.each do |user|
       if is_swapper_car_size_compatible(user)
