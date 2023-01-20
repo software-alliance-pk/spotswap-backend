@@ -15,6 +15,11 @@ json.profile do
   json.car_models @car_detail&.car_brand&.car_models do |model|
     json.id model.id
     json.name model.title
+    json.length model.length
+    json.width model.width
+    json.height model.height
+    json.color model.color
+    json.released_year model.released
   end
 
   if @car_detail.photos.attached?
