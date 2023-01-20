@@ -6,7 +6,7 @@ json.payment_histories @payment_histories do |history|
   json.swapper swapper
   json.host host
   json.swapper_image swapper.image.attached? ? swapper.image.url : ""
-  json.host_image swapper.image.attached? ? host.image.url : ""
+  json.host_image host.image.attached? ? host.image.url : ""
   json.swapper_car_model swapper&.car_detail&.car_brand&.title + " " + swapper&.car_detail&.car_model&.title
   json.host_car_model host&.car_detail&.car_brand&.title + " " + host&.car_detail&.car_model&.title
   json.user_type history.user_id == history.swapper_id ? "Swapper" : "Host"  
