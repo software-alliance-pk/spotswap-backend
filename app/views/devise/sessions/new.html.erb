@@ -6,6 +6,11 @@
           <%= image_tag "logo-on.svg" %>
         </div>
         <h3 class="mb-0">Sign in to manage</h3>
+        <%if params[:admin].present?%>
+          <%if !params[:admin][:password].blank? %>
+            <p style="position:absolute; left:1%; font-weight:600; margin-top:10px; color:red;"><%= alert %></p>
+          <%end%>
+        <%end%>
         <%= form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
           <h5>Email Address</h5>
           <div class="form_blk error">
