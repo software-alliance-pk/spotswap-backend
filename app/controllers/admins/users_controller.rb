@@ -23,7 +23,7 @@ class Admins::UsersController < ApplicationController
   def export_csv
     @start_date = Date.strptime(params[:daterange].split.first, "%m/%d/%Y").to_datetime
     @end_date = Date.strptime(params[:daterange].split.third, "%m/%d/%Y").to_datetime
-    @users = User..where(is_disabled: false).where('created_at BETWEEN ? AND ?', @start_date, @end_date)
+    @users = User.where(is_disabled: false).where('created_at BETWEEN ? AND ?', @start_date, @end_date)
     respond_to do |format|
       format.csv { send_data @users.to_csv, filename: "users-#{Date.today}.csv" }
     end
