@@ -23,6 +23,8 @@ class User < ApplicationRecord
   has_many :other_histories, dependent: :destroy
   has_many :wallet_histories, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :send_money_histories, dependent: :destroy
+
 
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }

@@ -46,7 +46,7 @@
                             <%if @histories.present?%>
                               <%@histories.each do |history|%>
                                 <%connection = SwapperHostConnection.find_by(id: history.connection_id)%>
-                                <%slot = ParkingSlot.find_by(id: connection.parking_slot_id)%>
+                                <%slot = ParkingSlot.find_by(id: connection&.parking_slot_id)%>
                                 <li>
                                   <div class="item" id ="history_item" data-id="<%=history.id%>">
                                     <div class="d-flex justify-content-between align-items-center">

@@ -140,6 +140,30 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
+	$('.approve').on('click', function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+      url: `/admins/users/approve_user?id=${attribute_id}`,
+      type: 'get',
+      data: this.data,
+			success: function(response) {
+				$('.approve_user_success_div').html(response)
+			}
+    })
+	});
+
+	$('.disapprove').on('click', function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+      url: `/admins/users/disapprove_user_popup?id=${attribute_id}`,
+      type: 'get',
+      data: this.data,
+			success: function(response) {
+				$('.disapprove_user_popup_div').html(response)
+			}
+    })
+	});
+
 	$(document).on('click', ".send_money", function(){
 		var attribute_id  = $(this).attr("data-id")
 		$.ajax({
@@ -173,6 +197,18 @@ $(document).on('turbolinks:load', function(){
       data: this.data,
 			success: function(response) {
 				$('.confirm_yes_popup_div').html(response)
+			}
+    })
+	});
+
+	$(document).on('click', ".confirm_disapprove", function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+      url: `/admins/users/confirm_disapprove_popup?id=${attribute_id}`,
+      type: 'get',
+      data: this.data,
+			success: function(response) {
+				$('.confirm_disapprove_popup_div').html(response)
 			}
     })
 	});
