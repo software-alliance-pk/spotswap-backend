@@ -1,3 +1,8 @@
+<head>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+</head>
+
 <section id="account_section">
   <%= render :partial => "shared/sidebar" %>
   <div id="car_modal" class="main_side">
@@ -35,8 +40,7 @@
       <div class="button_blk">
         <%= form_with url: export_csv_admins_cars_path, :class => 'd-flex align-items-center justify-center gap-5', method: :get do |f| %>
           <%= f.hidden_field :brand_id, value: @brand.id%>
-          <input type="date" name="start_date" class="input" placeholder="Start Date" required>
-          <input type="date" name="end_date" class="input" placeholder="End Date" required>
+          <input class="input" type="text" name="daterange"/>
           <button class="site_btn round bg_white d-flex align-items-center justify-content-center" role='button'>
             <p class='text-black m-0 export-text'>Export CSV</p>
             <img src="/assets/Download-black.svg" height='16.5px' width='17.53px' />
@@ -199,3 +203,12 @@
 <!-- account_section -->
 <!-- Main Js -->
 <script src="/assets/main.js"></script>
+<script>
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+</script>
