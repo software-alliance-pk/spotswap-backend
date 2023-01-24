@@ -6,10 +6,10 @@ class Admins::UsersController < ApplicationController
     if params[:search_key].present?
 			@users = User.where('name ILIKE :search_key OR email ILIKE :search_key 
       OR contact ILIKE :search_key', search_key: "%#{params[:search_key]}%")
-      .paginate(page: params[:page]).order(created_at: :desc)
+      .paginate(page: params[:page]).where(is_disabled: false).order(created_at: :desc)
 			@search_key = params[:search_key]
 		else
-      @users = User.all.paginate(page: params[:page]).order(created_at: :desc)
+      @users = User.where(is_disabled: false).paginate(page: params[:page]).order(created_at: :desc)
     end
     @notifications = Notification.all.order(created_at: :desc)
 	end
@@ -21,9 +21,9 @@ class Admins::UsersController < ApplicationController
   end
 
   def export_csv
-    @start_date = (params[:start_date]).to_datetime
-    @end_date = ((params[:end_date]).to_datetime + 1.day)
-    @users = User.where('created_at BETWEEN ? AND ?', @start_date, @end_date)
+    @start_date = Date.strptime(params[:daterange].split.first, "%m/%d/%Y").to_datetime
+    @end_date = Date.strptime(params[:daterange].split.third, "%m/%d/%Y").to_datetime
+    @users = User..where(is_disabled: false).where('created_at BETWEEN ? AND ?', @start_date, @end_date)
     respond_to do |format|
       format.csv { send_data @users.to_csv, filename: "users-#{Date.today}.csv" }
     end
@@ -34,8 +34,29 @@ class Admins::UsersController < ApplicationController
     render partial: 'send_money_popup', locals:{user: @user, admin: Admin.admin.last}
   end
 
-  def send_money
+  def approve_user
+    user = User.find_by(id: params[:id])
+    history = user.send_money_histories.last
+    if history.present?
+      admin = Admin.find_by(id: history.admin_id)
+      amount = history.amount.to_i
+      @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount*100, user.stripe_connect_account.account_id)
+      update_revenue(amount, admin)
+      render partial: 'approve_user_success'
+    end
+  end
 
+  def disapprove_user_popup
+    @user = User.find_by(id: params[:id])
+    render partial: 'disapprove_user_popup', locals:{user: @user, admin: Admin.admin.last}
+  end
+
+  def confirm_disapprove_popup
+    @user = User.find_by(id: params[:id])
+    render partial: 'confirm_disapprove_popup', locals:{user: @user, admin: Admin.admin.last}
+  end
+
+  def send_money
   end
 
   def send_money_confirmed
@@ -45,15 +66,15 @@ class Admins::UsersController < ApplicationController
       admin = Admin.find_by(id: params[:revenue][:admin_id])
       amount = params[:revenue][:amount].to_i
       unless user.stripe_connect_account.present?
-        return flash[:notice] = "User has not any Stripe Connect Account."
+        @error_message = "User has not any Stripe Connect Account." and return
       end
 
       if admin.revenue.amount >= amount
-        @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount, user.stripe_connect_account.account_id)
-        update_revenue(amount, admin)
+        user.send_money_histories.build(admin_id: params[:revenue][:admin_id], amount: params[:revenue][:amount]).save!
+        user.update(amount_transfer: params[:revenue][:amount], transfer_from: "Stripe Connect")
         @is_amount_transfer = true
       else
-        return flash[:notice] = "You have Insufficient Balance in your Revenue."
+        @error_message = "You have Insufficient Balance in your Revenue."
       end
     end
   end
@@ -64,7 +85,7 @@ class Admins::UsersController < ApplicationController
 
   def confirm_yes_popup
     @user = User.find_by(id: params[:id])
-    @user.destroy
+    @user.update(is_disabled: true)
     render partial: 'confirm_yes_popup'
   end
 

@@ -65,7 +65,7 @@ class Admins::CarsController < ApplicationController
 		else
       @car_models = CarBrand.find_by_id(params[:brand_id])&.car_models.paginate(page: params[:page]).order(created_at: :desc)
     end
-    @brand_id = params[:brand_id]
+    @brand = CarBrand.find_by(id: params[:brand_id])
     @notifications = Notification.all.order(created_at: :desc)
   end
 

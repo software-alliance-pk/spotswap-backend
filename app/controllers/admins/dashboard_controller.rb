@@ -5,10 +5,10 @@ class Admins::DashboardController < ApplicationController
 
 	def index
     if params[:type]=="view_all"
-      @users = User.all.order(created_at: :desc)
+      @users = User.where(is_disabled: false).order(created_at: :desc)
       @type = "view_all"
     else
-      @users = User.all.order(created_at: :desc).limit(10)
+      @users = User.where(is_disabled: false).order(created_at: :desc).limit(10)
     end
     @cars = CarDetail.all
     @revenue = Admin.admin.first.revenue&.amount
@@ -19,11 +19,10 @@ class Admins::DashboardController < ApplicationController
     if params[:search_key].present?
       @sub_admins = Admin.where('full_name ILIKE :search_key OR email ILIKE :search_key 
       OR contact ILIKE :search_key OR location ILIKE :search_key', search_key: "%#{params[:search_key]}%")
-      .where(category: "sub_admin").paginate(page: params[:page]).order(created_at: :desc)
-
+      .where(category: "sub_admin").where(status: "active").paginate(page: params[:page]).order(created_at: :desc)
 			@search_key = params[:search_key]
 		else
-      @sub_admins = Admin.where(category: "sub_admin").paginate(page: params[:page]).order(created_at: :desc)
+      @sub_admins = Admin.where(status: "active").paginate(page: params[:page]).order(created_at: :desc)
     end
     @notifications = Notification.all.order(created_at: :desc)
   end
@@ -31,7 +30,6 @@ class Admins::DashboardController < ApplicationController
   def create_sub_admin
     @sub_admin = Admin.new(sub_admin_params.except(:f_name, :l_name, :country_code))
     @sub_admin.full_name = sub_admin_params[:f_name] + ' ' + sub_admin_params[:l_name]
-    @sub_admin.contact = '+' + sub_admin_params[:country_code] + sub_admin_params[:contact]
     @sub_admin.category = "sub_admin"
     if @sub_admin.save
       redirect_to sub_admins_index_admins_dashboard_index_path
@@ -43,9 +41,9 @@ class Admins::DashboardController < ApplicationController
   end
 
   def delete_sub_admin
-    if @sub_admin.destroy
+    if @sub_admin.update(status: "disabled")
       redirect_to sub_admins_index_admins_dashboard_index_path
-      flash[:notice] = "Sub Admin has been deleted successfully."
+      flash[:notice] = "Sub Admin has been disabled successfully."
     else
       redirect_to sub_admins_index_admins_dashboard_index_path
       flash[:notice] = @sub_admin.errors.full_messages.to_sentence

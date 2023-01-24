@@ -2,7 +2,7 @@
   <%= render :partial => "shared/sidebar" %>
   <div id="car_modal" class="main_side">
     <div id="top_header">
-      <h2><%=@car_models&.first&.car_brand&.title%></h2>
+      <h2><%=@brand.title%></h2>
       <div class="header_side">
       <div class="dropdown" id="notify_dropDown">
         <button type="button" class="noti_btn input" data-bs-auto-close="outside" data-bs-toggle="dropdown">
@@ -26,7 +26,7 @@
             <button class="btn" type="submit">
               <%= image_tag "Search.svg" %>
             </button>
-            <%= f.hidden_field :brand_id, value: @brand_id%>
+            <%= f.hidden_field :brand_id, value: @brand.id%>
             <%= f.text_field :search_key, id: "searchbtn", value: @search_key, class: "input", placeholder: "Search car model" %>
           </div>
         <%end%>
@@ -34,7 +34,7 @@
 
       <div class="button_blk">
         <%= form_with url: export_csv_admins_cars_path, :class => 'd-flex align-items-center justify-center gap-5', method: :get do |f| %>
-          <%= f.hidden_field :brand_id, value: @brand_id%>
+          <%= f.hidden_field :brand_id, value: @brand.id%>
           <input type="date" name="start_date" class="input" placeholder="Start Date" required>
           <input type="date" name="end_date" class="input" placeholder="End Date" required>
           <button class="site_btn round bg_white d-flex align-items-center justify-content-center" role='button'>
@@ -140,7 +140,7 @@
                     style="background-image: url('/assets/logon-strip.svg')">
                     <p class="fs_5">Add Car Model</p>
                   </div>
-                  <%= form_with url: create_model_admins_cars_path(brand_id: @brand_id) do |f| %>
+                  <%= form_with url: create_model_admins_cars_path(brand_id: @brand.id) do |f| %>
                     <div class="prof_img" style="position:relative;">
                       <div class="img" style="width:80%">
                         <%= image_tag "upload-photo.png" %>

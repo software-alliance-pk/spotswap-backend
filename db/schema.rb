@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_18_142817) do
+ActiveRecord::Schema.define(version: 2023_01_24_170806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -259,6 +259,15 @@ ActiveRecord::Schema.define(version: 2023_01_18_142817) do
     t.index ["admin_id"], name: "index_revenues_on_admin_id"
   end
 
+  create_table "send_money_histories", force: :cascade do |t|
+    t.decimal "amount"
+    t.integer "admin_id"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_send_money_histories_on_user_id"
+  end
+
   create_table "stripe_connect_accounts", force: :cascade do |t|
     t.string "account_id"
     t.string "account_country"
@@ -367,6 +376,9 @@ ActiveRecord::Schema.define(version: 2023_01_18_142817) do
     t.string "stripe_connect_id"
     t.boolean "is_online", default: false
     t.integer "referrer_id"
+    t.boolean "is_disabled", default: false
+    t.decimal "amount_transfer"
+    t.string "transfer_from"
   end
 
   create_table "wallet_histories", force: :cascade do |t|
@@ -404,6 +416,7 @@ ActiveRecord::Schema.define(version: 2023_01_18_142817) do
   add_foreign_key "parking_slots", "users"
   add_foreign_key "paypal_partner_accounts", "users"
   add_foreign_key "quick_chats", "users"
+  add_foreign_key "send_money_histories", "users"
   add_foreign_key "stripe_connect_accounts", "users"
   add_foreign_key "support_conversations", "supports"
   add_foreign_key "support_messages", "support_conversations"

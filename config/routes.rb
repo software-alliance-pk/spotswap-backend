@@ -187,12 +187,15 @@ Rails.application.routes.draw do
         get :index
         get :view_profile
         get :send_money_popup
+        get :approve_user
+        get :disapprove_user_popup
         get :disable_user_popup
         get :confirm_yes_popup
         get :get_host_details
         get :export_csv, defaults: { format: :csv }
         post :send_money
         post :send_money_confirmed
+        get :confirm_disapprove_popup
       end
     end
 

@@ -1,3 +1,8 @@
+<head>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+</head>
+
 <section id="account_section">
   <%= render :partial => "shared/sidebar" %>
   <div id="users" class="main_side">
@@ -26,8 +31,7 @@
       
       <div class="button_blk">
         <%= form_with url: export_csv_admins_users_path, :class => 'd-flex align-items-center justify-center gap-5', method: :get do |f| %>
-          <input type="date" name="start_date" class="input" placeholder="Start Date" required>
-          <input type="date" name="end_date" class="input" placeholder="End Date" required>
+          <input class="input" type="text" name="daterange"/>
           <button class="site_btn round bg_white d-flex align-items-center justify-content-center" role='button'>
             <p class='text-black m-0 export-text'>Export CSV</p>
             <img src="/assets/Download-black.svg" height='16.5px' width='17.53px' />
@@ -36,11 +40,15 @@
       </div>
     </div>
     <div class="profile_popup_div"></div>
+    <div class="approve_user_success_div"></div>
     <div class="send_money_popup_div" id="send_money_popup_div"></div>
+    <div class="disapprove_user_popup_div"></div>
     <div class="disable_user_popup_div"></div>
     <div class="confirm_yes_popup_div"></div>
+    <div class="confirm_disapprove_popup_div"></div>
     <div class="confirm_transfer_money_popup_div" id="confirm_transfer_money_popup_div"></div>
     <div class="send_money_confirmed_popup_div"></div>
+    <div class="send_money_errors_popup_div"></div>
 
     <!-- table_section -->
     <div id="table_users">
@@ -54,8 +62,9 @@
                 <th style="width: 20rem;">PHONE NUMBER</th>
                 <th style="width: 19rem;">SMART CAR</th>
                 <th style="width: 15rem;">CAR MAKE</th>
-                <th style="width: 15rem;">DATE JOINED</th>
                 <th style="width: 15rem;">YEAR BOUGHT</th>
+                <th style="width: 15rem;">AMOUNT TRANSFER</th>
+                <th style="width: 15rem;">TRANSFER FROM</th>
                 <th style="width: 15rem; text-align: left">STATUS</th>
               </tr>
             </thead>
@@ -78,8 +87,9 @@
                 <td><%=user.contact%></td>
                 <td><%=user.car_detail&.car_brand&.title%> <%=user.car_detail&.car_model&.title%></td>
                 <td><%=user.car_detail&.car_model&.title%></td>
-                <td>2021</td>
-                <td>2021</td>
+                <td><%=user.car_detail&.car_model&.released%></td>
+                <td>$<%=user.amount_transfer.present? ? user.amount_transfer: 0%></td>
+                <td><%=user.transfer_from.present? ? user.transfer_from : "-"%></td>
                 <td>
                   <div class="active justify-content-between">
                     <span style="text-align: left; padding-left: 2rem"><%=user.status%></span>
@@ -89,6 +99,8 @@
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item view_detail" data-id="<%=user.id%>">View Details</a></li>
+                        <li><a class="dropdown-item approve" data-id="<%=user.id%>">Approve</a></li>
+                        <li><a class="dropdown-item disapprove" data-id="<%=user.id%>">Disapprove</a></li>
                         <li><a class="dropdown-item send_money" data-id="<%=user.id%>">Send Money</a></li>
                         <li><a class="dropdown-item disable_user" data-id="<%=user.id%>">Disable</a></li>
                       </ul>
@@ -122,9 +134,17 @@
         <p class="no_modal">There is no user present.</p>
       <%end%>
     </div>
-
   </div>
 </section>
 <!-- account_section -->
 <!-- Main Js -->
 <script src="/assets/main.js"></script>
+<script>
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+</script>
