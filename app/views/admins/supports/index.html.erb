@@ -14,6 +14,8 @@
       </div>
     </div>
     <%= render :partial => "shared/error_success_messages" %>
+    <div class="show_notification_div"></div>
+
     <div class="ctn">
       <div class="row">
         <div class="col-4">
@@ -179,12 +181,11 @@
   </div>
 </section>
 <script>
-    $(".msg_contain").scrollTop($(".msg_contain")[0].scrollHeight);
-    $(document).ready(function(){
-      $("#searchbtn2").keyup(function (){
-        var word = $(this).val();
-        $("#customsearchbtn").trigger('click');
-      });
-
+  $(".msg_contain").scrollTop($(".msg_contain")[0].scrollHeight);
+  $(document).ready(function(){
+    $("#searchbtn2").keyup(function (){
+      var word = $(this).val();
+      $("#customsearchbtn").trigger('click');
     });
+  });
 </script>

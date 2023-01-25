@@ -11,8 +11,14 @@ class Admins::UsersController < ApplicationController
 		else
       @users = User.where(is_disabled: false).paginate(page: params[:page]).order(created_at: :desc)
     end
-    @notifications = Notification.all.order(created_at: :desc)
+    @notifications = Notification.where(is_clear: false).order(created_at: :desc)
 	end
+
+  def show_notification
+    @notification = Notification.find_by(id: params[:id])
+    @notification.update(is_clear: true)
+    render partial: 'shared/notification_modal', locals:{notification: @notification}
+  end
 
   def view_profile
     @user = User.find_by(id: params[:id])
@@ -37,11 +43,12 @@ class Admins::UsersController < ApplicationController
   def approve_user
     user = User.find_by(id: params[:id])
     history = user.send_money_histories.last
-    if history.present?
+    if history.present? && history.is_approved == false
       admin = Admin.find_by(id: history.admin_id)
       amount = history.amount.to_i
       @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount*100, user.stripe_connect_account.account_id)
       update_revenue(amount, admin)
+      history.update(is_approved: true)
       render partial: 'approve_user_success'
     end
   end

@@ -11,7 +11,7 @@
       @supports = Support.all.order(created_at: :desc)
     end
     @last_support = @supports.first
-    @notifications = Notification.all.order(created_at: :desc)
+    @notifications = Notification.where(is_clear: false).order(created_at: :desc)
     render 'index'
 	end
 
@@ -39,7 +39,7 @@
   def get_specific_chat
     @last_support = Support.find_by(id: params["id"])
     @supports = Support.all.order(created_at: :desc)
-    @notifications = Notification.all.order(created_at: :desc)
+    @notifications = Notification.where(is_clear: false).order(created_at: :desc)
     render 'index'
   end
 

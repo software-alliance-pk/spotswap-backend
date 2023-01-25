@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_24_170806) do
+ActiveRecord::Schema.define(version: 2023_01_25_140432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -265,6 +265,7 @@ ActiveRecord::Schema.define(version: 2023_01_24_170806) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_approved", default: false
     t.index ["user_id"], name: "index_send_money_histories_on_user_id"
   end
 

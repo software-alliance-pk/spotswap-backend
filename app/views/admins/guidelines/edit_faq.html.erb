@@ -4,15 +4,20 @@
     <div id="top_header">
       <h2 class="mb-0">Guidelines</h2>
       <div class="header_side">
-        <button type="button" class="noti_btn input">
-          <img src="/assets/icon-bell.svg" alt="">
-          <span><%=@notifications.count%></span>
-        </button>
+        <div class="dropdown" id="notify_dropDown">
+          <button type="button" class="noti_btn input" data-bs-auto-close="outside" data-bs-toggle="dropdown">
+            <%= image_tag "icon-bell.svg" %>
+            <span><%=@notifications.count%></span>
+          </button>
+          <%= render 'shared/notifications', :locals => {:notifications => @notifications } %>
+        </div>
       </div>
     </div>
     <div class="top_btn">
       <input type="submit" class="site_btn round" value="Save" form="update-faq-form"></input>
     </div>
+    <div class="show_notification_div"></div>
+
     <div class="guide">
       <div class="row">
         <div class="col-md-3">
