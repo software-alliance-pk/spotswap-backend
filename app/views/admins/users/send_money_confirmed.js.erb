@@ -5,6 +5,6 @@ if (<%=@is_amount_transfer%>){
 
 else{
   $('#confirm_transfer_money_popup_div').empty();
-  $('#send_money_popup_div').empty();
+  $('#send_money_popup_div_id').empty();
   $('.send_money_errors_popup_div').html("<%=j render 'send_money_errors', message: @error_message%>");
 }

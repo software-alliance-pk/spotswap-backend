@@ -176,6 +176,17 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
+	$(document).on('click', ".notifiction_btn", function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+      url: `/admins/users/show_notification?id=${attribute_id}`,
+      type: 'get',
+      data: this.data,
+			success: function(response) {
+				$('.show_notification_div').html(response)
+			}
+    })
+	});
 
 	$(document).on('click', ".disable_user", function(){
 		var attribute_id  = $(this).attr("data-id")
@@ -267,10 +278,13 @@ $(document).on('turbolinks:load', function(){
 
 	$(document).on("click", ".cancel_send_money", function () {
 		$('#confirm_transfer_money_popup_div').empty();
-  	$('#send_money_popup_div').empty();
+  	$('#send_money_popup_div_id').empty();
 	});
 
-	
+	$(document).on('click', ".applyBtn", function(){
+  	$("#export_form").submit();
+	});
+
 	$(document).on("keyup keypress", function(e){
 		if ($('#input_field_text').val() == '' && $('#submitaddphoto').val() == ''){
 			var keyCode = e.keyCode || e.which;
@@ -286,6 +300,10 @@ $(document).on('turbolinks:load', function(){
 				e.preventDefault();
 				return false;
 			}
+	})
+
+	$(document).on("click", "#notify_modal .overlay, #notify_modal .x_btn", function(){
+    history.go(0)
 	})
 
 });

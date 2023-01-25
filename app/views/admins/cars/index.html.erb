@@ -14,6 +14,7 @@
     </div>
     </div>
     <%= render :partial => "shared/error_success_messages" %>
+
     <div class="search">
       <%= form_with url: admins_cars_path, id: "searchform", method: :get do |f| %>
         <div class="form_blk input round_input ">
@@ -25,6 +26,8 @@
       <%end%>
       <button class="site_btn round pop_btn" data-popup="forget_pass">Add Car Brand</button>
     </div>
+    <div class="show_notification_div"></div>
+
     <% if @car_brands.present? %>
       <div class="row m-0">
         <% @car_brands.each do |brand|%>

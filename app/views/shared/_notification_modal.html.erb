@@ -1,0 +1,33 @@
+<div class="popup" style="display: block" id="notify_modal">
+  <div class="overlay"></div>
+    <div class="table_dv">
+      <div class="table_cell">
+        <div class="contain-fluid">
+          <div class="row justify-content-center">
+            <div class="col-4">
+              <div class="_inner">
+                <button type="button" class="x_btn"></button>
+                <div class="log_strip"
+                  style="background-image: url('/assets/logon-strip.svg')">
+                  <p class="fs_5">Notification</p>
+                </div>
+                <div class="send_money_popup_div"></div>
+                <div class="detail_blk">
+                  <div class="row my-5">
+                    <div class="col-3"><h6 class="fw-bold">Subject:</h6></div>
+                    <div class="col-9"><h6 class="fw-bold"><%=@notification.subject%></h6></div>
+                    <div class="col-3"><h6 class="fw-bold">Body:</h6></div>
+                    <div class="col-9"><h6 class="fw-bold"><%=@notification.body%></h6></div>
+                    <div class="col-3"><h6 class="fw-bold">Notify By:</h6></div>
+                    <div class="col-9"><h6 class="fw-bold"><%=@notification.notify_by%></h6></div>
+                    <div class="col-3"><h6 class="fw-bold">Date:</h6></div>
+                    <div class="col-9"><h6 class="fw-bold"><%=@notification.created_at.strftime('%d/%m/%Y at %H:%M')%></h6></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

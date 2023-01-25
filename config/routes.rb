@@ -196,6 +196,7 @@ Rails.application.routes.draw do
         post :send_money
         post :send_money_confirmed
         get :confirm_disapprove_popup
+        get :show_notification
       end
     end
 
