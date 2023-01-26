@@ -9,7 +9,7 @@
       <% if @notifications.present?%>
         <% @notifications.each do |notification| %>
           <li>
-            <div class="notifiction_btn blk" role="button" data-id="<%=notification.id%>" class="pop_btn">
+            <div class="blk" id="notification_btn" role="button" data-id="<%=notification.id%>" class="pop_btn">
               <div class="profile">
                 <div class="d-flex justify-content-between w-100">
                   <h5 class="mb-0"><%= notification.subject %></h5>

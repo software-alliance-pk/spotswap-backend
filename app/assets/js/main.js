@@ -176,16 +176,17 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
-	$(document).on('click', ".notifiction_btn", function(){
+	
+	$(document).on('click', "#notification_btn", function(){
 		var attribute_id  = $(this).attr("data-id")
 		$.ajax({
-      url: `/admins/users/show_notification?id=${attribute_id}`,
-      type: 'get',
-      data: this.data,
+			url: `/admins/users/show_notification?id=${attribute_id}`,
+			type: 'get',
+			data: this.data,
 			success: function(response) {
 				$('.show_notification_div').html(response)
 			}
-    })
+		})
 	});
 
 	$(document).on('click', ".disable_user", function(){

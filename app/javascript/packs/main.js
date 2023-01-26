@@ -162,6 +162,18 @@ $(document).on('turbolinks:load', function(){
 		})
 	});
 
+	$(document).on('click', "#notification_btn", function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+			url: `/admins/users/show_notification?id=${attribute_id}`,
+			type: 'get',
+			data: this.data,
+			success: function(response) {
+				$('.show_notification_div').html(response)
+			}
+		})
+	});
+
 	$('.disable_user').on('click', function(){
 		var attribute_id  = $(this).attr("data-id")
 		$.ajax({
