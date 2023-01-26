@@ -19,7 +19,7 @@
                   <span>Your Total Credit</span>
                 </div>
               </div>
-              <%= form_for :revenue, url: send_money_admins_users_path(:format => :js), remote: true do |f| %>
+              <%= form_for :revenue, url: send_money_admins_users_path, remote: true do |f| %>
                 <%= f.hidden_field :user_id, value:user.id %>
                 <%= f.hidden_field :admin_id, value:admin.id %>
 
