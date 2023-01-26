@@ -8,7 +8,7 @@ class SupportMessageBroadcastJob < ApplicationJob
       support_conversation_id: message.support_conversation_id,
       ticket_number: message.support_conversation.support,
       read_status: message.read_status,
-      sender_id: message.sender.id,
+      sender_id: message.sender_id,
       sender_name: message.support_conversation.sender_name,
       recepient_id: message.support_conversation.recipient.id,
       recepient_name: message.support_conversation.recipient_full_name,

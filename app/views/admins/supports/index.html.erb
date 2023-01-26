@@ -49,11 +49,15 @@
                       <h6 class="mb-0"><%= record.user.name %></h6>
                       <div class="d-flex">
                         <p class="msg"><%= last_message(record) %></p>
-                        <p>• <%= time_ago_in_words(last_seen(record)) if last_seen(record).present? %></p>
+                        <% if record.support_conversation.support_messages.present? %>
+                          <p>• <%= time_ago_in_words(last_seen(record)) if last_seen(record).present? %></p>
+                        <%end%>
                       </div>
-                      <div class="u_msg">
-                        <%= unread_count(record) %>
-                      </div>
+                      <% if unread_count(record) != 0 %>
+                        <div class="u_msg">
+                          <%= unread_count(record) %>
+                        </div>
+                      <%end%>
                     </div>
                   </div>
                     <%end%>
