@@ -218,4 +218,5 @@ $(document).on('turbolinks:load', function(){
 	$(document).on("click", "#notify_modal .overlay, #notify_modal .x_btn", function(){
     history.go(0)
 	})
+
 });
