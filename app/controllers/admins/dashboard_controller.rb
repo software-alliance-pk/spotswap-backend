@@ -12,6 +12,7 @@ class Admins::DashboardController < ApplicationController
     end
     @cars = CarDetail.all
     @revenue = Admin.admin.first.revenue&.amount
+    
     @notifications = Notification.where(is_clear: false).order(created_at: :desc)
 	end
 
