@@ -201,6 +201,18 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
+	$(document).on('click', ".enable_user", function(){
+		var attribute_id  = $(this).attr("data-id")
+		$.ajax({
+      url: `/admins/users/enable_user?id=${attribute_id}`,
+      type: 'get',
+      data: this.data,
+			success: function(response) {
+				$('.enable_popup_div').html(response)
+			}
+    })
+	});
+
 	$(document).on('click', ".confirm_yes", function(){
 		var attribute_id  = $(this).attr("data-id")
 		$.ajax({

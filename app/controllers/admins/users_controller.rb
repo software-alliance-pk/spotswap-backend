@@ -6,10 +6,10 @@ class Admins::UsersController < ApplicationController
     if params[:search_key].present?
 			@users = User.where('name ILIKE :search_key OR email ILIKE :search_key 
       OR contact ILIKE :search_key', search_key: "%#{params[:search_key]}%")
-      .paginate(page: params[:page]).where(is_disabled: false).order(created_at: :desc)
+      .paginate(page: params[:page]).order(created_at: :desc)
 			@search_key = params[:search_key]
 		else
-      @users = User.where(is_disabled: false).paginate(page: params[:page]).order(created_at: :desc)
+      @users = User.all.paginate(page: params[:page]).order(created_at: :desc)
     end
     @notifications = Notification.where(is_clear: false).order(created_at: :desc)
 	end
@@ -27,9 +27,9 @@ class Admins::UsersController < ApplicationController
   end
 
   def export_csv
-    @start_date = Date.strptime(params[:daterange].split.first, "%m/%d/%Y").to_datetime
-    @end_date = Date.strptime(params[:daterange].split.third, "%m/%d/%Y").to_datetime
-    @users = User.where(is_disabled: false).where('created_at BETWEEN ? AND ?', @start_date, @end_date)
+    @start_date = Date.strptime(params[:daterange].split.first, "%m/%d/%Y")
+    @end_date = Date.strptime(params[:daterange].split.third, "%m/%d/%Y")
+    @users = User.where(is_disabled: false).where('Date(created_at) BETWEEN ? AND ?', @start_date, @end_date)
     respond_to do |format|
       format.csv { send_data @users.to_csv, filename: "users-#{Date.today}.csv" }
     end
@@ -93,7 +93,17 @@ class Admins::UsersController < ApplicationController
   def confirm_yes_popup
     @user = User.find_by(id: params[:id])
     @user.update(is_disabled: true)
+    @user.update(status: 'disabled')
     render partial: 'confirm_yes_popup'
+  end
+
+  def enable_user
+    @user = User.find_by(id: params[:id])
+    if @user.status!='active'
+      @user.update(is_disabled: false)
+      @user.update(status: 'active')
+      render partial: 'enable_popup'
+    end
   end
 
   def get_host_details
