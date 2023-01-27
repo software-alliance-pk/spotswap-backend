@@ -51,6 +51,8 @@ class Admins::DashboardController < ApplicationController
         redirect_to sub_admins_index_admins_dashboard_index_path
         flash[:notice] = @sub_admin.errors.full_messages.to_sentence
       end
+    else
+      redirect_to sub_admins_index_admins_dashboard_index_path
     end
   end
 
@@ -63,6 +65,8 @@ class Admins::DashboardController < ApplicationController
         redirect_to sub_admins_index_admins_dashboard_index_path
         flash[:notice] = @sub_admin.errors.full_messages.to_sentence
       end
+    else
+      redirect_to sub_admins_index_admins_dashboard_index_path
     end
   end
 
