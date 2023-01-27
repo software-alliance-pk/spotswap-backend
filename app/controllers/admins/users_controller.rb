@@ -87,9 +87,7 @@ class Admins::UsersController < ApplicationController
   end
 
   def disable_user_popup
-    if @user.status!='disabled'
-      @user = User.find_by(id: params[:id])
-    end
+    @user = User.find_by(id: params[:id])
   end
 
   def confirm_yes_popup
