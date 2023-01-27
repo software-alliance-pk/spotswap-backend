@@ -73,6 +73,7 @@
                         <%= image_tag "dot-icon.svg" %>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="<%=enable_sub_admin_admins_dashboard_index_path(id: sub_admin.id)%>">Enable</a></li>
                         <li><a class="dropdown-item" href="<%=delete_sub_admin_admins_dashboard_index_path(id: sub_admin.id)%>">Disable</a></li>
                       </ul>
                     </div>      
@@ -154,7 +155,7 @@
                           <div class="form_blk">
                             <h6>Phone Number</h6>
                             <div>
-                              <input type="text" name="contact" class="input" minlength="5" maxlength="15" pattern="+[0-9]|[0-9]" placeholder="type here" required>
+                              <input type="text" name="contact" class="input" minlength="5" maxlength="15" placeholder="type here" onkeypress="return isNumberKey(event);" required>
                             </div>
                           </div>
                           <div class="form_blk">
@@ -186,3 +187,13 @@
 
 <!-- Main Js -->
 <script src="/assets/main.js"> </script>
+<script>
+  function isNumberKey(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    if(charCode == 46)
+        return false;
+    return true;
+  }
+</script>

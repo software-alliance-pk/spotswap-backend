@@ -81,9 +81,9 @@ class Admins::CarsController < ApplicationController
   end
 
   def export_csv
-    @start_date = Date.strptime(params[:daterange].split.first, "%m/%d/%Y").to_datetime
-    @end_date = Date.strptime(params[:daterange].split.third, "%m/%d/%Y").to_datetime
-    @models = CarBrand.find_by(id: params[:brand_id]).car_models.where('created_at BETWEEN ? AND ?', @start_date, @end_date)
+    @start_date = Date.strptime(params[:daterange].split.first, "%m/%d/%Y")
+    @end_date = Date.strptime(params[:daterange].split.third, "%m/%d/%Y")
+    @models = CarBrand.find_by(id: params[:brand_id]).car_models.where('Date(created_at) BETWEEN ? AND ?', @start_date, @end_date)
     # unless @models.present?
     #   redirect_back(fallback_location: root_path) and return
     # end

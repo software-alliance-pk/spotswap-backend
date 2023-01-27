@@ -179,6 +179,7 @@ Rails.application.routes.draw do
         get :sub_admins_index
         post :create_sub_admin
         get :delete_sub_admin
+        get :enable_sub_admin
       end
     end
 
@@ -197,6 +198,7 @@ Rails.application.routes.draw do
         post :send_money_confirmed
         get :confirm_disapprove_popup
         get :show_notification
+        get :enable_user
       end
     end
 
