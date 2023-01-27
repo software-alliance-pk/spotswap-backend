@@ -43,17 +43,19 @@ class Admins::DashboardController < ApplicationController
   end
 
   def delete_sub_admin
-    if @sub_admin.update(status: "disabled")
-      redirect_to sub_admins_index_admins_dashboard_index_path
-      flash[:notice] = "Sub Admin has been disabled successfully."
-    else
-      redirect_to sub_admins_index_admins_dashboard_index_path
-      flash[:notice] = @sub_admin.errors.full_messages.to_sentence
+    if @sub_admin.status!="disabled"
+      if @sub_admin.update(status: "disabled")
+        redirect_to sub_admins_index_admins_dashboard_index_path
+        flash[:notice] = "Sub Admin has been disabled successfully."
+      else
+        redirect_to sub_admins_index_admins_dashboard_index_path
+        flash[:notice] = @sub_admin.errors.full_messages.to_sentence
+      end
     end
   end
 
   def enable_sub_admin
-    if @sub_admin.status!='active'
+    if @sub_admin.status!="active"
       if @sub_admin.update(status: "active")
         redirect_to sub_admins_index_admins_dashboard_index_path
         flash[:notice] = "Sub Admin has been enabled successfully."
