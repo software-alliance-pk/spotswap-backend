@@ -19,6 +19,7 @@ $(document).ready(function(){
         },
 
         received(data) {
+            $('#submitaddphoto').val('');
             if (data.support_conversation_id == chat_id) {
                 if (data.user_id == null) {
                     $(".msg_contain").append('<div class="msg admin">' +
