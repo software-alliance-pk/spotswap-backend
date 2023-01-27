@@ -38,6 +38,7 @@
 
   def get_specific_chat
     @last_support = Support.find_by(id: params["id"])
+    @last_support&.support_conversation&.support_messages.update(read_status: true)
     @supports = Support.all.order(created_at: :desc)
     @notifications = Notification.where(is_clear: false).order(created_at: :desc)
     render 'index'

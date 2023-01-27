@@ -139,6 +139,7 @@ $(document).on('turbolinks:load', function(){
 			}
     })
 	});
+	
 
 	$('.approve').on('click', function(){
 		var attribute_id  = $(this).attr("data-id")
@@ -176,7 +177,6 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
-	
 	$(document).on('click', "#notification_btn", function(){
 		var attribute_id  = $(this).attr("data-id")
 		$.ajax({
