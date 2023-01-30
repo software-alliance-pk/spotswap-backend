@@ -63,12 +63,23 @@ class User < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = %w{name email contact address}
+    attributes = %w{Name Email Contact CarModel ReleasedYear AmountTransfer TransferFrom Status}
     CSV.generate(headers: true) do |csv|
       csv << attributes
 
-      all.find_each do |user|
-        csv << attributes.map{ |attr| user.send(attr) }
+      all.each do |user|
+        car_detail = CarDetail.where(user_id: user.id)&.first
+        car_model = car_detail&.car_model
+          csv << [
+            user.name,
+            user.email,
+            user.contact,
+            car_model.try(:title),
+            car_model.try(:released),
+            user.amount_transfer,
+            user.transfer_from,
+            user.status
+          ]
       end
     end
   end

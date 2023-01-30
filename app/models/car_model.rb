@@ -7,12 +7,19 @@ class CarModel < ApplicationRecord
   validates :title, :color, :length, :width, :height, :released, presence: true
 
   def self.to_csv
-    attributes = %w{title color length width height released}
+    attributes = %w{Model Color Length Width Height ReleasedYear}
     CSV.generate(headers: true) do |csv|
       csv << attributes
 
       all.find_each do |model|
-        csv << attributes.map{ |attr| model.send(attr) }
+        csv << [
+          model.title,
+          model.color,
+          model.length,
+          model.width,
+          model.height,
+          model.released
+        ]
       end
     end
   end

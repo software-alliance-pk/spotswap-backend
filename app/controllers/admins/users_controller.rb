@@ -88,6 +88,9 @@ class Admins::UsersController < ApplicationController
 
   def disable_user_popup
     @user = User.find_by(id: params[:id])
+    if @user.status=='disabled'
+      render partial: 'user_already_disabled'
+    end
   end
 
   def confirm_yes_popup
