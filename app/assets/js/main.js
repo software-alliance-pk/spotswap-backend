@@ -165,18 +165,6 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
-	$(document).on('click', "#send_money", function(){
-		var attribute_id  = $(this).attr("data-id")
-		$.ajax({
-      url: `/admins/users/send_money_popup?id=${attribute_id}`,
-      type: 'get',
-      data: this.data,
-			success: function(response) {
-				$('.send_money_popup_div').html(response)
-			}
-    })
-	});
-
 	$(document).on('click', "#notification_btn", function(){
 		var attribute_id  = $(this).attr("data-id")
 		$.ajax({
