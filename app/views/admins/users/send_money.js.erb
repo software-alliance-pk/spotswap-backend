@@ -1,1 +1,6 @@
-$('.confirm_transfer_money_popup_div').html("<%=j render 'confirm_transfer_money_popup', :locals => {user_id: params[:revenue][:user_id], admin_id: params[:revenue][:admin_id], amount: params[:revenue][:amount]} %>");
+if (<%=params[:revenue][:amount]%>=="0"){
+  $('.zero_dollar_sent_error').html("<%=j render 'zero_dollar_sent_error'%>");
+}
+else{
+  $('.confirm_transfer_money_popup_div').html("<%=j render 'confirm_transfer_money_popup', :locals => {user_id: params[:revenue][:user_id], admin_id: params[:revenue][:admin_id], amount: params[:revenue][:amount]} %>");
+}
