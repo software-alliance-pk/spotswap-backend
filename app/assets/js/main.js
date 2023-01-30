@@ -165,7 +165,7 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
-	$('.send_money').on('click', function(){
+	$(document).on('click', ".send_money", function(){
 		var attribute_id  = $(this).attr("data-id")
 		$.ajax({
       url: `/admins/users/send_money_popup?id=${attribute_id}`,
