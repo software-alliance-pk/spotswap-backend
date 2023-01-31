@@ -126,7 +126,7 @@
                             </div>
                           <% end %>
                         </div>
-                        <p><%= message.created_at.strftime("%H:%M") %></p>
+                        <p><%= time_ago_in_words(message.created_at) + " ago"%></p>
                       </div>
                     </div>
                   <% else %>
@@ -150,7 +150,7 @@
                           <% end %>
                           </p>
                         </div>
-                        <p><%= message.created_at.strftime("%H:%M") %></p>
+                        <p><%= time_ago_in_words(message.created_at) + " ago"%></p>
                       </div>
                     </div>
                   <% end %>

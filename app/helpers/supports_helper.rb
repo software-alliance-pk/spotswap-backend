@@ -8,6 +8,7 @@ module SupportsHelper
   end
 
   def unread_count (support)
-    support.support_conversation&.support_messages&.where(read_status: false)&.count
+    support.support_conversation&.support_messages&.where(read_status: false).where.not(sender_id: @current_admin.id)&.count
   end
+
 end
