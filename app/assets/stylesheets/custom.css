@@ -779,11 +779,10 @@
   min-width: 2.8rem;
 }
 
-@media (max-width: 768px) {
   .table__blk table tbody tr td:nth-child(1){
     text-align: left !important;
   }
-}
+
 
 .paginate_sec{
   flex-wrap: wrap;
