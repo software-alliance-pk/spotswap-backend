@@ -774,3 +774,26 @@
 #notify_modal ._inner{
   min-width: 61.2rem;
 }
+
+.table__blk table tbody tr td .user .ellipse{
+  min-width: 2.8rem;
+}
+
+@media (max-width: 768px) {
+  .table__blk table tbody tr td{
+    text-align: left;
+  }
+}
+
+.paginate_sec{
+  flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+  .paginate_sec{
+    justify-content: space-between;
+  }
+  .paginate_sec ul.pagination{
+    width: 100%;
+    flex-direction: column;
+  }
+}
