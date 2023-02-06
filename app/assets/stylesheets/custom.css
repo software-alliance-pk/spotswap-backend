@@ -780,8 +780,8 @@
 }
 
 @media (max-width: 768px) {
-  .table__blk table tbody tr td{
-    text-align: left;
+  .table__blk table tbody tr td:nth-child(1){
+    text-align: left !important;
   }
 }
 
