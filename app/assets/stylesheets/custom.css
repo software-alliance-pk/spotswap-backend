@@ -797,3 +797,27 @@
     flex-direction: column;
   }
 }
+
+#top_header{
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+@media (max-width: 768px) {
+  #top_header .header_side{
+    margin-left: auto;
+  }
+  .search{
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .search .round_input{
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+  .main_side{
+    padding: 0 2rem 5rem !important;
+  }
+  #searchform{
+    width: 100%;
+  }
+}
