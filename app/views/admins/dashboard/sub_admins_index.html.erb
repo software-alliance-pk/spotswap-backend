@@ -91,7 +91,11 @@
             <nav aria-label="Page navigation example">
               <ul class="pagination">
               <li class="d-flex me-4">
-              Rows per page: <%=@sub_admins.size%>
+              Rows per page:
+              <span class="select_limit">
+                <%= select_tag :per_page, options_for_select([10,20,30], params[:per_page].to_i),
+                :onchange => "if(this.value){window.location='?per_page='+this.value;}" %>
+              </span>
               </li>
               <% params[:page] = params[:page].nil? ? "1" :  params[:page] %>
               <li><%=params[:page]%> of <%=@sub_admins.total_pages%></li>
@@ -104,7 +108,7 @@
         <%end%>
     </div>
 
-    <div class="popup" data-popup="forget_pass">
+    <div class="popup" data-popup="forget_pass" id="notify_modal">
       <div class="overlay"></div>
       <div class="table_dv">
         <div class="table_cell">

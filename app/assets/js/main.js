@@ -149,6 +149,9 @@ $(document).on('turbolinks:load', function(){
       data: this.data,
 			success: function(response) {
 				$('.approve_user_success_div').html(response)
+					setTimeout(function(){
+						location.reload()
+					}, 2000);
 			}
     })
 	});
@@ -161,6 +164,9 @@ $(document).on('turbolinks:load', function(){
       data: this.data,
 			success: function(response) {
 				$('.disapprove_user_popup_div').html(response)
+					setTimeout(function(){
+						location.reload()
+					}, 2000);
 			}
     })
 	});

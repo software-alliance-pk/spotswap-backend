@@ -820,3 +820,39 @@
     width: 100%;
   }
 }
+
+#table_users > div.table__blk > table > thead > tr > th:nth-child(1){
+  padding-left: 15rem;
+  text-align: left;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+#send_money_popup_div_id .dash_card{
+  width: fit-content;
+  margin: 0 auto;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+#dash .dash_card{
+  box-shadow: 0 0.7rem 3.5rem -0.5rem rgba(var(--black_rgb), 0.1), 0 -0.5rem 1rem -0.6rem rgba(var(--black_rgb), 0.1) !important;
+}
+
+.select_limit select{
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  outline: none;
+  padding-right: 1rem;
+  background-color: transparent;
+}

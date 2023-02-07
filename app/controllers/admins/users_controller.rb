@@ -5,11 +5,11 @@ class Admins::UsersController < ApplicationController
 	def index
     if params[:search_key].present?
 			@users = User.where('name ILIKE :search_key OR email ILIKE :search_key 
-      OR contact ILIKE :search_key', search_key: "%#{params[:search_key]}%")
-      .paginate(page: params[:page]).order(created_at: :desc)
+      OR contact ILIKE :search_key OR status ILIKE :search_key', search_key: "%#{params[:search_key]}%")
+      .paginate(:per_page => params[:per_page], page: params[:page]).order(created_at: :desc)
 			@search_key = params[:search_key]
 		else
-      @users = User.all.paginate(page: params[:page]).order(created_at: :desc)
+      @users = User.all.paginate(:per_page => params[:per_page], page: params[:page]).order(created_at: :desc)
     end
     @notifications = Notification.where(is_clear: false).order(created_at: :desc)
 	end
@@ -43,23 +43,28 @@ class Admins::UsersController < ApplicationController
   def approve_user
     user = User.find_by(id: params[:id])
     history = user.send_money_histories.last
-    if history.present? && history.is_approved == false
+    if history.present? && !history.transfer_money_status.present?
       admin = Admin.find_by(id: history.admin_id)
       amount = history.amount.to_i
       @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount*100, user.stripe_connect_account.account_id)
       update_revenue(amount, admin)
-      history.update(is_approved: true)
+      history.update(transfer_money_status: "approved")
       render partial: 'approve_user_success'
     end
   end
 
   def disapprove_user_popup
     @user = User.find_by(id: params[:id])
-    render partial: 'disapprove_user_popup', locals:{user: @user, admin: Admin.admin.last}
+    history = @user.send_money_histories.last
+    if history.present? && !history.transfer_money_status.present?
+      render partial: 'disapprove_user_popup', locals:{user: @user, admin: Admin.admin.last}
+    end
   end
 
   def confirm_disapprove_popup
     @user = User.find_by(id: params[:id])
+    history = @user.send_money_histories.last
+    history.update(transfer_money_status: "disapproved")
     render partial: 'confirm_disapprove_popup', locals:{user: @user, admin: Admin.admin.last}
   end
 

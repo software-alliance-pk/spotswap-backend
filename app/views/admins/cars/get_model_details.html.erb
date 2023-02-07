@@ -81,7 +81,7 @@
                           <%= image_tag "default-profile.jpg" %>
                         <%end%>
                       </div>
-                      <div><%=model.car_brand.title%> <%=model.title%></div>
+                      <div><%=model.title%></div>
                     </div>
                   </td>
                   <td><%=model.color%></td>
@@ -117,7 +117,11 @@
             <nav aria-label="Page navigation example">
               <ul class="pagination">
               <li class="d-flex me-4">
-              Rows per page: <%=@car_models.size%>
+              Rows per page:
+              <span class="select_limit">
+                <%= select_tag :per_page, options_for_select([10,20,30], params[:per_page].to_i),
+                :onchange => "return perPageHandler(this.value)" %>
+              </span>
               </li>
               <% params[:page] = params[:page].nil? ? "1" :  params[:page] %>
               <li><%=params[:page]%> of <%=@car_models.total_pages%></li>
@@ -133,8 +137,10 @@
       <p class="no_modal">There is no car model present.</p>
     <%end%>
     
-    <div class="popup" data-popup="Add_car_model">
-      <div class="table_dv overlay">
+    <div class="popup" data-popup="Add_car_model" id="notify_modal">
+      <div class="overlay">   
+      </div>
+      <div class="table_dv">
         <div class="table_cell">
           <div class="contain-fluid">
             <div class="row justify-content-center">
@@ -159,30 +165,30 @@
                       <div class="col-md-6">
                       <div class="form_blk">
                         <label for="">Car Model</label>
-                        <input type="text" name="title" class="input" placeholder="type here" required>
+                        <input type="text" name="title" class="input" placeholder="type here" maxlength="30" required>
                       </div>
                       <div class="form_blk">
                         <label for="">Color</label>
-                        <input type="text" name="color" class="input" placeholder="type here" required>
+                        <input type="text" name="color" class="input" placeholder="type here" maxlength="20" required>
                       </div>
                       <div class="form_blk">
                         <label for="">Released</label>
-                        <input type="text" name="released" class="input" placeholder="type here" required>
+                        <input type="number" name="released" class="input" placeholder="type here" required onKeyPress="if(this.value.length==4) return false;">
+                        
                       </div>
-    
                         </div>
                         <div class="col-md-6">
                       <div class="form_blk">
                         <label for="">Length</label>
-                        <input type="text" name="length" class="input" placeholder="type here" required>
+                        <input type="number" name="length" class="input" placeholder="type here" required onKeyPress="if(this.value.length==7) return false;">
                       </div>
                       <div class="form_blk">
                         <label for="">Width</label>
-                        <input type="text" name="width" class="input" placeholder="type here" required>
+                        <input type="number" name="width" class="input" placeholder="type here" required onKeyPress="if(this.value.length==7) return false;">
                       </div>
                       <div class="form_blk">
                         <label for="">Height</label>
-                        <input type="text" name="height" class="input" placeholder="type here" required>
+                        <input type="number" name="height" class="input" placeholder="type here" required onKeyPress="if(this.value.length==7) return false;">
                       </div>
                         </div>
                     </div>
@@ -217,4 +223,11 @@ $(function() {
     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
   });
 });
+
+function perPageHandler(value) {
+  if(value){
+    window.location='?brand_id=<%=@brand.id%>&per_page='+value;
+  }
+}
+
 </script>

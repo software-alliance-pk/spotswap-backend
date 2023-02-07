@@ -3,4 +3,5 @@ class CarBrand < ApplicationRecord
   has_one_attached :image, dependent: :destroy
   
   validates :title, presence: true
+  validates :title, uniqueness: true
 end

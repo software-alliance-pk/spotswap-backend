@@ -1,6 +1,10 @@
 if (<%=@is_amount_transfer%>){
   $('.send_money_confirmed_popup_div').html("<%=j render 'send_money_confirmed_popup'%>");
-  location.reload();
+  $('#confirm_transfer_money_popup_div').empty();
+  $('#send_money_popup_div_id').empty();
+  setTimeout(function(){
+    location.reload()
+  }, 2000);
 }
 
 else{

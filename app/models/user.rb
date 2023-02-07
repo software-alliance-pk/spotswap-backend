@@ -35,7 +35,7 @@ class User < ApplicationRecord
   validates :contact, presence: true, uniqueness: true
   after_save :check_is_online_update
 
-  enum status: [:active, :disabled]
+  enum status: {active: 'active', disabled: 'disabled'}
 
   acts_as_mappable :default_units => :kms,
   :default_formula => :sphere,
@@ -63,7 +63,7 @@ class User < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = %w{Name Email Contact SmartCar CarMake ReleasedYear AmountTransfer TransferFrom Status}
+    attributes = %w{Users Email PhoneNumber SmartCar CarMake YearBought AmountTransfer TransferFrom Status}
     CSV.generate(headers: true) do |csv|
       csv << attributes
 
