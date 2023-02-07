@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_25_140432) do
+ActiveRecord::Schema.define(version: 2023_02_07_145644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -66,8 +66,8 @@ ActiveRecord::Schema.define(version: 2023_01_25_140432) do
     t.integer "category", default: 0
     t.string "contact"
     t.string "location"
-    t.integer "status", default: 0
     t.string "otp"
+    t.string "status", default: "0"
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
@@ -265,7 +265,7 @@ ActiveRecord::Schema.define(version: 2023_01_25_140432) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "is_approved", default: false
+    t.string "transfer_money_status", default: ""
     t.index ["user_id"], name: "index_send_money_histories_on_user_id"
   end
 
@@ -367,7 +367,6 @@ ActiveRecord::Schema.define(version: 2023_01_25_140432) do
     t.integer "otp"
     t.datetime "otp_expiry"
     t.boolean "is_info_complete", default: false
-    t.integer "status"
     t.float "latitude"
     t.float "longitude"
     t.string "address"
@@ -380,6 +379,7 @@ ActiveRecord::Schema.define(version: 2023_01_25_140432) do
     t.boolean "is_disabled", default: false
     t.decimal "amount_transfer"
     t.string "transfer_from"
+    t.string "status", default: "0"
   end
 
   create_table "wallet_histories", force: :cascade do |t|

@@ -60,10 +60,10 @@ class Admins::CarsController < ApplicationController
        OR cast(length as text) ILIKE :search_key
        OR cast(width as text) ILIKE :search_key OR cast(height as text) ILIKE :search_key 
        OR cast(released as text) ILIKE :search_key', search_key: "%#{params[:search_key]}%")
-      .paginate(page: params[:page]).order(created_at: :desc)
+       .paginate(:per_page => params[:per_page], page: params[:page]).order(created_at: :desc)
 			@search_key = params[:search_key]
 		else
-      @car_models = CarBrand.find_by_id(params[:brand_id])&.car_models.paginate(page: params[:page]).order(created_at: :desc)
+      @car_models = CarBrand.find_by_id(params[:brand_id])&.car_models&.paginate(:per_page => params[:per_page], page: params[:page])&.order(created_at: :desc)
     end
     @brand = CarBrand.find_by(id: params[:brand_id])
     @notifications = Notification.where(is_clear: false).order(created_at: :desc)

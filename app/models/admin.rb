@@ -5,7 +5,7 @@ class Admin < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   enum category: [:admin, :sub_admin]
-  enum status: [:active, :disabled]
+  enum status: {active: 'active', disabled: 'disabled'}
   has_many :support_conversations, dependent: :destroy, foreign_key: :recipient_id
   has_one :revenue, dependent: :destroy
 

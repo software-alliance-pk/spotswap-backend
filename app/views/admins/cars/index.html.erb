@@ -48,7 +48,7 @@
     <%else%>
       <p class="no_modal">There is no car brand present.</p>
     <%end%>
-    <div class="popup" data-popup="forget_pass">
+    <div class="popup" data-popup="forget_pass" id="notify_modal">
     <div class="overlay"></div> 
     <div class="table_dv">
       <div class="table_cell">
@@ -71,9 +71,9 @@
                     <%= f.file_field :image, class: "file", accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:0; left:0; opacity:0; padding-bottom: 100%;", required: true %>
                   </div>
                     <div class="form_blk">
-                    <label class="text-center">Enter a card brand</label>
-                    <input type="text" name="name" class="input" placeholder="type here" required>
-                    </div>  
+                    <label class="text-center">Enter a car brand</label>
+                    <input type="text" name="name" class="input" placeholder="type here" maxlength="30" required>
+                    </div>
                       <div class="btn_blk">
                         <button class="site_btn px">Add</button>
                       </div>

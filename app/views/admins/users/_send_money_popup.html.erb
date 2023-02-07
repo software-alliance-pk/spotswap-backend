@@ -25,7 +25,7 @@
 
                 <div class="form_blk">
                   <label>type here</label>
-                  <input type="text" name="revenue[amount]" class="input" placeholder="type here" onkeypress="return isNumberKey(event);" required>
+                  <input type="text" name="revenue[amount]" class="input" placeholder="type here" maxlength="8" onkeypress="return isNumberKey(event);" required>
                 </div>
                 <div class="btn_blk">
                   <%= f.submit "Add", class: 'site_btn px pop_btn' %>

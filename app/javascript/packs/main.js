@@ -157,6 +157,7 @@ $(document).on('turbolinks:load', function(){
 			type: 'get',
 			data: this.data,
 			success: function(response) {
+				$('.profile_popup_div').empty();
 				$('.send_money_popup_div').html(response)
 			}
 		})
