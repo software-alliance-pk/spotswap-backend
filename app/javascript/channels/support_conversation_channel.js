@@ -37,11 +37,8 @@ $(document).ready(function(){
                         '<img src="/assets/icon-arrow-bottom.svg" alt="">' +
                         '</button>' +
                         '</div>' : "") +
-                        '</p>' +
-                        '</div>' +
-
                         '<div class="img mt-4">' +
-                        (data.message_file !== '' ? "<iframe src=" + data.message_file + "></iframe>" + '</div>' +
+                        (data.message_file !== '' ? "<iframe src=" + data.message_file + "></iframe>" +
                         '<button type="button" class="btn down_btn">' +
                         '<img src="/assets/icon-arrow-bottom.svg" alt="">' +
                         '</button>' +
