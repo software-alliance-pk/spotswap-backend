@@ -7,7 +7,7 @@
         <div class="dropdown" id="notify_dropDown">
           <button type="button" class="noti_btn input" data-bs-auto-close="outside" data-bs-toggle="dropdown">
             <%= image_tag "icon-bell.svg" %>
-            <span><%=@notifications.count%></span>
+            <span id="notification_counter"><%=@notifications.count%></span>
           </button>
           <%= render 'shared/notifications', :locals => {:notifications => @notifications } %>
           <div class="show_notification_div"></div>
