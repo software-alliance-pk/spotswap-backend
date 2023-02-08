@@ -5,6 +5,7 @@
 
 <section id="account_section">
   <%= render :partial => "shared/sidebar" %>
+  <div class="" id="calender"></div>
   <div id="car_modal" class="main_side">
     <div id="top_header">
       <h2><%=@brand.title%></h2>
@@ -220,6 +221,7 @@ $(function() {
       applyLabel: 'Export CSV',
   }
   }, function(start, end, label) {
+    $("#calender").removeClass("new_overlay");
     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
   });
 });
@@ -238,5 +240,9 @@ function isNumberKey(event) {
       return false;
   return true;
 }
+
+$("#datepicker").on("click", function(){
+  $("#calender").addClass("new_overlay");
+})
 
 </script>

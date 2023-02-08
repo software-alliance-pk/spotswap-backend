@@ -203,6 +203,9 @@ $(document).on('turbolinks:load', function(){
       data: this.data,
 			success: function(response) {
 				$('.enable_popup_div').html(response)
+				setTimeout(function(){
+					location.reload()
+				}, 2000);
 			}
     })
 	});
@@ -216,6 +219,9 @@ $(document).on('turbolinks:load', function(){
 			success: function(response) {
 				$('.disable_user_popup_div').empty();
 				$('.confirm_yes_popup_div').html(response)
+				setTimeout(function(){
+					location.reload()
+				}, 2000);
 			}
     })
 	});
@@ -291,6 +297,7 @@ $(document).on('turbolinks:load', function(){
 
 	$(document).on('click', ".applyBtn", function(){
   	$("#export_form").submit();
+		$("#calender").removeClass("new_overlay");
 	});
 
 	$(document).on("keyup keypress", function(e){
