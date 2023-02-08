@@ -214,6 +214,7 @@ $(document).on('turbolinks:load', function(){
       type: 'get',
       data: this.data,
 			success: function(response) {
+				$('.disable_user_popup_div').empty();
 				$('.confirm_yes_popup_div').html(response)
 			}
     })
@@ -303,7 +304,7 @@ $(document).on('turbolinks:load', function(){
 	})
 
 	$(".send_btn").on("click", function(e){
-		if ($('#input_field_text').val() == '' && $('#submitaddphoto').val() == ''){
+		if ($('#input_field_text').val() == '' && $('#submitaddphoto').val() == '' && $('#submitaddfile').val() == ''){
 				e.preventDefault();
 				return false;
 			}

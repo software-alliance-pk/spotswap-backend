@@ -144,7 +144,17 @@
                                 <%= image_tag message&.image&.url %>
                               </div>
                               <button type="button" class="btn down_btn">
-                              <%= link_to image_tag("icon-arrow-bottom.svg"), download_admins_supports_path(id: message.id) %>
+                              <%= link_to image_tag("icon-arrow-bottom.svg"), download_admins_supports_path(id: message.id, type: "image") %>
+                              </button>
+                            </div>
+                          <% end %>
+                          <% if message&.file&.attached? %>
+                            <div class="attch_blk mt-5">
+                            <div class="img">
+                              <iframe src=<%= message&.file&.url %>> </iframe>
+                            </div>
+                              <button type="button" class="btn down_btn">
+                              <%= link_to image_tag("icon-arrow-bottom.svg"), download_admins_supports_path(id: message.id, type: "file") %>
                               </button>
                             </div>
                           <% end %>
@@ -163,7 +173,7 @@
                 <div class="btn_blk flex-nowrap">
                   <button type="button" class="btn att-btn">
                     <%= image_tag "icon-attach.svg", alt: "attachFile", id: "clickaddfile"%>
-                    <%= f.file_field :file, accept: 'application/pdf,application/vnd.ms-excel', id: "submitaddfile", style: "opacity:0" %>
+                    <%= f.file_field :file, accept: 'application/pdf', id: "submitaddfile", style: "opacity:0" %>
                   </button>
 
                   <button type="button" class="btn att-btn">

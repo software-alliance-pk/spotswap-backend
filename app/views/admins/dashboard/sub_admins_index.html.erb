@@ -73,8 +73,11 @@
                         <%= image_tag "dot-icon.svg" %>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="<%=enable_sub_admin_admins_dashboard_index_path(id: sub_admin.id)%>">Enable</a></li>
-                        <li><a class="dropdown-item" href="<%=delete_sub_admin_admins_dashboard_index_path(id: sub_admin.id)%>">Disable</a></li>
+                        <%if sub_admin.status=="disabled"%>
+                          <li><a class="dropdown-item" href="<%=enable_sub_admin_admins_dashboard_index_path(id: sub_admin.id)%>">Enable</a></li>
+                        <%elsif sub_admin.status=="active"%>
+                          <li><a class="dropdown-item" href="<%=delete_sub_admin_admins_dashboard_index_path(id: sub_admin.id)%>">Disable</a></li>
+                        <%end%>
                       </ul>
                     </div>      
                   </div>
@@ -135,11 +138,11 @@
                         <div class="col-md-6">
                           <h6>Last Name</h6>
                           <div class="form_blk">
-                            <input type="text" name="l_name" class="input" placeholder="type here" required>
+                            <input type="text" name="l_name" class="input" maxlength="30" placeholder="type here" required>
                           </div>
                           <div class="form_blk">
                             <h6>Email</h6>
-                            <input type="email" name="email" class="input" placeholder="type here" required>
+                            <input type="email" name="email" class="input" maxlength="50" placeholder="type here" required>
                              <%if flash.alert.present? %>
                           <span>
                           <%= show_sub_admin_message(flash.alert,"Email") %>
@@ -148,13 +151,13 @@
                           </div>
                           <div class="form_blk">
                             <h6>Location</h6>
-                            <input type="text" name="location" class="input" placeholder="type here" required>
+                            <input type="text" name="location" class="input" maxlength="200" placeholder="type here" required>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form_blk">
                             <h6>First Name</h6>
-                            <input type="text" name="f_name" class="input" placeholder="type here" required>
+                            <input type="text" name="f_name" class="input" maxlength="30" placeholder="type here" required>
                           </div>
                           <div class="form_blk">
                             <h6>Phone Number</h6>

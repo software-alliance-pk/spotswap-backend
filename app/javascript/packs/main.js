@@ -210,7 +210,7 @@ $(document).on('turbolinks:load', function(){
 	})
 
 	$(".send_btn").on("click", function(e){
-		if ($('#input_field_text').val() == '' && $('#submitaddphoto').val() == ''){
+		if ($('#input_field_text').val() == '' && $('#submitaddphoto').val() == '' && $('#submitaddfile').val() == ''){
 				e.preventDefault();
 				return false;
 			}

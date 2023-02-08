@@ -30,6 +30,7 @@
           data["created_at"] = @message.created_at.strftime("%H:%M")
           data["updated_at"] = @message.updated_at
           data["image"] = @message&.image&.url
+          data["file"] = @message&.file&.url
           ActionCable.server.broadcast "support_conversations_#{@message.support_conversation_id}", { title: 'chat', body: data.as_json }
          @conversation =  conversation.support_messages.last
        end
@@ -61,8 +62,9 @@
 
   def download
     @message = SupportMessage.find_by(id: params[:id])
-    url = @message.image.url
-    download = URI.open(@message.image.url)
+    url = @message.file.url if @message.file.attached? && params[:type]=="file"
+    url = @message.image.url if @message.image.attached? && params[:type]=="image"
+    download = URI.open(url)
     filename = url.to_s.split('/')[-1]
     send_data download.read, disposition: 'attachment', filename: filename
   end
