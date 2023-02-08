@@ -21,35 +21,35 @@
                   <% if model.image.attached?%>
                     <%= image_tag model.image.url, id: 'car_model_image'%>
                   <%end%>
-                  <%= f.file_field :image, class: "file", accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:0; left:0; opacity:0; padding-bottom: 100%;" %>
+                  <%= f.file_field :image, class: "file", accept: 'image/png, image/gif, image/jpeg', style: "position:absolute; top:0; left:0; opacity:0; padding-bottom: 100%;"%>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form_blk">
                       <label for="">Car Model</label>
-                      <input type="text" name="title" value="<%=model.title%>" class="input" placeholder="type here">
+                      <input type="text" name="title" value="<%=model.title%>" maxlength="40" class="input" placeholder="type here" required>
                     </div>
                     <div class="form_blk">
                       <label for="">Color</label>
-                      <input type="text" name="color" value="<%=model.color%>" class="input" placeholder="type here">
+                      <input type="text" name="color" value="<%=model.color%>" maxlength="30" class="input" placeholder="type here" required>
                     </div>
                     <div class="form_blk">
                       <label for="">Released</label>
-                      <input type="text" name="released" value="<%=model.released%>" class="input" placeholder="type here">
+                      <input type="text" name="released" value="<%=model.released%>" maxlength="4" class="input" placeholder="type here" required onkeypress="return isNumberKey(event);">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form_blk">
                       <label for="">Length</label>
-                      <input type="text" name="length" value="<%=model.length%>" class="input" placeholder="type here">
+                      <input type="text" name="length" value="<%=model.length%>" maxlength="10" class="input" placeholder="type here" required onkeypress="return isNumberKey(event);">
                     </div>
                     <div class="form_blk">
                       <label for="">Width</label>
-                      <input type="text" name="width" value="<%=model.width%>" class="input" placeholder="type here">
+                      <input type="text" name="width" value="<%=model.width%>" maxlength="10" class="input" placeholder="type here" required onkeypress="return isNumberKey(event);">
                     </div>
                     <div class="form_blk">
                       <label for="">Height</label>
-                      <input type="text" name="height" value="<%=model.height%>" class="input" placeholder="type here">
+                      <input type="text" name="height" value="<%=model.height%>" maxlength="10" class="input" placeholder="type here" onkeypress="return isNumberKey(event);";">
                     </div>
                   </div>
                 </div>
@@ -64,3 +64,13 @@
     </div>
   </div>
 </div>
+<script>
+function isNumberKey(event) {
+  var charCode = (event.which) ? event.which : event.keyCode;
+  if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+      return false;
+  if(charCode == 46)
+      return false;
+  return true;
+}
+</script>

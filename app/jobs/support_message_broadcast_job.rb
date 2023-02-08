@@ -16,6 +16,7 @@ class SupportMessageBroadcastJob < ApplicationJob
       created_at: message.created_at,
       user_id: message.user_id,
       message_image: message.image.attached? ? message.image.url : "",
+      message_file: message.file.attached? ? message.file.url : "",
       sender_image: message.support_conversation.sender_image.attached? ? message.support_conversation.sender_image.url : "",
       recepient_image: message.support_conversation.recipient_image.attached? ? message.support_conversation.recipient_image.url : ""
     }

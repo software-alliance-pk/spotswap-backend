@@ -20,6 +20,7 @@ $(document).ready(function(){
 
         received(data) {
             $('#submitaddphoto').val('');
+            $('#submitaddfile').val('');
             if (data.support_conversation_id == chat_id) {
                 if (data.user_id == null) {
                     $(".msg_contain").append('<div class="msg admin">' +
@@ -32,6 +33,15 @@ $(document).ready(function(){
                         '<div class="attch_blk">' +
                         '<div class="img">' +
                         (data.message_image !== '' ? "<img src=" + data.message_image + ">" + '</div>' +
+                        '<button type="button" class="btn down_btn">' +
+                        '<img src="/assets/icon-arrow-bottom.svg" alt="">' +
+                        '</button>' +
+                        '</div>' : "") +
+                        '</p>' +
+                        '</div>' +
+
+                        '<div class="img mt-4">' +
+                        (data.message_file !== '' ? "<iframe src=" + data.message_file + "></iframe>" + '</div>' +
                         '<button type="button" class="btn down_btn">' +
                         '<img src="/assets/icon-arrow-bottom.svg" alt="">' +
                         '</button>' +
@@ -71,7 +81,6 @@ $(document).ready(function(){
 });
 
 function time_ago(time) {
-
     switch (typeof time) {
       case 'number':
         break;
