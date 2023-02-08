@@ -195,6 +195,9 @@ $(document).on('turbolinks:load', function(){
 			data: this.data,
 			success: function(response) {
 				$('.confirm_yes_popup_div').html(response)
+				setTimeout(function(){
+					location.reload()
+				}, 2000);
 			}
 		})
 	});

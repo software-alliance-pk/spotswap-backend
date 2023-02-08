@@ -26,7 +26,7 @@
       <%end%>
       <div class="button_blk">
         <%= form_with url: export_csv_admins_users_path, :class => 'd-flex align-items-center justify-center gap-5', id: "export_form", method: :get do |f| %>
-          <label role='button' for='datepicker' class="site_btn z-20 round bg_white d-flex relative align-items-center justify-content-center" >Export CSV
+          <label role='button' id="export" for='datepicker' class="site_btn z-20 round bg_white d-flex relative align-items-center justify-content-center" >Export CSV
             <input id='datepicker' applyButtonClasses='site_btn round' role='button' type="text" class='opacity-0 h-100 position-absolute' name="daterange"/>
             <img src="/assets/Download-black.svg" height='16.5px' width='17.53px' />
           </label>
@@ -148,6 +148,9 @@
 $("#datepicker").on("click", function(){
   $("#calender").addClass("new_overlay");
 })
+$("#calender").on("click", function(){
+  $("#calender").removeClass("new_overlay");
+})
 $(function() {
   $('input[name="daterange"]').daterangepicker({
      
@@ -157,7 +160,6 @@ $(function() {
       applyLabel: 'Export CSV',
     }
     }, function(start, end, label) {
-    $("#calender").removeClass("new_overlay");
     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
   });
 });
