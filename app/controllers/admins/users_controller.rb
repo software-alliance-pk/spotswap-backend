@@ -17,7 +17,8 @@ class Admins::UsersController < ApplicationController
   def show_notification
     @notification = Notification.find_by(id: params[:id])
     @notification.update(is_clear: true)
-    render partial: 'shared/notification_modal', locals:{notification: @notification}
+    @notifications_count = Notification.where(is_clear: false).count
+    render json: { notifications_count: @notifications_count }
   end
 
   def view_profile

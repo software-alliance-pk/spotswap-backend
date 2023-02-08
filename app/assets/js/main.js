@@ -171,16 +171,20 @@ $(document).on('turbolinks:load', function(){
     })
 	});
 
-	$(document).on('click', "#notification_btn", function(){
+	$(".notification_btn").mouseover(function(){
 		var attribute_id  = $(this).attr("data-id")
 		$.ajax({
 			url: `/admins/users/show_notification?id=${attribute_id}`,
 			type: 'get',
 			data: this.data,
 			success: function(response) {
-				$('.show_notification_div').html(response)
+				$("#notification_counter").html(response.notifications_count)
 			}
 		})
+	});
+
+	$(".dropdown-menu.notfi_dropdown").mouseleave(function(){
+		location.reload()		
 	});
 
 	$(document).on('click', ".disable_user", function(){
