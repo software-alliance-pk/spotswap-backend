@@ -32,17 +32,21 @@ $(document).ready(function(){
                         '<p>' + data.body +'</p>' +
                         
                         (data.message_image !== '' ? '<div class="attch_blk">' +
-                        '<div class="img">' + "<img src=" + data.message_image + ">" + '</div>' +
+                        '<div class="img w-100">' + "<img src=" + data.message_image + ">" + '</div>' +
                         '<button type="button" class="btn down_btn">' +
-                        '<img src="/assets/icon-arrow-bottom.svg" alt="">' +
+                        '<a href=/admins/supports/download?id='+data.id+'&type=image>'+
+                        '<img src="/assets/icon-arrow-bottom.svg" alt="">'+
+                        '</a>'+
                         '</button>' +
                         '</div>' : "") +
 
                         
                         (data.message_file !== '' ? '<div class="attch_blk">' +
-                        '<div class="img">' + "<iframe src=" + data.message_file + "></iframe>" + '</div>' +
+                        '<div class="img w-100">' + "<iframe src=" + data.message_file + "></iframe>" + '</div>' +
                         '<button type="button" class="btn down_btn">' +
-                        '<img src="/assets/icon-arrow-bottom.svg" alt="">' +
+                        '<a href=/admins/supports/download?id='+data.id+'&type=file>'+
+                        '<img src="/assets/icon-arrow-bottom.svg" alt="">'+
+                        '</a>'+
                         '</button>' +
                         '</div>' : "") +
                         

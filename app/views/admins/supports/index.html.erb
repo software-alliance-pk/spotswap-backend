@@ -140,7 +140,7 @@
                              <%= message.body %>
                           <% if message&.image&.attached? %>
                             <div class="attch_blk">
-                              <div class="img">
+                              <div class="img w-100">
                                 <%= image_tag message&.image&.url %>
                               </div>
                               <button type="button" class="btn down_btn">
@@ -150,7 +150,7 @@
                           <% end %>
                           <% if message&.file&.attached? %>
                             <div class="attch_blk">
-                            <div class="img">
+                            <div class="img w-100">
                               <iframe src=<%= message&.file&.url %>> </iframe>
                             </div>
                               <button type="button" class="btn down_btn">
