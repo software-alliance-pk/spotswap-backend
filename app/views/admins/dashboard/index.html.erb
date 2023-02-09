@@ -26,7 +26,7 @@
             <%= image_tag "icon-download.svg" %>
           </div>
           <div class="txt">
-            <h3>203</h3>
+            <h3><%=@csv_download_count%></h3>
             <span>Downloads</span>
           </div>
         </div>
@@ -78,54 +78,58 @@
       <% $is_from_sign_up = "no" %>
       <%= render :partial => "shared/sign_up_success" %>
     <%end%>
-    <div id="table_users">
-      <div class="table__blk">
-        <table>
-          <thead>
-          <tr>
-            <th style="width: 20rem;">USERS</th>
-            <th style="width: 20rem;">EMAIL</th>
-            <th style="width: 15rem;">PHONE NUMBER</th>
-            <th style="width: 10rem;">CAR</th>
-            <th style="width: 15rem;">CAR MAKE</th>
-            <th style="width: 15rem;">DATE JOINED</th>
-            <th style="width: 15rem;">YEAR BOUGHT</th>
-            <th style="width: 15rem;">STATUS</th>
-          </tr>
-          </thead>
-          <tbody>
-          <% @users.each do |user| %>
+    <%if @users.present?%>
+      <div id="table_users">
+        <div class="table__blk">
+          <table>
+            <thead>
             <tr>
-              <td>
-                <div class="user">
-                  <div class="ellipse">
-                    <% if user.image.attached? %>
-                      <%= image_tag(user.image.url) %>
-                    <% else %>
-                      <img src="/assets/default-profile.jpg" alt="">
-                    <% end %>
-                  </div>
-                  <div><%= user.name %></div>
-                </div>
-              </td>
-              <td><%= user.email %></td>
-              <td><%= user.contact %></td>
-              <td><%= user.car_detail&.car_brand&.title %> <%= user.car_detail&.car_model&.title %></td>
-              <td><%= user.car_detail&.car_model&.title %></td>
-              <td>2021</td>
-              <td>2021</td>
-              <td><span><%= user.status %></span></td>
+              <th style="width: 20rem;">USERS</th>
+              <th style="width: 20rem;">EMAIL</th>
+              <th style="width: 15rem;">PHONE NUMBER</th>
+              <th style="width: 10rem;">CAR</th>
+              <th style="width: 15rem;">CAR MAKE</th>
+              <th style="width: 15rem;">DATE JOINED</th>
+              <th style="width: 15rem;">YEAR BOUGHT</th>
+              <th style="width: 15rem;">STATUS</th>
             </tr>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
-      <% if @type != "view_all" && @users.count!=0 %>
-        <div class="view_all">
-          <a href="<%= admins_dashboard_index_path(type: "view_all") %>">view all</a>
+            </thead>
+            <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td>
+                  <div class="user">
+                    <div class="ellipse">
+                      <% if user.image.attached? %>
+                        <%= image_tag(user.image.url) %>
+                      <% else %>
+                        <img src="/assets/default-profile.jpg" alt="">
+                      <% end %>
+                    </div>
+                    <div><%= user.name %></div>
+                  </div>
+                </td>
+                <td><%= user.email %></td>
+                <td><%= user.contact %></td>
+                <td><%= user.car_detail&.car_brand&.title %> <%= user.car_detail&.car_model&.title %></td>
+                <td><%= user.car_detail&.car_model&.title %></td>
+                <td>2021</td>
+                <td>2021</td>
+                <td><span><%= user.status %></span></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
         </div>
-      <% end %>
-    </div>
+        <% if @type != "view_all" && @users.count!=0 %>
+          <div class="view_all">
+            <a href="<%= admins_dashboard_index_path(type: "view_all") %>">view all</a>
+          </div>
+        <% end %>
+      </div>
+    <%else%>
+      <p class="no_modal">There is no user present.</p>
+    <%end%>
   </div>
 </section>
 <!-- account_section -->

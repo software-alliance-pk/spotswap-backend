@@ -12,7 +12,7 @@ class Admins::DashboardController < ApplicationController
     end
     @cars = CarDetail.all
     @revenue = Admin.admin.first.revenue&.amount
-    
+    @csv_download_count = Setting.first.csv_download_count
     @notifications = Notification.where(is_clear: false).order(created_at: :desc)
 	end
 
