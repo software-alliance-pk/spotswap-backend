@@ -27,6 +27,7 @@ module SpotSwap
   
     config.assets.paths << Rails.root.join('app', 'assets')
 
+    Dotenv::Railtie.load
 
     Dir.glob("#{Rails.root}/app/assets/images/**/").each do |path|
       config.assets.paths << path
