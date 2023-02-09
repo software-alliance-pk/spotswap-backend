@@ -29,21 +29,23 @@ $(document).ready(function(){
                         '</div>' +
                         '<div class="msg_wrapper">' +
                         '<div class="msg_blk">' +
-                        '<p>' + data.body +
-                        '<div class="attch_blk">' +
-                        '<div class="img">' +
-                        (data.message_image !== '' ? "<img src=" + data.message_image + ">" + '</div>' +
+                        '<p>' + data.body +'</p>' +
+                        
+                        (data.message_image !== '' ? '<div class="attch_blk">' +
+                        '<div class="img">' + "<img src=" + data.message_image + ">" + '</div>' +
                         '<button type="button" class="btn down_btn">' +
                         '<img src="/assets/icon-arrow-bottom.svg" alt="">' +
                         '</button>' +
                         '</div>' : "") +
-                        '<div class="img mt-4">' +
-                        (data.message_file !== '' ? "<iframe src=" + data.message_file + "></iframe>" +
+
+                        
+                        (data.message_file !== '' ? '<div class="attch_blk">' +
+                        '<div class="img">' + "<iframe src=" + data.message_file + "></iframe>" + '</div>' +
                         '<button type="button" class="btn down_btn">' +
                         '<img src="/assets/icon-arrow-bottom.svg" alt="">' +
                         '</button>' +
                         '</div>' : "") +
-                        '</p>' +
+                        
                         '</div>' +
                         '<p>' + time_ago(data.created_at) + '</p>' +
                         '</div>' +

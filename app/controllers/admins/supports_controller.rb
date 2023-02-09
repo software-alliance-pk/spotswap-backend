@@ -16,7 +16,7 @@
 	end
 
   def admin_send_message
-    conversation = current_admin.support_conversations.find_by(id: params[:id])
+    conversation = current_admin.support_conversations.find_by(id: params[:id]) || Admin.admin&.first&.support_conversations&.find_by(id: params[:id])
     if conversation.present?
        @message = conversation.support_messages.new(sender_id: current_admin.id, body: params[:message], image: params[:image], file: params[:file])
        if @message.save
