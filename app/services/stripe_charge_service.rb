@@ -1,5 +1,5 @@
 class StripeChargeService
-  Stripe.api_key ="sk_test_51MCjGDF5sdpBo10rWKvpkwEhZJbh48Ag1IFb9mFDt7JROqylvQX1M5z1cnP3toNkOgYwGNSAXeYziixrF5nhTIPW00JCq17CG3"
+  Stripe.api_key = ENV['STRIPE_API_KEY']
 
   def charge_amount_from_customer(amount, customer_id)
     response = Stripe::Charge.create({

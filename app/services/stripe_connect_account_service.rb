@@ -1,7 +1,7 @@
 class StripeConnectAccountService
   require 'stripe'
-  Stripe.api_key ="sk_test_51MCjGDF5sdpBo10rWKvpkwEhZJbh48Ag1IFb9mFDt7JROqylvQX1M5z1cnP3toNkOgYwGNSAXeYziixrF5nhTIPW00JCq17CG3"
-  Stripe.api_key = 'sk_test_51MCjGDF5sdpBo10rWKvpkwEhZJbh48Ag1IFb9mFDt7JROqylvQX1M5z1cnP3toNkOgYwGNSAXeYziixrF5nhTIPW00JCq17CG3' if Rails.env.production?
+  Stripe.api_key = ENV['STRIPE_API_KEY']
+  Stripe.api_key = ENV['STRIPE_API_KEY'] if Rails.env.production?
 
   # https://stripe.com/docs/api/accounts/create?lang=ruby
   def create_connect_customer_account(current_user, refresh_url)
