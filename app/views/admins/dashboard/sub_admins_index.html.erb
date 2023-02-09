@@ -35,81 +35,85 @@
     <div class="show_notification_div"></div>
         
     <!-- table_section -->
-    <div id="table_users">
-      <div class="table__blk">
-        <table>
-          <thead>
-            <tr>
-              <th style="width: 20rem;">NAME</th>
-              <th style="width: 20rem;">EMAIL</th>
-              <th style="width: 20rem;">PHONE NUMBER</th>
-              <th style="width: 19rem;">LOCATION</th>
-              <th style="width: 15rem; text-align: left;">STATUS</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @sub_admins.each do |sub_admin|%>
+    <%if @sub_admins.present?%>
+      <div id="table_users">
+        <div class="table__blk">
+          <table>
+            <thead>
               <tr>
-                <td>
-                  <div class="user">
-                    <div class="ellipse">
-                      <% if sub_admin.image.attached?%>
-                        <%= image_tag(sub_admin.image.url)%>
-                      <% else %>
-                        <%= image_tag "default-profile.jpg" %>
-                    <%end%>
-                    </div>
-                    <div><%=sub_admin.full_name%></div>
-                  </div>
-                </td>
-                <td><%=sub_admin.email%></td>
-                <td><%=sub_admin.contact%></td>
-                <td><%=sub_admin.location%></td>
-                <td>
-                  <div class="active justify-content-between ">
-                      <span style="text-align: left; padding-left: 2rem"><%=sub_admin.status%></span>
-                    <div class="dropdown">
-                      <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <%= image_tag "dot-icon.svg" %>
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <%if sub_admin.status=="disabled"%>
-                          <li><a class="dropdown-item" href="<%=enable_sub_admin_admins_dashboard_index_path(id: sub_admin.id)%>">Enable</a></li>
-                        <%elsif sub_admin.status=="active"%>
-                          <li><a class="dropdown-item" href="<%=delete_sub_admin_admins_dashboard_index_path(id: sub_admin.id)%>">Disable</a></li>
-                        <%end%>
-                      </ul>
-                    </div>      
-                  </div>
-                </td>
+                <th style="width: 20rem;">NAME</th>
+                <th style="width: 20rem;">EMAIL</th>
+                <th style="width: 20rem;">PHONE NUMBER</th>
+                <th style="width: 19rem;">LOCATION</th>
+                <th style="width: 15rem; text-align: left;">STATUS</th>
               </tr>
-            <%end%>
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              <% @sub_admins.each do |sub_admin|%>
+                <tr>
+                  <td>
+                    <div class="user">
+                      <div class="ellipse">
+                        <% if sub_admin.image.attached?%>
+                          <%= image_tag(sub_admin.image.url)%>
+                        <% else %>
+                          <%= image_tag "default-profile.jpg" %>
+                      <%end%>
+                      </div>
+                      <div><%=sub_admin.full_name%></div>
+                    </div>
+                  </td>
+                  <td><%=sub_admin.email%></td>
+                  <td><%=sub_admin.contact%></td>
+                  <td><%=sub_admin.location%></td>
+                  <td>
+                    <div class="active justify-content-between ">
+                        <span style="text-align: left; padding-left: 2rem"><%=sub_admin.status%></span>
+                      <div class="dropdown">
+                        <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          <%= image_tag "dot-icon.svg" %>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <%if sub_admin.status=="disabled"%>
+                            <li><a class="dropdown-item" href="<%=enable_sub_admin_admins_dashboard_index_path(id: sub_admin.id)%>">Enable</a></li>
+                          <%elsif sub_admin.status=="active"%>
+                            <li><a class="dropdown-item" href="<%=delete_sub_admin_admins_dashboard_index_path(id: sub_admin.id)%>">Disable</a></li>
+                          <%end%>
+                        </ul>
+                      </div>      
+                    </div>
+                  </td>
+                </tr>
+              <%end%>
+            </tbody>
+          </table>
+        </div>
 
-        <%if @sub_admins.present?%>
-          <!-- pagination_section -->
-          <div class="paginate_sec">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-              <li class="d-flex me-4">
-              Rows per page:
-              <span class="select_limit">
-                <%= select_tag :per_page, options_for_select([10,20,30], params[:per_page].to_i),
-                :onchange => "if(this.value){window.location='?per_page='+this.value;}" %>
-              </span>
-              </li>
-              <% params[:page] = params[:page].nil? ? "1" :  params[:page] %>
-              <li><%=params[:page]%> of <%=@sub_admins.total_pages%></li>
-              <li class="page_item me-4 d-flex">
-              </li>
-              </ul>
-            </nav>
-            <%= will_paginate @sub_admins %>
-          </div>
-        <%end%>
-    </div>
+          <%if @sub_admins.present?%>
+            <!-- pagination_section -->
+            <div class="paginate_sec">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                <li class="d-flex me-4">
+                Rows per page:
+                <span class="select_limit">
+                  <%= select_tag :per_page, options_for_select([10,20,30], params[:per_page].to_i),
+                  :onchange => "if(this.value){window.location='?per_page='+this.value;}" %>
+                </span>
+                </li>
+                <% params[:page] = params[:page].nil? ? "1" :  params[:page] %>
+                <li><%=params[:page]%> of <%=@sub_admins.total_pages%></li>
+                <li class="page_item me-4 d-flex">
+                </li>
+                </ul>
+              </nav>
+              <%= will_paginate @sub_admins %>
+            </div>
+          <%end%>
+      </div>
+    <%else%>
+      <p class="no_modal">There is no sub admin present.</p>
+    <%end%>
 
     <div class="popup" data-popup="forget_pass" id="notify_modal">
       <div class="overlay"></div>
