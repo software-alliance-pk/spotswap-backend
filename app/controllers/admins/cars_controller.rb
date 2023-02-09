@@ -84,9 +84,8 @@ class Admins::CarsController < ApplicationController
     @start_date = Date.strptime(params[:daterange].split.first, "%m/%d/%Y")
     @end_date = Date.strptime(params[:daterange].split.third, "%m/%d/%Y")
     @models = CarBrand.find_by(id: params[:brand_id]).car_models.where('Date(created_at) BETWEEN ? AND ?', @start_date, @end_date)
-    # unless @models.present?
-    #   redirect_back(fallback_location: root_path) and return
-    # end
+    csv_count = Setting.first.csv_download_count
+    Setting.first.update(csv_download_count: csv_count+1)
 
     respond_to do |format|
       format.csv { send_data @models.to_csv, filename: "car_models-#{Date.today}.csv" }

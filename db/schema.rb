@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_07_145644) do
+ActiveRecord::Schema.define(version: 2023_02_09_190126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -267,6 +267,12 @@ ActiveRecord::Schema.define(version: 2023_02_07_145644) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "transfer_money_status", default: ""
     t.index ["user_id"], name: "index_send_money_histories_on_user_id"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.bigint "csv_download_count", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "stripe_connect_accounts", force: :cascade do |t|
