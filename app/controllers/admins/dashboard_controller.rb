@@ -11,7 +11,7 @@ class Admins::DashboardController < ApplicationController
       @users = User.all.order(created_at: :desc).limit(10)
     end
     @cars = CarDetail.all
-    @revenue = Admin.admin.first.revenue&.amount
+    @revenue = Revenue.first.amount
     @csv_download_count = Setting.first.csv_download_count
     @notifications = Notification.where(is_clear: false).order(created_at: :desc)
 	end

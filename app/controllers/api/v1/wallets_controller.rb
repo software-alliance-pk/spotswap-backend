@@ -162,12 +162,8 @@ class Api::V1::WalletsController < Api::V1::ApiController
   end
 
   def update_revenue(amount)
-    admin = Admin.admin.first
-    if admin.revenue.present?
-      amount = admin&.revenue&.amount + amount
-      admin.revenue.update(amount: amount) if amount.present?
-    else
-      admin.build_revenue(amount: 0).save
-    end
+    revenue = Revenue.first
+    amount = revenue.amount + amount
+    revenue.update(amount: amount)
   end
 end

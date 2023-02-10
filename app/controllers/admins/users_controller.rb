@@ -48,10 +48,9 @@ class Admins::UsersController < ApplicationController
     user = User.find_by(id: params[:id])
     history = user.send_money_histories.last
     if history.present? && !history.transfer_money_status.present?
-      admin = Admin.find_by(id: history.admin_id)
       amount = history.amount.to_i
       @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account(amount*100, user.stripe_connect_account.account_id)
-      update_revenue(amount, admin)
+      update_revenue(amount)
       history.update(transfer_money_status: "approved")
       render partial: 'approve_user_success'
     end
@@ -85,7 +84,7 @@ class Admins::UsersController < ApplicationController
         @error_message = "User has not any Stripe Connect Account." and return
       end
 
-      if admin.revenue.amount >= amount
+      if Revenue.first.amount >= amount
         user.send_money_histories.build(admin_id: params[:revenue][:admin_id], amount: params[:revenue][:amount]).save!
         user.update(amount_transfer: params[:revenue][:amount], transfer_from: "Stripe Connect")
         @is_amount_transfer = true
@@ -134,8 +133,9 @@ class Admins::UsersController < ApplicationController
     end
 	end
 
-  def update_revenue(amount, admin)
-    amount = admin&.revenue&.amount - amount
-    admin.revenue.update(amount: amount) if amount.present?
+  def update_revenue(amount)
+    revenue = Revenue.first
+    amount = revenue.amount - amount
+    revenue.update(amount: amount)
   end
 end

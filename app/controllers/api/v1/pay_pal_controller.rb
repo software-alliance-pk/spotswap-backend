@@ -85,9 +85,9 @@ class Api::V1::PayPalController < Api::V1::ApiController
   end
 
   def update_revenue(amount)
-    admin = Admin.admin.first
-    amount = admin&.revenue&.amount + amount
-    admin.revenue.update(amount: amount) if amount.present?
+    revenue = Revenue.first
+    amount = revenue.amount + amount
+    revenue.update(amount: amount)
   end
 
 end
