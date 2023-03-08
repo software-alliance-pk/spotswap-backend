@@ -62,6 +62,7 @@ Rails.application.routes.draw do
           post :update_user
           post :update_user_status
           post :swapper_location_tracking
+          post :delete_user
         end
       end
 
