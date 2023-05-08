@@ -7,5 +7,5 @@ test:
 production:
   adapter: redis
   channel_prefix: spot_swap_production
-  url: "spot-swap.qezilp.ng.0001.use1.cache.amazonaws.com:6379"
+  url: "redis://spot-swap.qezilp.ng.0001.use1.cache.amazonaws.com:6379"
   ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
