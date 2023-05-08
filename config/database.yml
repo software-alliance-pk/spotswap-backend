@@ -31,5 +31,10 @@ test:
   database: db_spot_test_test
 
 production:
-  <<: *default
-  database: db_spot_swap_production
+  encoding: unicode
+  port: 5432
+  adapter: postgresql
+  host: db-spotswap-production.cfctqyvazhnh.us-east-1.rds.amazonaws.com
+  username: postgres
+  password: postgres
+  database: db-spotswap-production
