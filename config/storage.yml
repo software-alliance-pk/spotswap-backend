@@ -16,6 +16,7 @@ amazon:
   secret_access_key: <%=ENV['SECRET_ACCESS_KEY']%>
   region: us-east-1
   bucket: <%=ENV['S3_BUCKET']%>
+  use_accelerate_endpoint: true
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
