@@ -7,5 +7,5 @@ test:
 production:
   adapter: redis
   channel_prefix: spot_swap_production
-  url: redis://127.0.0.1:6379
+  url: clustercfg.spotswapproduction.qezilp.use1.cache.amazonaws.com:6379
 
