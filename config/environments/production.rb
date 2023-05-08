@@ -101,7 +101,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.action_cable.url = 'ws://3.215.111.230/cable'
+  config.action_cable.url = 'ws://spotswapproduction-2037394076.us-east-1.elb.amazonaws.com/cable'
   config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
 
   # Inserts middleware to perform automatic connection switching.
