@@ -1,6 +1,6 @@
 class InstallPgTrgmContribPackage < ActiveRecord::Migration[6.1]
   def up
-    execute "CREATE EXTENSION pg_trgm;"
+    # execute "CREATE EXTENSION pg_trgm;"
   end
 
   def down
