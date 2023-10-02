@@ -1,0 +1,2305 @@
+=> Booting Puma
+=> Rails 6.1.7 application starting in development 
+=> Run `bin/rails server --help` for more startup options
+Puma starting in single mode...
+* Version 4.3.12 (ruby 3.0.0-p0), codename: Mysterious Traveller
+* Min threads: 5, max threads: 5
+* Environment: development
+* Listening on tcp://127.0.0.1:3000
+* Listening on tcp://[::1]:3000
+* Listening on unix:///var/www/spot_swap/tmp/sockets/puma.sock
+Use Ctrl-C to stop
+Started GET "/" for 59.103.120.15 at 2023-09-20 08:27:25 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.3ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.1ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 40.3ms | Allocations: 25204)
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.2ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.5ms | Allocations: 1021)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.6ms | Allocations: 195)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 70.2ms | Allocations: 38398)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 82.9ms | Allocations: 45295)
+Completed 200 OK in 175ms (Views: 75.0ms | ActiveRecord: 39.2ms | Allocations: 84138)
+
+
+Started GET "/cable" for 139.135.32.227 at 2023-09-20 08:27:25 +0000
+Cannot render console from 139.135.32.227! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/cable/" [WebSocket] for 139.135.32.227 at 2023-09-20 08:27:25 +0000
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+An unauthorized connection attempt was rejected
+connection is not created
+conversation id is missing.
+ConversationChannel is transmitting the subscription confirmation
+  [1m[36mAdmin Load (0.6ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mCACHE Admin Load (0.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mSupportConversation Load (0.7ms)[0m  [1m[34mSELECT "support_conversations".* FROM "support_conversations" WHERE ("support_conversations"."sender_id" = $1 OR "support_conversations"."recipient_id" = $2) ORDER BY "support_conversations"."id" ASC LIMIT $3[0m  [["sender_id", 1], ["recipient_id", 1], ["LIMIT", 1000]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+SupportConversationChannel is transmitting the subscription confirmation
+Started GET "/cable" for 59.103.120.15 at 2023-09-20 08:27:26 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 08:27:26 +0000
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+  [1m[36mAdmin Load (0.8ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/channels/application_cable/connection.rb:25:in `find_verified_admin'
+Registered connection (Z2lkOi8vc3BvdC1zd2FwL0FkbWluLzE)
+Started GET "/fonts/Inter-Medium.woff2" for 59.103.120.15 at 2023-09-20 08:27:26 +0000
+Started GET "/fonts/Inter-Bold.woff2" for 59.103.120.15 at 2023-09-20 08:27:26 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/fonts/Inter-SemiBold.woff2" for 59.103.120.15 at 2023-09-20 08:27:26 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-SemiBold"}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 318)
+
+
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-Medium"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 200)
+
+
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-Bold"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 198)
+
+
+conversation id is missing.
+ConversationChannel is transmitting the subscription confirmation
+  [1m[36mAdmin Load (1.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mCACHE Admin Load (0.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mSupportConversation Load (0.9ms)[0m  [1m[34mSELECT "support_conversations".* FROM "support_conversations" WHERE ("support_conversations"."sender_id" = $1 OR "support_conversations"."recipient_id" = $2) ORDER BY "support_conversations"."id" ASC LIMIT $3[0m  [["sender_id", 1], ["recipient_id", 1], ["LIMIT", 1000]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+SupportConversationChannel is transmitting the subscription confirmation
+Started GET "/fonts/Inter-Regular.woff2" for 59.103.120.15 at 2023-09-20 08:27:26 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-Regular"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 200)
+
+
+Started DELETE "/admins/sign_out" for 59.103.120.15 at 2023-09-20 08:27:30 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]"}
+  [1m[36mAdmin Load (3.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+HTTP Origin header (https://spotswap.appscorridor.com) didn't match request.base_url (http://spotswap.appscorridor.com)
+Completed 422 Unprocessable Entity in 10ms (ActiveRecord: 3.2ms | Allocations: 2400)
+
+
+  
+ActionController::InvalidAuthenticityToken (ActionController::InvalidAuthenticityToken):
+  
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:211:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:243:in `handle_unverified_request'
+devise (4.8.1) lib/devise/controllers/helpers.rb:255:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:238:in `verify_authenticity_token'
+activesupport (6.1.7) lib/active_support/callbacks.rb:427:in `block in make_lambda'
+activesupport (6.1.7) lib/active_support/callbacks.rb:198:in `block (2 levels) in halting'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.1.7) lib/active_support/callbacks.rb:199:in `block in halting'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `block in invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `each'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:115:in `block in run_callbacks'
+activesupport (6.1.7) lib/active_support/callbacks.rb:137:in `run_callbacks'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.7) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.7) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.7) lib/abstract_controller/base.rb:165:in `process'
+actionview (6.1.7) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.1.7) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.7) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:842:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.4) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.4) lib/rack/etag.rb:27:in `call'
+rack (2.2.4) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.4) lib/rack/head.rb:12:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/content_security_policy.rb:19:in `call'
+rack (2.2.4) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.4) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (6.1.7) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.7) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.4) lib/rack/method_override.rb:24:in `call'
+rack (2.2.4) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.4) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/host_authorization.rb:148:in `call'
+rack-mini-profiler (2.3.4) lib/mini_profiler/profiler.rb:393:in `call'
+webpacker (5.4.3) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.7.4) lib/rack/proxy.rb:78:in `call'
+railties (6.1.7) lib/rails/engine.rb:539:in `call'
+puma (4.3.12) lib/puma/configuration.rb:228:in `call'
+puma (4.3.12) lib/puma/server.rb:727:in `handle_request'
+puma (4.3.12) lib/puma/server.rb:476:in `process_client'
+puma (4.3.12) lib/puma/server.rb:332:in `block in run'
+puma (4.3.12) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Finished "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 08:27:31 +0000
+Started GET "/" for 35.203.210.106 at 2023-09-20 08:29:35 +0000
+Cannot render console from 35.203.210.106! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+Redirected to http://54.226.211.197:443/admins/sign_in
+Filter chain halted as :authenticate_admin! rendered or redirected
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms | Allocations: 843)
+
+
+Started GET "/" for 35.187.98.121 at 2023-09-20 09:01:52 +0000
+Cannot render console from 35.187.98.121! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as */*
+Redirected to http://54.226.211.197/admins/sign_in
+Filter chain halted as :authenticate_admin! rendered or redirected
+Completed 302 Found in 1ms (Allocations: 733)
+
+
+Started GET "/api/v1/users/delete_user" for 59.103.120.15 at 2023-09-20 09:18:44 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as HTML
+  Parameters: {"a"=>"api/v1/users/delete_user"}
+Completed 200 OK in 0ms (Views: 0.2ms | Allocations: 144)
+
+
+Started GET "/" for 178.249.211.77 at 2023-09-20 09:23:25 +0000
+Cannot render console from 178.249.211.77! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+Redirected to http://spotswap.appscorridor.com/admins/sign_in
+Filter chain halted as :authenticate_admin! rendered or redirected
+Completed 302 Found in 1ms (Allocations: 709)
+
+
+Started GET "/admins/sign_in" for 178.249.211.77 at 2023-09-20 09:23:29 +0000
+Cannot render console from 178.249.211.77! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 7.6ms | Allocations: 4981)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 17.5ms | Allocations: 11460)
+Completed 200 OK in 31ms (Views: 20.9ms | Allocations: 16742)
+
+
+Started GET "/.env" for 148.63.16.103 at 2023-09-20 09:23:30 +0000
+Cannot render console from 148.63.16.103! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as */*
+  Parameters: {"a"=>".env"}
+Completed 200 OK in 0ms (Views: 0.2ms | Allocations: 150)
+
+
+Started POST "/" for 148.63.16.103 at 2023-09-20 09:23:31 +0000
+Cannot render console from 148.63.16.103! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  
+ActionController::RoutingError (No route matches [POST] "/"):
+  
+Started GET "/" for 16.171.29.80 at 2023-09-20 09:26:57 +0000
+Cannot render console from 16.171.29.80! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+Redirected to http://54.226.211.197/admins/sign_in
+Filter chain halted as :authenticate_admin! rendered or redirected
+Completed 302 Found in 1ms (Allocations: 705)
+
+
+Started DELETE "/admins/sign_out" for 59.103.120.15 at 2023-09-20 09:30:10 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]"}
+  [1m[36mAdmin Load (1.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+HTTP Origin header (https://spotswap.appscorridor.com) didn't match request.base_url (http://spotswap.appscorridor.com)
+Completed 422 Unprocessable Entity in 44ms (ActiveRecord: 12.8ms | Allocations: 7432)
+
+
+  
+ActionController::InvalidAuthenticityToken (ActionController::InvalidAuthenticityToken):
+  
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:211:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:243:in `handle_unverified_request'
+devise (4.8.1) lib/devise/controllers/helpers.rb:255:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:238:in `verify_authenticity_token'
+activesupport (6.1.7) lib/active_support/callbacks.rb:427:in `block in make_lambda'
+activesupport (6.1.7) lib/active_support/callbacks.rb:198:in `block (2 levels) in halting'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.1.7) lib/active_support/callbacks.rb:199:in `block in halting'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `block in invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `each'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:115:in `block in run_callbacks'
+activesupport (6.1.7) lib/active_support/callbacks.rb:137:in `run_callbacks'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.7) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.7) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.7) lib/abstract_controller/base.rb:165:in `process'
+actionview (6.1.7) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.1.7) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.7) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:842:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.4) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.4) lib/rack/etag.rb:27:in `call'
+rack (2.2.4) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.4) lib/rack/head.rb:12:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/content_security_policy.rb:19:in `call'
+rack (2.2.4) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.4) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (6.1.7) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.7) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.4) lib/rack/method_override.rb:24:in `call'
+rack (2.2.4) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.4) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/host_authorization.rb:148:in `call'
+rack-mini-profiler (2.3.4) lib/mini_profiler/profiler.rb:393:in `call'
+webpacker (5.4.3) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.7.4) lib/rack/proxy.rb:78:in `call'
+railties (6.1.7) lib/rails/engine.rb:539:in `call'
+puma (4.3.12) lib/puma/configuration.rb:228:in `call'
+puma (4.3.12) lib/puma/server.rb:727:in `handle_request'
+puma (4.3.12) lib/puma/server.rb:476:in `process_client'
+puma (4.3.12) lib/puma/server.rb:332:in `block in run'
+puma (4.3.12) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/" for 16.171.29.80 at 2023-09-20 09:32:21 +0000
+Cannot render console from 16.171.29.80! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+Redirected to http://54.226.211.197/admins/sign_in
+Filter chain halted as :authenticate_admin! rendered or redirected
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms | Allocations: 1051)
+
+
+Started GET "/" for 142.93.238.219 at 2023-09-20 09:32:40 +0000
+Cannot render console from 142.93.238.219! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+Redirected to http://spotswap.appscorridor.com/admins/sign_in
+Filter chain halted as :authenticate_admin! rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms | Allocations: 377)
+
+
+Started GET "/admins/sign_in" for 142.93.238.219 at 2023-09-20 09:32:40 +0000
+Cannot render console from 142.93.238.219! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 6.0ms | Allocations: 4570)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 15.4ms | Allocations: 10684)
+Completed 200 OK in 21ms (Views: 19.7ms | ActiveRecord: 0.0ms | Allocations: 13413)
+
+
+Started GET "/admins/" for 59.103.120.15 at 2023-09-20 09:33:54 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as HTML
+  Parameters: {"a"=>"admins"}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 200)
+
+
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:33:58 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (5.4ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (6.9ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (7.4ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.8ms | Allocations: 5902)
+  [1m[35m (4.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (6.9ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 14.4ms | Allocations: 999)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.5ms | Allocations: 176)
+  [1m[35m (4.7ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (7.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (7.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 69.4ms | Allocations: 18615)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 79.1ms | Allocations: 25176)
+Completed 200 OK in 126ms (Views: 50.3ms | ActiveRecord: 50.5ms | Allocations: 30559)
+
+
+Started GET "/fonts/Inter-SemiBold.woff2" for 59.103.120.15 at 2023-09-20 09:33:58 +0000
+Started GET "/fonts/Inter-Medium.woff2" for 59.103.120.15 at 2023-09-20 09:33:58 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as WOFF2
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  Parameters: {"a"=>"fonts/Inter-Medium"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 198)
+
+
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-SemiBold"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 198)
+
+
+Started GET "/fonts/Inter-Bold.woff2" for 59.103.120.15 at 2023-09-20 09:33:59 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-Bold"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 198)
+
+
+Started GET "/fonts/Inter-Regular.woff2" for 59.103.120.15 at 2023-09-20 09:33:59 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-Regular"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 198)
+
+
+Started GET "/cable" for 59.103.120.15 at 2023-09-20 09:33:59 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:33:59 +0000
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+  [1m[36mAdmin Load (3.6ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/channels/application_cable/connection.rb:25:in `find_verified_admin'
+Registered connection (Z2lkOi8vc3BvdC1zd2FwL0FkbWluLzE)
+conversation id is missing.
+ConversationChannel is transmitting the subscription confirmation
+  [1m[36mAdmin Load (0.9ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mCACHE Admin Load (0.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mSupportConversation Load (28.4ms)[0m  [1m[34mSELECT "support_conversations".* FROM "support_conversations" WHERE ("support_conversations"."sender_id" = $1 OR "support_conversations"."recipient_id" = $2) ORDER BY "support_conversations"."id" ASC LIMIT $3[0m  [["sender_id", 1], ["recipient_id", 1], ["LIMIT", 1000]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+SupportConversationChannel is transmitting the subscription confirmation
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:34:00 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.3ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.3ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 7.0ms | Allocations: 5902)
+  [1m[35m (3.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.6ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.5ms | Allocations: 1317)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 34.3ms | Allocations: 18363)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 43.3ms | Allocations: 24438)
+Completed 200 OK in 58ms (Views: 36.2ms | ActiveRecord: 13.4ms | Allocations: 30202)
+
+
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:34:00 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.1ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.1ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.5ms | Allocations: 5863)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.5ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.3ms | Allocations: 970)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 30.9ms | Allocations: 17901)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 40.4ms | Allocations: 24456)
+Completed 200 OK in 54ms (Views: 35.1ms | ActiveRecord: 11.4ms | Allocations: 30541)
+
+
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:34:00 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.1ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.0ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 7.1ms | Allocations: 5903)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.5ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.6ms | Allocations: 1352)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.3ms | Allocations: 176)
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 31.1ms | Allocations: 17912)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 40.9ms | Allocations: 24541)
+Completed 200 OK in 57ms (Views: 35.4ms | ActiveRecord: 10.9ms | Allocations: 30299)
+
+
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:34:00 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.4ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.4ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 7.1ms | Allocations: 6866)
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.8ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.0ms | Allocations: 1485)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.1ms | Allocations: 22)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 26.9ms | Allocations: 16962)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 36.6ms | Allocations: 23233)
+Completed 200 OK in 48ms (Views: 30.1ms | ActiveRecord: 11.4ms | Allocations: 27755)
+
+
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:34:00 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (2.6ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.8ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (2.1ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.7ms | Allocations: 5902)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (2.4ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 4.2ms | Allocations: 966)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.5ms | Allocations: 176)
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 33.6ms | Allocations: 19249)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 43.0ms | Allocations: 25725)
+Completed 200 OK in 61ms (Views: 36.1ms | ActiveRecord: 15.8ms | Allocations: 31087)
+
+
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:34:00 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.3ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.1ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.8ms | Allocations: 5863)
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (2.1ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.9ms | Allocations: 1317)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (5.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (4.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (3.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 41.5ms | Allocations: 19426)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 51.2ms | Allocations: 26290)
+Completed 200 OK in 65ms (Views: 36.1ms | ActiveRecord: 21.0ms | Allocations: 32434)
+
+
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:34:01 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (3.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.4ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.3ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.9ms | Allocations: 5903)
+  [1m[35m (4.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (2.6ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 4.3ms | Allocations: 970)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 38.2ms | Allocations: 17998)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 48.7ms | Allocations: 24138)
+Completed 200 OK in 67ms (Views: 40.0ms | ActiveRecord: 17.6ms | Allocations: 29900)
+
+
+Finished "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:34:01 +0000
+Started GET "/cable" for 59.103.120.15 at 2023-09-20 09:34:02 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:34:02 +0000
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+  [1m[36mAdmin Load (12.4ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/channels/application_cable/connection.rb:25:in `find_verified_admin'
+Registered connection (Z2lkOi8vc3BvdC1zd2FwL0FkbWluLzE)
+conversation id is missing.
+ConversationChannel is transmitting the subscription confirmation
+  [1m[36mAdmin Load (1.4ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mCACHE Admin Load (0.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mSupportConversation Load (0.8ms)[0m  [1m[34mSELECT "support_conversations".* FROM "support_conversations" WHERE ("support_conversations"."sender_id" = $1 OR "support_conversations"."recipient_id" = $2) ORDER BY "support_conversations"."id" ASC LIMIT $3[0m  [["sender_id", 1], ["recipient_id", 1], ["LIMIT", 1000]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+SupportConversationChannel is transmitting the subscription confirmation
+Started GET "/admins/dashboard/sub_admins_index" for 59.103.120.15 at 2023-09-20 09:34:05 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#sub_admins_index as HTML
+  [1m[36mAdmin Load (1.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/sub_admins_index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.8ms | Allocations: 5902)
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:15
+  [1m[36mNotification Load (1.5ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.0ms | Allocations: 973)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[36mAdmin Load (1.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."created_at" DESC LIMIT $2 OFFSET $3[0m  [["category", 1], ["LIMIT", 10], ["OFFSET", 0]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:38
+  [1m[36mActiveStorage::Attachment Load (1.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 5], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Blob Load (1.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (56.3ms) [0m[34mGenerated URL for file at key: 6lstpvlc8exb0st1fua6t4rp7q5m (https://spotswapawsstorage.s3-accelerate.amazonaws.com/6lstpvlc8exb0st1fua6t4rp7q5m?response-content-disposition=inline%3B%20filename%3D%22scsc.jpg%22%3B%20filename%2A%3DUTF-8%27%27scsc.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093405Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=c545e256897307a4163bdb15760be7c59b62badc91bddf9c06e5db64dafa841f)[0m
+  [1m[36mActiveStorage::Attachment Load (2.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 4], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Blob Load (1.5ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (1.6ms) [0m[34mGenerated URL for file at key: s4bp9woiizx77miqs3h42gxad0wt (https://spotswapawsstorage.s3-accelerate.amazonaws.com/s4bp9woiizx77miqs3h42gxad0wt?response-content-disposition=inline%3B%20filename%3D%22ka.jpg%22%3B%20filename%2A%3DUTF-8%27%27ka.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093405Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=05cd098c0ae43f90176eb2580f74cb92619d89feeb20936fdb826c3de6b1bc04)[0m
+  [1m[36mActiveStorage::Attachment Load (1.9ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Blob Load (1.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (1.5ms) [0m[34mGenerated URL for file at key: zvoacev5y32ho2zj66vmhm77o7qk (https://spotswapawsstorage.s3-accelerate.amazonaws.com/zvoacev5y32ho2zj66vmhm77o7qk?response-content-disposition=inline%3B%20filename%3D%22Unknown%203.jpeg%22%3B%20filename%2A%3DUTF-8%27%27Unknown%25203.jpeg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093405Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=7fc2d301c1da6fcc75a13ded6c356d87ff0f8e2a7d45fefa1f3dfb4fbe481c96)[0m
+  Rendered admins/dashboard/sub_admins_index.html.erb within layouts/application (Duration: 195.0ms | Allocations: 189117)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 204.1ms | Allocations: 195153)
+Completed 200 OK in 214ms (Views: 173.1ms | ActiveRecord: 34.5ms | Allocations: 199275)
+
+
+Started GET "/admins/dashboard/sub_admins_index" for 59.103.120.15 at 2023-09-20 09:34:15 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/admins/dashboard/sub_admins_index" for 59.103.120.15 at 2023-09-20 09:34:15 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#sub_admins_index as HTML
+Processing by Admins::DashboardController#sub_admins_index as HTML
+Started GET "/admins/dashboard/sub_admins_index" for 59.103.120.15 at 2023-09-20 09:34:15 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#sub_admins_index as HTML
+  [1m[36mAdmin Load (9.5ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/sub_admins_index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.4ms | Allocations: 5904)
+  [1m[35m (3.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:15
+  [1m[36mNotification Load (6.6ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 8.3ms | Allocations: 966)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[36mAdmin Load (6.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."created_at" DESC LIMIT $2 OFFSET $3[0m  [["category", 1], ["LIMIT", 10], ["OFFSET", 0]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:38
+  [1m[36mActiveStorage::Attachment Load (7.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 5], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Blob Load (4.6ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (1.5ms) [0m[34mGenerated URL for file at key: 6lstpvlc8exb0st1fua6t4rp7q5m (https://spotswapawsstorage.s3-accelerate.amazonaws.com/6lstpvlc8exb0st1fua6t4rp7q5m?response-content-disposition=inline%3B%20filename%3D%22scsc.jpg%22%3B%20filename%2A%3DUTF-8%27%27scsc.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093415Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=a14338f4ae9dfc0bbb6154bbab6283cdfb8aba4868bf77ca264397117162d516)[0m
+  [1m[36mActiveStorage::Attachment Load (5.6ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 4], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Blob Load (9.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (1.6ms) [0m[34mGenerated URL for file at key: s4bp9woiizx77miqs3h42gxad0wt (https://spotswapawsstorage.s3-accelerate.amazonaws.com/s4bp9woiizx77miqs3h42gxad0wt?response-content-disposition=inline%3B%20filename%3D%22ka.jpg%22%3B%20filename%2A%3DUTF-8%27%27ka.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093415Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=190ca1903a2d8e6d43c166df0670f6935ba0c442d38de3215ad586df95c81f9f)[0m
+  [1m[36mActiveStorage::Attachment Load (3.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Blob Load (1.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (1.6ms) [0m[34mGenerated URL for file at key: zvoacev5y32ho2zj66vmhm77o7qk (https://spotswapawsstorage.s3-accelerate.amazonaws.com/zvoacev5y32ho2zj66vmhm77o7qk?response-content-disposition=inline%3B%20filename%3D%22Unknown%203.jpeg%22%3B%20filename%2A%3DUTF-8%27%27Unknown%25203.jpeg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093415Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=fa2dc078b0922f8a5068cfa7450ce1176755f3b143f3536b33d39eeb6daae4d6)[0m
+  Rendered admins/dashboard/sub_admins_index.html.erb within layouts/application (Duration: 97.6ms | Allocations: 39659)
+  [1m[36mAdmin Load (9.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/sub_admins_index.html.erb within layouts/application
+  [1m[36mAdmin Load (66.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/sub_admins_index.html.erb within layouts/application
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 238.1ms | Allocations: 58733)
+Completed 200 OK in 268ms (Views: 193.2ms | ActiveRecord: 58.0ms | Allocations: 69535)
+
+
+  Rendered shared/_sidebar.html.erb (Duration: 83.6ms | Allocations: 14626)
+  Rendered shared/_sidebar.html.erb (Duration: 12.1ms | Allocations: 7987)
+  [1m[35m (3.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:15
+  [1m[35m (4.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:15
+  [1m[36mNotification Load (3.1ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 7.2ms | Allocations: 3370)
+  [1m[36mNotification Load (2.5ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.1ms | Allocations: 22)
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 9.3ms | Allocations: 4998)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.1ms | Allocations: 22)
+  [1m[36mAdmin Load (3.7ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."created_at" DESC LIMIT $2 OFFSET $3[0m  [["category", 1], ["LIMIT", 10], ["OFFSET", 0]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:38
+  [1m[36mAdmin Load (3.6ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."created_at" DESC LIMIT $2 OFFSET $3[0m  [["category", 1], ["LIMIT", 10], ["OFFSET", 0]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:38
+  [1m[36mActiveStorage::Attachment Load (1.9ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 5], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Attachment Load (3.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 5], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Blob Load (1.7ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (1.7ms) [0m[34mGenerated URL for file at key: 6lstpvlc8exb0st1fua6t4rp7q5m (https://spotswapawsstorage.s3-accelerate.amazonaws.com/6lstpvlc8exb0st1fua6t4rp7q5m?response-content-disposition=inline%3B%20filename%3D%22scsc.jpg%22%3B%20filename%2A%3DUTF-8%27%27scsc.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093415Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=a14338f4ae9dfc0bbb6154bbab6283cdfb8aba4868bf77ca264397117162d516)[0m
+  [1m[36mActiveStorage::Blob Load (4.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (1.4ms) [0m[34mGenerated URL for file at key: 6lstpvlc8exb0st1fua6t4rp7q5m (https://spotswapawsstorage.s3-accelerate.amazonaws.com/6lstpvlc8exb0st1fua6t4rp7q5m?response-content-disposition=inline%3B%20filename%3D%22scsc.jpg%22%3B%20filename%2A%3DUTF-8%27%27scsc.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093415Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=a14338f4ae9dfc0bbb6154bbab6283cdfb8aba4868bf77ca264397117162d516)[0m
+  [1m[36mActiveStorage::Attachment Load (2.8ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 4], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (2.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 4], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Blob Load (2.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (2.6ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (1.7ms) [0m[34mGenerated URL for file at key: s4bp9woiizx77miqs3h42gxad0wt (https://spotswapawsstorage.s3-accelerate.amazonaws.com/s4bp9woiizx77miqs3h42gxad0wt?response-content-disposition=inline%3B%20filename%3D%22ka.jpg%22%3B%20filename%2A%3DUTF-8%27%27ka.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093415Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=190ca1903a2d8e6d43c166df0670f6935ba0c442d38de3215ad586df95c81f9f)[0m
+[36m  S3 Storage (1.5ms) [0m[34mGenerated URL for file at key: s4bp9woiizx77miqs3h42gxad0wt (https://spotswapawsstorage.s3-accelerate.amazonaws.com/s4bp9woiizx77miqs3h42gxad0wt?response-content-disposition=inline%3B%20filename%3D%22ka.jpg%22%3B%20filename%2A%3DUTF-8%27%27ka.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093415Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=190ca1903a2d8e6d43c166df0670f6935ba0c442d38de3215ad586df95c81f9f)[0m
+  [1m[36mActiveStorage::Attachment Load (2.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Attachment Load (3.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Blob Load (2.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (1.6ms) [0m[34mGenerated URL for file at key: zvoacev5y32ho2zj66vmhm77o7qk (https://spotswapawsstorage.s3-accelerate.amazonaws.com/zvoacev5y32ho2zj66vmhm77o7qk?response-content-disposition=inline%3B%20filename%3D%22Unknown%203.jpeg%22%3B%20filename%2A%3DUTF-8%27%27Unknown%25203.jpeg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093415Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=fa2dc078b0922f8a5068cfa7450ce1176755f3b143f3536b33d39eeb6daae4d6)[0m
+  Rendered admins/dashboard/sub_admins_index.html.erb within layouts/application (Duration: 96.0ms | Allocations: 52670)
+  [1m[36mActiveStorage::Blob Load (3.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (1.8ms) [0m[34mGenerated URL for file at key: zvoacev5y32ho2zj66vmhm77o7qk (https://spotswapawsstorage.s3-accelerate.amazonaws.com/zvoacev5y32ho2zj66vmhm77o7qk?response-content-disposition=inline%3B%20filename%3D%22Unknown%203.jpeg%22%3B%20filename%2A%3DUTF-8%27%27Unknown%25203.jpeg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093415Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=fa2dc078b0922f8a5068cfa7450ce1176755f3b143f3536b33d39eeb6daae4d6)[0m
+  Rendered admins/dashboard/sub_admins_index.html.erb within layouts/application (Duration: 185.8ms | Allocations: 70888)
+[Webpacker] Everything's up-to-date. Nothing to do
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 208.2ms | Allocations: 79366)
+Completed 200 OK in 390ms (Views: 183.4ms | ActiveRecord: 90.8ms | Allocations: 133015)
+
+
+  Rendered layout layouts/application.html.erb (Duration: 136.6ms | Allocations: 73642)
+Completed 200 OK in 388ms (Views: 111.1ms | ActiveRecord: 152.6ms | Allocations: 130129)
+
+
+Started GET "/admins/dashboard/sub_admins_index" for 59.103.120.15 at 2023-09-20 09:34:16 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#sub_admins_index as HTML
+  [1m[36mAdmin Load (4.8ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/sub_admins_index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.9ms | Allocations: 5899)
+  [1m[35m (7.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:15
+  [1m[36mNotification Load (4.2ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 6.7ms | Allocations: 1352)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.5ms | Allocations: 176)
+  [1m[36mAdmin Load (4.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."created_at" DESC LIMIT $2 OFFSET $3[0m  [["category", 1], ["LIMIT", 10], ["OFFSET", 0]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:38
+  [1m[36mActiveStorage::Attachment Load (5.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 5], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Blob Load (2.7ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (1.6ms) [0m[34mGenerated URL for file at key: 6lstpvlc8exb0st1fua6t4rp7q5m (https://spotswapawsstorage.s3-accelerate.amazonaws.com/6lstpvlc8exb0st1fua6t4rp7q5m?response-content-disposition=inline%3B%20filename%3D%22scsc.jpg%22%3B%20filename%2A%3DUTF-8%27%27scsc.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093416Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=1b05dc8679c22e0103930cb1c2274eb9dba8127e6d069298499bb3a140c069b8)[0m
+  [1m[36mActiveStorage::Attachment Load (1.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 4], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Blob Load (1.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (1.5ms) [0m[34mGenerated URL for file at key: s4bp9woiizx77miqs3h42gxad0wt (https://spotswapawsstorage.s3-accelerate.amazonaws.com/s4bp9woiizx77miqs3h42gxad0wt?response-content-disposition=inline%3B%20filename%3D%22ka.jpg%22%3B%20filename%2A%3DUTF-8%27%27ka.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093416Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=02049d997fdcb01224c3d16e9b64dcb160a09201914f66457c0f8467fbd64031)[0m
+  [1m[36mActiveStorage::Attachment Load (2.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Admin"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:57
+  [1m[36mActiveStorage::Blob Load (2.5ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/admins/dashboard/sub_admins_index.html.erb:58
+[36m  S3 Storage (1.5ms) [0m[34mGenerated URL for file at key: zvoacev5y32ho2zj66vmhm77o7qk (https://spotswapawsstorage.s3-accelerate.amazonaws.com/zvoacev5y32ho2zj66vmhm77o7qk?response-content-disposition=inline%3B%20filename%3D%22Unknown%203.jpeg%22%3B%20filename%2A%3DUTF-8%27%27Unknown%25203.jpeg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAX52ZTHN44JMMIE7L%2F20230920%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230920T093416Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=65942133627b3505853987e0d569cf4f42394915080956dd52c5f7e8865bd754)[0m
+  Rendered admins/dashboard/sub_admins_index.html.erb within layouts/application (Duration: 76.2ms | Allocations: 30297)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 86.9ms | Allocations: 37062)
+Completed 200 OK in 105ms (Views: 57.1ms | ActiveRecord: 37.1ms | Allocations: 40754)
+
+
+Finished "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:34:16 +0000
+Started GET "/cable" for 59.103.120.15 at 2023-09-20 09:34:17 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:34:17 +0000
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+  [1m[36mAdmin Load (5.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/channels/application_cable/connection.rb:25:in `find_verified_admin'
+Registered connection (Z2lkOi8vc3BvdC1zd2FwL0FkbWluLzE)
+conversation id is missing.
+ConversationChannel is transmitting the subscription confirmation
+  [1m[36mAdmin Load (5.6ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mCACHE Admin Load (0.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mSupportConversation Load (3.2ms)[0m  [1m[34mSELECT "support_conversations".* FROM "support_conversations" WHERE ("support_conversations"."sender_id" = $1 OR "support_conversations"."recipient_id" = $2) ORDER BY "support_conversations"."id" ASC LIMIT $3[0m  [["sender_id", 1], ["recipient_id", 1], ["LIMIT", 1000]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+SupportConversationChannel is transmitting the subscription confirmation
+Started GET "/admins/supports" for 59.103.120.15 at 2023-09-20 09:34:18 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::SupportsController#index as HTML
+  [1m[36mAdmin Load (1.9ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/supports_controller.rb:75:in `authenticate_admin!'
+  [1m[36mSupport Load (2.4ms)[0m  [1m[34mSELECT "supports".* FROM "supports" ORDER BY "supports"."created_at" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/supports_controller.rb:13:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/supports/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.4ms | Allocations: 5870)
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/supports/index.html.erb:10
+  [1m[36mNotification Load (1.6ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.5ms | Allocations: 1321)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[36mSupport Load (1.4ms)[0m  [1m[34mSELECT "supports".* FROM "supports" ORDER BY "supports"."created_at" DESC[0m
+  ↳ app/views/admins/supports/index.html.erb:34
+  Rendered admins/supports/index.html.erb within layouts/application (Duration: 51.4ms | Allocations: 19199)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 60.8ms | Allocations: 25527)
+Completed 200 OK in 84ms (Views: 59.4ms | ActiveRecord: 14.0ms | Allocations: 32462)
+
+
+Started GET "/admins/guidelines/terms_and_conditions" for 59.103.120.15 at 2023-09-20 09:34:20 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::GuidelinesController#terms_and_conditions as HTML
+  [1m[36mAdmin Load (2.7ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/guidelines_controller.rb:101:in `authenticate_admin!'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/guidelines/terms_and_conditions.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.1ms | Allocations: 5870)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/guidelines/terms_and_conditions.html.erb:10
+  [1m[36mNotification Load (2.1ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.9ms | Allocations: 1318)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  Rendered admins/guidelines/terms_and_conditions.html.erb within layouts/application (Duration: 17.8ms | Allocations: 11249)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 26.8ms | Allocations: 17671)
+Completed 200 OK in 41ms (Views: 25.0ms | ActiveRecord: 8.8ms | Allocations: 22147)
+
+
+Started GET "/admins/guidelines/privacy_policy" for 59.103.120.15 at 2023-09-20 09:34:22 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::GuidelinesController#privacy_policy as HTML
+  [1m[36mAdmin Load (1.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/guidelines_controller.rb:101:in `authenticate_admin!'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/guidelines/privacy_policy.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.1ms | Allocations: 5862)
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/guidelines/privacy_policy.html.erb:10
+  [1m[36mNotification Load (1.4ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.0ms | Allocations: 970)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.5ms | Allocations: 176)
+  [1m[36mPage Load (1.4ms)[0m  [1m[34mSELECT "pages".* FROM "pages" WHERE "pages"."title" = $1 ORDER BY "pages"."id" DESC LIMIT $2[0m  [["title", "Privacy Policy"], ["LIMIT", 1]]
+  ↳ app/views/admins/guidelines/privacy_policy.html.erb:38
+  Rendered admins/guidelines/privacy_policy.html.erb within layouts/application (Duration: 26.8ms | Allocations: 14120)
+  Rendered layout layouts/application.html.erb (Duration: 27.9ms | Allocations: 14991)
+Completed 500 Internal Server Error in 37ms (ActiveRecord: 9.6ms | Allocations: 18570)
+
+
+  
+ActionView::Template::Error (undefined method `content' for nil:NilClass):
+    35:           </div>
+    36:           <div class="col-md-9">
+    37:           <div class="guidelines_privacy">
+    38:             <p><%=@privacy_policy.last.content.body%></p>
+    39:           </div>
+    40:         </div>
+    41:       </div>
+  
+app/views/admins/guidelines/privacy_policy.html.erb:38
+Started GET "/admins/guidelines/terms_and_conditions" for 59.103.120.15 at 2023-09-20 09:34:26 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::GuidelinesController#terms_and_conditions as HTML
+  [1m[36mAdmin Load (4.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/guidelines_controller.rb:101:in `authenticate_admin!'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/guidelines/terms_and_conditions.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 7.3ms | Allocations: 5903)
+  [1m[35m (6.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/guidelines/terms_and_conditions.html.erb:10
+  [1m[36mNotification Load (3.7ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 5.5ms | Allocations: 970)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  Rendered admins/guidelines/terms_and_conditions.html.erb within layouts/application (Duration: 26.6ms | Allocations: 11235)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 36.0ms | Allocations: 17766)
+Completed 200 OK in 52ms (Views: 28.2ms | ActiveRecord: 14.6ms | Allocations: 21394)
+
+
+Finished "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:34:27 +0000
+Started GET "/cable" for 59.103.120.15 at 2023-09-20 09:34:27 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:34:27 +0000
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+  [1m[36mAdmin Load (0.7ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/channels/application_cable/connection.rb:25:in `find_verified_admin'
+Registered connection (Z2lkOi8vc3BvdC1zd2FwL0FkbWluLzE)
+conversation id is missing.
+ConversationChannel is transmitting the subscription confirmation
+  [1m[36mAdmin Load (0.7ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mCACHE Admin Load (0.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mSupportConversation Load (0.7ms)[0m  [1m[34mSELECT "support_conversations".* FROM "support_conversations" WHERE ("support_conversations"."sender_id" = $1 OR "support_conversations"."recipient_id" = $2) ORDER BY "support_conversations"."id" ASC LIMIT $3[0m  [["sender_id", 1], ["recipient_id", 1], ["LIMIT", 1000]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+SupportConversationChannel is transmitting the subscription confirmation
+Started DELETE "/admins/sign_out" for 59.103.120.15 at 2023-09-20 09:34:30 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]"}
+  [1m[36mAdmin Load (1.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+HTTP Origin header (https://spotswap.appscorridor.com) didn't match request.base_url (http://spotswap.appscorridor.com)
+Completed 422 Unprocessable Entity in 5ms (ActiveRecord: 1.1ms | Allocations: 1907)
+
+
+  
+ActionController::InvalidAuthenticityToken (ActionController::InvalidAuthenticityToken):
+  
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:211:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:243:in `handle_unverified_request'
+devise (4.8.1) lib/devise/controllers/helpers.rb:255:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:238:in `verify_authenticity_token'
+activesupport (6.1.7) lib/active_support/callbacks.rb:427:in `block in make_lambda'
+activesupport (6.1.7) lib/active_support/callbacks.rb:198:in `block (2 levels) in halting'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.1.7) lib/active_support/callbacks.rb:199:in `block in halting'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `block in invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `each'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:115:in `block in run_callbacks'
+activesupport (6.1.7) lib/active_support/callbacks.rb:137:in `run_callbacks'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.7) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.7) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.7) lib/abstract_controller/base.rb:165:in `process'
+actionview (6.1.7) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.1.7) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.7) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:842:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.4) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.4) lib/rack/etag.rb:27:in `call'
+rack (2.2.4) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.4) lib/rack/head.rb:12:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/content_security_policy.rb:19:in `call'
+rack (2.2.4) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.4) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (6.1.7) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.7) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.4) lib/rack/method_override.rb:24:in `call'
+rack (2.2.4) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.4) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/host_authorization.rb:148:in `call'
+rack-mini-profiler (2.3.4) lib/mini_profiler/profiler.rb:393:in `call'
+webpacker (5.4.3) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.7.4) lib/rack/proxy.rb:78:in `call'
+railties (6.1.7) lib/rails/engine.rb:539:in `call'
+puma (4.3.12) lib/puma/configuration.rb:228:in `call'
+puma (4.3.12) lib/puma/server.rb:727:in `handle_request'
+puma (4.3.12) lib/puma/server.rb:476:in `process_client'
+puma (4.3.12) lib/puma/server.rb:332:in `block in run'
+puma (4.3.12) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Finished "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:34:31 +0000
+Started DELETE "/admins/sign_out" for 59.103.120.15 at 2023-09-20 09:35:02 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]"}
+  [1m[36mAdmin Load (1.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+HTTP Origin header (https://spotswap.appscorridor.com) didn't match request.base_url (http://spotswap.appscorridor.com)
+Completed 422 Unprocessable Entity in 6ms (ActiveRecord: 1.2ms | Allocations: 2366)
+
+
+  
+ActionController::InvalidAuthenticityToken (ActionController::InvalidAuthenticityToken):
+  
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:211:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:243:in `handle_unverified_request'
+devise (4.8.1) lib/devise/controllers/helpers.rb:255:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:238:in `verify_authenticity_token'
+activesupport (6.1.7) lib/active_support/callbacks.rb:427:in `block in make_lambda'
+activesupport (6.1.7) lib/active_support/callbacks.rb:198:in `block (2 levels) in halting'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.1.7) lib/active_support/callbacks.rb:199:in `block in halting'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `block in invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `each'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:115:in `block in run_callbacks'
+activesupport (6.1.7) lib/active_support/callbacks.rb:137:in `run_callbacks'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.7) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.7) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.7) lib/abstract_controller/base.rb:165:in `process'
+actionview (6.1.7) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.1.7) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.7) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:842:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.4) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.4) lib/rack/etag.rb:27:in `call'
+rack (2.2.4) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.4) lib/rack/head.rb:12:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/content_security_policy.rb:19:in `call'
+rack (2.2.4) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.4) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (6.1.7) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.7) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.4) lib/rack/method_override.rb:24:in `call'
+rack (2.2.4) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.4) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/host_authorization.rb:148:in `call'
+rack-mini-profiler (2.3.4) lib/mini_profiler/profiler.rb:393:in `call'
+webpacker (5.4.3) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.7.4) lib/rack/proxy.rb:78:in `call'
+railties (6.1.7) lib/rails/engine.rb:539:in `call'
+puma (4.3.12) lib/puma/configuration.rb:228:in `call'
+puma (4.3.12) lib/puma/server.rb:727:in `handle_request'
+puma (4.3.12) lib/puma/server.rb:476:in `process_client'
+puma (4.3.12) lib/puma/server.rb:332:in `block in run'
+puma (4.3.12) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/admins/guidelines/terms_and_conditions" for 59.103.120.15 at 2023-09-20 09:37:53 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::GuidelinesController#terms_and_conditions as HTML
+  [1m[36mAdmin Load (1.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/guidelines_controller.rb:101:in `authenticate_admin!'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/guidelines/terms_and_conditions.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.5ms | Allocations: 5903)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/guidelines/terms_and_conditions.html.erb:10
+  [1m[36mNotification Load (1.3ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.3ms | Allocations: 1352)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  Rendered admins/guidelines/terms_and_conditions.html.erb within layouts/application (Duration: 17.7ms | Allocations: 10923)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 27.2ms | Allocations: 17809)
+Completed 200 OK in 36ms (Views: 26.5ms | ActiveRecord: 4.2ms | Allocations: 21760)
+
+
+Started GET "/fonts/Inter-SemiBold.woff2" for 59.103.120.15 at 2023-09-20 09:37:53 +0000
+Started GET "/fonts/Inter-Medium.woff2" for 59.103.120.15 at 2023-09-20 09:37:53 +0000
+Started GET "/fonts/Inter-Bold.woff2" for 59.103.120.15 at 2023-09-20 09:37:53 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-Bold"}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 198)
+
+
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-SemiBold"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 208)
+
+
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-Medium"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 198)
+
+
+Started GET "/fonts/Inter-Regular.woff2" for 59.103.120.15 at 2023-09-20 09:37:54 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-Regular"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 564)
+
+
+Started GET "/cable" for 59.103.120.15 at 2023-09-20 09:37:54 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:37:54 +0000
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+  [1m[36mAdmin Load (0.6ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/channels/application_cable/connection.rb:25:in `find_verified_admin'
+Registered connection (Z2lkOi8vc3BvdC1zd2FwL0FkbWluLzE)
+conversation id is missing.
+ConversationChannel is transmitting the subscription confirmation
+  [1m[36mAdmin Load (0.7ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mCACHE Admin Load (0.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mSupportConversation Load (2.4ms)[0m  [1m[34mSELECT "support_conversations".* FROM "support_conversations" WHERE ("support_conversations"."sender_id" = $1 OR "support_conversations"."recipient_id" = $2) ORDER BY "support_conversations"."id" ASC LIMIT $3[0m  [["sender_id", 1], ["recipient_id", 1], ["LIMIT", 1000]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+SupportConversationChannel is transmitting the subscription confirmation
+Started GET "/admins/dashboard" for 59.103.120.15 at 2023-09-20 09:37:57 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.3ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.1ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.5ms | Allocations: 5862)
+  [1m[35m (2.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.8ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.7ms | Allocations: 1315)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 32.0ms | Allocations: 17308)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 41.5ms | Allocations: 24115)
+Completed 200 OK in 57ms (Views: 35.1ms | ActiveRecord: 12.3ms | Allocations: 30253)
+
+
+Started GET "/admins/dashboard" for 59.103.120.15 at 2023-09-20 09:37:59 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.1ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (3.6ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.6ms | Allocations: 5902)
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.3ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.3ms | Allocations: 1349)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 30.5ms | Allocations: 18015)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 40.1ms | Allocations: 24915)
+Completed 200 OK in 56ms (Views: 35.3ms | ActiveRecord: 13.0ms | Allocations: 31008)
+
+
+Started GET "/admins/dashboard" for 59.103.120.15 at 2023-09-20 09:38:00 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.2ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.3ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 7.1ms | Allocations: 5862)
+  [1m[35m (3.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (2.1ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 4.4ms | Allocations: 1331)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.5ms | Allocations: 176)
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (6.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (3.9ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 45.3ms | Allocations: 18312)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 55.6ms | Allocations: 24785)
+Completed 200 OK in 70ms (Views: 40.4ms | ActiveRecord: 21.6ms | Allocations: 30502)
+
+
+Started GET "/admins/dashboard" for 59.103.120.15 at 2023-09-20 09:38:00 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.2ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.4ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 8.5ms | Allocations: 5862)
+  [1m[35m (4.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.3ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.6ms | Allocations: 1714)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 37.4ms | Allocations: 18731)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 47.7ms | Allocations: 25546)
+Completed 200 OK in 62ms (Views: 39.1ms | ActiveRecord: 14.5ms | Allocations: 31668)
+
+
+Started GET "/admins/dashboard" for 59.103.120.15 at 2023-09-20 09:38:00 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (2.6ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (3.7ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 7.5ms | Allocations: 6890)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.3ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 2.3ms | Allocations: 776)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.1ms | Allocations: 22)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 28.0ms | Allocations: 17398)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 36.6ms | Allocations: 23982)
+Completed 200 OK in 52ms (Views: 30.6ms | ActiveRecord: 14.9ms | Allocations: 29265)
+
+
+Started GET "/admins/dashboard" for 59.103.120.15 at 2023-09-20 09:38:00 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.6ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.7ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.1ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.6ms | Allocations: 5862)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.3ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.1ms | Allocations: 1317)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (2.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 31.6ms | Allocations: 19394)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 40.8ms | Allocations: 25504)
+Completed 200 OK in 56ms (Views: 34.8ms | ActiveRecord: 12.6ms | Allocations: 31583)
+
+
+Started GET "/admins/dashboard" for 59.103.120.15 at 2023-09-20 09:38:00 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.4ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.3ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.4ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.4ms | Allocations: 5902)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.4ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.2ms | Allocations: 1317)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 32.4ms | Allocations: 18385)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 41.6ms | Allocations: 25275)
+Completed 200 OK in 56ms (Views: 36.9ms | ActiveRecord: 11.2ms | Allocations: 31025)
+
+
+Started GET "/admins/dashboard" for 59.103.120.15 at 2023-09-20 09:38:00 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.4ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.1ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.4ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.8ms | Allocations: 5862)
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.4ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.6ms | Allocations: 1711)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 31.2ms | Allocations: 18010)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 43.5ms | Allocations: 24472)
+Completed 200 OK in 57ms (Views: 37.5ms | ActiveRecord: 12.4ms | Allocations: 30568)
+
+
+Started GET "/admins/dashboard" for 59.103.120.15 at 2023-09-20 09:38:01 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.2ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.2ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.9ms | Allocations: 5903)
+  [1m[35m (2.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.4ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.2ms | Allocations: 973)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.5ms | Allocations: 176)
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 33.2ms | Allocations: 17977)
+Started GET "/admins/dashboard" for 59.103.120.15 at 2023-09-20 09:38:01 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (2.6ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (3.3ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 56.7ms | Allocations: 31138)
+Completed 200 OK in 70ms (Views: 50.7ms | ActiveRecord: 12.2ms | Allocations: 36838)
+
+
+  [1m[36mSetting Load (3.3ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 7.0ms | Allocations: 5806)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.4ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 2.4ms | Allocations: 1129)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.1ms | Allocations: 22)
+  [1m[35m (4.9ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 32.5ms | Allocations: 16937)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 42.3ms | Allocations: 23215)
+Completed 200 OK in 66ms (Views: 32.9ms | ActiveRecord: 20.2ms | Allocations: 34050)
+
+
+Started GET "/admins/dashboard" for 59.103.120.15 at 2023-09-20 09:38:01 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.4ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.4ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.2ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.9ms | Allocations: 5862)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.3ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.3ms | Allocations: 1337)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.5ms | Allocations: 176)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 31.4ms | Allocations: 17584)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 40.8ms | Allocations: 24386)
+Completed 200 OK in 54ms (Views: 35.7ms | ActiveRecord: 11.1ms | Allocations: 29748)
+
+
+Finished "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:38:02 +0000
+Started GET "/cable" for 59.103.120.15 at 2023-09-20 09:38:02 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:38:02 +0000
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+  [1m[36mAdmin Load (0.8ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/channels/application_cable/connection.rb:25:in `find_verified_admin'
+Registered connection (Z2lkOi8vc3BvdC1zd2FwL0FkbWluLzE)
+conversation id is missing.
+ConversationChannel is transmitting the subscription confirmation
+  [1m[36mAdmin Load (0.7ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mCACHE Admin Load (0.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mSupportConversation Load (0.8ms)[0m  [1m[34mSELECT "support_conversations".* FROM "support_conversations" WHERE ("support_conversations"."sender_id" = $1 OR "support_conversations"."recipient_id" = $2) ORDER BY "support_conversations"."id" ASC LIMIT $3[0m  [["sender_id", 1], ["recipient_id", 1], ["LIMIT", 1000]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+SupportConversationChannel is transmitting the subscription confirmation
+Started GET "/admins/dashboard" for 59.103.120.15 at 2023-09-20 09:38:09 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+Started GET "/admins/dashboard" for 59.103.120.15 at 2023-09-20 09:38:09 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (3.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mAdmin Load (2.5ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (2.7ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mRevenue Load (1.9ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.5ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mSetting Load (1.4ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 8.9ms | Allocations: 6485)
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (2.3ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 4.5ms | Allocations: 2389)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.6ms | Allocations: 347)
+  Rendered shared/_sidebar.html.erb (Duration: 19.6ms | Allocations: 11791)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.7ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  [1m[35m (2.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  Rendered shared/_notifications.html.erb (Duration: 4.9ms | Allocations: 2714)
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.1ms | Allocations: 22)
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 50.6ms | Allocations: 31437)
+  [1m[35m (2.7ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (3.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 59.7ms | Allocations: 34781)
+  Rendered layout layouts/application.html.erb (Duration: 72.0ms | Allocations: 43795)
+Completed 200 OK in 92ms (Views: 64.9ms | ActiveRecord: 16.0ms | Allocations: 54614)
+
+
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 79.4ms | Allocations: 49101)
+Completed 200 OK in 109ms (Views: 72.0ms | ActiveRecord: 18.5ms | Allocations: 65780)
+
+
+Finished "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:38:10 +0000
+Started GET "/cable" for 59.103.120.15 at 2023-09-20 09:38:10 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:38:10 +0000
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+  [1m[36mAdmin Load (0.7ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/channels/application_cable/connection.rb:25:in `find_verified_admin'
+Registered connection (Z2lkOi8vc3BvdC1zd2FwL0FkbWluLzE)
+Started DELETE "/admins/sign_out" for 59.103.120.15 at 2023-09-20 09:38:11 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]"}
+  [1m[36mAdmin Load (1.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+HTTP Origin header (https://spotswap.appscorridor.com) didn't match request.base_url (http://spotswap.appscorridor.com)
+Completed 422 Unprocessable Entity in 6ms (ActiveRecord: 1.2ms | Allocations: 2647)
+
+
+  
+ActionController::InvalidAuthenticityToken (ActionController::InvalidAuthenticityToken):
+  
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:211:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:243:in `handle_unverified_request'
+devise (4.8.1) lib/devise/controllers/helpers.rb:255:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:238:in `verify_authenticity_token'
+activesupport (6.1.7) lib/active_support/callbacks.rb:427:in `block in make_lambda'
+activesupport (6.1.7) lib/active_support/callbacks.rb:198:in `block (2 levels) in halting'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.1.7) lib/active_support/callbacks.rb:199:in `block in halting'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `block in invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `each'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:115:in `block in run_callbacks'
+activesupport (6.1.7) lib/active_support/callbacks.rb:137:in `run_callbacks'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.7) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.7) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.7) lib/abstract_controller/base.rb:165:in `process'
+actionview (6.1.7) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.1.7) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.7) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:842:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.4) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.4) lib/rack/etag.rb:27:in `call'
+rack (2.2.4) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.4) lib/rack/head.rb:12:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/content_security_policy.rb:19:in `call'
+rack (2.2.4) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.4) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (6.1.7) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.7) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.4) lib/rack/method_override.rb:24:in `call'
+rack (2.2.4) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.4) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/host_authorization.rb:148:in `call'
+rack-mini-profiler (2.3.4) lib/mini_profiler/profiler.rb:393:in `call'
+webpacker (5.4.3) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.7.4) lib/rack/proxy.rb:78:in `call'
+railties (6.1.7) lib/rails/engine.rb:539:in `call'
+puma (4.3.12) lib/puma/configuration.rb:228:in `call'
+puma (4.3.12) lib/puma/server.rb:727:in `handle_request'
+puma (4.3.12) lib/puma/server.rb:476:in `process_client'
+puma (4.3.12) lib/puma/server.rb:332:in `block in run'
+puma (4.3.12) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+conversation id is missing.
+ConversationChannel is transmitting the subscription confirmation
+  [1m[36mAdmin Load (1.4ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mCACHE Admin Load (0.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mSupportConversation Load (0.9ms)[0m  [1m[34mSELECT "support_conversations".* FROM "support_conversations" WHERE ("support_conversations"."sender_id" = $1 OR "support_conversations"."recipient_id" = $2) ORDER BY "support_conversations"."id" ASC LIMIT $3[0m  [["sender_id", 1], ["recipient_id", 1], ["LIMIT", 1000]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+SupportConversationChannel is transmitting the subscription confirmation
+Finished "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:38:11 +0000
+Started DELETE "/admins/sign_out" for 59.103.120.15 at 2023-09-20 09:40:47 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]"}
+  [1m[36mAdmin Load (1.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+HTTP Origin header (https://spotswap.appscorridor.com) didn't match request.base_url (http://spotswap.appscorridor.com)
+Completed 422 Unprocessable Entity in 6ms (ActiveRecord: 1.3ms | Allocations: 2222)
+
+
+  
+ActionController::InvalidAuthenticityToken (ActionController::InvalidAuthenticityToken):
+  
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:211:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:243:in `handle_unverified_request'
+devise (4.8.1) lib/devise/controllers/helpers.rb:255:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:238:in `verify_authenticity_token'
+activesupport (6.1.7) lib/active_support/callbacks.rb:427:in `block in make_lambda'
+activesupport (6.1.7) lib/active_support/callbacks.rb:198:in `block (2 levels) in halting'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.1.7) lib/active_support/callbacks.rb:199:in `block in halting'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `block in invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `each'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:115:in `block in run_callbacks'
+activesupport (6.1.7) lib/active_support/callbacks.rb:137:in `run_callbacks'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.7) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.7) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.7) lib/abstract_controller/base.rb:165:in `process'
+actionview (6.1.7) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.1.7) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.7) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:842:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.4) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.4) lib/rack/etag.rb:27:in `call'
+rack (2.2.4) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.4) lib/rack/head.rb:12:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/content_security_policy.rb:19:in `call'
+rack (2.2.4) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.4) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (6.1.7) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.7) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.4) lib/rack/method_override.rb:24:in `call'
+rack (2.2.4) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.4) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/host_authorization.rb:148:in `call'
+rack-mini-profiler (2.3.4) lib/mini_profiler/profiler.rb:393:in `call'
+webpacker (5.4.3) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.7.4) lib/rack/proxy.rb:78:in `call'
+railties (6.1.7) lib/rails/engine.rb:539:in `call'
+puma (4.3.12) lib/puma/configuration.rb:228:in `call'
+puma (4.3.12) lib/puma/server.rb:727:in `handle_request'
+puma (4.3.12) lib/puma/server.rb:476:in `process_client'
+puma (4.3.12) lib/puma/server.rb:332:in `block in run'
+puma (4.3.12) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:58:06 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.4ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.3ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.2ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 8.0ms | Allocations: 6180)
+  [1m[35m (3.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.7ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 6.2ms | Allocations: 1352)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 39.4ms | Allocations: 18862)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 49.3ms | Allocations: 25391)
+Completed 200 OK in 150ms (Views: 41.2ms | ActiveRecord: 29.4ms | Allocations: 57136)
+
+
+Started GET "/fonts/Inter-Medium.woff2" for 59.103.120.15 at 2023-09-20 09:58:07 +0000
+Started GET "/fonts/Inter-SemiBold.woff2" for 59.103.120.15 at 2023-09-20 09:58:07 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-SemiBold"}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 242)
+
+
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-Medium"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 198)
+
+
+Started GET "/fonts/Inter-Bold.woff2" for 59.103.120.15 at 2023-09-20 09:58:07 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-Bold"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 198)
+
+
+Started GET "/fonts/Inter-Regular.woff2" for 59.103.120.15 at 2023-09-20 09:58:07 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Api::V1::ApiController#not_found as WOFF2
+  Parameters: {"a"=>"fonts/Inter-Regular"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 198)
+
+
+Started GET "/cable" for 59.103.120.15 at 2023-09-20 09:58:07 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:58:07 +0000
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+  [1m[36mAdmin Load (0.9ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/channels/application_cable/connection.rb:25:in `find_verified_admin'
+Registered connection (Z2lkOi8vc3BvdC1zd2FwL0FkbWluLzE)
+conversation id is missing.
+ConversationChannel is transmitting the subscription confirmation
+  [1m[36mAdmin Load (0.7ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mCACHE Admin Load (0.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mSupportConversation Load (0.7ms)[0m  [1m[34mSELECT "support_conversations".* FROM "support_conversations" WHERE ("support_conversations"."sender_id" = $1 OR "support_conversations"."recipient_id" = $2) ORDER BY "support_conversations"."id" ASC LIMIT $3[0m  [["sender_id", 1], ["recipient_id", 1], ["LIMIT", 1000]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+SupportConversationChannel is transmitting the subscription confirmation
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:58:08 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.1ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.0ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 7.2ms | Allocations: 5862)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.3ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.2ms | Allocations: 1359)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 31.4ms | Allocations: 17947)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 40.5ms | Allocations: 24406)
+Completed 200 OK in 53ms (Views: 35.1ms | ActiveRecord: 10.8ms | Allocations: 29768)
+
+
+WebSocket error occurred: Broken pipe
+Finished "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:58:09 +0000
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:58:09 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.5ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.2ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.5ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.8ms | Allocations: 5862)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.6ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.1ms | Allocations: 970)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.6ms | Allocations: 176)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 30.8ms | Allocations: 18653)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 51.4ms | Allocations: 25138)
+Completed 200 OK in 68ms (Views: 47.4ms | ActiveRecord: 11.6ms | Allocations: 30486)
+
+
+Started GET "/cable" for 59.103.120.15 at 2023-09-20 09:58:09 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:58:09 +0000
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+  [1m[36mAdmin Load (1.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/channels/application_cable/connection.rb:25:in `find_verified_admin'
+Registered connection (Z2lkOi8vc3BvdC1zd2FwL0FkbWluLzE)
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:58:09 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.6ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.6ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 6.7ms | Allocations: 5903)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.6ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.1ms | Allocations: 966)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 29.9ms | Allocations: 17638)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 39.5ms | Allocations: 24495)
+Completed 200 OK in 54ms (Views: 33.9ms | ActiveRecord: 12.2ms | Allocations: 30269)
+
+
+conversation id is missing.
+ConversationChannel is transmitting the subscription confirmation
+  [1m[36mAdmin Load (1.5ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mCACHE Admin Load (0.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mSupportConversation Load (3.1ms)[0m  [1m[34mSELECT "support_conversations".* FROM "support_conversations" WHERE ("support_conversations"."sender_id" = $1 OR "support_conversations"."recipient_id" = $2) ORDER BY "support_conversations"."id" ASC LIMIT $3[0m  [["sender_id", 1], ["recipient_id", 1], ["LIMIT", 1000]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+SupportConversationChannel is transmitting the subscription confirmation
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:58:10 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.1ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.5ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:58:10 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 7.8ms | Allocations: 5866)
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (3.1ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 5.0ms | Allocations: 1007)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (6.0ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (5.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (3.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 49.1ms | Allocations: 19211)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 62.6ms | Allocations: 29601)
+Completed 200 OK in 82ms (Views: 46.1ms | ActiveRecord: 23.9ms | Allocations: 39836)
+
+
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:58:10 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (4.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.9ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mAdmin Load (5.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mSetting Load (2.0ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  [1m[36mRevenue Load (8.6ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.7ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 16.9ms | Allocations: 10867)
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  Rendered shared/_sidebar.html.erb (Duration: 11.7ms | Allocations: 8040)
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[35m (2.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.4ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  [1m[36mNotification Load (4.1ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 8.8ms | Allocations: 4481)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.5ms | Allocations: 176)
+  Rendered shared/_notifications.html.erb (Duration: 5.7ms | Allocations: 2555)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.1ms | Allocations: 22)
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 46.8ms | Allocations: 28228)
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 64.6ms | Allocations: 39946)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 68.2ms | Allocations: 41516)
+Completed 200 OK in 186ms (Views: 59.4ms | ActiveRecord: 70.1ms | Allocations: 97506)
+
+
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 89.9ms | Allocations: 53977)
+Completed 200 OK in 113ms (Views: 80.7ms | ActiveRecord: 19.5ms | Allocations: 62324)
+
+
+Started GET "/" for 59.103.120.15 at 2023-09-20 09:58:10 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::DashboardController#index as HTML
+  [1m[36mAdmin Load (1.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:76:in `authenticate_admin!'
+  [1m[36mRevenue Load (1.1ms)[0m  [1m[34mSELECT "revenues".* FROM "revenues" ORDER BY "revenues"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:14:in `index'
+  [1m[36mSetting Load (1.1ms)[0m  [1m[34mSELECT "settings".* FROM "settings" ORDER BY "settings"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/admins/dashboard_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering admins/dashboard/index.html.erb within layouts/application
+  Rendered shared/_sidebar.html.erb (Duration: 7.1ms | Allocations: 5862)
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "notifications" WHERE "notifications"."is_clear" = $1[0m  [["is_clear", false]]
+  ↳ app/views/admins/dashboard/index.html.erb:14
+  [1m[36mNotification Load (1.3ms)[0m  [1m[34mSELECT "notifications".* FROM "notifications" WHERE "notifications"."is_clear" = $1 ORDER BY "notifications"."created_at" DESC[0m  [["is_clear", false]]
+  ↳ app/views/shared/_notifications.html.erb:9
+  Rendered shared/_notifications.html.erb (Duration: 3.4ms | Allocations: 1321)
+  Rendered shared/_error_success_messages.html.erb (Duration: 0.4ms | Allocations: 176)
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:40
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "car_details"[0m
+  ↳ app/views/admins/dashboard/index.html.erb:51
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC LIMIT $1[0m  [["LIMIT", 10]]
+  ↳ app/views/admins/dashboard/index.html.erb:81
+  Rendered admins/dashboard/index.html.erb within layouts/application (Duration: 30.4ms | Allocations: 17186)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 39.9ms | Allocations: 23993)
+Completed 200 OK in 57ms (Views: 35.0ms | ActiveRecord: 10.7ms | Allocations: 30180)
+
+
+Finished "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:58:10 +0000
+Started GET "/cable" for 59.103.120.15 at 2023-09-20 09:58:11 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:58:11 +0000
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+  [1m[36mAdmin Load (0.6ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/channels/application_cable/connection.rb:25:in `find_verified_admin'
+Registered connection (Z2lkOi8vc3BvdC1zd2FwL0FkbWluLzE)
+conversation id is missing.
+ConversationChannel is transmitting the subscription confirmation
+  [1m[36mAdmin Load (2.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mCACHE Admin Load (0.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mSupportConversation Load (1.4ms)[0m  [1m[34mSELECT "support_conversations".* FROM "support_conversations" WHERE ("support_conversations"."sender_id" = $1 OR "support_conversations"."recipient_id" = $2) ORDER BY "support_conversations"."id" ASC LIMIT $3[0m  [["sender_id", 1], ["recipient_id", 1], ["LIMIT", 1000]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+SupportConversationChannel is transmitting the subscription confirmation
+Started DELETE "/admins/sign_out" for 59.103.120.15 at 2023-09-20 09:58:13 +0000
+Cannot render console from 59.103.120.15! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]"}
+  [1m[36mAdmin Load (1.4ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+HTTP Origin header (https://spotswap.appscorridor.com) didn't match request.base_url (http://spotswap.appscorridor.com)
+Completed 422 Unprocessable Entity in 7ms (ActiveRecord: 1.4ms | Allocations: 2709)
+
+
+  
+ActionController::InvalidAuthenticityToken (ActionController::InvalidAuthenticityToken):
+  
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:211:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:243:in `handle_unverified_request'
+devise (4.8.1) lib/devise/controllers/helpers.rb:255:in `handle_unverified_request'
+actionpack (6.1.7) lib/action_controller/metal/request_forgery_protection.rb:238:in `verify_authenticity_token'
+activesupport (6.1.7) lib/active_support/callbacks.rb:427:in `block in make_lambda'
+activesupport (6.1.7) lib/active_support/callbacks.rb:198:in `block (2 levels) in halting'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.1.7) lib/active_support/callbacks.rb:199:in `block in halting'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `block in invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `each'
+activesupport (6.1.7) lib/active_support/callbacks.rb:512:in `invoke_before'
+activesupport (6.1.7) lib/active_support/callbacks.rb:115:in `block in run_callbacks'
+activesupport (6.1.7) lib/active_support/callbacks.rb:137:in `run_callbacks'
+actionpack (6.1.7) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.7) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.7) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.7) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.7) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.7) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.7) lib/abstract_controller/base.rb:165:in `process'
+actionview (6.1.7) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.1.7) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.7) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (6.1.7) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.7) lib/action_dispatch/routing/route_set.rb:842:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.4) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.4) lib/rack/etag.rb:27:in `call'
+rack (2.2.4) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.4) lib/rack/head.rb:12:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (6.1.7) lib/action_dispatch/http/content_security_policy.rb:19:in `call'
+rack (2.2.4) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.4) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (6.1.7) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.7) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.7) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.7) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.4) lib/rack/method_override.rb:24:in `call'
+rack (2.2.4) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.4) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.7) lib/action_dispatch/middleware/host_authorization.rb:148:in `call'
+rack-mini-profiler (2.3.4) lib/mini_profiler/profiler.rb:393:in `call'
+webpacker (5.4.3) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.7.4) lib/rack/proxy.rb:78:in `call'
+railties (6.1.7) lib/rails/engine.rb:539:in `call'
+puma (4.3.12) lib/puma/configuration.rb:228:in `call'
+puma (4.3.12) lib/puma/server.rb:727:in `handle_request'
+puma (4.3.12) lib/puma/server.rb:476:in `process_client'
+puma (4.3.12) lib/puma/server.rb:332:in `block in run'
+puma (4.3.12) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+WebSocket error occurred: Broken pipe
+Finished "/cable/" [WebSocket] for 59.103.120.15 at 2023-09-20 09:58:14 +0000
+Started GET "/cable" for 139.135.32.227 at 2023-09-20 09:58:26 +0000
+Cannot render console from 139.135.32.227! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/cable/" [WebSocket] for 139.135.32.227 at 2023-09-20 09:58:26 +0000
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+An unauthorized connection attempt was rejected
+connection is not created
+conversation id is missing.
+ConversationChannel is transmitting the subscription confirmation
+  [1m[36mAdmin Load (1.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mCACHE Admin Load (0.0ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."category" = $1 ORDER BY "admins"."id" ASC LIMIT $2[0m  [["category", 0], ["LIMIT", 1]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+  [1m[36mSupportConversation Load (0.7ms)[0m  [1m[34mSELECT "support_conversations".* FROM "support_conversations" WHERE ("support_conversations"."sender_id" = $1 OR "support_conversations"."recipient_id" = $2) ORDER BY "support_conversations"."id" ASC LIMIT $3[0m  [["sender_id", 1], ["recipient_id", 1], ["LIMIT", 1000]]
+  ↳ app/channels/support_conversation_channel.rb:5:in `subscribed'
+SupportConversationChannel is transmitting the subscription confirmation

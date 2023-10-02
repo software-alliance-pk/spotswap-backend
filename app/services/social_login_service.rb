@@ -59,7 +59,7 @@ class SocialLoginService
     data = token_data.with_indifferent_access
     create_user(data['email'], data['sub'], data)
     user = User.find_by(email: data['email'])
-    token = JsonWebTokenService.encode({ email: user.email })
+    token = JsonWebToken.encode({ email: user.email })
     [user, token, " "]
   end
 
