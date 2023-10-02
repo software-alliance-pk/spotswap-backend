@@ -218,6 +218,9 @@ Rails.application.routes.draw do
 
     resources :guidelines, only: [] do
       collection do
+        get :show_privacy
+        get :contact_us
+        get :show_terms_and_conditions
         get :terms_and_conditions
         get :privacy_policy
         get :edit_privacy_policy
