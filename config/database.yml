@@ -17,8 +17,8 @@ development:
   <<: *default
   host: localhost
   username: postgres
-  password: admin123
-  database: db_spot_swap_development
+  password: haseeb1234
+  database: spot_swap
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -36,5 +36,5 @@ production:
   adapter: postgresql
   host: db-spotswap-production.cfctqyvazhnh.us-east-1.rds.amazonaws.com
   username: postgres
-  password: postgres
+  password: SpotSwap2023
   database: db-spotswap-production
