@@ -18,7 +18,7 @@ development:
   host: localhost
   username: postgres
   password: haseeb1234
-  database: spot_swap
+  database: spot_swap_local
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
