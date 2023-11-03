@@ -5,7 +5,7 @@ class CarModel < ApplicationRecord
   self.per_page = 10
 
   validates :title, :color, :length, :width, :height, :released, presence: true
-  validates :title, uniqueness: true
+#  validates :title, uniqueness: true
 
   def self.to_csv
     attributes = %w{Model Color Length Width Height Released}

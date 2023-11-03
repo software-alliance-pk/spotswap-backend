@@ -1,3 +1,4 @@
+require 'uri'
 class Api::V1::AuthenticationController < Api::V1::ApiController
   before_action :car_profile_params, only: [:create_car_profile, :update_car_profile]
   before_action :authorize_request, only: [:get_car_profile, :notification_fcm_token, :logout]
@@ -106,20 +107,38 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     end
   end
 
-  def get_car_specification
+
+
+def get_car_specification
     @info = CarBrand.all
   end
 
   def get_car_profile
-    return render json: { error: "car detail with this id is not present." }, status: :unprocessable_entity  unless params[:id].present?
-    @car_detail = CarDetail.find_by_id(params[:id])
+    @car_detail = CarModel.find_by_id(params[:id])
+  
     if @car_detail.present?
-      @car_detail
+      car_profile = {
+        id: @car_detail.id,
+        title: @car_detail.title,
+        color: @car_detail.color,
+        length: @car_detail.length,
+        width: @car_detail.width,
+        height: @car_detail.height,
+        released: @car_detail.released,
+        plate_number: @car_detail.plate_number
+      }
+  
+      if @car_detail.image.attached?
+        car_profile[:image_url] = @car_detail.image.service_url 
+      else
+        car_profile[:image_url] = nil
+      end
+  
+      render json: car_profile, status: :ok
     else
-      render json: { error: "car detail with this id is not present." }, status: :unprocessable_entity
+      render json: { error: "Car detail with this ID is not present." }, status: :unprocessable_entity
     end
   end
-
   private
 
   def check_the_params_of_request
