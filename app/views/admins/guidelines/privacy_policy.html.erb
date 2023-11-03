@@ -35,7 +35,11 @@
           </div>
           <div class="col-md-9">
           <div class="guidelines_privacy">
-          <%#  <p><%=@privacy_policy.last.content.body</p> %>
+            <% if @privacy_policy.any? %>
+              <p><%= @privacy_policy.last&.content&.body %></p>
+            <% else %>
+              <p>No Privacy Policy is available </p>
+            <% end %>
           </div>
         </div>
       </div>
