@@ -89,8 +89,8 @@
               <th style="width: 15rem;">PHONE NUMBER</th>
               <th style="width: 10rem;">CAR</th>
               <th style="width: 15rem;">CAR MAKE</th>
-              <th style="width: 15rem;">DATE JOINED</th>
-              <th style="width: 15rem;">YEAR BOUGHT</th>
+              <th style="width: 15rem; display: none;">DATE JOINED</th>
+              <th style="width: 15rem; display: none;">YEAR BOUGHT</th>
               <th style="width: 15rem;">STATUS</th>
             </tr>
             </thead>
@@ -111,10 +111,8 @@
                 </td>
                 <td><%= user.email %></td>
                 <td><%= user.contact %></td>
-                <td><%= user.car_detail&.car_brand&.title %> <%= user.car_detail&.car_model&.title %></td>
+                <td><%= user.car_detail&.car_brand&.title %>
                 <td><%= user.car_detail&.car_model&.title %></td>
-                <td>2021</td>
-                <td>2021</td>
                 <td><span><%= user.status %></span></td>
               </tr>
             <% end %>
