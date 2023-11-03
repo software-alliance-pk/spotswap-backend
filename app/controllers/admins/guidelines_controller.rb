@@ -2,6 +2,21 @@ class Admins::GuidelinesController < ApplicationController
 	before_action :authenticate_admin!, except: [:show_privacy, :show_terms_and_conditions, :contact_us]
   before_action :find_faq, only: [:edit_faq, :destroy_faq, :update_faq]
 
+  def show_privacy
+    file_path = Rails.root.join('public', 'show_privacy.html')
+    send_file file_path, type: 'text/html', disposition: 'inline'
+  end
+
+  def show_terms_and_conditions
+    file_path = Rails.root.join('public', 'show_terms_and_conditions.html')
+    send_file file_path, type: 'text/html', disposition: 'inline'
+  end
+
+  def contact_us
+    file_path = Rails.root.join('public', 'contact_us.html')
+    send_file file_path, type: 'text/html', disposition: 'inline'
+  end 
+
 	def terms_and_conditions
     @terms_and_conditions = Page.where(title: "Terms & Conditions")
     @notifications = Notification.where(is_clear: false).order(created_at: :desc)
@@ -133,3 +148,5 @@ class Admins::GuidelinesController < ApplicationController
     params.permit(:question, :answer)
   end
 end
+
+

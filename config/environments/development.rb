@@ -36,7 +36,7 @@ Rails.application.configure do
   config.active_storage.service = :amazon
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
@@ -84,13 +84,11 @@ Rails.application.configure do
 
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-    :enable_starttls_auto => true,
-    :address => "smtp.gmail.com",
-    :port => '587',
-    :domain => "gmail.com",
-    :authentication => :login,
-    :from => "abdullah.hafeez515515@gmail.com",
-    :user_name => "abdullah.hafeez515515@gmail.com",
-    :password => "hvbqfdbslwxmutnc"
+    :user_name => 'a55443eb293a87',
+    :password => '2c59d557945901',
+    :address => 'sandbox.smtp.mailtrap.io',
+    :host => 'sandbox.smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
   }
 end

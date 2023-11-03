@@ -43,6 +43,7 @@ class SocialLoginService
   end
 
   def apple_signup(token)
+    puts "@@--- Apple Signup ----@@"
     jwt = token
     begin
       header_segment = JSON.parse(Base64.decode64(jwt.split(".").first))
@@ -56,6 +57,7 @@ class SocialLoginService
     rescue StandardError => e
       return e.as_json
     end
+
     data = token_data.with_indifferent_access
     create_user(data['email'], data['sub'], data)
     user = User.find_by(email: data['email'])

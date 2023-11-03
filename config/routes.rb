@@ -233,6 +233,8 @@ Rails.application.routes.draw do
         post :update_faq
         post :update_privacy_policy
         post :update_terms_and_conditions
+       
+
       end
     end
 
