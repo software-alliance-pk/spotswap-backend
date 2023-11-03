@@ -129,11 +129,11 @@ Rails.application.configure do
 
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :domain               =>'gmail.com',
-    :user_name            => "abdullah.hafeez515515@gmail.com",
-    :password             => "hvbqfdbslwxmutnc",
-    :authentication       => "plain"
+    :user_name => 'a55443eb293a87',
+    :password => '2c59d557945901',
+    :address => 'sandbox.smtp.mailtrap.io',
+    :host => 'sandbox.smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
   }
 end
