@@ -1,19 +1,4 @@
 {
-<<<<<<< HEAD
-  "application.js": "/packs/js/application-17da4f35005d47a11772.js",
-  "application.js.map": "/packs/js/application-17da4f35005d47a11772.js.map",
-  "bootstrap.js": "/packs/js/bootstrap-36ea0e7ef9615c79b7cf.js",
-  "bootstrap.js.map": "/packs/js/bootstrap-36ea0e7ef9615c79b7cf.js.map",
-  "datepicker.js": "/packs/js/datepicker-1b36b24881c6ec0fe4a4.js",
-  "datepicker.js.map": "/packs/js/datepicker-1b36b24881c6ec0fe4a4.js.map",
-  "entrypoints": {
-    "application": {
-      "js": [
-        "/packs/js/application-17da4f35005d47a11772.js"
-      ],
-      "js.map": [
-        "/packs/js/application-17da4f35005d47a11772.js.map"
-=======
   "application.js": "/packs/js/application-6411e5bfe6fed5b7f1c6.js",
   "application.js.map": "/packs/js/application-6411e5bfe6fed5b7f1c6.js.map",
   "bootstrap.js": "/packs/js/bootstrap-7203568765006c1759ca.js",
@@ -27,69 +12,34 @@
       ],
       "js.map": [
         "/packs/js/application-6411e5bfe6fed5b7f1c6.js.map"
->>>>>>> bc54daf131f2aee11fafb3f064a6990634b21e9b
       ]
     },
     "bootstrap": {
       "js": [
-<<<<<<< HEAD
-        "/packs/js/bootstrap-36ea0e7ef9615c79b7cf.js"
-      ],
-      "js.map": [
-        "/packs/js/bootstrap-36ea0e7ef9615c79b7cf.js.map"
-=======
         "/packs/js/bootstrap-7203568765006c1759ca.js"
       ],
       "js.map": [
         "/packs/js/bootstrap-7203568765006c1759ca.js.map"
->>>>>>> bc54daf131f2aee11fafb3f064a6990634b21e9b
       ]
     },
     "datepicker": {
       "js": [
-<<<<<<< HEAD
-        "/packs/js/datepicker-1b36b24881c6ec0fe4a4.js"
-      ],
-      "js.map": [
-        "/packs/js/datepicker-1b36b24881c6ec0fe4a4.js.map"
-=======
         "/packs/js/datepicker-6ff31be8bdc6cebd874e.js"
       ],
       "js.map": [
         "/packs/js/datepicker-6ff31be8bdc6cebd874e.js.map"
->>>>>>> bc54daf131f2aee11fafb3f064a6990634b21e9b
       ]
     },
     "jquery": {
       "js": [
-<<<<<<< HEAD
-        "/packs/js/jquery-e4e1b2f1bea39f9d1ec3.js"
-      ],
-      "js.map": [
-        "/packs/js/jquery-e4e1b2f1bea39f9d1ec3.js.map"
-=======
         "/packs/js/jquery-fa233ecdabd2224c9f66.js"
       ],
       "js.map": [
         "/packs/js/jquery-fa233ecdabd2224c9f66.js.map"
->>>>>>> bc54daf131f2aee11fafb3f064a6990634b21e9b
       ]
     },
     "main": {
       "js": [
-<<<<<<< HEAD
-        "/packs/js/main-14bd60e7df51fefce5e9.js"
-      ],
-      "js.map": [
-        "/packs/js/main-14bd60e7df51fefce5e9.js.map"
-      ]
-    }
-  },
-  "jquery.js": "/packs/js/jquery-e4e1b2f1bea39f9d1ec3.js",
-  "jquery.js.map": "/packs/js/jquery-e4e1b2f1bea39f9d1ec3.js.map",
-  "main.js": "/packs/js/main-14bd60e7df51fefce5e9.js",
-  "main.js.map": "/packs/js/main-14bd60e7df51fefce5e9.js.map"
-=======
         "/packs/js/main-07e3ef728f5055be6d25.js"
       ],
       "js.map": [
@@ -101,5 +51,4 @@
   "jquery.js.map": "/packs/js/jquery-fa233ecdabd2224c9f66.js.map",
   "main.js": "/packs/js/main-07e3ef728f5055be6d25.js",
   "main.js.map": "/packs/js/main-07e3ef728f5055be6d25.js.map"
->>>>>>> bc54daf131f2aee11fafb3f064a6990634b21e9b
 }
