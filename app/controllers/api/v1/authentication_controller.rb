@@ -1,7 +1,6 @@
-require 'uri'
 class Api::V1::AuthenticationController < Api::V1::ApiController
   before_action :car_profile_params, only: [:create_car_profile, :update_car_profile]
-  before_action :authorize_request, only: [:get_car_profile, :notification_fcm_token, :logout]
+  before_action :authorize_request, only: [:get_car_profile, :get_user_car_profile, :notification_fcm_token, :logout]
   before_action :check_the_params_of_request, only: [:update_car_profile]
   before_action :params_check_before_create_car_profile, only: [:create_car_profile]
 
@@ -72,10 +71,10 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
 
     @car_detail = user.build_car_detail(car_profile_params.except(:user_id, :car_brand_id, :car_model_id))
     if @car_detail.save
-      user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
-      if user_car_brand.save
-        user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
-        if user_car_model.save
+      @user_car_brand = @car_detail.build_user_car_brand(car_brand_id: params[:car_brand_id])
+      if @user_car_brand.save
+        @user_car_model = @car_detail.build_user_car_model(car_model_id: params[:car_model_id])
+        if @user_car_model.save
           user.profile_complete = true
           user.status = "active"
           user.is_info_complete = true
@@ -107,38 +106,56 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     end
   end
 
-
-
-def get_car_specification
+  def get_car_specification
     @info = CarBrand.all
   end
 
   def get_car_profile
-    @car_detail = CarModel.find_by_id(params[:id])
-  
+    return render json: { error: "car detail with this id is not present." }, status: :unprocessable_entity  unless params[:id].present?
+    @car_detail = CarDetail.find_by_id(params[:id])
     if @car_detail.present?
-      car_profile = {
-        id: @car_detail.id,
-        title: @car_detail.title,
-        color: @car_detail.color,
-        length: @car_detail.length,
-        width: @car_detail.width,
-        height: @car_detail.height,
-        released: @car_detail.released,
-        plate_number: @car_detail.plate_number
-      }
-  
-      if @car_detail.image.attached?
-        car_profile[:image_url] = @car_detail.image.service_url 
-      else
-        car_profile[:image_url] = nil
-      end
-  
-      render json: car_profile, status: :ok
+      @car_detail
     else
-      render json: { error: "Car detail with this ID is not present." }, status: :unprocessable_entity
+      render json: { error: "car detail with this id is not present." }, status: :unprocessable_entity
     end
   end
+
+  def get_user_car_profile
+    return render json: { error: "car detail with this id is not present." }, status: :unprocessable_entity unless params[:id].present?
+    user = User.find_by(id: params[:id])
+    
+    if user
+      @car_detail = user.car_detail
+      if @car_detail.present?
+        photo_data = @car_detail.photos.map do |photo|
+          url = nil
+          url = photo.blob.service_url if photo.blob.present?
+          {
+            url: url
+          }
+        end
+  
+        car_detail_data = @car_detail.as_json(include: { car_brand: {} })
+  
+        car_detail_data['car_models'] = [{ 
+          Id: @car_detail.car_model.id,
+          title: @car_detail.car_model.title,
+          length: @car_detail.car_model.length,
+          width: @car_detail.car_model.width,
+          height: @car_detail.car_model.height,
+          color: @car_detail.car_model.color,
+          released_year: @car_detail.car_model.released
+        }]
+        car_detail_data['photos'] = photo_data
+        render json: car_detail_data, status: :ok
+      else
+        render json: { error: "car detail with this id is not present." }, status: :unprocessable_entity
+      end
+    else
+      render json: { error: "User not found" }, status: :unprocessable_entity
+    end
+  end
+  
   private
 
   def check_the_params_of_request
