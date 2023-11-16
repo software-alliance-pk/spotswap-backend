@@ -111,21 +111,25 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   end
 
   def get_car_profile
-    return render json: { error: "car detail with this id is not present." }, status: :unprocessable_entity  unless params[:id].present?
-    @car_detail = CarDetail.find_by_id(params[:id])
-    if @car_detail.present?
-      @car_detail
+    return render json: { error: "car model detail with this id is not present." }, status: :unprocessable_entity  unless params[:id].present?
+    @model_detail = CarModel.find_by_id(params[:id])
+    if @model_detail.present?
+      model_photo_data = []
+      if @model_detail.image.attached?
+        model_photo_data = @model_detail.image.blob.service_url
+      end
+
+      car_detail_data = @model_detail.attributes
+      car_detail_data['image'] = model_photo_data
+      render json: car_detail_data, status: :ok
     else
-      render json: { error: "car detail with this id is not present." }, status: :unprocessable_entity
+      render json: { error: "car detail model with this id is not present." }, status: :unprocessable_entity
     end
   end
 
   def get_user_car_profile
     return render json: { error: "car detail with this id is not present." }, status: :unprocessable_entity unless params[:id].present?
-    user = User.find_by(id: params[:id])
-    
-    if user
-      @car_detail = user.car_detail
+      @car_detail = CarDetail.find_by_id(params[:id])
       if @car_detail.present?
         photo_data = @car_detail.photos.map do |photo|
           url = nil
@@ -134,26 +138,32 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
             url: url
           }
         end
-  
-        car_detail_data = @car_detail.as_json(include: { car_brand: {} })
-  
-        car_detail_data['car_models'] = [{ 
-          Id: @car_detail.car_model.id,
-          title: @car_detail.car_model.title,
-          length: @car_detail.car_model.length,
-          width: @car_detail.car_model.width,
-          height: @car_detail.car_model.height,
-          color: @car_detail.car_model.color,
-          released_year: @car_detail.car_model.released
+        car_detail_data = @car_detail.as_json
+        if @car_detail.user_car_brand.present? && @car_detail.user_car_brand.car_brand.present?
+          car_detail_data['user_car_brands'] = [{
+            id: @car_detail.user_car_brand.car_brand.id,
+            title: @car_detail.user_car_brand.car_brand.title
+          }]
+        else
+          car_detail_data['user_car_brands'] = []
+        end
+
+        car_detail_data['user_car_models'] = [{ 
+          Id: @car_detail.user_car_model.car_model.id,
+          title: @car_detail.user_car_model.car_model.title,
+          color: @car_detail.user_car_model.car_model.color,
+          length: @car_detail.user_car_model.car_model.length,
+          width: @car_detail.user_car_model.car_model.width,
+          height: @car_detail.user_car_model.car_model.height,
+          released_year: @car_detail.user_car_model.car_model.released,
+          plate_number: @car_detail.user_car_model.car_model.plate_number
         }]
+       
         car_detail_data['photos'] = photo_data
         render json: car_detail_data, status: :ok
       else
         render json: { error: "car detail with this id is not present." }, status: :unprocessable_entity
       end
-    else
-      render json: { error: "User not found" }, status: :unprocessable_entity
-    end
   end
   
   private
