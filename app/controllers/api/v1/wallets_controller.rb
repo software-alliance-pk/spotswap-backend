@@ -38,6 +38,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
         return render json: {error: "Please add Default Payment first."}, status: :unprocessable_entity
       end
     rescue Exception => e
+      Rails.logger.debug "Error on amout #{e}"
       render json: { error: e.message }, status: :unprocessable_entity
     end
   end
@@ -170,8 +171,9 @@ class Api::V1::WalletsController < Api::V1::ApiController
   end
 
   def update_revenue(amount)
-    revenue = Revenue.first
-    amount = revenue.amount + amount
-    revenue.update(amount: amount)
+    revenue = Revenue.first_or_initialize # Get the first record or initialize a new one if none exists
+    new_amount = revenue.amount.to_i + amount.to_i
+    revenue.update(amount: new_amount)
   end
+  
 end
