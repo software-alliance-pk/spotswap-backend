@@ -13,7 +13,7 @@ class PushNotificationService
        parking_slot_image: connection.parking_slot.image.attached? ? connection.parking_slot.image.url : "",
        body: "Swapper #{connection.swapper.name} and Host #{connection.host.name} has been connected."
       }
-    fcm_client = FCM.new("AAAAlr4iktw:APA91bF55dfM-lYWPqi-dHMnWGvrwQwRMAEJZD6Hu2P1mEdX8sHBcsVzLx3goF2E8ArNLw9EwvaRzlUGd5YDHCY9WOiu0mtP4jR8XXD2aH-5ItgZ12eY90NYxrNuisHjm3mIx8lsMFAo") # set your FCM_SERVER_KEY
+    fcm_client = FCM.new("AAAAFZmO76k:APA91bFGtkpg3huH8r31nafno2Mi2VI4axW_1BI5Vaf4aeIoamvM7bCM7fwnLyJAxuyKwpFSLUlxv_oTZi74ddjFbdX2jf6y7-zp-S4FtRtkQvQCk1Ftf-Pkznv5uSGuNG76CysyNBv_") # set your FCM_SERVER_KEY
     options = { priority: 'high',
           data: { data: data, notification_type: "connection_created" },
           notification: {
@@ -41,7 +41,7 @@ class PushNotificationService
       swapper_payment_type: connection&.swapper&.default_payment&.payment_type,
       body: "#{connection.host.name} wants to transfer his parking slot."
      }
-   fcm_client = FCM.new("AAAAlr4iktw:APA91bF55dfM-lYWPqi-dHMnWGvrwQwRMAEJZD6Hu2P1mEdX8sHBcsVzLx3goF2E8ArNLw9EwvaRzlUGd5YDHCY9WOiu0mtP4jR8XXD2aH-5ItgZ12eY90NYxrNuisHjm3mIx8lsMFAo") # set your FCM_SERVER_KEY
+   fcm_client = FCM.new("AAAAFZmO76k:APA91bFGtkpg3huH8r31nafno2Mi2VI4axW_1BI5Vaf4aeIoamvM7bCM7fwnLyJAxuyKwpFSLUlxv_oTZi74ddjFbdX2jf6y7-zp-S4FtRtkQvQCk1Ftf-Pkznv5uSGuNG76CysyNBv_") # set your FCM_SERVER_KEY
    options = { priority: 'high',
          data: { data: data, notification_type: "transfer_parking_slot" },
          notification: {
@@ -71,7 +71,7 @@ class PushNotificationService
       user_type: "Swapper",
       body: "Request has been cancelled by Swapper."
      }   
-   fcm_client = FCM.new("AAAAlr4iktw:APA91bF55dfM-lYWPqi-dHMnWGvrwQwRMAEJZD6Hu2P1mEdX8sHBcsVzLx3goF2E8ArNLw9EwvaRzlUGd5YDHCY9WOiu0mtP4jR8XXD2aH-5ItgZ12eY90NYxrNuisHjm3mIx8lsMFAo") # set your FCM_SERVER_KEY
+   fcm_client = FCM.new("AAAAFZmO76k:APA91bFGtkpg3huH8r31nafno2Mi2VI4axW_1BI5Vaf4aeIoamvM7bCM7fwnLyJAxuyKwpFSLUlxv_oTZi74ddjFbdX2jf6y7-zp-S4FtRtkQvQCk1Ftf-Pkznv5uSGuNG76CysyNBv_") # set your FCM_SERVER_KEY
    options = { priority: 'high',
          data: { data: data, notification_type: "cancel_connection" },
          notification: {
@@ -95,7 +95,7 @@ class PushNotificationService
       connection_id: swapper&.swapper_host_connection&.id,
       body: "Host is issuing a Confirm Arrival, are you still interested in the spot?."
      }   
-   fcm_client = FCM.new("AAAAlr4iktw:APA91bF55dfM-lYWPqi-dHMnWGvrwQwRMAEJZD6Hu2P1mEdX8sHBcsVzLx3goF2E8ArNLw9EwvaRzlUGd5YDHCY9WOiu0mtP4jR8XXD2aH-5ItgZ12eY90NYxrNuisHjm3mIx8lsMFAo") # set your FCM_SERVER_KEY
+   fcm_client = FCM.new("AAAAFZmO76k:APA91bFGtkpg3huH8r31nafno2Mi2VI4axW_1BI5Vaf4aeIoamvM7bCM7fwnLyJAxuyKwpFSLUlxv_oTZi74ddjFbdX2jf6y7-zp-S4FtRtkQvQCk1Ftf-Pkznv5uSGuNG76CysyNBv_") # set your FCM_SERVER_KEY
    options = { priority: 'high',
          data: { data: data, notification_type: "confirm_arrival" },
          notification: {
@@ -126,7 +126,7 @@ class PushNotificationService
        parking_slot_image: connection.parking_slot.image.attached? ? connection.parking_slot.image.url : "",
        body: "Swapper #{connection.swapper.name} is still interested in your Parking Slot."
      }   
-   fcm_client = FCM.new("AAAAlr4iktw:APA91bF55dfM-lYWPqi-dHMnWGvrwQwRMAEJZD6Hu2P1mEdX8sHBcsVzLx3goF2E8ArNLw9EwvaRzlUGd5YDHCY9WOiu0mtP4jR8XXD2aH-5ItgZ12eY90NYxrNuisHjm3mIx8lsMFAo") # set your FCM_SERVER_KEY
+   fcm_client = FCM.new("AAAAFZmO76k:APA91bFGtkpg3huH8r31nafno2Mi2VI4axW_1BI5Vaf4aeIoamvM7bCM7fwnLyJAxuyKwpFSLUlxv_oTZi74ddjFbdX2jf6y7-zp-S4FtRtkQvQCk1Ftf-Pkznv5uSGuNG76CysyNBv_") # set your FCM_SERVER_KEY
    options = { priority: 'high',
          data: { data: data, notification_type: "still_interested" },
          notification: {
@@ -158,7 +158,7 @@ class PushNotificationService
        spot_swap_fee: "1",
        body: "Swapper #{connection.swapper.name} has been sent payment of $#{amount}.00"
      }   
-   fcm_client = FCM.new("AAAAlr4iktw:APA91bF55dfM-lYWPqi-dHMnWGvrwQwRMAEJZD6Hu2P1mEdX8sHBcsVzLx3goF2E8ArNLw9EwvaRzlUGd5YDHCY9WOiu0mtP4jR8XXD2aH-5ItgZ12eY90NYxrNuisHjm3mIx8lsMFAo") # set your FCM_SERVER_KEY
+   fcm_client = FCM.new("AAAAFZmO76k:APA91bFGtkpg3huH8r31nafno2Mi2VI4axW_1BI5Vaf4aeIoamvM7bCM7fwnLyJAxuyKwpFSLUlxv_oTZi74ddjFbdX2jf6y7-zp-S4FtRtkQvQCk1Ftf-Pkznv5uSGuNG76CysyNBv_") # set your FCM_SERVER_KEY
    options = { priority: 'high',
          data: { data: data, notification_type: "payment_received" },
          notification: {

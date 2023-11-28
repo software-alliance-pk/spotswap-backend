@@ -71,10 +71,10 @@ Rails.application.configure do
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
-  config.action_cable.disable_request_forgery_protection = true
+  config.action_cable.disable_request_forgery_protection = false
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.action_cable.url = "/cable"
-
+  config.action_cable.allowed_request_origins = ['0.0.0.0/0']
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
@@ -84,8 +84,8 @@ Rails.application.configure do
 
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-    :user_name => 'a55443eb293a87',
-    :password => '2c59d557945901',
+    :user_name => 'e1f649c2007110',
+    :password => '348fcf4d9bbb0b',
     :address => 'sandbox.smtp.mailtrap.io',
     :host => 'sandbox.smtp.mailtrap.io',
     :port => '2525',

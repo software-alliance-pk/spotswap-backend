@@ -31,8 +31,12 @@ class Admins::UsersController < ApplicationController
     @start_date = Date.strptime(params[:daterange].split.first, "%m/%d/%Y")
     @end_date = Date.strptime(params[:daterange].split.third, "%m/%d/%Y")
     @users = User.where(is_disabled: false).where('Date(created_at) BETWEEN ? AND ?', @start_date, @end_date)
-    csv_count = Setting.first.csv_download_count
-    Setting.first.update(csv_download_count: csv_count+1)
+    setting = Setting.first
+    if setting.nil?
+      setting = Setting.create(csv_download_count: 0)
+    end
+    csv_count = setting.csv_download_count
+    setting.update(csv_download_count: csv_count + 1)
     
     respond_to do |format|
       format.csv { send_data @users.to_csv, filename: "users-#{Date.today}.csv" }
