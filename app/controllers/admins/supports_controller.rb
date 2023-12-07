@@ -61,12 +61,30 @@
   end
 
   def download
-    @message = SupportMessage.find_by(id: params[:id])
-    url = @message.file.url if @message.file.attached? && params[:type]=="file"
-    url = @message.image.url if @message.image.attached? && params[:type]=="image"
-    download = URI.open(url)
-    filename = url.to_s.split('/')[-1]
-    send_data download.read, disposition: 'attachment', filename: filename
+    @message = SupportMessage.find_by(id: params[:id])  
+    if params[:type] == "file" && @message.file.attached? && @message.file.present?
+      attachment = @message.file
+    elsif params[:type] == "image" && @message.image.attached? && @message.image.present?
+      attachment = @message.image
+    end
+    if attachment.present?
+      download = attachment.download
+      content_type = attachment.content_type
+      # Define a mapping between content types and file extensions
+      content_type_to_extension = {
+        'application/pdf' => 'pdf',
+        'image/jpeg' => 'jpeg',
+        'image/jpg' => 'jpg',
+        'image/png' => 'png',
+        # Add more mappings as needed
+      }
+      # Set the filename based on content type
+      filename = "#{Time.now.to_i}_spot_swap.#{content_type_to_extension[content_type]}"
+      send_data download, disposition: 'attachment', filename: filename, type: content_type
+    else
+      flash[:error] = 'File or image not found'
+      redirect_to root_path
+    end
   end
 
   private
@@ -79,3 +97,4 @@
     end
 	end
 end
+

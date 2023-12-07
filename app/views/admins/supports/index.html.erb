@@ -121,7 +121,17 @@
                                 <%= image_tag message&.image&.url %>
                               </div>
                               <button type="button" class="btn down_btn">
-                                <%= link_to image_tag("icon-arrow-bottom.svg"), download_admins_supports_path(id: message.id) %>
+                                <%= link_to image_tag("icon-arrow-bottom.svg"), download_admins_supports_path(id: message.id, type: "image") %>
+                              </button>
+                            </div>
+                          <% end %>
+                          <% if message&.file&.attached? %>
+                            <div class="attch_blk">
+                            <div class="img">
+                              <iframe src=<%= message&.file&.url %>> </iframe>
+                            </div>
+                              <button type="button" class="btn down_btn">
+                              <%= link_to image_tag("icon-arrow-bottom.svg"), download_admins_supports_path(id: message.id, type: "file") %>
                               </button>
                             </div>
                           <% end %>
@@ -203,3 +213,4 @@
     });
   });
 </script>
+

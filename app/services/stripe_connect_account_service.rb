@@ -26,7 +26,8 @@ class StripeConnectAccountService
         {
           account: current_user.stripe_connect_id,
           refresh_url: "http://3.215.111.230"+refresh_url,
-          return_url: "https://spotswap.page.link/RtQw",
+          return_url: "https://convrtx.page.link/4Yif",
+          # return_url: "https://spotswap.page.link/RtQw",
           type: "account_onboarding",
         },
       )
@@ -40,7 +41,8 @@ class StripeConnectAccountService
       {
         account: account_id,
         refresh_url: "http://3.215.111.230"+refresh_url,
-        return_url: "https://spotswap.page.link/RtQw",
+        return_url: "https://convrtx.page.link/4Yif",
+        # return_url: "https://spotswap.page.link/RtQw",
         type: "account_onboarding",
       },
     )
