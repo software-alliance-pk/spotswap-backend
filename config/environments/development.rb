@@ -84,11 +84,10 @@ Rails.application.configure do
 
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-    :user_name => 'e1f649c2007110',
-    :password => '348fcf4d9bbb0b',
-    :address => 'sandbox.smtp.mailtrap.io',
-    :host => 'sandbox.smtp.mailtrap.io',
-    :port => '2525',
-    :authentication => :cram_md5
+    :user_name => 'api',
+    :password => '69a382dbf0838a4760a185b3a8c9ead2',
+    :address => 'live.smtp.mailtrap.io',
+    :host => 'live.smtp.mailtrap.io',
+    :port => '587',
   }
 end

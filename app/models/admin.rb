@@ -18,4 +18,13 @@ class Admin < ApplicationRecord
             if: -> { new_record? || !password.nil? }
 
   validates :full_name, :category, presence: true
+  validate :image_content_type, if: -> { image.attached? }
+  
+  private
+
+  def image_content_type
+    unless image.content_type.in?(%w(image/png image/gif image/jpeg))
+      errors.add(:image, 'must be a PNG, GIF, or JPEG image')
+    end
+  end
 end
