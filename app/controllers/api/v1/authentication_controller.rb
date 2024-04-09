@@ -28,6 +28,9 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     @user.referrer_id = @referrer_user.id if params[:referrer_code].present?
     @user.status = 'active'
     if @user.save
+      if params[:referrer_code].present?
+       assign_reward_to_referrer(params[:referrer_code])
+      end
       @token = JsonWebToken.encode(user_id: @user.id)
     else
       render_error_messages(@user)
@@ -200,6 +203,29 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
   def is_referral_code_valid(code)
     @referrer_user = User.find_by(referral_code: code)
     return @referrer_user.present?
+  end
+  
+
+  #On Referral signup adding $10 to user wallet and duduct the amount from the revenues
+  def assign_reward_to_referrer(code)
+    @referrer_user = User.find_by(referral_code: code)
+    revenues = Revenue.first 
+    if revenues.present? && revenues.amount >= 10
+      ActiveRecord::Base.transaction do
+        revenues.update(amount: revenues.amount - 10)
+        amount = @referrer_user.wallet&.amount.to_f
+        new_amount = amount + 10
+        if @referrer_user.wallet.present?
+          @referrer_user.wallet.update(amount: new_amount)
+        else
+          @referrer_user.create_wallet(amount: new_amount, is_default: true, payment_type: "wallet")
+        end
+        @referrer_user.wallet_histories.create(transaction_type: "credited", top_up_description: "bank_transfer", amount: new_amount, title: "Top Up")
+      end
+      return true
+    else
+      return false
+    end
   end
 
 end
