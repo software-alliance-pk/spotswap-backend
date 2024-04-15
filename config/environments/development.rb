@@ -78,16 +78,17 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
-  config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.default :charset => "utf-8"
-
+  
   # SMTP settings for gmail
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :user_name => 'api',
     :password => '69a382dbf0838a4760a185b3a8c9ead2',
     :address => 'live.smtp.mailtrap.io',
     :host => 'live.smtp.mailtrap.io',
     :port => '587',
-  }
+    :authentication => :login
+}
 end
