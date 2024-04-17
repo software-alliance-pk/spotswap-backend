@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_13_153736) do
+ActiveRecord::Schema.define(version: 2023_12_04_125726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -407,33 +407,33 @@ ActiveRecord::Schema.define(version: 2023_10_13_153736) do
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "blocked_user_details", "users"
-  add_foreign_key "car_details", "users"
-  add_foreign_key "car_models", "car_brands"
-  add_foreign_key "card_details", "users"
-  add_foreign_key "histories", "users"
-  add_foreign_key "messages", "conversations"
-  add_foreign_key "messages", "users"
-  add_foreign_key "mobile_devices", "users"
-  add_foreign_key "notifications", "users"
-  add_foreign_key "parking_slots", "users"
-  add_foreign_key "paypal_partner_accounts", "users"
-  add_foreign_key "quick_chats", "users"
-  add_foreign_key "send_money_histories", "users"
-  add_foreign_key "stripe_connect_accounts", "users"
-  add_foreign_key "support_conversations", "supports"
-  add_foreign_key "support_messages", "support_conversations"
-  add_foreign_key "support_messages", "users"
-  add_foreign_key "supports", "users"
-  add_foreign_key "swapper_host_connections", "parking_slots"
-  add_foreign_key "swapper_host_connections", "users"
-  add_foreign_key "user_car_brands", "car_brands"
-  add_foreign_key "user_car_brands", "car_details"
-  add_foreign_key "user_car_models", "car_details"
-  add_foreign_key "user_car_models", "car_models"
-  add_foreign_key "user_referral_code_records", "users"
-  add_foreign_key "wallet_histories", "users"
-  add_foreign_key "wallets", "users"
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id", on_delete: :cascade
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id", on_delete: :cascade
+  add_foreign_key "blocked_user_details", "users", on_delete: :cascade
+  add_foreign_key "car_details", "users", on_delete: :cascade
+  add_foreign_key "car_models", "car_brands", on_delete: :cascade
+  add_foreign_key "card_details", "users", on_delete: :cascade
+  add_foreign_key "histories", "users", on_delete: :cascade
+  add_foreign_key "messages", "conversations", on_delete: :cascade
+  add_foreign_key "messages", "users", on_delete: :cascade
+  add_foreign_key "mobile_devices", "users", on_delete: :cascade
+  add_foreign_key "notifications", "users", on_delete: :cascade
+  add_foreign_key "parking_slots", "users", on_delete: :cascade
+  add_foreign_key "paypal_partner_accounts", "users", on_delete: :cascade
+  add_foreign_key "quick_chats", "users", on_delete: :cascade
+  add_foreign_key "send_money_histories", "users", on_delete: :cascade
+  add_foreign_key "stripe_connect_accounts", "users", on_delete: :cascade
+  add_foreign_key "support_conversations", "supports", on_delete: :cascade
+  add_foreign_key "support_messages", "support_conversations", on_delete: :cascade
+  add_foreign_key "support_messages", "users", on_delete: :cascade
+  add_foreign_key "supports", "users", on_delete: :cascade
+  add_foreign_key "swapper_host_connections", "parking_slots", on_delete: :cascade
+  add_foreign_key "swapper_host_connections", "users", on_delete: :cascade
+  add_foreign_key "user_car_brands", "car_brands", on_delete: :cascade
+  add_foreign_key "user_car_brands", "car_details", on_delete: :cascade
+  add_foreign_key "user_car_models", "car_details", on_delete: :cascade
+  add_foreign_key "user_car_models", "car_models", on_delete: :cascade
+  add_foreign_key "user_referral_code_records", "users", on_delete: :cascade
+  add_foreign_key "wallet_histories", "users", on_delete: :cascade
+  add_foreign_key "wallets", "users", on_delete: :cascade
 end
