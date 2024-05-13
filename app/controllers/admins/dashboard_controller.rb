@@ -9,6 +9,7 @@ class Admins::DashboardController < ApplicationController
       @type = "view_all"
     else
       @users = User.all.order(created_at: :desc).limit(10)
+      @users_count = User.count
     end
     @cars = CarDetail.all
     @revenue = Revenue&.first&.amount
