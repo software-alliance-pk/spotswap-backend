@@ -25,7 +25,7 @@ class StripeConnectAccountService
       link = Stripe::AccountLink.create(
         {
           account: current_user.stripe_connect_id,
-          refresh_url: "http://3.215.111.230"+refresh_url,
+          refresh_url: "https://3.215.111.230"+refresh_url,
           # return_url: "https://convrtx.page.link/4Yif",
           return_url: "https://spotswap.page.link/RtQw",
           type: "account_onboarding",
@@ -40,7 +40,7 @@ class StripeConnectAccountService
     link = Stripe::AccountLink.create(
       {
         account: account_id,
-        refresh_url: "http://3.215.111.230"+refresh_url,
+        refresh_url: "https://3.215.111.230"+refresh_url,
         # return_url: "https://convrtx.page.link/4Yif",
         return_url: "https://spotswap.page.link/RtQw",
         type: "account_onboarding",
