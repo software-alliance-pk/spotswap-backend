@@ -72,7 +72,8 @@ class SocialLoginService
     if resource
       resource
     else
-      name = response['name'].present? ? response['name'] : "apple don't provide name"
+      username = email.split('@').first
+      name = response['name'].present? ? response['name'] : username
       @user = User.new(email: response['email'], name: name, password: PASSWORD_DIGEST, password_confirmation: PASSWORD_DIGEST, profile_type: "social login", profile_complete: false)
       @user.save(validate: false)
     end
