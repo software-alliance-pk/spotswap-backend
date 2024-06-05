@@ -62,7 +62,7 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
 
   def update_wallet
     # This action will be called after successful payment
-    user = current_user
+    user = @current_user
     amount = params[:amount]
     service = StripeTopUpService.new
     service.update_wallet(user, amount.to_i)
