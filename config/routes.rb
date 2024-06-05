@@ -154,6 +154,8 @@ Rails.application.routes.draw do
           get :retrieve_connect_account
           get :user_stripe_connect_account
           get :create_login_link
+          post :create_payment_intent
+          post :update_wallet
         end
       end
 

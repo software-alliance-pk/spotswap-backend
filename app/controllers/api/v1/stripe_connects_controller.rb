@@ -47,5 +47,26 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
       render json: { error:  e.message }, status: :unprocessable_entity
     end
   end
+
+  def create_payment_intent
+    amount = params[:amount]
+    service = StripeTopUpService.new
+    intent = service.create_payment_intent(amount.to_i)
+
+    if intent
+      render json: intent
+    else
+      render json: { error: 'Failed to create payment intent' }, status: :unprocessable_entity
+    end
+  end
+
+  def update_wallet
+    # This action will be called after successful payment
+    user = current_user
+    amount = params[:amount]
+    service = StripeTopUpService.new
+    service.update_wallet(user, amount.to_i)
+    render json: { message: 'Wallet updated successfully' }
+  end
   
 end
