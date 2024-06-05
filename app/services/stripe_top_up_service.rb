@@ -51,7 +51,7 @@ class StripeTopUpService
 
   def update_wallet(user, amount)
     # Implement logic to update user's wallet balance
-    user.wallet_balance += amount
-    user.save
+    wallet_new_amount = user.wallet.amount + amount.to_i
+    @current_user.wallet.update(amount: wallet_new_amount)
   end
 end
