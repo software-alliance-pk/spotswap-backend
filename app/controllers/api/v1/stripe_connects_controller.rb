@@ -62,13 +62,35 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
 
   def update_wallet
     # This action will be called after successful payment
-    amount = params[:amount]
-    puts "=====Amount======= #{amount}"
-    puts "=====  current_user.wallet.amount  ======= #{@current_user.wallet.amount}"
-    wallet_new_amount = @current_user.wallet.amount + amount.to_i
-    puts "=====  current_user.wallet.amount  ======= #{@current_user.wallet.amount}"
-    @current_user.wallet.update(amount: wallet_new_amount)
-    render json: { message: 'Wallet updated successfully' }
+    begin
+      amount = params[:amount]
+      if !@current_user.wallet.present?
+      wallet = @current_user.create_wallet(amount: amount, is_default: true, payment_type: "wallet")
+      create_wallet_history(params[:amount])
+      else 
+        new_amount = new_amount_needs_to_add_in_wallet(amount)
+        create_wallet_history(amount)
+        @current_user.wallet.update(amount:new_amount)
+        wallet = @current_user.wallet
+      end
+      render json: { message: 'Wallet updated successfully', wallet:wallet }
+    rescue Exception => e
+      render json: { error:  e.message }, status: :unprocessable_entity
+    end   
+  end
+
+
+  def get_wallet_previous_amount
+    puts "Previos wallet amount ===  #{@current_user.wallet&.amount}"
+   return  @current_user.wallet&.amount
+  end
+
+  def new_amount_needs_to_add_in_wallet(amount)
+    return amount.to_f + get_wallet_previous_amount.to_f
   end
   
+  def create_wallet_history(amount)
+    @current_user.wallet_histories.create(transaction_type: "credited", top_up_description: "bank_transfer", amount: amount, title: "Top Up")
+  end
+
 end
