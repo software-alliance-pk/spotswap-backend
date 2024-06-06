@@ -62,10 +62,12 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
 
   def update_wallet
     # This action will be called after successful payment
-    user = @current_user
     amount = params[:amount]
-    service = StripeTopUpService.new
-    service.update_wallet(user, amount.to_i)
+    puts "=====Amount======= #{amount}"
+    puts "=====  current_user.wallet.amount  ======= #{@current_user.wallet.amount}"
+    wallet_new_amount = @current_user.wallet.amount + amount.to_i
+    puts "=====  current_user.wallet.amount  ======= #{@current_user.wallet.amount}"
+    @current_user.wallet.update(amount: wallet_new_amount)
     render json: { message: 'Wallet updated successfully' }
   end
   
