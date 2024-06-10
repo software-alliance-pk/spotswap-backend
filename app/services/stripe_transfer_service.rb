@@ -21,11 +21,13 @@ class StripeTransferService
     currency: 'usd',
     payment_method:'pm_card_visa',
     confirm:true, 
+    automatic_payment_methods:true,
     # customer: customer['id'],
     # In the latest version of the API, specifying the `automatic_payment_methods` parameter
     # is optional because Stripe enables its functionality by default.
     automatic_payment_methods: {
       enabled: true,
+      allow_redirects: 'never'
     },
     application_fee_amount: application_fee_amount,
     transfer_data: {
