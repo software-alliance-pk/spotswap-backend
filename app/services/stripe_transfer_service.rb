@@ -19,7 +19,7 @@ class StripeTransferService
     paymentIntent = Stripe::PaymentIntent.create({
     amount: amount,
     currency: 'usd',
-    payment_method='pm_card_visa',
+    payment_method:'pm_card_visa',
     # customer: customer['id'],
     # In the latest version of the API, specifying the `automatic_payment_methods` parameter
     # is optional because Stripe enables its functionality by default.
