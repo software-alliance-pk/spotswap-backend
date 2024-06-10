@@ -17,14 +17,17 @@ class StripeTransferService
     application_fee_amount = (amount * 0.30).to_i
 
     paymentIntent = Stripe::PaymentIntent.create({
-    amount: 1099,
-    currency: 'eur',
+    amount: amount,
+    currency: 'usd',
     customer: account_id,
+    payment_method:'pm_card_visa',
+    confirm: true,
     # In the latest version of the API, specifying the `automatic_payment_methods` parameter
     # is optional because Stripe enables its functionality by default.
     automatic_payment_methods: {
       enabled: true,
     },
+
     application_fee_amount: application_fee_amount,
   }, {stripe_account: account_id})
     paymentIntent
