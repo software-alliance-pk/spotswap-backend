@@ -20,4 +20,9 @@ class StripeTransferService
 
     payment_intent
   end
+
+  def connect_balance_check(account_id)
+    balance = Stripe::Balance.retrieve({stripe_account: connection_details.host.stripe_connect_account.account_id})
+    return balance
+  end 
 end

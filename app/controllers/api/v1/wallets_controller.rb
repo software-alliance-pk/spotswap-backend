@@ -94,7 +94,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
   def get_stripe_connect_balance
     connection_details =  check_connection_create_before_charge_amount
-    balance = Stripe::Balance.retrieve({stripe_account: connection_details.host.stripe_connect_account.account_id})
+    balance = StripeTransferService.new.connect_balance_check(connection_details.host.stripe_connect_account.account_id)
     render json: { balance: balance, stripe_account: connection_details.host.stripe_connect_account.account_id , connection_details: connection_details }, status: :ok
   end 
 
