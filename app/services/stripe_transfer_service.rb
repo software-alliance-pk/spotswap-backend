@@ -22,7 +22,7 @@ class StripeTransferService
   end
 
   def connect_balance_check(account_id)
-    balance = Stripe::Balance.retrieve({stripe_account: account_idch})
+    balance = Stripe::Balance.retrieve({stripe_account: account_id})
     return balance
   end 
 end
