@@ -16,19 +16,19 @@ class StripeTransferService
   def transfer_amount_to_owmer_and_customer(amount, account_id)
     application_fee_amount = (amount * 0.30).to_i
 
-    payment_intent = Stripe::PaymentIntent.create({
-      amount: amount,
-      currency: 'usd',
-      payment_method_types: ['card'],
-      application_fee_amount: application_fee_amount,
-      transfer_data: {
-        destination: account_id
-      }
-    }, {
-      stripe_account: account_id
-    })
+    paymentIntent = Stripe::PaymentIntent.create({
+    amount: 1099,
+    currency: 'eur',
+    customer: customer['id'],
+    # In the latest version of the API, specifying the `automatic_payment_methods` parameter
+    # is optional because Stripe enables its functionality by default.
+    automatic_payment_methods: {
+      enabled: true,
+    },
+    application_fee_amount: application_fee_amount,
+  }, {stripe_account: account_id})
+    paymentIntent
 
-    payment_intent
   end
 
   def connect_balance_check(account_id)
