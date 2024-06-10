@@ -12,6 +12,25 @@ class StripeTransferService
     return response
   end
 
+
+  def transfer_amount_to_owmer_and_customer(amount, account_id)
+    application_fee_amount = (amount * 0.30).to_i
+
+    payment_intent = Stripe::PaymentIntent.create({
+      amount: amount,
+      currency: 'usd',
+      payment_method_types: ['card'],
+      application_fee_amount: application_fee_amount,
+      transfer_data: {
+        destination: account_id
+      }
+    }, {
+      stripe_account: account_id
+    })
+
+    payment_intent
+  end
+
   def connect_balance_check(account_id)
     balance = Stripe::Balance.retrieve({stripe_account: account_id})
     return balance

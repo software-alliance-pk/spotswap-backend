@@ -105,6 +105,13 @@ class Api::V1::WalletsController < Api::V1::ApiController
     render json: { balance: balance, stripe_account: connection_details.host.stripe_connect_account.account_id , connection_details: connection_details }, status: :ok
   end 
 
+  def transfer_to_owner
+    amount = params[:amount]
+    connection_details =  check_connection_create_before_charge_amount
+    response = StripeTransferService.new.transfer_amount_to_owmer_and_customer((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id)
+    render json: { response: response, connection_details: connection_details }, status: :ok
+  end
+
   private
 
   def get_wallet_previous_amount
