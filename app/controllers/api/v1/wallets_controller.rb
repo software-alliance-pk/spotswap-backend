@@ -105,15 +105,6 @@ class Api::V1::WalletsController < Api::V1::ApiController
     render json: { balance: balance, stripe_account: connection_details.host.stripe_connect_account.account_id , connection_details: connection_details }, status: :ok
   end 
 
-  def transfer_to_owner
-    amount = params[:amount]
-    connection_details =  check_connection_create_before_charge_amount
-    swapper_wallet = connection_details.swapper.wallet
-    host_wallet = connection_details.host.wallet
-    # response = StripeTransferService.new.transfer_amount_to_owmer_and_customer((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id)
-    render json: { swapper_wallet:swapper_wallet, host_wallet:host_wallet, connection_details: connection_details }, status: :ok
-  end
-
   private
 
   def get_wallet_previous_amount
@@ -141,7 +132,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
     if swapper_wallet && host_wallet
       if swapper_wallet.amount.to_i >= amount.to_i
         # @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id)
-        @transfer_response = StripeTransferService.new.transfer_amount_to_owmer_and_customer((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id,connection_details )
+        @transfer_response = StripeTransferService.new.transfer_amount_to_owmer_and_customer((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id )
         update_revenue(1)
         create_payment_history("topup", @current_user, connection_details, amount)
         create_payment_history("other_payment", connection_details.swapper, connection_details, amount.to_i-1)

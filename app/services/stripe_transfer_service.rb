@@ -13,15 +13,14 @@ class StripeTransferService
   end
 
 
-  def transfer_amount_to_owmer_and_customer(amount, account_id, conection_details )
+  def transfer_amount_to_owmer_and_customer(amount, account_id)
     application_fee_amount = (amount * 0.30).to_i
-    puts "Connection Details  === #{conection_details}"
+    remaining_amount = (amount * 0.70).to_i
     paymentIntent = Stripe::PaymentIntent.create({
-    amount: amount,
+    amount: remaining_amount,
     currency: 'usd',
     payment_method:'pm_card_visa',
     confirm:true, 
-    automatic_payment_methods:true,
     # customer: customer['id'],
     # In the latest version of the API, specifying the `automatic_payment_methods` parameter
     # is optional because Stripe enables its functionality by default.

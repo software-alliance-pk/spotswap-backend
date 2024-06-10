@@ -125,7 +125,6 @@ Rails.application.routes.draw do
           post :add_amount_to_wallet
           get :get_wallet_detail
           get :get_stripe_connect_balance
-          get :transfer_to_owner
         end
       end
 
