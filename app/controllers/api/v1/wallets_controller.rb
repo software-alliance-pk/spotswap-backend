@@ -93,7 +93,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
   end
 
   def get_stripe_connect_balance  
-      balance = StripeTransferService.new.connect_balance_check(param[:account_id])
+      balance = StripeTransferService.new.connect_balance_check(params[:account_id])
       render json: { balance: balance }, status: :ok
   end 
 
