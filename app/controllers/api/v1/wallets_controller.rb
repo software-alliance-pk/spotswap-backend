@@ -126,6 +126,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
         # @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id)
         @transfer_response = StripeTransferService.new.transfer_amount_to_owmer_and_customer((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id )
         application_fee_amount = (amount * 0.30).to_i
+        remaining_amount = (amount * 0.70).to_i
         update_revenue(application_fee_amount)
         create_payment_history("topup", @current_user, connection_details, amount)
         create_payment_history("other_payment", connection_details.swapper, connection_details, amount.to_i-1)
@@ -133,7 +134,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
         connection_details.host.wallet_histories.create(transaction_type: "credited", amount: (amount.to_i-1), title: "Credited")
 
-        wallet_new_amount = host_wallet.amount + (amount.to_i - 1)
+        wallet_new_amount = host_wallet.amount + remaining_amount
         host_wallet.update(amount: wallet_new_amount)
 
         connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
@@ -179,7 +180,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
   def update_revenue(amount)
     revenue = Revenue.first_or_initialize # Get the first record or initialize a new one if none exists
-    new_amount = revenue.amount.to_i + amount.to_i
+    new_amount = revenue.amount. + amount.to_i
     revenue.update(amount: new_amount)
   end
   
