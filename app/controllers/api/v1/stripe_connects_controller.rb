@@ -51,7 +51,7 @@ class Api::V1::StripeConnectsController < Api::V1::ApiController
   def create_payment_intent
     amount = params[:amount]
     service = StripeTopUpService.new
-    intent = service.create_payment_intent(amount.to_i)
+    intent = service.create_payment_intent(amount.to_i*100)
 
     if intent
       render json: intent
