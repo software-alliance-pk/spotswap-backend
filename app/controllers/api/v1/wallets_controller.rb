@@ -67,21 +67,21 @@ class Api::V1::WalletsController < Api::V1::ApiController
       end
       # @topup_response = StripeTopUpService.new.create_top_up(params[:amount].to_i*100)
       @topup_response = StripeTopUpService.new.create_payment_intent(params[:amount].to_i*100)
-      if @current_user.paypal_partner_accounts.present? || @current_user.card_details.present?
-        @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]), payment_type: "wallet")
-        create_wallet_history(params[:amount])
-      else
-        @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]), is_default: true, payment_type: "wallet")
-        create_wallet_history(params[:amount])
-      end
-      @wallet.wallet_amount = params[:amount]
-      if @wallet.save
-        @referral_code_record.update(is_top_up_created: true) if params[:referrer_code].present?
-        default_payment = @current_user.build_default_payment(payment_type: "wallet").save
-        @wallet
-      else
-        render_error_messages(@wallet)
-      end
+      # if @current_user.paypal_partner_accounts.present? || @current_user.card_details.present?
+      #   @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]), payment_type: "wallet")
+      #   create_wallet_history(params[:amount])
+      # else
+      #   @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]), is_default: true, payment_type: "wallet")
+      #   create_wallet_history(params[:amount])
+      # end
+      # @wallet.wallet_amount = params[:amount]
+      # if @wallet.save
+      #   @referral_code_record.update(is_top_up_created: true) if params[:referrer_code].present?
+      #   default_payment = @current_user.build_default_payment(payment_type: "wallet").save
+      #   @wallet
+      # else
+      #   render_error_messages(@wallet)
+      # end
     rescue Exception => e
       render json: { error: e.message }, status: :unprocessable_entity
     end
