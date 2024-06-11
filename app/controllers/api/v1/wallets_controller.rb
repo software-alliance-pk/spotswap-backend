@@ -65,7 +65,8 @@ class Api::V1::WalletsController < Api::V1::ApiController
         return render json: {error: "Referral Code is Invalid."}, status: :unprocessable_entity unless @referrer.present?
         @referral_code_record = check_referrer_code_already_in_use(@referrer)
       end
-      @topup_response = StripeTopUpService.new.create_top_up(params[:amount].to_i*100)
+      # @topup_response = StripeTopUpService.new.create_top_up(params[:amount].to_i*100)
+      @topup_response = StripeTopUpService.new.create_payment_intent(params[:amount].to_i*100)
       if @current_user.paypal_partner_accounts.present? || @current_user.card_details.present?
         @wallet = @current_user.build_wallet(amount: new_amount_needs_to_add_in_wallet(params[:amount]), payment_type: "wallet")
         create_wallet_history(params[:amount])
