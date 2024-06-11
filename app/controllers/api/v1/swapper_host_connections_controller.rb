@@ -3,9 +3,9 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
   before_action :find_connection, only: [:update_screen_navigation_flags, :destroy_connection]
 
   def create_connection
-    if !@current_user.stripe_connect_account.present? && !@current_user.card_details.present? && !@current_user.paypal_partner_accounts.present?
-      return render json: {error: "You have not any Account Setup for Payment , Please Add it first."}, status: :unprocessable_entity
-    end
+    # if !@current_user.stripe_connect_account.present? && !@current_user.card_details.present? && !@current_user.paypal_partner_accounts.present?
+    #   return render json: {error: "You have not any Account Setup for Payment , Please Add it first."}, status: :unprocessable_entity
+    # end
 
     return render json: {error: "Parking Slot ID is missing."}, status: :unprocessable_entity unless params[:parking_slot_id].present?
     slot = ParkingSlot.find_by_id(params[:parking_slot_id])
