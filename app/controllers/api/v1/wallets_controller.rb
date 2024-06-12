@@ -9,8 +9,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
       @default_payment = connection_details.swapper.default_payment
       if !@default_payment.present?
-        @default_payment = @current_user.build_default_payment(payment_type: params[:payment_type])
-        @current_user.wallet.update(payment_type:"wallet", is_default: true)
+        @default_payment = @current_user.build_default_payment(payment_type: 'wallet', is_default: true)
       end
       if @default_payment.present?
         if @default_payment.payment_type == "paypal"
