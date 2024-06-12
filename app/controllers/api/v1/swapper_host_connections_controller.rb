@@ -6,21 +6,6 @@ class Api::V1::SwapperHostConnectionsController < Api::V1::ApiController
     # if !@current_user.stripe_connect_account.present? && !@current_user.card_details.present? && !@current_user.paypal_partner_accounts.present?
     #   return render json: {error: "You have not any Account Setup for Payment , Please Add it first."}, status: :unprocessable_entity
     # end
-
-    #Restrict User to Create Stripe Connect Account first Before Making a Slote
-    if @current_user.stripe_connect_account.present?
-      @connect_account = StripeConnectAccountService.new.retrieve_stripe_connect_account(@current_user.stripe_connect_account.account_id, user_stripe_connect_account_api_v1_stripe_connects_path)
-    else
-      @connect_account = StripeConnectAccountService.new.create_connect_customer_account(@current_user, user_stripe_connect_account_api_v1_stripe_connects_path)
-    end
-    if @connect_account[:response]&.requirements&.errors.present?
-      return render json: { error: ["Your Stripe Connect Account data is missing or invalid, Please provide valid data.", @connect_account[:link]] }, status: :unprocessable_entity
-    elsif @connect_account[:response].capabilities.card_payments.eql?("pending") && @connect_account[:response].details_submitted == true
-      return render json: { error: ["Your Account status is Pending, Please wait, It may takes few minutes.", @connect_account[:link]] }, status: :unprocessable_entity
-    elsif @connect_account[:response]&.requirements&.errors.empty? && (@connect_account[:response].charges_enabled == false || @connect_account[:response].payouts_enabled == false)
-      return render json: { error: ["Please Complete your Account Details.", @connect_account[:link]] }, status: :unprocessable_entity
-    end
-
     return render json: {error: "Parking Slot ID is missing."}, status: :unprocessable_entity unless params[:parking_slot_id].present?
     slot = ParkingSlot.find_by_id(params[:parking_slot_id])
     return render json: {error: "Parking Slot with this ID is not present."}, status: :unprocessable_entity unless slot.present?
