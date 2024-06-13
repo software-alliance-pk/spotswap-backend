@@ -9,17 +9,12 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
       return render json: {error: "You are Already in Connection."}, status: :unprocessable_entity
     else
       slot_params_with_fee = slot_params.merge(fees: calculate_fee(slot_params[:amount]))
-
-      puts "Parking Slot Params #{slot_params_with_fee}"
-      return render json: {error: slot_params_with_fee}, status: :ok 
-  
-
-      # @parking_slot = @current_user.build_parking_slot(slot_params)
-      # if @parking_slot.save
-      #   @parking_slot
-      # else
-      #   render_error_messages(@parking_slot)
-      # end
+      @parking_slot = @current_user.build_parking_slot(slot_params_with_fee)
+      if @parking_slot.save
+        @parking_slot
+      else
+        render_error_messages(@parking_slot)
+      end
     end
   end
 
