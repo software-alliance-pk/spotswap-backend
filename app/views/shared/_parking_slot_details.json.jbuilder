@@ -6,5 +6,7 @@ json.description parking_slot.description
 json.user_id parking_slot.user_id
 json.availability parking_slot.availability
 json.image parking_slot.image.attached? ? parking_slot.image.url : ""
+json.amount parking_slot.amount
+json.fees parking_slot.fees
 
 
