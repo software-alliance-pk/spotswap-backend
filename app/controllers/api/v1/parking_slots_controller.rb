@@ -89,7 +89,7 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def slot_params
-    params.permit(:description, :image, :longitude, :latitude, :address)
+    params.permit(:description, :image, :longitude, :latitude, :address, :amount)
   end
 
   def slot_size_check(slot)
