@@ -8,6 +8,9 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
     if @current_user.host_swapper_connection.present? || @current_user.swapper_host_connection.present?
       return render json: {error: "You are Already in Connection."}, status: :unprocessable_entity
     else
+      slot_params[:fees] = slot_params[:amount] +(slot_params[:amount]*0.30).to_i
+      slot_params[:fee] = calculate_fee(slot_params[:amount])
+      puts "Parking Slot Params #{slot_params}"
       @parking_slot = @current_user.build_parking_slot(slot_params)
       if @parking_slot.save
         @parking_slot
@@ -90,6 +93,10 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
 
   def slot_params
     params.permit(:description, :image, :longitude, :latitude, :address, :amount)
+  end
+
+  def calculate_fee(amount)
+    (amount.to_f * 1.30).to_i
   end
 
   def slot_size_check(slot)
