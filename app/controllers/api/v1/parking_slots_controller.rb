@@ -8,15 +8,18 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
     if @current_user.host_swapper_connection.present? || @current_user.swapper_host_connection.present?
       return render json: {error: "You are Already in Connection."}, status: :unprocessable_entity
     else
-      slot_params[:fees] = slot_params[:amount].to_i +(slot_params[:amount]*0.30).to_i
+      slot_params[:fees] = slot_params[:amount].to_i + (slot_params[:amount]*0.30).to_i
       slot_params[:fee] = calculate_fee(slot_params[:amount])
       puts "Parking Slot Params #{slot_params}"
-      @parking_slot = @current_user.build_parking_slot(slot_params)
-      if @parking_slot.save
-        @parking_slot
-      else
-        render_error_messages(@parking_slot)
-      end
+      return render json: {error: slot_params}, status: :ok 
+  
+
+      # @parking_slot = @current_user.build_parking_slot(slot_params)
+      # if @parking_slot.save
+      #   @parking_slot
+      # else
+      #   render_error_messages(@parking_slot)
+      # end
     end
   end
 
