@@ -112,7 +112,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
         # puts "remaining_amount >>>>> #{remaining_amount}"
         update_revenue(fees)
         create_payment_history("topup", @current_user, connection_details, amount)
-        create_payment_history("other_payment", connection_details.swapper, connection_details, amount)
+        create_payment_history("other_payment", connection_details.swapper, connection_details, (amount+fees))
         create_payment_history("other_payment", connection_details.host, connection_details, amount)
 
         connection_details.host.wallet_histories.create(transaction_type: "credited", amount: (amount), title: "Credited")
