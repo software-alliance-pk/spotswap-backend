@@ -3,17 +3,17 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
   def charge_amount
     begin
-      return render json: {error: "Amount is missing."}, status: :unprocessable_entity unless params[:amount].present?
       connection_details =  check_connection_create_before_charge_amount
       return render json: {error: "You have not any Swapper Host Connection."}, status: :unprocessable_entity unless connection_details.present?
       # puts "connection_details while charge amount ==== #{connection_details.inspect}"
       parking_slot = ParkingSlot.find_by_id(connection_details.parking_slot_id)
       # puts "parking_slot   >>>>>>>> #{parking_slot.inspect}"
-          charge_amount_through_wallet((parking_slot.amount.to_i + parking_slot.fees.to_i ), connection_details)
+      total_amount = (parking_slot.amount.to_i + parking_slot.fees.to_i )
+          charge_amount_through_wallet(total_amount, connection_details)
           if @is_wallet_out_of_balance
             return render json: {error: "You have Insufficient Balance in your Wallet."}, status: :unprocessable_entity
           else
-            notify_host_payment_has_been_sent_from_swapper(connection_details, params[:amount])
+            notify_host_payment_has_been_sent_from_swapper(connection_details,parking_slot.amount.to_i )
             connection_details.destroy
           end
     
@@ -107,7 +107,10 @@ class Api::V1::WalletsController < Api::V1::ApiController
         # @transfer_response = StripeTransferService.new.transfer_amount_to_owmer_and_customer((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id )
         application_fee_amount = (amount.to_i*0.30).to_i
         remaining_amount = (amount.to_i*0.70).to_i
-        update_revenue(application_fee_amount)
+        puts "amount >>>>> #{amount}"
+        puts "application_fee_amount >>>>> #{application_fee_amount}"
+        puts "remaining_amount >>>>> #{remaining_amount}"
+        # update_revenue(application_fee_amount)
         create_payment_history("topup", @current_user, connection_details, amount)
         create_payment_history("other_payment", connection_details.swapper, connection_details, remaining_amount)
         create_payment_history("other_payment", connection_details.host, connection_details, remaining_amount)
@@ -150,8 +153,8 @@ class Api::V1::WalletsController < Api::V1::ApiController
   end
 
   def notify_host_payment_has_been_sent_from_swapper(connection, amount)
-    PushNotificationService.notify_host_payment_has_been_sent_from_swapper(connection, amount.to_i-1)
-    Notification.create(subject: "Payment Sent by Swapper", body: "Swapper #{connection.swapper.name} has been sent payment of $11.00", notify_by: "Swapper", user_id: connection.host_id, swapper_id: connection.user_id, host_id: connection.host_id)
+    PushNotificationService.notify_host_payment_has_been_sent_from_swapper(connection, amount.to_i)
+    Notification.create(subject: "Payment Sent by Swapper", body: "Swapper #{connection.swapper.name} has been sent payment of $#{amount.to_i}", notify_by: "Swapper", user_id: connection.host_id, swapper_id: connection.user_id, host_id: connection.host_id)
   end
 
   def create_wallet_history(amount)
