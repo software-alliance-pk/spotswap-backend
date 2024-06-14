@@ -145,9 +145,7 @@ class PushNotificationService
    end
   end
 
-  def self.notify_host_payment_has_been_sent_from_swapper(connection, amount)
-    application_fee_amount = (amount.to_i*0.30).to_i
-    remaining_amount = (amount.to_i*0.70).to_i
+  def self.notify_host_payment_has_been_sent_from_swapper(connection, amount, fees)
     data = {
        swapper: connection.swapper,
        parking_slot: connection.parking_slot,
@@ -158,8 +156,8 @@ class PushNotificationService
        parking_slot_image: connection.parking_slot.image.attached? ? connection.parking_slot.image.url : "",
        connection_date_time: connection.created_at,
        connection_location: connection.parking_slot.address,
-       swapper_fee: remaining_amount,
-       spot_swap_fee: application_fee_amount,
+       swapper_fee: amount,
+       spot_swap_fee: fees,
        body: "Swapper #{connection.swapper.name} has been sent payment of $#{amount}.00"
      }   
    fcm_client = FCM.new("AAAAlr4iktw:APA91bF55dfM-lYWPqi-dHMnWGvrwQwRMAEJZD6Hu2P1mEdX8sHBcsVzLx3goF2E8ArNLw9EwvaRzlUGd5YDHCY9WOiu0mtP4jR8XXD2aH-5ItgZ12eY90NYxrNuisHjm3mIx8lsMFAo") # set your FCM_SERVER_KEY
