@@ -13,7 +13,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
           if @is_wallet_out_of_balance
             return render json: {error: "You have Insufficient Balance in your Wallet."}, status: :unprocessable_entity
           else
-            notify_host_payment_has_been_sent_from_swapper(connection_details,parking_slot.amount.to_i )
+            notify_host_payment_has_been_sent_from_swapper(connection_details,total_amount)
             connection_details.destroy
           end
     
