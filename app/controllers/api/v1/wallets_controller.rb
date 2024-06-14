@@ -108,8 +108,8 @@ class Api::V1::WalletsController < Api::V1::ApiController
         # application_fee_amount = (amount.to_i*0.30).to_i
         # remaining_amount = (amount.to_i*0.70).to_i
         puts "amount >>>>> #{amount}"
-        puts "application_fee_amount >>>>> #{application_fee_amount}"
-        puts "remaining_amount >>>>> #{remaining_amount}"
+        # puts "application_fee_amount >>>>> #{application_fee_amount}"
+        # puts "remaining_amount >>>>> #{remaining_amount}"
         update_revenue(fees)
         create_payment_history("topup", @current_user, connection_details, amount)
         create_payment_history("other_payment", connection_details.swapper, connection_details, amount)
