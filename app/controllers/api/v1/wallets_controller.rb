@@ -13,7 +13,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
           if @is_wallet_out_of_balance
             return render json: {error: "You have Insufficient Balance in your Wallet."}, status: :unprocessable_entity
           else
-            notify_host_payment_has_been_sent_from_swapper(connection_details,total_amount)
+            notify_host_payment_has_been_sent_from_swapper(connection_details,parking_slot.amount.to_i,parking_slot.fees.to_i )
             connection_details.destroy
           end
     
@@ -152,8 +152,8 @@ class Api::V1::WalletsController < Api::V1::ApiController
   def charge_amount_through_paypal
   end
 
-  def notify_host_payment_has_been_sent_from_swapper(connection, amount)
-    PushNotificationService.notify_host_payment_has_been_sent_from_swapper(connection, amount.to_i)
+  def notify_host_payment_has_been_sent_from_swapper(connection, amount, fees)
+    PushNotificationService.notify_host_payment_has_been_sent_from_swapper(connection, amount.to_i, fees.to_i)
     Notification.create(subject: "Payment Sent by Swapper", body: "Swapper #{connection.swapper.name} has been sent payment of $#{amount.to_i}", notify_by: "Swapper", user_id: connection.host_id, swapper_id: connection.user_id, host_id: connection.host_id)
   end
 
