@@ -66,6 +66,7 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   def notify_swapper_on_slot_transfer
     return render json: {error: "Connection Id is missing."}, status: :unprocessable_entity unless params[:connection_id].present?
     connection = SwapperHostConnection.find_by_id(params[:connection_id])
+    puts "Connecttion >>>>>>>>> #{connection.inspect}"
     return render json: {error: "Connection with this Id is not present."}, status: :unprocessable_entity unless connection.present?
     if PushNotificationService.notify_swapper_on_slot_transfer(connection).present?
       Notification.create(subject: "Slot Transfer", body: "#{connection.host.name} wants to transfer his parking slot.", notify_by: "Host", user_id: connection.user_id, swapper_id: connection.user_id, host_id: connection.host_id)
@@ -94,7 +95,7 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def calculate_fee(amount)
-    (amount.to_f * 1.30).to_i
+    (amount.to_f * 0.30).to_i
   end
 
   def slot_size_check(slot)
