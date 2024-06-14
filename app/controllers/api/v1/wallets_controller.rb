@@ -9,7 +9,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
       parking_slot = ParkingSlot.find_by_id(connection_details.parking_slot_id)
       # puts "parking_slot   >>>>>>>> #{parking_slot.inspect}"
       total_amount = (parking_slot.amount.to_i + parking_slot.fees.to_i )
-          charge_amount_through_wallet(total_amount, connection_details)
+          charge_amount_through_wallet(parking_slot.amount.to_i,parking_slot.fees.to_i, connection_details)
           if @is_wallet_out_of_balance
             return render json: {error: "You have Insufficient Balance in your Wallet."}, status: :unprocessable_entity
           else
@@ -97,7 +97,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
     @current_user.swapper_host_connection
   end
 
-  def charge_amount_through_wallet(amount, connection_details)
+  def charge_amount_through_wallet(amount, fees,connection_details)
     swapper_wallet = connection_details.swapper.wallet
     host_wallet = connection_details.host.wallet
 
@@ -105,19 +105,19 @@ class Api::V1::WalletsController < Api::V1::ApiController
       if swapper_wallet.amount.to_i >= amount.to_i
         # @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id)
         # @transfer_response = StripeTransferService.new.transfer_amount_to_owmer_and_customer((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id )
-        application_fee_amount = (amount.to_i*0.30).to_i
-        remaining_amount = (amount.to_i*0.70).to_i
+        # application_fee_amount = (amount.to_i*0.30).to_i
+        # remaining_amount = (amount.to_i*0.70).to_i
         puts "amount >>>>> #{amount}"
         puts "application_fee_amount >>>>> #{application_fee_amount}"
         puts "remaining_amount >>>>> #{remaining_amount}"
-        update_revenue(application_fee_amount)
+        update_revenue(fees)
         create_payment_history("topup", @current_user, connection_details, amount)
-        create_payment_history("other_payment", connection_details.swapper, connection_details, remaining_amount)
-        create_payment_history("other_payment", connection_details.host, connection_details, remaining_amount)
+        create_payment_history("other_payment", connection_details.swapper, connection_details, amount)
+        create_payment_history("other_payment", connection_details.host, connection_details, amount)
 
-        connection_details.host.wallet_histories.create(transaction_type: "credited", amount: (remaining_amount), title: "Credited")
+        connection_details.host.wallet_histories.create(transaction_type: "credited", amount: (amount), title: "Credited")
 
-        wallet_new_amount = host_wallet.amount + remaining_amount
+        wallet_new_amount = host_wallet.amount + amount
         host_wallet.update(amount: wallet_new_amount)
 
         connection_details.parking_slot.update(user_id: connection_details.swapper.id, availability: false)
