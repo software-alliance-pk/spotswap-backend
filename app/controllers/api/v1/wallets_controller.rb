@@ -9,7 +9,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
       # puts "connection_details while charge amount ==== #{connection_details.inspect}"
       parking_slot = ParkingSlot.find_by_id(connection_details.parking_slot_id)
       # puts "parking_slot   >>>>>>>> #{parking_slot.inspect}"
-          charge_amount_through_wallet(parking_slot.amount, connection_details)
+          charge_amount_through_wallet((parking_slot.amount.to_i + parking_slot.fees.to_i ), connection_details)
           if @is_wallet_out_of_balance
             return render json: {error: "You have Insufficient Balance in your Wallet."}, status: :unprocessable_entity
           else
