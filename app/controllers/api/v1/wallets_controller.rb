@@ -103,7 +103,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
     if swapper_wallet && host_wallet
       if swapper_wallet.amount.to_i >= amount.to_i
-        # @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id)
+        @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id)
         # @transfer_response = StripeTransferService.new.transfer_amount_to_owmer_and_customer((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id )
         # application_fee_amount = (amount.to_i*0.30).to_i
         # remaining_amount = (amount.to_i*0.70).to_i
@@ -129,6 +129,25 @@ class Api::V1::WalletsController < Api::V1::ApiController
       @is_wallet_out_of_balance = true
     end
   end
+
+  def withdraw_amount_from_wallet
+    return render json: {error: "Amount is missing."}, status: :unprocessable_entity unless params[:amount].present?
+   if @current_user.stripe_connect_account.present?
+        @connect_account = StripeConnectAccountService.new.retrieve_stripe_connect_account(@current_user.stripe_connect_account.account_id, user_stripe_connect_account_api_v1_stripe_connects_path)
+      else
+        @connect_account = StripeConnectAccountService.new.create_connect_customer_account(@current_user, user_stripe_connect_account_api_v1_stripe_connects_path)
+      end
+      if @connect_account[:response]&.requirements&.errors.present?
+        return render json: { error: ["Your Stripe Connect Account data is missing or invalid, Please provide valid data.", @connect_account[:link]] }, status: :unprocessable_entity
+      elsif @connect_account[:response].capabilities.card_payments.eql?("pending") && @connect_account[:response].details_submitted == true
+        return render json: { error: ["Your Account status is Pending, Please wait, It may takes few minutes.", @connect_account[:link]] }, status: :unprocessable_entity
+      elsif @connect_account[:response]&.requirements&.errors.empty? && (@connect_account[:response].charges_enabled == false || @connect_account[:response].payouts_enabled == false)
+        return render json: { error: ["Please Complete your Account Details.", @connect_account[:link]] }, status: :unprocessable_entity
+      end
+      @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((params[:amount]*100), @connect_account.account_id)
+      create_payment_history("topup", @current_user, '' ,params[:amount] )
+      render json: { transfer_response: @transfer_response }, status: :ok
+  end 
 
   def create_payment_history(payment_type, user, connection_details, amount)
     if payment_type == "other_payment"
