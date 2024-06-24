@@ -82,7 +82,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
       end
       return render json: {error: "You have not any Swapper Host Connection."}, status: :unprocessable_entity unless @current_user.wallet.amount > 0
 
-      @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((params[:amount].to_i*100), 'acct_1PU5KbFK45bjPiWp')
+      @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((params[:amount].to_i*100), @current_user.stripe_connect_account.account_id)
       create_payment_history("topup", @current_user, '' ,params[:amount].to_i )
       render json: { transfer_response: @transfer_response }, status: :ok
   end 
