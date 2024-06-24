@@ -82,7 +82,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
         return render json: { error: ["Please Complete your Account Details.", @connect_account[:link]] }, status: :unprocessable_entity
       end
 
-      if  @current_user.wallet.amount < amount
+      if  @current_user.wallet.amount.to_i < amount.to_i
       return render json: {error: "You have not any Swapper Host Connection."}, status: :unprocessable_entity
       end 
 
