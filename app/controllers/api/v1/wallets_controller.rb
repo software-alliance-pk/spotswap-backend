@@ -68,6 +68,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
   def withdraw_amount_from_wallet
     return render json: {error: "Amount is missing."}, status: :unprocessable_entity unless params[:amount].present?
+    amount = params[:amount]
    if @current_user.stripe_connect_account.present?
         @connect_account = StripeConnectAccountService.new.retrieve_stripe_connect_account(@current_user.stripe_connect_account.account_id, user_stripe_connect_account_api_v1_stripe_connects_path)
       else
@@ -80,10 +81,13 @@ class Api::V1::WalletsController < Api::V1::ApiController
       elsif @connect_account[:response]&.requirements&.errors.empty? && (@connect_account[:response].charges_enabled == false || @connect_account[:response].payouts_enabled == false)
         return render json: { error: ["Please Complete your Account Details.", @connect_account[:link]] }, status: :unprocessable_entity
       end
-      return render json: {error: "You have not any Swapper Host Connection."}, status: :unprocessable_entity unless @current_user.wallet.amount > 0
+
+      if  @current_user.wallet.amount < amount
+      return render json: {error: "You have not any Swapper Host Connection."}, status: :unprocessable_entity
+      end 
 
       @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((params[:amount].to_i*100), @current_user.stripe_connect_account.account_id)
-      create_payment_history("topup", @current_user, '' ,params[:amount].to_i )
+      create_payment_history("withdraw", @current_user, '' ,params[:amount].to_i )
       render json: { transfer_response: @transfer_response }, status: :ok
   end 
 
@@ -158,6 +162,10 @@ class Api::V1::WalletsController < Api::V1::ApiController
       @other_history = user.other_histories.create(connection_id: connection_details.id, connection_date_time: connection_details.created_at,
       connection_location: connection_details.parking_slot.address,
       swapper_id: connection_details.swapper.id, host_id: connection_details.host.id, swapper_fee: amount, spotswap_fee: 1, total_fee: amount+1)
+    elsif  payment_type == "withdraw"
+      @wallet_history = user.wallet_histories.create(transaction_type: "withdraw", top_up_description: "Withdraw", amount: amount, title: "Payment")
+      wallet_new_amount = @current_user.wallet.amount - amount.to_i
+      @current_user.wallet.update(amount: wallet_new_amount)
     else
       @wallet_history = user.wallet_histories.create(transaction_type: "debited", top_up_description: "spot_swap", amount: amount, title: "Payment")
       wallet_new_amount = @current_user.wallet.amount - amount.to_i
