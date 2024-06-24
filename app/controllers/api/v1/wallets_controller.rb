@@ -80,7 +80,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
       elsif @connect_account[:response]&.requirements&.errors.empty? && (@connect_account[:response].charges_enabled == false || @connect_account[:response].payouts_enabled == false)
         return render json: { error: ["Please Complete your Account Details.", @connect_account[:link]] }, status: :unprocessable_entity
       end
-      @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((params[:amount]*100), @connect_account.account_id)
+      @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((params[:amount]*100), 'acct_1PU5KbFK45bjPiWp')
       create_payment_history("topup", @current_user, '' ,params[:amount] )
       render json: { transfer_response: @transfer_response }, status: :ok
   end 
