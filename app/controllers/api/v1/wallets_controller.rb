@@ -83,7 +83,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
       end
 
       if  @current_user.wallet.amount.to_i < amount.to_i
-      return render json: {error: "You have not any Swapper Host Connection."}, status: :unprocessable_entity
+      return render json: {error: "You have Insufficient Balance in your Wallet."}, status: :unprocessable_entity
       end 
 
       @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((params[:amount].to_i*100), @current_user.stripe_connect_account.account_id)
