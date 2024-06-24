@@ -163,7 +163,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
       connection_location: connection_details.parking_slot.address,
       swapper_id: connection_details.swapper.id, host_id: connection_details.host.id, swapper_fee: amount, spotswap_fee: 1, total_fee: amount+1)
     elsif  payment_type == "withdraw"
-      @wallet_history = user.wallet_histories.create(transaction_type: "debited", top_up_description: "Withdraw", amount: amount, title: "Payment")
+      @wallet_history = user.wallet_histories.create(transaction_type: "debited", top_up_description: "withdraw", amount: amount, title: "Payment")
       wallet_new_amount = @current_user.wallet.amount - amount.to_i
       @current_user.wallet.update(amount: wallet_new_amount)
     else
