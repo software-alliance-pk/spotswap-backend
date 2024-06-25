@@ -128,7 +128,7 @@ class Api::V1::WalletsController < Api::V1::ApiController
 
     if swapper_wallet && host_wallet
       if swapper_wallet.amount.to_i >= amount.to_i
-        @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id)
+        # @transfer_response = StripeTransferService.new.transfer_amount_of_top_up_to_customer_connect_account((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id)
         # @transfer_response = StripeTransferService.new.transfer_amount_to_owmer_and_customer((amount.to_i)*100, connection_details.host.stripe_connect_account.account_id )
         # application_fee_amount = (amount.to_i*0.30).to_i
         # remaining_amount = (amount.to_i*0.70).to_i
