@@ -28,6 +28,8 @@ class Api::V1::AuthenticationController < Api::V1::ApiController
     @user.referrer_id = @referrer_user.id if params[:referrer_code].present?
     @user.status = 'active'
     if @user.save
+      @wallet = @user.build_wallet(amount:(0.to_i), payment_type: "wallet")
+      @wallet.save
       if params[:referrer_code].present?
        assign_reward_to_referrer(params[:referrer_code])
       end
