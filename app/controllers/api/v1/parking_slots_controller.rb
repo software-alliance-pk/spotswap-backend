@@ -10,7 +10,7 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
     else
       slot_params_with_fee = slot_params.merge(fees: calculate_fee(11))
       @parking_slot = @current_user.build_parking_slot(slot_params_with_fee)
-      @parking_slot.amount = 11
+      @parking_slot.amount = 10
       if @parking_slot.save
         @parking_slot
       else
@@ -96,7 +96,7 @@ class Api::V1::ParkingSlotsController < Api::V1::ApiController
   end
 
   def calculate_fee(amount)
-    amount-1
+    amount-10
     # (amount.to_f * 0.30).to_i
   end
 
