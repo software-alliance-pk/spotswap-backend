@@ -76,6 +76,8 @@ class SocialLoginService
       name = response['name'].present? ? response['name'] : username
       @user = User.new(email: response['email'], name: name, password: PASSWORD_DIGEST, password_confirmation: PASSWORD_DIGEST, profile_type: "social login", profile_complete: false)
       @user.save(validate: false)
+      @wallet = @user.build_wallet(amount:(0.to_i), payment_type: "wallet")
+      @wallet.save
     end
   end
 
