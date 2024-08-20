@@ -5,9 +5,8 @@ module ApplicationCable
 
     def connect
       begin
-        if request.headers['Authorization'].present?
-          header = request.headers['Authorization']
-          header = header.split(' ').last if header
+        if params[:token].present?
+          header = params[:token]
           begin
             @decoded = JsonWebToken.decode(header)
             @current_user = User.find_by_id(@decoded[:user_id]) || User.find_by_email(@decoded[:email])
